@@ -10,9 +10,11 @@
 
 
 	<typeAliases>
+		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.Lesson" alias="Lesson"/>
 	</typeAliases>  
 
   <mappers>
+  <mapper resource="/mappers/lesson-mapper.xml"/>
   </mappers>
 
 
