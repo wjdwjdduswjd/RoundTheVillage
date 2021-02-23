@@ -4,15 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>question</title>
 </head>
 <body>
-문의
-<br>
-문의
-<br>
-문의
-<br>
 문의
 <br>
 </body>
