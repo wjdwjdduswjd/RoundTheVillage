@@ -16,6 +16,9 @@ a {text-decoration: none !important; color: #666;}
 a:hover {
 	color: #666;
 }
+p {
+	margin-bottom: 0;
+}
 li {list-style: none;}
 #tab-menu {
 	border-top: 1px solid black;
@@ -72,11 +75,91 @@ li {list-style: none;}
 .info1 {
 	border-bottom: 1px solid #e4e9ef;
 }
+.lesson-loc {
+	font-size: 18px;
+	color: #DD5509;
+}
 .tapmenu {
 	width: 25%
 }
 .container {
 	margin-top: 30px;
+}
+.title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.info-image {
+	width: 22px;
+	height: 22px;
+	margin-right: 5px;
+}
+.lesson-name {
+	font-size: 25px;
+	font-weight: bold;
+}
+.info2 {
+	position: relative;
+}
+.info2 div {
+	padding: 8px 0;
+}
+.info2 img {
+	width: 18px;
+	height: 18px;
+}
+.lesson-craft {
+	position: absolute;
+	right: 20px;
+}
+.lesson-amount {
+	margin: 20px 0;
+}
+.lesson-amount-num {
+	padding: 0 !important;
+	width: 34px;
+	display: inline-block;
+	text-align: center;
+	height: 24px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+.lesson-amount > button {
+		display: inline-block;
+		background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #b0bbc9;
+    color: #b0bbc9;
+    font-size: 18px;
+    height: 24px;
+    line-height: 18px;
+    width: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+.lesson-price {
+	float: right;
+	font-size: 26px;
+	font-weight: bold;
+}
+.lesson-order {
+	
+}
+.lesson-order > a{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    width: 380px;
+    margin: 0 auto;
+    background-color: #73dbc6;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+}
+.lesson-price > span {
+	font-weight: normal;
+	font-size: 16px;
 }
 </style>
 </head>
@@ -87,15 +170,44 @@ li {list-style: none;}
 	<div class="info-right">
 			<div class="lesson-info-form">
 			 <div class="lesson-info info1">
-			 	<p><img class="info-image" src="#">삼청동</p><br>
-			 	<p>플라워 원데이 클래스</p>
-			  </div>
-			 <div class="lesson-info info2"> ㅇㄴ </div>
-			 <div class="lesson-info info3"> d</div>
+			 	<p class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">삼청동</p>
+			 	<p class="lesson-name">플라워 원데이 클래스</p>
+			 </div>
+			 <div class="lesson-info info2">
+			 	<div class="lesson-craft">
+			 		<img src="${contextPath}/resources/images/home.png">
+			 		찐팅허 꽃집
+			 	</div>
+			 	<div class="lesson-participant">
+			 		<img src="${contextPath}/resources/images/user.png">
+			 		인원수 n 명
+			 	</div>
+			 	<div class="lesson-date">
+			 		<img src="${contextPath}/resources/images/calendar.png">
+			 		날짜선택
+			 	</div>
+			 	<div class="lesson-time">
+			 		<img src="${contextPath}/resources/images/clock.png">
+			 		시간선택
+			 	</div>
+			 	<div class="lesson-button">
+					<input type="checkbox"> 원데이클래스
+					<input type="checkbox"> 정기권
+			 	</div>
+			 	<div class="lesson-amount">
+						<button class="lesson-minus">-</button>
+						<div class="lesson-amount-num">1</div>
+						<button class="lesson-plus">+</button>
+					<div class="lesson-price">55,000 <span>원</span> </div>
+			 	</div>
+			 	<div class="lesson-order">
+			 		<a href="#">결제하기</a>
+			 	</div>
+			 </div>
 		</div>
 	</div>
 		<div class="info-left">
-			<img class="main-image" src="#">
+			<img class="main-image" src="${contextPath}/resources/images/flower.jpg">
 		</div>
 	</div>
 	<div id="tab-menu">
@@ -129,6 +241,18 @@ tabBtn.click(function(){
   target.addClass("active");       //타겟의 클래스를 추가
   tabCont.css("display","none");
   tabCont.eq(index).css("display","block");
+});
+
+var plus = $(".lesson-plus");
+var minus = $(".lesson-minus");
+var amount = $(".lesson-amount-num");
+plus.click(function() {
+	amount.text(Number(amount.text())+1);
+});
+minus.click(function() {
+	if(amount.text()>1){
+		amount.text(Number(amount.text())-1);
+	}
 });
 </script>
 </body>

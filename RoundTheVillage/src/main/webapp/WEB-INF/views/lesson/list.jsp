@@ -64,6 +64,7 @@ img {
 	height: 220px;
 	border-bottom: 1px solid #e4e9ef;
 	padding: 10px 0 15px;
+	cursor: pointer;
 }
 .search-info-main {
 	float: right;
@@ -92,6 +93,7 @@ img {
 .filter-image {
 	width: 26px;
 	height: 26px;
+	margin-right: 10px;
 }
 </style>
 </head>
@@ -109,7 +111,7 @@ img {
 				<option>2222222</option>
 			</select>
 		</div>
-		<div class="filter-name"><p><img class="filter-image" src="#">지역</p></div>
+		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">지역</p></div>
 	</div>
 	<div class="filter">
 		<div class="filter-select">
@@ -117,7 +119,7 @@ img {
 		 <button class="button-category">사진/영상</button>
 		 <button class="button-category">요리/음료</button>
 		</div>
-		<div class="filter-name"><p><img class="filter-image" src="#">카테고리</p></div>
+		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">카테고리</p></div>
 	</div>
 	<div class="filter">
 		<div class="filter-select">
@@ -126,7 +128,7 @@ img {
 			<button>검색</button>
 		</form>
 		</div>
-		<div class="filter-name"><p><img class="filter-image" src="#">가격</p></div>
+		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">가격</p></div>
 	</div>
 	
 	<div class="search-result">
@@ -136,7 +138,7 @@ img {
 				<option>리뷰순</option>
 				<option>별점순</option>
 			</select>
-		<p>검색결과</p>
+		<p>검색결과 ></p>
 		</div>
 		<div class="result-bottom">
 			<div class="result-form">
