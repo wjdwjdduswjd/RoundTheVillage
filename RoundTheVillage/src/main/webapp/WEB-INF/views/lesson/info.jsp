@@ -13,14 +13,14 @@
 </head>
 <body>
 	<div class="lesson-content">
-		<h5>수업 내용</h5>
+		<div class="title">수업내용</div>
 		<p> 내용</p>
 	</div>
 	<div class="lesson-curriculum">
-		<h5>커리큘럼</h5>
+		<div class="title">커리큘럼</div>
 	</div>
 	<div class="lesson-location">
-		<h5>위치</h5>
+		<div class="title">위치</div>
 	</div>
 </body>
 </html>
