@@ -12,7 +12,6 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css'>
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
-<script src="${contextPath}/resources/js/common/header.js"></script>
 </head>
 
 <style>
@@ -57,7 +56,8 @@
     </div>
     </div>
   </div>
-
+  
+<script type="text/javascript" src="${contextPath}/resources/js/common/header.js"></script>
 </body>
 
 </html>
