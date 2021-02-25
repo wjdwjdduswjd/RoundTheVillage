@@ -5,10 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>view</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
 
 <style>
 * {padding: 0; margin: 0;}
@@ -70,7 +74,7 @@ li {list-style: none;}
 	height: 100%;
 }
 .lesson-info {
-	padding: 20px;
+	padding: 15px;
 }
 .info1 {
 	border-bottom: 1px solid #e4e9ef;
@@ -101,9 +105,6 @@ li {list-style: none;}
 }
 .info2 {
 	position: relative;
-}
-.info2 div {
-	padding: 8px 0;
 }
 .info2 img {
 	width: 18px;
@@ -146,20 +147,61 @@ li {list-style: none;}
 .lesson-order {
 	
 }
+.lesson-participant { 
+	padding-bottom: 10px;
+}
 .lesson-order > a{
-    display: block;
-    height: 50px;
-    line-height: 50px;
-    width: 380px;
-    margin: 0 auto;
-    background-color: #73dbc6;
-    text-align: center;
-    color: #ffffff;
-    font-weight: bold;
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  width: 380px;
+  margin: 0 auto;
+  background-color: #73dbc6;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
 }
 .lesson-price > span {
 	font-weight: normal;
 	font-size: 16px;
+}
+.lesson-date {
+	width: 100px;
+	cursor: pointer;
+	padding-bottom: 10px;
+}
+.lesson-date div {
+	padding: 0;
+}
+.lesson-time {
+	padding-bottom: 15px;
+}
+.lesson-calendar {
+	position: absolute;
+	top: 50%;
+	right: 50%;
+}
+.input-group-text {
+	background-color: #FFFFFF;
+	border: 0;
+}
+.fa-calendar {
+	color: #212529;	
+}
+#calendar {
+	margin-right: 5px;
+}
+.time-button {
+	display: inline-block;
+	background-color: #FFFFFF;
+	border: 1px solid #e4e9ef;
+	border-radius: 8px;
+	width: 60px;
+	height: 30px;
+	font-weight: bolder;
+}
+.time-buttons {
+	margin-top: 10px;
 }
 </style>
 </head>
@@ -183,12 +225,42 @@ li {list-style: none;}
 			 		인원수 n 명
 			 	</div>
 			 	<div class="lesson-date">
-			 		<img src="${contextPath}/resources/images/calendar.png">
-			 		날짜선택
+			 	
+			 	
+			 	
+			 		<div class="input-group date" id="datetimepicker14" data-target-input="nearest">
+	          <div class="input-group-append" data-target="#datetimepicker14" data-toggle="datetimepicker">
+	          	<div class="input-group date" id="datetimepicker14" data-target-input="nearest">
+                    <input type="hidden" class="form-control datetimepicker-input" data-target="#datetimepicker14"/> <!-- 타입 text → hidden으로 바꾸기 -->
+	              <div class="input-group-text"><p class="fa fa-calendar">
+									<img id="calendar" src="${contextPath}/resources/images/calendar.png">날짜선택</p>
+								</div>
+							</div>
+	          </div>
+          </div>
+         
+         
+         
+			 	</div>
+			 	<div class="lesson-calendar">
 			 	</div>
 			 	<div class="lesson-time">
 			 		<img src="${contextPath}/resources/images/clock.png">
 			 		시간선택
+			 		<div class="time-buttons">
+				 		<button class="time-button">9</button>
+				 		<button class="time-button">10</button>
+				 		<button class="time-button">11</button>
+				 		<button class="time-button">12</button>
+				 		<button class="time-button">13</button>
+			 		</div>
+			 		<div class="time-buttons">
+				 		<button class="time-button">14</button>
+				 		<button class="time-button">15</button>
+				 		<button class="time-button">16</button>
+				 		<button class="time-button">17</button>
+				 		<button class="time-button">18</button>
+			 		</div>
 			 	</div>
 			 	<div class="lesson-button">
 					<input type="checkbox"> 원데이클래스
@@ -226,8 +298,20 @@ li {list-style: none;}
 		    <div><jsp:include page="policy.jsp"/></div>
 		  </div>
 		</div>
-		
 </div>
+
+<script type="text/javascript">
+	$(function() {
+	  $('#datetimepicker14').datetimepicker({
+	 		allowMultidate: true,
+			multidateSeparator: ',',
+		  format: 'YYYY-MM-DD',
+	 	 	locale: 'ko',
+	  });
+	});
+	
+</script>
+
 <script>
 var tabBtn = $("#tab-btn > ul > li");     //각각의 버튼을 변수에 저장
 var tabCont = $("#tab-cont > div");       //각각의 콘텐츠를 변수에 저장
@@ -252,6 +336,19 @@ plus.click(function() {
 minus.click(function() {
 	if(amount.text()>1){
 		amount.text(Number(amount.text())-1);
+	}
+});
+
+
+var timeBtn = $(".time-button");
+timeBtn.click(function() {
+	if($(this).hasClass("active")){
+		$(this).removeClass("active");
+		$(this).css("background-color", "#FFFFFF");
+	}
+	else {
+		$(this).addClass("active");
+		$(this).css("background-color", "#FBBC73");
 	}
 });
 </script>

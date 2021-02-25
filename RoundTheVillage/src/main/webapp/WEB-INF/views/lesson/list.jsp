@@ -99,6 +99,8 @@ img {
 </head>
 <body>
 
+<a href="${contextPath}/lesson/insert">--------수업등록 제작중-------</a>
+
 <div class="container">
 	<div class="filter">
 		<div class="filter-select">
