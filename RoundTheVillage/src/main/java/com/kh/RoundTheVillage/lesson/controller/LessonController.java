@@ -13,7 +13,6 @@ import com.kh.RoundTheVillage.lesson.model.service.LessonService;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 
 @Controller
-//@RequestMapping("/lesson/*")
 public class LessonController {
 	
 	@Autowired
@@ -31,5 +30,10 @@ public class LessonController {
 		lesson.setLesNo(lessonNo); //>>>>>>>> 지울꺼 
 		model.addAttribute("lesson", lesson);
 		return "lesson/view";
+	}
+	
+	@GetMapping("/lesson/insert")
+	public String insert() {
+		return "lesson/insertForm";
 	}
 }
