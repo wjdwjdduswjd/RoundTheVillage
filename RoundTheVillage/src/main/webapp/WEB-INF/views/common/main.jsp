@@ -12,12 +12,12 @@
 <jsp:include page="header.jsp"/>
 
 
-<br>
+<%-- <br>
 <a href="${contextPath}/lesson">--------수업제작중-------</a>
-<br>
+<br> --%>
 
 
-<jsp:include page="footer.jsp"/>
+<%-- <jsp:include page="footer.jsp"/> --%>
 
 </body>
 </html>
