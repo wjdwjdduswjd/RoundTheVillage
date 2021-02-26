@@ -20,7 +20,7 @@
 <title>게시글 수정</title>
 </head>
 <style>
-	 .summerNoteArea {
+  .summerNoteArea {
     border: 1px solid black;
     width: 500px;
     height: 500px;
@@ -86,6 +86,7 @@ body {
 
 .btnBtn1{
   background-color: #fbbc73;
+  border: 1px solid white;
 }
 
 .titleInput{
@@ -97,11 +98,12 @@ body {
 .writer{
   margin-right: 20px;
 }
+
 	
 </style>
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	<div class="container">
+	 <div class="container">
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -171,7 +173,6 @@ body {
       </div>
     </div>
   </div>
-	
 
 </body>
 </html>
