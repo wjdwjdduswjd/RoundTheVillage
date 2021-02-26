@@ -331,9 +331,9 @@ body {
                     </div>
 
                     <div class="col-md-3 area3">
-                        <button type="button" class="btn btn-secondary btn-sm writeBtn">
+                        <a type="button" class="btn btn-secondary btn-sm writeBtn" href="../board/insert">
                             글쓰기
-                        </button>
+                        </a>
                     </div>
                 </div>
 

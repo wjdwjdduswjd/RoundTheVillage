@@ -18,7 +18,13 @@
 <title>게시글 상세 페이지</title>
 </head>
 <style>
-	  .bottomArea{
+  .summerNoteArea {
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+  }
+
+  .btnArea {
     text-align: center;
   }
 
@@ -26,28 +32,57 @@
     float: right;
   }
 
-  .btnBtn1{
+  .btn-group {
     background-color: #fbbc73;
     border-color: #fbbc73;
     color: #5b3929;
     text-align: center;
+    float: right;
   }
 
-  .like{
+/*   .dropdown{
+    margin-left: 60px;
+    width: 300px;
+  } */
+
+  HTML CSSResult Skip Results Iframe
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+  padding: 30px;
+}
+
+.btnBtn1{
+  background-color: #fbbc73;
+  border: 1px solid white;
+}
+
+.writer{
+  margin-right: 20px;
+}
+
+
+.like{
     width: 20px;
     height: 20px;
   }
 
-  .summerNoteArea {
-    border: 1px solid black;
-    width: 500px;
-    height: 500px;
-  }
 </style>
 
 <body>
 	<jsp:include page="../common/header.jsp"/>
-  <div class="container">
+   <div class="container">
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -55,54 +90,66 @@
         <a class="classBtn">해당 공방 수업 바로가기 >></a>
         <br>
         <hr>
-        <div class="row">
-          <div class="col-md-7 px-3">
-            <p>
-              <span class="pr-4"><b>내용</b></span> 친구랑 같이 수업들으러 갔었는데...
-            </p>
-            <p>
-              <span class="pr-4"><b>공방이름</b></span>진선플라워
-            </p>
+
+        <div class="content-header">
+          <div class="row">
+            <div class="col-md-7 px-3">
+              <p>
+                <span class="pr-4"><b>제목</b></span>
+              제목제목제목
+              </p>
+            </div>
+            <div class="col-md-5 px-3">
+              <p>
+                <span class="pr-4 writer"><b>작성자</b></span>닉네임
+              </p>
+            </div>
           </div>
-          <div class="col-md-5 px-3">
-            <p>
-              <span class="pr-4"><b>작성자</b></span>닉네임
-            </p>
-            <p>
-              <span class="pr-4"><b>카테고리</b></span>
-            </p>
+
+          <div class="row">
+            <div class="col-md-7 px-3">
+              <p>
+                <span class="pr-4"><b>공방</b></span> 
+                잔산플라워
+              </p>
+            </div>
+            <div class="col-md-5 px-3">
+              <p>
+                <span class="pr-4"><b>카테고리</b></span> 
+                플라워
+              </p>
+            </div>
           </div>
-        </div>
-        <br>
-        <div class="row">
+        </div> <!-- .content-header end -->
+
+        <!-- 썸머노트 공간 시작 -->
+        <div class="row py-3">
           <div class="col-md-12 summerNoteArea">
             <썸머노트 공간>
           </div>
         </div>
-        <br>
+        <!-- 썸머노트 공간 끝 -->
+
         <img src="하트.png" class="like"> 300
         <hr>
         <div class="row">
           <div class="col-md-8">
           </div>
-          <div class="col-md-4 bottomArea">
-            <a class="reportBtn" style="float: right">신고하기</a>
-            <br>
-            <br>
-            <div class="btnBtn px-0 text-right">
-              <span class="btnBtn">
-                <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-                <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">수정</button>
-                <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">삭제</button>
-              </span>
-            </div>
+          <div class="col-md-4 text-right px-0 btnArea">
+            <span class="btnBtn">
+              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
+              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">수정</button>
+              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">삭제</button>
+            </span>
           </div>
         </div>
-      </div>
+      </div> <!-- .col-md-8 end -->
+    
       <div class="col-md-2">
       </div>
     </div>
   </div>
+
 
 </body>
 </html>

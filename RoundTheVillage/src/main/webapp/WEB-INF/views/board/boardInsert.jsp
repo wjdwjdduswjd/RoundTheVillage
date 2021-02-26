@@ -20,7 +20,7 @@
 <title>후기 게시글 등록</title>
 </head>
 <style>
-	.summerNoteArea {
+ .summerNoteArea {
     border: 1px solid black;
     width: 500px;
     height: 500px;
@@ -98,6 +98,7 @@ body {
 
 .btnBtn1{
   background-color: #fbbc73;
+  border: 1px solid white;
 }
 
 .writer{
@@ -110,10 +111,20 @@ body {
   
 }
 </style>
+
+
 <body>
 
 	<jsp:include page="../common/header.jsp"/>
-	  <div class="container">
+	<!-- summernote 사용 시 필요한 css 파일 추가 -->
+	<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+		
+	<!-- summernote 사용 시  필요한 js 파일 추가 -->
+	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	
+	 <div class="container">
     <div class="row">
       <div class="col-md-2">
       </div>
@@ -141,11 +152,11 @@ body {
               <p>
                 <span class="pr-4"><b>공방</b></span> 
                 <select id="workshopSelect">
-                  <option>공방 1</option>
-                  <option>공방 2</option>
-                  <option>공방 3</option>
-                  <option>공방 4</option>
-                  <option>공방 5</option>
+                  <option>Option 1</option>
+                  <option>Option 2</option>
+                  <option>Option 3</option>
+                  <option>Option 4</option>
+                  <option>Option 5</option>
                 </select>
               </p>
             </div>
@@ -167,7 +178,8 @@ body {
         <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
           <div class="col-md-12 summerNoteArea">
-            <썸머노트 공간>
+            <!-- <textarea class="form-control" id="summernote" name="boardContent"
+						rows="10" style="resize: none;"></textarea> -->
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->
@@ -189,8 +201,7 @@ body {
       </div>
     </div>
   </div>
-	
-	
+
 
 </body>
 </html>
