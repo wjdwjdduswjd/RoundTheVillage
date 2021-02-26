@@ -1,0 +1,88 @@
+@charset "UTF-8";
+*{font-family: 'NanumSquare', sans-serif !important;}
+.loginUp{
+    margin: auto;
+    width: 40%;
+    text-align: center;
+}
+
+.title{
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.text-input{
+    width: 100%;
+    height: 40px;
+    border:1px solid #dfdfdf;	 
+    border-radius:5px;
+}
+
+/* 아이디 저장 */
+input[type=checkbox] {
+    zoom: 1.5;
+}
+
+.id-checkbox{
+    text-align: left;
+    margin-top: 9px;
+    margin-bottom: 0;
+    float: left;
+}
+/* 아이디저장 글씨 */
+.id-checkbox-text{
+    font-size: 12px;
+    float: left;
+    padding-top: 10px;
+    padding-left: 6px;
+    margin-bottom: 0;
+}
+
+/* 로그인 버튼 */
+#loginBtn{
+    width: 100%;
+    height: 40px;
+    border:1px solid #dfdfdf;	
+    border-radius:5px; 
+    background:#FCEAD6;
+    margin-top: 2px;
+    font-weight:550;
+}
+#loginBtn:hover{
+    background:#FBBC73;
+}
+
+/* 아이디/비밀번호 찾기 */
+.idPwdSignUp{
+    height: 15px;
+}
+.id-link-area{
+    float: left;
+    margin-top: 2.5px;
+}
+.signUp-link-area{
+    float: right;
+}
+.search-id-pwd{
+    font-size: 12px;
+    color: #686666;
+}
+.search-id-pwd:hover{
+    color: #686666;
+}
+
+/* sns 연동 로그인 버튼 */
+.sns-btn{ 
+    cursor: pointer;
+}
+.sns-btn:hover{ 
+    background-color: #bbb8b8;
+    filter: brightness(85%); 
+    border-radius:5px;
+}
+.kakaoBtn{
+    border-radius:5px;
+    margin-bottom: 13px;
+}

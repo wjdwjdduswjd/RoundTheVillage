@@ -1,1 +1,157 @@
 @charset "UTF-8";
+*{font-family: 'NanumSquare', sans-serif !important;}
+.signUp{
+    margin: auto;
+    width: 40%;
+    text-align: center;
+}
+
+.s_redio{
+    width: 50%;
+    padding-top: 70px;
+}
+
+/* 라디오 버튼 관련 */
+
+/* 라디오 버튼 없애는 */
+.box-radio-input input[type="radio"]{
+    display:none;
+    width: 100%;
+}
+
+.box-radio-input input[type="radio"] + span{
+    width: 210px;
+    display:inline-block;
+	background:none;
+	border:1px solid #dfdfdf;	 
+	text-align:center;
+	line-height:50px;
+	font-weight:400;
+	cursor:pointer;
+    background:#FCEAD6;
+    /* 모서리 */
+    border-radius:5px;
+
+    
+}
+
+.box-radio-input input[type="radio"]:checked + span{
+    border:1px solid #FBBC73;
+	background:#FBBC73;
+	color:rgb(0, 0, 0);
+    font-weight:550;
+}
+
+.f{float: left;}
+.s{ float: right;}
+
+
+/* 아이디 */
+.title{
+    width: 100%;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+input{
+    width: 100%;
+    height: 40px;
+    border:1px solid #dfdfdf;	 
+    border-radius:5px;
+}
+
+/* 관심분야 체크박스 버튼 관련 */
+/* 관심분야 체크박스 없애는 */
+.box-checkbox-input input[type="checkbox"]{
+    display:none;
+    width: 100%;
+}
+
+.box-checkbox-input input[type="checkbox"] + span{
+    width: 82px;
+    display:inline-block;
+	background:none;
+	border:1px solid #dfdfdf;	 
+	text-align:center;
+	line-height:50px;
+	font-weight:400;
+	cursor:pointer;
+    background:#FCEAD6;
+    /* 모서리 */
+    border-radius:5px;
+    
+}
+
+.box-checkbox-input input[type="checkbox"]:checked + span{
+    border:1px solid #FBBC73;
+	background:#FBBC73;
+	color:rgb(0, 0, 0);
+    font-weight:550;
+}
+
+
+
+/* 이메인 인증 버튼 */
+.email_button{
+    width: 85px;
+    height: 41px;
+    margin-left: 10px;
+    border:1px solid #dfdfdf;	 
+	background:#5B3929;
+	color:rgb(255, 255, 255);
+    border-radius:5px;
+    float: left;
+}
+
+
+/*  */
+
+
+.addr{
+    float: left;
+}
+.text{
+    padding-top: 9px;
+    width: 22%;
+    text-align: left;
+}
+/* 우편주소 */
+.a{
+    width: 30%;
+    float: left;
+}
+/* 도로명 주소 */
+.b{
+    width: 78%;
+    float: left;
+}
+
+/* 검색 버튼 */
+.search_button{
+    width: 85px;
+    height: 41px;
+    margin-left: 10px;
+    border:1px solid #dfdfdf;	 
+	background:#5B3929;
+	color:rgb(255, 255, 255);
+    border-radius:5px;
+    float: left;
+}
+
+
+/* 가입하기 버튼 */
+#signBtn{
+    width: 100%;
+    height: 40px;
+    border:1px solid #dfdfdf;	
+    border-radius:5px; 
+    background:#FCEAD6;
+    margin-top: 50px;
+}
+#signBtn:hover{
+    background:#FBBC73;
+}
+
+
+
+

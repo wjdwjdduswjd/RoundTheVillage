@@ -22,8 +22,8 @@
 
   <div id="header-group">
     <div class="header-right-items">
-      <a href="#" class="header-item" id="header-login">로그인</a>
-      <a href="#" class="header-item" id="header-signUp">회원가입</a>
+      <a href="${contextPath}/member/login" class="header-item" id="header-login">로그인</a>
+      <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
     </div>
   </div>
 
