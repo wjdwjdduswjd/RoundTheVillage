@@ -10,13 +10,6 @@
 <body>
 
 <jsp:include page="header.jsp"/>
-
-
-<%-- <br>
-<a href="${contextPath}/lesson">--------수업제작중-------</a>
-<br> --%>
-
-
 <%-- <jsp:include page="footer.jsp"/> --%>
 
 </body>

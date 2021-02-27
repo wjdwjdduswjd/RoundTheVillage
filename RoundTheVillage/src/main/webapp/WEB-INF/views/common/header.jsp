@@ -38,7 +38,7 @@
     <div class="selector" self="size-x1" layout="row center-left">
       <div class="highlight"></div>
       <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">공방찾기</div>
-      <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">수업찾기</div>
+      <div class="selector-item" id="noSub" onclick="selectItem(event)"> <a href="${contextPath}/lesson">수업찾기</a></div>
       <div class="selector-item" id="noSub" onclick="selectItem(event)" ><a href="${contextPath}/board/list">후기게시판</a></div>
 
       <div class="selector-item" id="mypage" onclick="selectItem(event)" onclick="location.href='#';">마이페이지</div>
