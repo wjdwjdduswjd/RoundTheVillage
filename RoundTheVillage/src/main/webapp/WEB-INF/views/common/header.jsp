@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,11 +20,11 @@
 </style>
 
 <body>
-
+<div>
   <div id="header-group">
     <div class="header-right-items">
-      <a href="#" class="header-item" id="header-login">로그인</a>
-      <a href="#" class="header-item" id="header-signUp">회원가입</a>
+      <a href="${contextPath}/member/login" class="header-item" id="header-login">로그인</a>
+      <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
     </div>
   </div>
 
@@ -38,7 +39,7 @@
       <div class="highlight"></div>
       <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">공방찾기</div>
       <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">수업찾기</div>
-      <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">후기 게시판</div>
+      <div class="selector-item" id="noSub" onclick="selectItem(event)" ><a href="${contextPath}/board/list">후기게시판</a></div>
 
       <div class="selector-item" id="mypage" onclick="selectItem(event)" onclick="location.href='#';">마이페이지</div>
       <!-- 서브메뉴 -->
@@ -56,7 +57,7 @@
     </div>
     </div>
   </div>
-  
+ </div>
 <script type="text/javascript" src="${contextPath}/resources/js/common/header.js"></script>
 </body>
 
