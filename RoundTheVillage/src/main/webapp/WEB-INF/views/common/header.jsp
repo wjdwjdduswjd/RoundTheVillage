@@ -39,12 +39,13 @@
 
     <div class="nav">
       <a id="menu" href="#">공방찾기</a>
-      <a id="menu" href="#">수업찾기</a>
+      <a id="menu" href="${contextPath}/lesson">수업찾기</a>
       <a id="menu" href="${contextPath}/board/list">후기게시판</a>
 
       <div class="dropdown">
       <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
           <a class="dropdown-item" href="#">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
@@ -66,41 +67,6 @@
     </div>
 
   </div>
-<<<<<<< HEAD
-
-  <div class="logoDiv">
-    <div id="logo">
-      <a href="#" id="logo"><img src="${contextPath}/resources/images/logo/zero.png" id="zero" size="500px"></a>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="selector" self="size-x1" layout="row center-left">
-      <div class="highlight"></div>
-      <div class="selector-item" id="noSub" onclick="selectItem(event)" onclick="location.href='#';">공방찾기</div>
-      <div class="selector-item" id="noSub" onclick="selectItem(event)"> <a href="${contextPath}/lesson">수업찾기</a></div>
-      <div class="selector-item" id="noSub" onclick="selectItem(event)" ><a href="${contextPath}/board/list">후기게시판</a></div>
-
-      <div class="selector-item" id="mypage" onclick="selectItem(event)" onclick="location.href='#';">마이페이지</div>
-      <!-- 서브메뉴 -->
-      <div id="m-p" class="dropdown">
-        <p><a href="#">내 정보 수정</a></p>
-        <p><a href="#">나의 활동</a></p>
-        <p><a href="#">나의 내역</a></p>
-    </div>
-
-      <div class="selector-item" id="cs" onclick="selectItem(event)" onclick="location.href='#';">고객센터</div>
-      <!-- 서브메뉴 -->
-      <div id="c-s" class="dropdown2">
-        <p><a href="#">1:1 문의</a></p>
-        <p><a href="#">나의활동</a></p>
-    </div>
-    </div>
-  </div>
- </div>
-<script type="text/javascript" src="${contextPath}/resources/js/common/header.js"></script>
-=======
->>>>>>> branch 'master' of https://github.com/leejinsun-Lilian/RoundTheVillage.git
 </body>
 
 </html>

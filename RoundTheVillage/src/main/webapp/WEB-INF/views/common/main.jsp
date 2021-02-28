@@ -27,8 +27,6 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<<<<<<< HEAD
-=======
 
 <!------------------------------------------ banner ------------------------------------------>
 <div id="banner">
@@ -80,7 +78,6 @@
 
 
 
->>>>>>> branch 'master' of https://github.com/leejinsun-Lilian/RoundTheVillage.git
 <%-- <jsp:include page="footer.jsp"/> --%>
 
 </body>
