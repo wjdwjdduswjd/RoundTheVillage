@@ -19,5 +19,22 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	// 아이디/비밀번호 찾기 연결
+	@RequestMapping("idFind")
+	public String idFind() {
+		return "member/idFind";
+	}
+	// 아이디/비밀번호 찾기 연결
+	@RequestMapping("pwdFind")
+	public String pwdFind() {
+		return "member/pwdFind";
+	}
+	
+	// 아이지 찾기 성공 페이지
+	@RequestMapping("idFindComplete")
+	public String idFindComplete() {
+		return "member/idFindComplete";
+	}
+	
 	
 }
