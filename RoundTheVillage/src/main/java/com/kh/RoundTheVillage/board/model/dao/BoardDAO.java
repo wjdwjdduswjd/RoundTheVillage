@@ -1,4 +1,4 @@
-package com.kh.RoundTheVillage.board.dao;
+package com.kh.RoundTheVillage.board.model.dao;
 
 import java.util.List;
 import java.util.Map;
