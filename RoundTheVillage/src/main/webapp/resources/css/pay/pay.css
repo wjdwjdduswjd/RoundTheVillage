@@ -1,0 +1,134 @@
+* {
+    font-family: 'NanumSquare', sans-serif !important;
+}
+
+.text-around {
+    color: #915B2B;
+}
+
+.btn.btn-around {
+		background: #FBBC73;
+    border-color: #FBBC73;
+}
+
+.btn.btn-around-2 {
+		margin-left: 5px;
+    background: #ECE9E9;
+    border-color: #ECE9E9;
+}
+
+.btn.btn-around:not(:disabled):not(.disabled):active:focus,
+.btn.btn-around:focus {
+    box-shadow: 0 0 0 0.2rem rgba(251, 188, 115, 0.5);
+}
+
+.btn.btn-around-2:not(:disabled):not(.disabled):active:focus,
+.btn.btn-around-2:focus {
+    box-shadow: 0 0 0 0.2rem rgba(236, 233, 233, 0.5);
+}
+
+.checks input[type="checkbox"] {
+    display: none;
+}
+
+.checks input[type="checkbox"]+label:before {
+    content: ' ';
+    width: 15px;
+    height: 15px;
+    border: 1px solid #cacece;
+    border-radius: 3px;
+}
+
+.checks input[type="checkbox"]+label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 20px;
+    line-height: 16px;
+}
+
+.checks input[type="checkbox"]+label:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-color: #ff8800;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+}
+
+.checks input[type="checkbox"]:checked+label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bb {
+    border-bottom: solid 1px;
+}
+
+a,
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+a.page-link,
+a.page-link:hover {
+    color: #FBBC73;
+}
+
+#calendar {
+    text-align: center;
+    margin: 0px 15px;
+    background-color: white;
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    border-collapse: separate;
+    border: solid #cacece 1px;
+}
+
+.selected,
+.selected>font {
+    background-color: #915B2B;
+    color: white;
+}
+
+.color::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+}
+
+.today::before {
+    background-color: #FBBC73;
+}
+
+.select::before {
+    background-color: #915B2B;
+}
+
+.rounded.border-secondary {
+    padding: 6px 12px;
+}
+
+.hr-sect {
+    display: flex;
+    align-items: center;
+}
+
+.hr-sect::after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0);
+    height: 1px;
+    margin-left: 16px;
+}
