@@ -43,7 +43,7 @@
       <a id="menu" href="${contextPath}/board/list">후기게시판</a>
 
       <div class="dropdown">
-      <a class="dropdown-toggle" id="menu" href="${contextPath}/shop/registration" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+      <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" href="#">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
