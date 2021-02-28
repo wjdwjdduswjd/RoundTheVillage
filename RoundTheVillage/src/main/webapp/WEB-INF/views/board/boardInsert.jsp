@@ -8,6 +8,7 @@
  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>html문서 제목</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
   integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -20,6 +21,15 @@
 <title>후기 게시글 등록</title>
 </head>
 <style>
+
+* {
+   font-family: 'NanumSquare', sans-serif !important;
+   font-weight: 500;
+   /* 굵기 지정(100, 300, 400, 500, 700) */
+   font-size: 16px;
+   color: #212529;
+   }
+   
  .summerNoteArea {
     border: 1px solid black;
     width: 500px;
@@ -110,6 +120,15 @@ body {
   height: 40%;
   
 }
+
+.btnBtn1{
+  background-color: #fbbc73;
+  color: white;
+  border: white;
+  border-radius: 5px;
+  height: 38px;
+  margin-bottom: 11px;
+}
 </style>
 
 
@@ -132,6 +151,7 @@ body {
         <br>
         <hr>
 
+				<form action="#" method="GET" class="text-center" id="insertForm">
         <div class="content-header">
           <div class="row">
             <div class="col-md-7 px-3">
@@ -194,6 +214,7 @@ body {
               <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
             </span>
           </div>
+          </form>
         </div>
       </div> <!-- .col-md-8 end -->
     
