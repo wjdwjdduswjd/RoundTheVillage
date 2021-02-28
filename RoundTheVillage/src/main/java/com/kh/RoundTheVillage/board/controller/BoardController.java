@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.board.service.BoardService;
+import com.kh.RoundTheVillage.board.vo.PageInfo;
 
 
 @Controller // 컨트롤러임을 알려줌 + bean 등록
@@ -28,8 +29,8 @@ import com.kh.RoundTheVillage.board.service.BoardService;
 public class BoardController {
 	
 		
-		 @Autowired // 등록된 bean 중에서 같은 타입인 bean을 자동적으로 의존성 주입
-		 private BoardService service; 
+	 @Autowired // 등록된 bean 중에서 같은 타입인 bean을 자동적으로 의존성 주입
+	 private BoardService service; 
 	   
 	   private String swalIcon = null;
 	   private String swalTitle = null;
@@ -43,6 +44,8 @@ public class BoardController {
 	                      @RequestParam(value="cp", required = false, defaultValue = "1" )int cp,
 	                      Model model) { 
 
+		  PageInfo pInfo = service.getPageInfo(cp);
+		   
 	      return "board/boardList";
 	   }
 	   

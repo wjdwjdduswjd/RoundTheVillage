@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>후기게시판 목록</title>
+  <link rel="stylesheet" type="text/css"
+            href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -18,7 +22,15 @@
       crossorigin="anonymous"></script>
 </head>
 <style>
-	.categoryBtn {
+
+   * {
+   font-family: 'NanumSquare', sans-serif !important;
+   font-weight: 500;
+   /* 굵기 지정(100, 300, 400, 500, 700) */
+   font-size: 16px;
+   color: #212529;
+   }
+.categoryBtn {
     width: 17%;
     font-size: 0.7rem;
     margin: 1%;
@@ -99,18 +111,18 @@ body {
   text-align: right;
 }
 
-#workshopSelect {
+/* #workshopSelect {
   background-color: #ffffff;
   color: #fbbc73;
 /*   padding: 12px; */
-  width: 100px;
+ /*  width: 100px;
   border: 1px solid gray;
   font-size: 15px;
   -webkit-appearance: button;
   appearance: button;
   outline: none;
   border-radius: .2rem;
-}
+} */ */
 
 
 .box:hover::before {
@@ -129,16 +141,16 @@ body {
   padding: 0;
   background-color: #ffffff;
 }
-
+/* 
 .box {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-}
+} */
 
-#workshopSelect2 {
+/* #workshopSelect2 {
   background-color: #ffffff;
   color: #fbbc73;
 /*   padding: 12px; */
@@ -151,22 +163,62 @@ body {
   outline: none;
   border-radius: .2rem;
 }
+ */
 
-
-.box:hover::before {
+/* .box:hover::before {
   color: rgba(255, 255, 255, 0.6);
   background-color: rgba(255, 255, 255, 0.2);
+} */
+
+/* .box select option {
+  padding: 30px;
+} */
+
+#inquiryBtn:hover,
+#searchBtn:hover {
+    background-color: rgb(214, 162, 102);
 }
 
-.box select option {
-  padding: 30px;
+.search {
+    margin-bottom: 5px;
 }
+
+#searchBtn {
+    background-color: #fbbc73;
+    color: white;
+    border: white;
+    border-radius: 5px;
+    height: 38px;
+    margin-bottom: 11px;
+}
+
+.page-item>a {
+    color: black;
+}
+
+.page-item>a:hover {
+    color: orange;
+}
+
+.btnBtn1{
+  background-color: #fbbc73;
+                color: white;
+                border: white;
+                border-radius: 5px;
+                height: 38px;
+                margin-bottom: 11px;
+}
+
+
+
+
+
 
 </style>
 
 <body>
 	<jsp:include page="../common/header.jsp"/>
-	<div class="container">
+   <div class="container">
         <div class="row">
             <div class="col-md-2">
             </div>
@@ -197,16 +249,16 @@ body {
                     <div class="col-md-9">
                     </div>
                     <div class="col-md-3 area3">
-                        
-                        
-                            <select id="workshopSelect">
-                              <option>최신순</option>
-                              <option>조회순</option>
-                              <option>좋아요순</option>
-                            </select>
-                          
+                        <select name="selectedBtn"  class="form-control" style="width: 100px; display: inline-block;">
+                            <option value="new">최신순</option>
+                            <option value="view">조회순</option>
+                            <option value="like">좋아요순</option>
+                        </select>
+
                     </div>
-                </div>    
+
+
+                </div>
 
                 <br>
 
@@ -301,66 +353,59 @@ body {
                 </div>
                 <br>
 
-                <div class="row">
-                    <div class="col-md-3 area3">
-                    </div>
-                    <div class="col-md-6 pagination-area">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#">Previous</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="my-5">
+                    <ul class="pagination pagination-sm justify-content-center">
 
-                    <div class="col-md-3 area3">
-                        <a type="button" class="btn btn-secondary btn-sm writeBtn" href="../board/insert">
-                            글쓰기
-                        </a>
-                    </div>
+
+
+                        <li class="page-item">
+                            <!-- 첫 페이지로 이동(<<) -->
+                            <a class="page-link" href="${firstPage}">&lt;&lt;</a>
+                        </li>
+
+                        <li class="page-item">
+                            <!-- 이전 페이지로 이동(<) -->
+                            <a class="page-link" href="${prevPage}">&lt;</a>
+                        </li>
+
+
+                        <li class="page-item">
+                            <a class="page-link" style="color:orange;">${page}</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
+                        </li>
+
+
+
+                        <li class="page-item">
+                            <!-- 다음 페이지로 이동(>) -->
+                            <a class="page-link" href="${nextPage}">&gt;</a>
+                        </li>
+
+                        <li class="page-item">
+                            <!-- 마지막 페이지로 이동(>>) -->
+                            <a class="page-link" href="${lastPage}">&gt;&gt;</a>
+                        </li>
+
+
+                    </ul>
                 </div>
 
 
                 <div class="row search-area">
-                    <div class="col-md-2">
-                        <div class="d-flex">
-                            <div class="main select">
-                                <select id="workshopSelect2">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
-                                    <option>Option 4</option>
-                                    <option>Option 5</option>
-                                  </select>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="search">
+                            <form action="${contextPath}/fSearch.do" method="GET" class="text-center" id="searchForm">
+                                <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
+                                    <option value="title">글 제목</option>
+                                    <option value="content">내용</option>
+                                </select> <input type="text" name="sv" class="form-control"
+                                    style="width: 25%; display: inline-block;">
+                                <button id="searchBtn" style="width: 100px; display: inline-block;">검색</button>
+                            </form>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <input type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-secondary btn-sm searchBtn">
-                            검색
-                        </button>
                     </div>
                 </div>
             </div>
@@ -370,34 +415,39 @@ body {
         </div>
     </div>
 
-<script>
+    <script>
 
-    
-    // var selectedBtn = document.getElementsByClassName("categoryBtn");
-    //var selectedBtn = $(".categoryBtn");
-    $(".categoryBtn").on("click", function(){
-        var selectedIndex = $(".categoryBtn").index(this);
 
-        $(".categoryBtn").each(function(index, item){
-            if(index == selectedIndex){
-                $(this).addClass("selectedBtn");
-            }else{
+        // var selectedBtn = document.getElementsByClassName("categoryBtn");
+        //var selectedBtn = $(".categoryBtn");
+        $(".categoryBtn").on("click", function () {
+            var selectedIndex = $(".categoryBtn").index(this);
+
+            $(".categoryBtn").each(function (index, item) {
+                if (index == selectedIndex) {
+                    $(this).addClass("selectedBtn");
+                } else {
+                    $(this).removeClass("selectedBtn")
+                }
+
+            });
+
+
+
+
+            /* if($(this).hasClass("selectedBtn")  ){
                 $(this).removeClass("selectedBtn")
+            }else{
+                $(this).addClass("selectedBtn");
             }
-
+     */
         });
-        
-        
 
 
-        /* if($(this).hasClass("selectedBtn")  ){
-            $(this).removeClass("selectedBtn")
-        }else{
-            $(this).addClass("selectedBtn");
-        }
- */
-    });
-  
+
+
+    </script>
+
 </script>
 
 </body>

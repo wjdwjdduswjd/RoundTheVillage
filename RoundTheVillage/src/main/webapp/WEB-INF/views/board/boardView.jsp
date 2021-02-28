@@ -7,6 +7,7 @@
  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>html문서 제목</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -18,6 +19,15 @@
 <title>게시글 상세 페이지</title>
 </head>
 <style>
+
+* {
+   font-family: 'NanumSquare', sans-serif !important;
+   font-weight: 500;
+   /* 굵기 지정(100, 300, 400, 500, 700) */
+   font-size: 16px;
+   color: #212529;
+   }
+   
   .summerNoteArea {
     border: 1px solid black;
     width: 500px;
@@ -63,9 +73,14 @@ body {
   padding: 30px;
 }
 
+
 .btnBtn1{
   background-color: #fbbc73;
-  border: 1px solid white;
+  color: white;
+  border: white;
+  border-radius: 5px;
+  height: 38px;
+  margin-bottom: 11px;
 }
 
 .writer{
