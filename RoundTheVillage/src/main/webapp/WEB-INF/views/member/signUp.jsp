@@ -24,6 +24,12 @@
 
         <div class="signUp">
 
+						<!-- 메인 이동 로고 -->
+						<div class="login-logo-area">
+							<a href="${contextPath}"><img src="${contextPath}/resources/images/member/zero.png" class="login-logo"></a>
+						</div>
+
+
             <!-- 회원 종류 선택 -->
             <div class="s_radio">
                 <span class="f">
@@ -39,17 +45,21 @@
                 </span>
             </div>
 
+            <!-- 이름 -->
+            <label class="title">이름</label><br>
+            <input type="text" name="name" id="name" >
+
             <!-- 닉네임 -->
             <label class="title">닉네임</label><br>
-            <input type="text" name="nickName" id="nickName">
+            <input type="text" name="nickName" id="nickName" placeholder="닉네임 연결">
 
             <!-- 아이디 입력 -->
             <label class="title">아이디</label><br>
-            <input type="text" name="id" id="id">
+            <input type="text" name="id" id="id" placeholder="아이디 조건">
 
             <!-- 비밀번호 -->
             <label class="title">비밀번호</label><br>
-            <input type="text" name="pwd" id="pwd">
+            <input type="text" name="pwd" id="pwd" placeholder="비밀번호 조건">
 
             <!-- 비밀번호 확인 -->
             <label class="title">비밀번호 확인</label><br>
@@ -96,7 +106,7 @@
 
             <!-- 이메일 -->
             <label class="title">이메일</label><br>
-            <input type="text" name="email" id="email" class="b">
+            <input type="text" name="email" id="email" class="b" placeholder="user@naver.com">
             <button type="button" id="email_button" class="email_button">인증하기</button>
 
             <!-- 주소 -->
@@ -124,6 +134,7 @@
             <div>
                 <button type="submit" id="signBtn" class="btn">가입하기</button>
             </div>
+            <!-- 버튼 눌렀을 때 성공 창 뜨고 메인으로 돌아가게하기 -->
 
 
         </div>

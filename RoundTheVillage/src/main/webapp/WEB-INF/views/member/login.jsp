@@ -21,7 +21,12 @@
     <div class="container">
 
         <div class="loginUp">
-
+	
+						<!-- 메인 이동 로고 -->
+						<div class="login-logo-area">
+							<a href="${contextPath}"><img src="${contextPath}/resources/images/member/zero.png" class="login-logo"></a>
+						</div>
+						
             <!-- 아이디 입력 -->
             <label class="title">아이디</label><br>
             <input type="text" name="id" id="id" class="text-input">
@@ -44,22 +49,23 @@
             <!-- 아이디 -->
             <div class="idPwdSignUp">
                 <span class="id-link-area">
-                    <a href="#" class="search-id-pwd">아이디/비밀번호 찾기</a>
+                    <a href="${contextPath}/member/idFind" class="search-id-pwd">아이디</a> <a class="search-id-pwd">/</a>
+                    <a href="${contextPath}/member/pwdFind" class="search-id-pwd">비밀번호 찾기</a>
                 </span>
                 <span class="signUp-link-area">
-                    <a href="#" class="search-id-pwd">회원가입</a>
+                    <a href="${contextPath}/member/signUp" class="search-id-pwd">회원가입</a>
                 </span>
             </div>
             <hr>
 
             <!-- 카카오계정 로그인 -->
             <div>
-                <img src="${contextPath}/resources/images/login/kakaoLogin.png" class="sns-btn kakaoBtn">
+                <img src="${contextPath}/resources/images/member/kakaoLogin.png" class="sns-btn kakaoBtn">
             </div>
                 
             <!-- 네이버계정 로그인 -->
             <div>
-                <img src="${contextPath}/resources/images/login/naverLogin.png" class="sns-btn">
+                <img src="${contextPath}/resources/images/member/naverLogin.png" class="sns-btn">
             </div>
 
         </div>
