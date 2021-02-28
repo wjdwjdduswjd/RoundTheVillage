@@ -51,13 +51,7 @@
             <br>
             
             <div class="col-md-7 offset-md-3">
-                
-             
-                
-                
-                
-                
-                
+                             
                 <form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();">
                 
 
