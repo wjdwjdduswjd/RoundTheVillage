@@ -270,7 +270,7 @@ li {list-style: none;}
 						<button class="lesson-minus">-</button>
 						<div class="lesson-amount-num">1</div>
 						<button class="lesson-plus">+</button>
-					<div class="lesson-price">55,000 <span>원</span> </div>
+					<div class="lesson-price">55000 <span>원</span> </div>
 			 	</div>
 			 	<div class="lesson-order">
 			 		<a href="#">결제하기</a>
@@ -301,13 +301,20 @@ li {list-style: none;}
 </div>
 
 <script type="text/javascript">
+	var maxDate = new Date();
+	var minDate = new Date();
+	minDate.setDate(minDate.getDate() + 1);
+	maxDate.setDate(maxDate.getDate() + 30);
 	$(function() {
-	  $('#datetimepicker14').datetimepicker({
-	 		allowMultidate: true,
-			multidateSeparator: ',',
+	  $('#datetimepicker14').datetimepicker( {
+		  //allowMultidate: true,
+		  //multidateSeparator: ',',
 		  format: 'YYYY-MM-DD',
-	 	 	locale: 'ko',
-	  });
+	 	  locale: 'ko',
+	 	  daysOfWeekDisabled : [0,2,4,6],
+	  	  maxDate: maxDate,
+	      minDate: minDate
+	  }); 
 	});
 	
 </script>
@@ -332,16 +339,21 @@ var minus = $(".lesson-minus");
 var amount = $(".lesson-amount-num");
 plus.click(function() {
 	amount.text(Number(amount.text())+1);
+	$(".lesson-price").html( 55000 * Number(amount.text()) + " <span>원</span>"); // 가격 적기
 });
 minus.click(function() {
 	if(amount.text()>1){
 		amount.text(Number(amount.text())-1);
+		$(".lesson-price").html( 55000 * Number(amount.text()) + " <span>원</span>"); // 가격 적기
 	}
 });
 
 
 var timeBtn = $(".time-button");
 timeBtn.click(function() {
+	timeBtn.removeClass("active");
+	timeBtn.css("background-color", "#FFFFFF");
+	
 	if($(this).hasClass("active")){
 		$(this).removeClass("active");
 		$(this).css("background-color", "#FFFFFF");
