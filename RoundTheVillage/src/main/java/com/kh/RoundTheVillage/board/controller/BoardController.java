@@ -19,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.kh.RoundTheVillage.board.service.BoardService;
-import com.kh.RoundTheVillage.board.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.service.BoardService;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
 
 @Controller // 컨트롤러임을 알려줌 + bean 등록

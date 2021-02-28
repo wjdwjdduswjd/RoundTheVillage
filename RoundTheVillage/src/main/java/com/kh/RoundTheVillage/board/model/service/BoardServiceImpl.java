@@ -1,4 +1,4 @@
-package com.kh.RoundTheVillage.board.service;
+package com.kh.RoundTheVillage.board.model.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.RoundTheVillage.board.dao.BoardDAO;
-import com.kh.RoundTheVillage.board.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.dao.BoardDAO;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
 
 @Service // 서비스임을 알려줌 + bean 등록

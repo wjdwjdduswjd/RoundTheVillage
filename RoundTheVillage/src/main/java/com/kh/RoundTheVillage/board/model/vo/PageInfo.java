@@ -1,4 +1,4 @@
-package com.kh.RoundTheVillage.board.vo;
+package com.kh.RoundTheVillage.board.model.vo;
 
 import org.springframework.stereotype.Component;
 
