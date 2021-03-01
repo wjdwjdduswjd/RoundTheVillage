@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bannerMapper">
+
+	<resultMap type="Banner" id="banner_rm">
+		<id property="banNo" column="BAN_NO"/>
+		<result property="banStartDate" column="BAN_START_DT"/>
+		<result property="banEndDate" column="BAN_END_DT"/>
+		<result property="URL" column="URL"/>
+		<result property="banImg" column="BAN_IMG"/>
+		<result property="banStatus" column="BAN_STATUS"/>
+		<result property="payDate" column="PAY_DT"/>
+		<result property="payAmt" column="PAY_AMT"/>
+		<result property="memNo" column="MEM_NO"/>
+	</resultMap>
+	
+</mapper>
