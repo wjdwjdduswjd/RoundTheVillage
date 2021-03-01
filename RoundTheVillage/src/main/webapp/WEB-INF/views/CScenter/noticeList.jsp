@@ -1,308 +1,236 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항</title>
-<head>
-
-<!-- 부트스트랩 사용을 위한 css 추가 -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
-
-<!-- 부트스트랩 사용을 위한 라이브러리 추가 (반드시 jQuery가 항상 먼저여야한다. 순서 중요!) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
-<!-- 나눔스퀘어 --> 
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-
+<title>공지사항</title>
 <style>
-* {
+#title {
 	font-family: 'NanumSquare', sans-serif !important;
-	font-weight: 500;
-	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
-	color: #212529;
-	box-sizing: border-box;
-	margin: 0;
-	/* border : 1px solid black;  */
 }
 
-div {
-	/* border : 1px solid black;  */
-	box-sizing: border-box;
+.pagination {
+	justify-content: center;
 }
 
-.main {
-	width: 900px;
-	height: 100%;
-	float: left;
+#searchForm {
+	position: relative;
 }
 
-td {
-	font-size: 13px;
-	cursor : pointer;
+#searchForm>* {
+	top: 0;
 }
 
-th {
-	font-size: 13px;
-	cursor : default;
+.boardTitle>img {
+	width: 50px;
+	height: 50px;
 }
 
-#inquiryBtn {
-	margin-top: 15px;
-	margin-left: 15px;
-	background-color: #8ad2d5;
-	color: white;
-	border: white;
-	border-radius: 5px;
-	width: 150px;
-	height: 40px;
+.notice-list {
+	margin: 50px auto;
 }
 
-#inquiryBtn:hover, #searchBtn:hover {
-	background-color: #17a2b8;
+/* 세로 가운데 정렬*/
+#list-table td {
+	text-align: center;
+	/* vertical-align : inline, inline-block 요소에만 적용 가능(td는 inline-block)*/
 }
 
-.search {
-	margin-bottom: 20px;
+#list-table {
+	text-align: center;
+}
+
+
+.list-wrapper {
+	min-height: 540px;
+}
+
+#list-table td:hover {
+	cursor: pointer;
 }
 
 #searchBtn {
-	background-color: #8ad2d5;
-	color: white;
-	border: white;
-	border-radius: 5px;
-	height: 38px;
-	margin-bottom : 11px;
+	background-color: #FBBC73;
+	border : 1px solid #FBBC73;
+	margin-top: -5px;
 }
-
-h6 {
-	margin-left: 15px;
-	height: 30px;
-}
-
-.page-item > a {
-	color: black;
-}
-
-.page-item > a:hover {
-	color: orange;
-}
-
 </style>
+
 </head>
 <body>
+	<jsp:include page="../common/header.jsp"/>
 
-	<jsp:include page="${contextPath}/WEB-INF/views/common/header.jsp"/>
-
-	<div class="main">
-
-		<div id="btnDiv">
-			<a href="#">
-			<button type="menu" id="inquiryBtn">공지사항</button></a>
-			
-			<a href="#">
-			<button type="menu" id="inquiryBtn">1:1 문의</button></a>
-		</div>
-
-		<br>
-
-		<h6>1:1문의</h6>
-
-		<div id="resultDiv">
-			<table class="table table-hover table-striped text-center"
-				id="result-table">
+	<div class="container notice-list">
+		<h3 id="title">공지사항 </h3>
+		<div>
+			<table class="table table-hover table-striped" id="list-table">
 				<thead>
 					<tr>
-						<th>글 번호</th>
+						<th>글번호</th>
 						<th>제목</th>
 						<th>작성일</th>
-						<th>조회수</th>
 					</tr>
 				</thead>
-				<%-- 게시글 목록 출력 --%>
 				<tbody>
-					<c:choose>
+					<c:if test="${empty bList}">
+						<tr>
+							<td colspan="6">존재하는 게시글이 없습니다.</td>
+						</tr>
+					</c:if>
 
-						<c:when test="${empty fList}">
+					<c:if test="${!empty bList}">
+						<c:forEach var="notice" items="${bList}" varStatus="vs">
+
 							<tr>
-								<td colspan="6">존재하는 게시글이 없습니다.</td>
+								<td>${notice.noticeNo}</td>
+								
+								<td class="noticeTitle">${notice.noticeTitle}</td>
+
+								<td>
+									<%-- 날짜 출력 모양 지정 --%>
+									<fmt:formatDate var="createDate" value="${notice.noticeCreateDate}" pattern="yyyy-MM-dd"/>
+									<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
+									<c:choose>
+										<c:when test="${createDate != now}">
+											${createDate }
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${notice.noticeCreateDate}" pattern="HH:mm"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
+
 							</tr>
-						</c:when>
-
-						<c:otherwise>
-							<%-- 조회된 게시글 목록이 있을 때 --%>
-							<!-- 1~10  -->
-							<c:forEach var="board" items="${fList}">
-								<tr>
-									<td>${board.boardNo}</td>
-
-									<td>${board.boardTitle}</td>
-
-									<td>
-										<%-- 날짜 출력 모양 지정 --%> 
-										<fmt:formatDate var="createDate" value="${board.boardCreateDate}" pattern="yyyy-MM-dd" /> <!-- 2021-01-05 -->
-										<fmt:formatDate var="today" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> <c:choose>
-											<%-- 글 작성일이 오늘이 아닐 경우 --%>
-											<c:when test="${createDate != today}">${createDate}</c:when>
-
-											<%-- 글 작성일이 오늘일 경우 --%>
-											<c:otherwise>
-												<fmt:formatDate value="${board.boardCreateDate}" pattern="HH:mm"/>
-												<!-- 오늘 작성한거면 시간이 나온다. -->
-											</c:otherwise>
-										</c:choose>
-									</td>
-
-									<td>${board.readCount}</td>
-
-								</tr>
-
-
-							</c:forEach>
-						</c:otherwise>
-
-					</c:choose>
+						</c:forEach>
+					</c:if>
 				</tbody>
-
 			</table>
 		</div>
 
+		<hr>
 
+		<%-- 로그인이 되어있는 경우 --%> <!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
+		<c:if test="${!empty loginMember && loginMember.memberType =='A' }">
+			<a class="btn btn-success float-right" href="../${pInfo.boardType}/insert">글쓰기</a>
+		</c:if>
 
+		<!--------------------------------- pagination  ---------------------------------->
 
+		<div class="my-4">
+			<ul class="pagination">
+	
+				<%-- 주소 조합 작업 --%>
+				<c:url var="pageUrl" value="${pInfo.boardType}?"/>
 
-		<%---------------------- Pagination ----------------------%>
-			<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
-			
-			<c:choose>
-				<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
-				<c:when test="${!empty param.sk && !empty param.sv}">
-					<c:url var="pageUrl" value="/search.do"/>
-					
-					<%-- 쿼리 스트링으로 사용할 내용을 변수에 저장 --%>
-					<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/></c:when>
+				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+				<c:set var="firstPage" value="${pageUrl}cp=1"/>
+				<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
 				
-				<c:otherwise><c:url var="pageUrl" value="/member/myPageInquiryPost.do"/></c:otherwise>
-			</c:choose>
-			
-			
-			<!-- 화살표에 들어갈 주소를 변수로 생성 -->
-			<%--
-				검색을 안했을 때 : /board/list.do?cp=1
-				검색을 했을 때 : /search.do?cp=1&sk=title&sv=49
-			 --%>
-			<c:set var="firstPage" value="${pageUrl}?cp=1"/>
-			<c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}"/>
-			
-			<%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다. ex) 5/2 = 2.5 --%>
-			<%-- <fmt:parseNumber> : 숫자 형태를 지정하여 변수 선언 
-				integerOnly="true" : 정수로만 숫자 표현 (소수점 버림)
-			--%>
-			
-			<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1)/10}" integerOnly="true"/>
-			<fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true"/>
-			<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}"/> <!-- /board/list/do?cp=10  -->
-			
-			<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}" integerOnly="true"/>
-			<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true"/>
-			<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}"/>
-			
-			
-			
-			<div class="my-5">
-				<ul class="pagination pagination-sm justify-content-center">
+				<%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다--%>
+				<%-- 
+					<fmt:parseNumber>   : 숫자 형태를 지정하여 변수 선언 
+					integerOnly="true"  : 정수로만 숫자 표현 (소수점 버림)
+				--%>
 				
-					<%-- 현재 페이지가 10페이지 초과인 경우 --%>
-					<c:if test="${pInfo.currentPage>10}">
-					
-						<li class="page-item"><!-- 첫 페이지로 이동(<<) -->
-							<a class="page-link" href="${firstPage}">&lt;&lt;</a>
-						</li>
-						
-						<li class="page-item"> <!-- 이전 페이지로 이동(<) -->
-							<a class="page-link" href="${prevPage}">&lt;</a>
-						</li>
-					</c:if>
-					
-					<!-- 페이지 목록 (숫자만) ex) 1 2 3 4 5 6 7 8 9 10 -->
-					<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
-											<!-- for(int page=0; page<=10; page++) 비슷하다고 생각하면 된다. -->
-						<c:choose>
-							<c:when test="${pInfo.currentPage == page}">
-								<li class="page-item">
-									<a class="page-link" style="color:orange;">${page}</a>
-								</li>
-							</c:when>
-							
-							<c:otherwise>
-								<li class="page-item">
-									<a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					
-					
-					<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
-					<c:if test="${next <= pInfo.maxPage}">
-						<li class="page-item"> <!-- 다음 페이지로 이동(>) -->
-							<a class="page-link" href="${nextPage}">&gt;</a>
-						</li>
-						
-						<li class="page-item"><!-- 마지막 페이지로 이동(>>) -->
-							<a class="page-link" href="${lastPage}">&gt;&gt;</a>
-						</li>
-						
-					</c:if>
-
-				</ul>
-			</div>
+				<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+				<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+				
+				<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+				<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+				
 
 
-		<div class="search">
-			<form action="${contextPath}/fSearch.do" method="GET" class="text-center" id="searchForm">
-				<select name="sk" class="form-control"
-					style="width: 100px; display: inline-block;">
-					<option value="title">글 제목</option>
-					<option value="content">내용</option>
-				</select> <input type="text" name="sv" class="form-control"
-					style="width: 25%; display: inline-block;">
-				<button id="searchBtn" style="width: 100px; display: inline-block;">검색</button>
-			</form>
+				<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+					<li> <!-- 첫 페이지로 이동(<<) -->
+						<a class="page-link" href="${firstPage}">&lt;&lt;</a>
+					</li>
+					
+					<li> <!-- 이전 페이지로 이동 (<) -->
+						<a class="page-link" href="${prevPage}">&lt;</a>
+					</li>
+				</c:if>
+
+
+
+				<!-- 페이지 목록 -->
+				<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+					<c:choose>
+						<c:when test="${pInfo.currentPage == page }">
+							<li>
+								<a class="page-link">${page}</a>
+							</li>
+						</c:when>
+					
+						<c:otherwise>
+							<li>	
+								<a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+					
+		
+				<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
+				<c:if test="${next <= pInfo.maxPage}">
+					<li> <!-- 다음 페이지로 이동 (>) -->
+						<a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+					
+					<li> <!-- 마지막 페이지로 이동(>>) -->
+						<a class="page-link" href="${lastPage}">&gt;&gt;</a>
+					</li>
+				</c:if>
+			</ul>
 		</div>
-</div>
 
-
-		<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-		
-		
-		
-		
-		<script>
-		$("#result-table td").on("click", function(){
+	
+	<div>
+			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
+				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
+					<option value="tit">글제목</option>
+					<option value="con">내용</option>
+					<option value="titcont">제목+내용</option>
+				</select> 
+				<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+				<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+			</div>
+		</div>
+	
+	
+	</div>
+	<jsp:include page="../common/footer.jsp" />
+	
+	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
+	<c:set var="returnListURL" value="${contextPath}/board/list/${pageUrl}cp=${pInfo.currentPage}"
+															scope="session" />
+																
+	<script>
+		// 게시글 상세보기 기능 (jquery를 통해 작업)
+		$("#list-table td").on("click", function(){
+			var noticeNo = $(this).parent().children().eq(0).text();
+											//td    tr        td      첫 번째(게시글 번호)
+											
+			// 게시글 상세 조회 요청 주소 조합
 			
-			var boardNo = $(this).parent().children().eq(0).text();
-			var url = "${contextPath}/freeBoard/view.do?cp=${pInfo.currentPage}&no="
-				+ boardNo + "${searchStr}";
-
-		location.href = url;			
+			// 게시글 목록 : /spring/board/list/1
+			// 상세 조회 :  /spring/board/1/500
 			
+			// 절대 경로
+			//var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo;
+														// spring   /board         /1            /500
 			
+			// 상대 경로
+			var boardViewURL = "../${pInfo.boardType}/" + noticeNo;
+			
+			location.href = boardViewURL;
 		});
 		
-		</script>
-		
+	</script>
 </body>
 </html>
