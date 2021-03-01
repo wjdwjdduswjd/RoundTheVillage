@@ -8,6 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.RoundTheVillage.board.model.vo.Board;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
+
 
 
 @Repository // 저장소(DB) 연결 객체임을 알려줌 + bean 등록
@@ -22,6 +25,16 @@ public class BoardDAO {
 	public int getListCount(int cp) {
 
 		return sqlSession.selectOne("boardMapper.getListCount", cp);
+	}
+
+
+	public List<Board> selectList(PageInfo pInfo) {
+
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selectList", pInfo.getBoardType(), rowBounds);
 	}
 
 

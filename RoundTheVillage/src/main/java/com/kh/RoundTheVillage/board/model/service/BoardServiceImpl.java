@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.RoundTheVillage.board.model.dao.BoardDAO;
+import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
 
@@ -31,6 +32,12 @@ public class BoardServiceImpl implements BoardService{
 		int listCount = dao.getListCount(cp);
 		
 		return new PageInfo(cp, listCount);
+	}
+
+	// 게시글 목록 조회
+	@Override
+	public List<Board> selectList(PageInfo pInfo) {
+		return dao.selectList(pInfo);
 	}
 
 
