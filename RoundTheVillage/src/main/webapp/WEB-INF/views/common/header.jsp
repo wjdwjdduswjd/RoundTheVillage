@@ -55,8 +55,8 @@
       <div class="dropdown">
         <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객센터</a>
         <div class="dropdown-menu cs" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="#">공지사항</a>
-          <a class="dropdown-item" href="#">1:1문의</a>
+          <a class="dropdown-item" href="${contextPath}/CScenter/noticeList">공지사항</a>
+          <a class="dropdown-item" href="${contextPath}/CScenter/inquiyList">1:1문의</a>
         </div>
       </div>
 
