@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Pay" alias="Pay"/>
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Coupon" alias="Coupon"/>
 		<typeAlias type="com.kh.RoundTheVillage.banner.model.vo.Banner" alias="Banner"/>
+		<typeAlias type="com.kh.RoundTheVillage.CScenter.model.vo.Notice" alias="Notice"/>
 	</typeAliases>  
 
   <mappers>
@@ -23,6 +24,7 @@
 	  <mapper resource="/mappers/board-mapper.xml"/>
 	  <mapper resource="/mappers/pay-mapper.xml"/>
 	  <mapper resource="/mappers/banner-mapper.xml"/>
+	  <mapper resource="/mappers/notice-mapper.xml"/>
   </mappers>
 
 
