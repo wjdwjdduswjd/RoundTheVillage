@@ -62,12 +62,12 @@
   background-color: #FBBC73;
 }
 
-.btn-info:hover {
+.btn-light:hover {
   border-color: #FBBC73;
 
 }
 
-.btn-info {
+.btn-light {
   background-color: #FBBC73;
   border-color: #FBBC73;
   margin-left: 10px;
@@ -103,8 +103,8 @@
 #bigTitle .p2 {
 	font-size: 12px;
   margin-left: 40px;
-  margin-top: -5px;
 }
+
 
 /* 폰트 관련 --------------------------------------*/
 .card-category {
@@ -122,6 +122,7 @@
 .card-title, .card-text {
   font-family: 'NanumSquare', sans-serif !important;
 }
+
 
 /* 카드------------------------------------------*/
 .card-deck{
