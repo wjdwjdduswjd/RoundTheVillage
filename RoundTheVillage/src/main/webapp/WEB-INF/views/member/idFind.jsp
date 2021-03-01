@@ -60,7 +60,7 @@
             <!-- 이메일인증번호 입력부분 -->
             <div class="input-area">
                 <label class="addr text"></label>
-                <input class="b" type="text" name="idFind-crtfd" id="idFind-crtfd"   placeholder="인증번호를 입력해주세요.">
+                <input class="b" type="text" name="idFind-crtfd-num" id="idFind-crtfd-num" placeholder="인증번호를 입력해주세요.">
             </div>
             
             <!-- 완료 버튼 -->

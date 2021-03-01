@@ -43,7 +43,7 @@
 
             <!-- 로그인 버튼 -->
             <div>
-                <button type="submit" id="loginBtn"  class="btn" onclick="location.href='#'"   >로그인</button>
+                <button type="submit" id="loginBtn" name="loginBtn" class="loginBtn" onclick="location.href='#'"   >로그인</button>
             </div>
 
             <!-- 아이디 -->

@@ -37,4 +37,14 @@ public class MemberController {
 	}
 	
 	
+	// 아이지 찾기 성공 페이지
+	@RequestMapping("pwdFindComplete")
+	public String pwdFindComplete() {
+		return "member/pwdFindComplete";
+	}
+	
+	
+	
+	
+	
 }
