@@ -96,8 +96,8 @@
 
             <div class="col-md-6 col-sm-6 col-xs-6 hidden-xs">
                 <div class="controls pull-right">
-                    <a class="left fa fa-chevron-left btn btn-info" href="#carousel-example" data-slide="prev"></a>
-                    <a class="right fa fa-chevron-right btn btn-info" href="#carousel-example" data-slide="next"></a>
+                    <a class="left fa fa-chevron-left btn btn-light" href="#carousel-example" data-slide="prev"></a>
+                    <a class="right fa fa-chevron-right btn btn-light" href="#carousel-example" data-slide="next"></a>
                 </div>
             </div>
         </div>
