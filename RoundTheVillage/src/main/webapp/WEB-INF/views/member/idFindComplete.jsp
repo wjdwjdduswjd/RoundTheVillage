@@ -40,8 +40,15 @@
    
    <!-- 아이디 출력부분 -->
    <div class="output-area">
-			<div class="output-id">회원님의 ID는 ******입니다.</div>
+			<div>회원님의 ID는 ******입니다.</div>
    </div>
+   	
+   	<!-- 로그인 , 홈으로  -->
+   	<!-- 완료 버튼 -->
+    <div id="c-btn">
+        <button id="btn-mm" type="button" name="login-mm" id="login-mm"  onclick="location.href='${contextPath}/member/login'">로그인</button>
+        <button id="btn-mm" type="button" name="home-mm" id="home-mm"  onclick="location.href='${contextPath}'">홈으로</button>
+    </div>
 				
 
 
