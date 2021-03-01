@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
@@ -36,6 +37,27 @@ public class BoardDAO {
 		
 		return sqlSession.selectList("boardMapper.selectList", pInfo.getBoardType(), rowBounds);
 	}
+
+
+	public List<Attachment> selectThumbnailList(List<Board> bList) {
+		return sqlSession.selectList("boardMapper.selectThumbnailList", bList);
+	}
+
+	public Board selectBoard(Board temp) {
+		
+		return sqlSession.selectOne("boardMapper.selectBoard", temp);
+	}
+
+	public int selectNextNo() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardMapper.selectNextNo");
+	}
+
+
+	public int insertBoard(Map<String, Object> map) {
+		return sqlSession.insert("boardMapper.insertBoard", map);
+	}
+
 
 
 
