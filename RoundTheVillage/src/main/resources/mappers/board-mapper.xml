@@ -15,17 +15,33 @@
 	<result property="boardModifyDate" column="BOARD_M_DT"/>
 	<result property="boardStatus" column="BOARD_STATUS"/>
 	<result property="classNo" column="CLA_NO"/>
-	<result property="classNo" column="CS_CATE_NO"/>
+	<result property="classCategoryNo" column="CS_CATE_NO"/>
+</resultMap>
+
+<resultMap type="Attachment" id="attachment_rm">
+	<id property="fileNo" column="ATTACHMENT_NO"/>
+	<result property="fileName" column="FILE_NAME"/>
+	<result property="fileLevel" column="FILE_LEVEL"/>
+	<result property="fileCreateDate" column="B_FILE_DT"/>
+	<result property="filePath" column="FILE_PATH"/>
+	<result property="boardNo" column="BOARD_NO"/>
 </resultMap>
 
 
 
-<!-- 특정 게시판 전체 게시글 수 조회 -->
+<!-- 전체 게시글 수 조회 -->
 <select id="getListCount" parameterType="_int" resultType="_int">
 	SELECT COUNT(*) FROM BOARD
 	WHERE BOARD_STATUS = 'Y'
 </select>
 
+   <!-- 게시글 목록 조회 -->
+<select id="selectList" parameterType="_int" resultMap="board_rm">
+   SELECT BOARD_NO, READ_COUNT
+   FROM BOARD
+   WHERE BOARD_STATUS = 'Y'
+   ORDER BY BOARD_NO DESC
+</select>
 
 
 </mapper>

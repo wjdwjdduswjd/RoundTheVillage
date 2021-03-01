@@ -27,7 +27,7 @@
    font-weight: 500;
    /* 굵기 지정(100, 300, 400, 500, 700) */
    font-size: 16px;
-   color: #212529;
+  /*  color: #212529; */
    }
    
  .summerNoteArea {
@@ -44,13 +44,13 @@
     float: right;
   }
 
-  .btn-group {
+/*   .btn-group {
     background-color: #fbbc73;
     border-color: #fbbc73;
     color: #5b3929;
     text-align: center;
     float: right;
-  }
+  } */
 
 /*   .dropdown{
     margin-left: 60px;
@@ -106,10 +106,6 @@ body {
   padding: 30px;
 }
 
-.btnBtn1{
-  background-color: #fbbc73;
-  border: 1px solid white;
-}
 
 .writer{
   margin-right: 20px;
@@ -123,6 +119,15 @@ body {
 
 .btnBtn1{
   background-color: #fbbc73;
+  color: white;
+  border: white;
+  border-radius: 5px;
+  height: 38px;
+  margin-bottom: 11px;
+}
+
+.btn{
+ background-color: #fbbc73;
   color: white;
   border: white;
   border-radius: 5px;

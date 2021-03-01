@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<jsp:include page="../common/header.jsp"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,12 +90,16 @@
 
 .writeBtn {
     float: right;
-    margin-left: 20px;
     width: 70%;
-    height: 70%;
-    margin-left: 150px;
+    height: 80%;
+		margin-right: 20px; 
+    border-radius: 5px;
     background-color: #fbbc73;
-    border: 1px solid white;
+    color: white;
+    border: white;
+    border-radius: 5px;
+    height: 38px;
+    margin-bottom: 11px;
 }
 
 HTML CSSResult Skip Results Iframe
@@ -154,7 +161,7 @@ body {
   background-color: #ffffff;
   color: #fbbc73;
 /*   padding: 12px; */
-  width: 100px;
+/*   width: 100px;
   height: 40px;
   border: 1px solid gray;
   font-size: 15px;
@@ -163,7 +170,7 @@ body {
   outline: none;
   border-radius: .2rem;
 }
- */
+ */ */
 
 /* .box:hover::before {
   color: rgba(255, 255, 255, 0.6);
@@ -214,10 +221,11 @@ body {
 
 
 
+
 </style>
 
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<%-- <jsp:include page="../common/header.jsp"/> --%>
    <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -254,6 +262,7 @@ body {
                             <option value="view">조회순</option>
                             <option value="like">좋아요순</option>
                         </select>
+                        
 
                     </div>
 
@@ -268,22 +277,18 @@ body {
                         <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
                         <img src="하트.png" class="like">300
                     </div>
-                    <div class="col-md-3 area3">
-                        <img src="공방.PNG" class="thumbnail">
-                        <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
-                        <img src="하트.png" class="like">300
-                    </div>
-                    <div class="col-md-3 area3">
-                        <img src="공방.PNG" class="thumbnail">
-                        <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
-                        <img src="하트.png" class="like">300
-                    </div>
-                    <div class="col-md-3 area3">
-                        <img src="공방.PNG" class="thumbnail">
-                        <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
-                        <img src="하트.png" class="like">300
-                    </div>
-                </div>
+                    
+                    <%-- <c:forEach var="board" items="bList">
+                    	 <div class="col-md-3 area3">
+	                        <img src="공방.PNG" class="thumbnail">
+	                        <span class="badge badge-default">${board.title } </span>
+	                        <img src="하트.png" class="like">300
+	                    </div>
+                    </c:forEach> 
+                   
+                </div>--%>
+                
+                
                 <div class="row thumbnailArea">
                     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
@@ -353,7 +358,11 @@ body {
                 </div>
                 <br>
 
-                <div class="my-5">
+								
+								  
+                <div class="row">
+                    <div class="col-md-3"></div>
+                <div class="col-md-6">
                     <ul class="pagination pagination-sm justify-content-center">
 
 
@@ -392,6 +401,16 @@ body {
 
                     </ul>
                 </div>
+                    <div class="col-md-3 area3">
+                    
+                    
+									<a class="btn btn-secondary btn-sm writeBtn" href="../board/insert">글쓰기</a>
+                    
+                
+                    </div>
+                
+            </div>
+                
 
 
                 <div class="row search-area">
