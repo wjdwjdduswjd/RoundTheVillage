@@ -7,7 +7,7 @@
 <title>footer</title>
 </head>
 <style>
-hr {
+#footerHR {
 	margin-top: 150px;
 }
 #footer {
@@ -28,7 +28,7 @@ hr {
 }
 </style>
 <body>
-    <hr>
+    <hr id="footerHR">
     <div id="footer"> 
         <p class="call">문의 전화 : 02:1544-0000</p>
         <p class="f1">(주)동네 한 바퀴 | 공동 대표 김정민, 김정화, 김정훈, 이진선, 정연정, 조유림 | 서울특별시 중구 남대문로 120 대일 빌딩 2층 | 사업자등록번호 : 111-11-00111 | 통신판매업신고 : 2021-서울중구-0087</p>
