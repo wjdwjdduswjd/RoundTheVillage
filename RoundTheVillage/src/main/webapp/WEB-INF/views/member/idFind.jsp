@@ -46,13 +46,13 @@
         <!-- 이름, 이메일 입력 -->
         <div class="input-text">
             <div class="input-area in-area">
-                <label class="addr text">이름</label> 
+                <label class="text">이름</label> 
                 <input class="b" type="text" name="idFind-name" id="idFind-name">
             </div> 
                 
 
             <div class="input-area ">
-                <label class="addr text">이메일 주소</label>
+                <label class="text">이메일 주소</label>
                 <input class="b" type="text" name="id-email" id="id-email"  placeholder="가입했을 때 인증했던 이메일을 입력해주세요.">
                 <button type="button" id="idFind-email" class="idFind-email">인증번호 받기</button>
             </div>
