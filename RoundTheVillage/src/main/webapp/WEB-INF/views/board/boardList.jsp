@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<jsp:include page="../common/header.jsp"/>
+<%-- <jsp:include page="../common/header.jsp"/> --%>
 
 <!DOCTYPE html>
 <html>
@@ -143,11 +143,7 @@ body {
 /* ------------------------------------------------------- */
 
 HTML CSSResult Skip Results Iframe
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-}
+
 /* 
 .box {
   position: absolute;
@@ -170,7 +166,7 @@ body {
   outline: none;
   border-radius: .2rem;
 }
- */ */
+ */ 
 
 /* .box:hover::before {
   color: rgba(255, 255, 255, 0.6);
@@ -225,7 +221,7 @@ body {
 </style>
 
 <body>
-	<%-- <jsp:include page="../common/header.jsp"/> --%>
+	<jsp:include page="../common/header.jsp"/> 
    <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -284,9 +280,9 @@ body {
 	                        <span class="badge badge-default">${board.title } </span>
 	                        <img src="하트.png" class="like">300
 	                    </div>
-                    </c:forEach> 
+                    </c:forEach> --%>
                    
-                </div>--%>
+              </div> 
                 
                 
                 <div class="row thumbnailArea">
@@ -428,10 +424,10 @@ body {
                     </div>
                 </div>
             </div>
+        </div>
 
             <div class="col-md-2">
             </div>
-        </div>
     </div>
 
     <script>
