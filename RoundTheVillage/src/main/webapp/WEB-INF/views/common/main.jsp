@@ -127,7 +127,7 @@
                                     <div class="cart-section">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-xs-6 like">
-                                                <p>♥1004</p>
+                                                <p id="like">♥1004</p>
                                             </div>
                                         </div>
                                     </div>

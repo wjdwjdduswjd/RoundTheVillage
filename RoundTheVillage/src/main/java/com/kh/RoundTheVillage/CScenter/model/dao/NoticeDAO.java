@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 
@@ -33,7 +34,6 @@ public class NoticeDAO {
 	 */
 	public List<Notice> selectList(PageInfo2 pInfo) {
 		
-		// RowBounds 객체 : offset과 limit을 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
 		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
@@ -42,8 +42,48 @@ public class NoticeDAO {
 	}
 	
 	
+	/** 게시글 상세 조회 DAO
+	 * @param temp
+	 * @return board
+	 */
+	public Notice selectNotice(Notice temp) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", temp);
+	}
+
+	
+	/** 게시글에 포함된 이미지 목록 조회 DAO
+	 * @param boardNo
+	 * @return attachmentList
+	 */
+	public List<Attachment> selectAttachmentList(int noticeNo) {
+		return sqlSession.selectList("noticeMapper.selectAttachmentList", noticeNo);
+	}
 	
 	
+	/** 다음 게시글 번호 얻어오기 DAO
+	 * @return
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("noticeMapper.selectNextNo");
+	}
+	
+	
+	/** 게시글 삽입 DAO
+	 * @param map
+	 * @return
+	 */
+	public int insertNotice(Map<String, Object> map) {
+		return sqlSession.insert("noticeMapper.insertNotice", map);
+	}
+	
+	
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return result (성공한 행의 개수)
+	 */
+	public int insertAttachmentList(List<Attachment> uploadImages) {
+		return sqlSession.insert("noticeMapper.insertAttachmentList", uploadImages);
+	}
 }	
 	
 	

@@ -11,6 +11,7 @@
 <style>
 #title {
 	font-family: 'NanumSquare', sans-serif !important;
+	margin-top: 50px;
 }
 
 .pagination {
@@ -30,15 +31,11 @@
 	height: 50px;
 }
 
-.notice-list {
-	margin: 50px auto;
+.container notice-list {
+	width: 1200px
+	margin: 0 0 0;
 }
 
-/* 세로 가운데 정렬*/
-#list-table td {
-	text-align: center;
-	/* vertical-align : inline, inline-block 요소에만 적용 가능(td는 inline-block)*/
-}
 
 #list-table {
 	text-align: center;
@@ -53,10 +50,22 @@
 	cursor: pointer;
 }
 
+
 #searchBtn {
+	color: #FFF;
 	background-color: #FBBC73;
 	border : 1px solid #FBBC73;
 	margin-top: -5px;
+}
+
+#insertBtn {
+  color: #FFF;
+	background-color: #FBBC73;
+	border : 1px solid #FBBC73;
+}
+
+.pagination {
+	margin-top: 90px;
 }
 </style>
 
@@ -67,7 +76,7 @@
 	<div class="container notice-list">
 		<h3 id="title">공지사항 </h3>
 		<div>
-			<table class="table table-hover table-striped" id="list-table">
+			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
 					<tr>
 						<th>글번호</th>
@@ -76,14 +85,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty bList}">
+					<c:if test="${empty nList}">
 						<tr>
 							<td colspan="6">존재하는 게시글이 없습니다.</td>
 						</tr>
 					</c:if>
 
-					<c:if test="${!empty bList}">
-						<c:forEach var="notice" items="${bList}" varStatus="vs">
+					<c:if test="${!empty nList}">
+						<c:forEach var="notice" items="${nList}" varStatus="vs">
 
 							<tr>
 								<td>${notice.noticeNo}</td>
@@ -111,20 +120,19 @@
 			</table>
 		</div>
 
-		<hr>
 
 		<%-- 로그인이 되어있는 경우 --%> <!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
-		<c:if test="${!empty loginMember && loginMember.memberType =='A' }">
-			<a class="btn btn-success float-right" href="../${pInfo.boardType}/insert">글쓰기</a>
-		</c:if>
+		<%-- <c:if test="${!empty loginMember && loginMember.memberType =='A' }">--%>
+			<a class="btn btn-success float-right" id="insertBtn" href="noticeInsert">글쓰기</a>
+		<%-- </c:if> --%>
 
 		<!--------------------------------- pagination  ---------------------------------->
 
 		<div class="my-4">
-			<ul class="pagination">
+			<ul class="pagination pagination-sm justify-content-center">
 	
 				<%-- 주소 조합 작업 --%>
-				<c:url var="pageUrl" value="${pInfo.boardType}?"/>
+				<c:url var="pageUrl" value="${pInfo}?"/>
 
 				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 				<c:set var="firstPage" value="${pageUrl}cp=1"/>
@@ -198,7 +206,7 @@
 					<option value="titcont">제목+내용</option>
 				</select> 
 				<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-				<button class="form-control btn btn-success" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
 			</div>
 		</div>
 	
@@ -226,9 +234,9 @@
 														// spring   /board         /1            /500
 			
 			// 상대 경로
-			var boardViewURL = "../${pInfo.boardType}/" + noticeNo;
+			var noticeViewURL = "../${pInfo}/" + noticeNo;
 			
-			location.href = boardViewURL;
+			location.href = noticeViewURL;
 		});
 		
 	</script>
