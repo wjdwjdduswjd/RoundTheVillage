@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>view</title>
+<jsp:include page="../common/header.jsp"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
@@ -15,6 +16,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
 
 <style>
+body {
+	width: 100%;
+}
 * {padding: 0; margin: 0;}
 a {text-decoration: none !important; color: #666;}
 a:hover {

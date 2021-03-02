@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,9 @@
 }
 .filter {
 	height: 10%;
+}
+.filter-category {
+	height: 20%;
 }
 .filter-select {
 	width: 90%;
@@ -77,8 +80,8 @@ img {
 	background-color: #FBBC73;
 	border: 0;
 	border-radius: 10px;
-	width: 110px;
-	height: 30px;
+	width: 150px;
+	height: 40px;
 	font-size: 15px;
 }
 .button-category {
@@ -86,6 +89,9 @@ img {
 	font-size: 15px;
 	border: 0;
 	border-radius: 15px;
+	width: 100px;
+	height: 60px;
+	margin: 0 20px;
 }
 .select-price {
 	border-radius: 10px;
@@ -99,9 +105,9 @@ img {
 </head>
 <body>
 
-<a href="${contextPath}/lesson/insert">--------수업등록 제작중-------</a>
-
+<jsp:include page="../common/header.jsp"/>
 <div class="container">
+<a href="${contextPath}/lesson/insertForm">--------수업등록 제작중-------</a>
 	<div class="filter">
 		<div class="filter-select">
 			<select class="filter-location">
@@ -115,11 +121,19 @@ img {
 		</div>
 		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">지역</p></div>
 	</div>
-	<div class="filter">
+	<div class="filter-category">
 		<div class="filter-select">
 		 <button class="button-category">미술</button>
 		 <button class="button-category">사진/영상</button>
 		 <button class="button-category">요리/음료</button>
+		 <button class="button-category">뷰티</button>
+		 <button class="button-category">음악</button>
+		 <br><br>
+		 <button class="button-category">운동</button>
+		 <button class="button-category">공예</button>
+		 <button class="button-category">글쓰기</button>
+		 <button class="button-category">키즈</button>
+		 <button class="button-category">플라워</button>
 		</div>
 		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">카테고리</p></div>
 	</div>
@@ -127,7 +141,7 @@ img {
 		<div class="filter-select">
 		<form action=""> <!-- 가격 검색 -->
 			<input class="select-price" name="minimum"> ~ <input class="select-price" name="maximum">
-			<button>검색</button>
+			<button type="button">검색</button>
 		</form>
 		</div>
 		<div class="filter-name"><p><img class="filter-image" src="${contextPath}/resources/images/magnifier.png">가격</p></div>
@@ -143,6 +157,33 @@ img {
 		<p>검색결과 ></p>
 		</div>
 		<div class="result-bottom">
+		
+<c:forEach var="lesson" items="${list}" varStatus="status">
+			<div class="result-form">
+				<div class="search-info">
+					<div class="search-info-main">
+						<div class="info-participant">
+							25명참가중
+						</div>
+						<div class="info-price">
+							<h4>${lesson.lesPrice}원</h4>
+						</div>
+					</div>
+					<p>${lesson.lesTitle}</p>
+					<p>${lesson.craftshopNo} </p>
+					<p>${lesson.lesCategory}</p>
+					<p>주소</p>
+					<p>전화번호</p>
+				</div>
+				<div class="search-image">
+					<img src="#" style="background-color: red">
+				</div>
+			</div>
+		</c:forEach>
+		
+		
+		
+		
 			<div class="result-form">
 				<div class="search-info">
 					<div class="search-info-main">
@@ -202,7 +243,7 @@ btn.click(function() {
 });
 
 $(".result-form").click(function() {
-	location.href = "${contextPath}/lesson/view/1"; // (lessonNo)
+	location.href = "${contextPath}/lesson/view/1";
 });
 </script>
 </body>

@@ -14,10 +14,10 @@
 <body>
 	<div class="lesson-content">
 		<div class="title">수업내용</div>
-		<p> 내용</p>
+		<p>${lesson.lesContent}</p>
 	</div>
 	<div class="lesson-curriculum">
-		<div class="title">커리큘럼</div>
+		<div class="title">${lesson.lesCurri}</div>
 	</div>
 	<div class="lesson-location">
 		<div class="title">위치</div>

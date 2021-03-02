@@ -3,8 +3,9 @@
 
 <mapper namespace="shopMapper">
 	
-	<resultMap type="shopNo" id="shop_rm">
-		<id property="shopOwnerName" column="NAME"/>
+	<resultMap type="Shop" id="shop_rm">
+		<id property="shopNo" column="CRAFTSHOP_NO"/>
+		<result property="shopOwnerName" column="NAME"/>
 		<result property="shopName" column="CRAFTSHOP_NAME"/>
 		<result property="shopAdress" column="CRAFTSHOP_ADDR"/>
 		<result property="shopInfo" column="INTRODUCE"/>
