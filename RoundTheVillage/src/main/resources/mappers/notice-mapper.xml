@@ -22,16 +22,33 @@
 	
 	<!-- 전체 게시글 수 조회 -->
 	<select id="getListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM V_NOTICE
-		WHERE NOTICE_STATUS = 'Y'
+		SELECT COUNT(*) FROM NOTICE
+		WHERE NOTICE_STATUS = 'N'
 	</select>
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="selectList" parameterType="_int" resultMap="notice_rm">
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CREATE_DT
-		FROM V_NOTICE
-		WHERE NOTICE_STATUS = 'Y'
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'N'
 		ORDER BY NOTICE_NO DESC
 	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="selectBoard" parameterType="Notice" resultMap="notice_rm">
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DT
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'N'
+		AND NOTICE_NO = #{noticeNo}
+	</select>
+	
+	
+	<!-- 게시글에 포함된 이미지 목록 조회 -->
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM NOTICE_ATTACHMENT
+		WHERE PARENT_NOTICE_NO = #{noticeNo}
+		ORDER BY FILE_LEVEL
+	</select>
+	
 	
 </mapper>

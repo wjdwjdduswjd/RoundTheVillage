@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 
@@ -42,6 +43,22 @@ public class NoticeDAO {
 	}
 	
 	
+	/** 게시글 상세 조회 DAO
+	 * @param temp
+	 * @return board
+	 */
+	public Notice selectNotice(Notice temp) {
+		return sqlSession.selectOne("noticeMapper.selectNotice", temp);
+	}
+
+	
+	/** 게시글에 포함된 이미지 목록 조회 DAO
+	 * @param boardNo
+	 * @return attachmentList
+	 */
+	public List<Attachment> selectAttachmentList(int noticeNo) {
+		return sqlSession.selectList("noticeMapper.selectAttachmentList", noticeNo);
+	}
 	
 	
 }	

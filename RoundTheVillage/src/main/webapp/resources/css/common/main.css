@@ -1,7 +1,7 @@
 .container {
-  max-width: 1200px;
-  margin: 0 0;
-  margin-top: 20px;
+  width: 1200px;
+  height: auto; 
+  margin: 0 0 0;
   padding: 0 0;
 }
 
@@ -22,16 +22,13 @@
 .slider-item:hover .slider-main-detail {
   background-color: #fff1df !important;
 }
-.slider-item .price{
+.slider-item .like{
     float: left;
     margin-top: 5px;
 }
-.slider-item .price h5{
+.slider-item .like h5{
     line-height: 20px;
     margin: 0;
-}
-.detail-price{
-    color: #219FD1;
 }
 .slider-item .slider-main-detail .rating{
     color: #777;
@@ -104,7 +101,6 @@
 	font-size: 12px;
   margin-left: 40px;
 }
-
 
 /* 폰트 관련 --------------------------------------*/
 .card-category {

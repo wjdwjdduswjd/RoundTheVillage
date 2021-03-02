@@ -44,7 +44,25 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	
+	// 게시글 상세 조회 Service 구현 -----------------------------------------------------------------------------------------------------------
+		@Transactional(rollbackFor = Exception.class)
+		@Override
+		public Notice selectNotice(int noticeNo) {
+			// 1) 게시글 상세 조회
+			Notice temp = new Notice();
+			temp.setNoticeNo(noticeNo);
+			
+			Notice notice = dao.selectNotice(temp);
+			
+			return notice;
+		}
 
+
+		// 게시글에 포함된 이미지 목록 조회 Service 구현 -----------------------------------------------------------------------------------------------
+		@Override
+		public List<Attachment> selectAttachmentList(int noticeNo) {
+			return dao.selectAttachmentList(noticeNo);
+		}
 
 
 }
