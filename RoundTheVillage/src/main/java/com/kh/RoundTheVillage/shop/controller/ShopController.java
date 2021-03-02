@@ -56,6 +56,10 @@ public class ShopController {
 		   
 		   
 		   
+		   if(result>0) {
+
+			   System.out.println(result);
+		   }
 	
 		   
 		   

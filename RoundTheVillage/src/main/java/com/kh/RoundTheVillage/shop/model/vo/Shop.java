@@ -160,17 +160,20 @@ public class Shop {
 	}
 
 
-
-
-
-
 	@Override
 	public String toString() {
 		return "Shop [shopNo=" + shopNo + ", shopOwnerName=" + shopOwnerName + ", shopName=" + shopName
 				+ ", shopAdress=" + shopAdress + ", shopInfo=" + shopInfo + ", shopContact=" + shopContact
 				+ ", thumbInfo=" + thumbInfo + ", shopCategoryName=" + shopCategoryName + ", shopCategoryNo="
-				+ shopCategoryNo + ", shopContent="  + "]";
+				+ shopCategoryNo + "]";
 	}
+
+
+
+
+
+
+
 
 
 	
