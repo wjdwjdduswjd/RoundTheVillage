@@ -2,69 +2,69 @@ package com.kh.RoundTheVillage.shop.model.vo;
 
 public class ShopAttachment {
 	
-	private int shopFileNo; // 공방 관련 파일 번호
-	private String shopFilePath; // 공방관련 파일 경로
-	private String shopFileName; // 공방 관련 파일 이름
+	private int FileNo; // 공방 관련 파일 번호
+	private String FilePath; // 공방관련 파일 경로
+	private String FileName; // 공방 관련 파일 이름
 	private int shopNo; // 공방 번호
 	
 	
 	public ShopAttachment() {}
 
 
-	public ShopAttachment(int shopFileNo, String shopFilePath, String shopFileName, int shopNo) {
+	public ShopAttachment(int fileNo, String filePath, String fileName, int shopNo) {
 		super();
-		this.shopFileNo = shopFileNo;
-		this.shopFilePath = shopFilePath;
-		this.shopFileName = shopFileName;
+		FileNo = fileNo;
+		FilePath = filePath;
+		FileName = fileName;
 		this.shopNo = shopNo;
 	}
 
 
 	/**
-	 * @return the shopFileNo
+	 * @return the fileNo
 	 */
-	public int getShopFileNo() {
-		return shopFileNo;
+	public int getFileNo() {
+		return FileNo;
 	}
 
 
 	/**
-	 * @param shopFileNo the shopFileNo to set
+	 * @param fileNo the fileNo to set
 	 */
-	public void setShopFileNo(int shopFileNo) {
-		this.shopFileNo = shopFileNo;
+	public void setFileNo(int fileNo) {
+		FileNo = fileNo;
 	}
 
 
 	/**
-	 * @return the shopFilePath
+	 * @return the filePath
 	 */
-	public String getShopFilePath() {
-		return shopFilePath;
+	public String getFilePath() {
+		return FilePath;
 	}
 
 
 	/**
-	 * @param shopFilePath the shopFilePath to set
+	 * @param filePath the filePath to set
 	 */
-	public void setShopFilePath(String shopFilePath) {
-		this.shopFilePath = shopFilePath;
+	public void setFilePath(String filePath) {
+		FilePath = filePath;
 	}
 
 
 	/**
-	 * @return the shopFileName
+	 * @return the fileName
 	 */
-	public String getShopFileName() {
-		return shopFileName;
+	public String getFileName() {
+		return FileName;
 	}
 
 
 	/**
-	 * @param shopFileName the shopFileName to set
+	 * @param fileName the fileName to set
 	 */
-	public void setShopFileName(String shopFileName) {
-		this.shopFileName = shopFileName;
+	public void setFileName(String fileName) {
+		FileName = fileName;
 	}
 
 
@@ -86,10 +86,12 @@ public class ShopAttachment {
 
 	@Override
 	public String toString() {
-		return "ShopAttachment [shopFileNo=" + shopFileNo + ", shopFilePath=" + shopFilePath + ", shopFileName="
-				+ shopFileName + ", shopNo=" + shopNo + "]";
+		return "ShopAttachment [FileNo=" + FileNo + ", FilePath=" + FilePath + ", FileName=" + FileName + ", shopNo="
+				+ shopNo + "]";
 	}
+
 	
 	
+
 
 }

@@ -34,8 +34,8 @@ public class ShopServiceImpl implements ShopService{
        
        // 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
        ShopAttachment at = new ShopAttachment();
-       at.setShopFilePath(filePath);
-       at.setShopFileName(fileName);
+       at.setFilePath(filePath);
+       at.setFileName(fileName);
     
        // 서버에 파일 저장(transferTo() )
        
@@ -52,6 +52,7 @@ public class ShopServiceImpl implements ShopService{
        return at;
     }
     
+    
     // 공방 등록 Service
     @Override
     public int registrateShop(Shop shop, MultipartFile image){
@@ -59,6 +60,18 @@ public class ShopServiceImpl implements ShopService{
     	 int shopNo = dao.selectNextNo();
     	
     	
+    	 int result = dao.registrateShop(shop);
+    	 
+    	 
+    	 if(result > 0) { // 삽입 성공 시
+    		 
+    		 
+    		 
+    		 
+    		 
+    		 
+    		 
+    	 }
     	
     	
     	return 0;

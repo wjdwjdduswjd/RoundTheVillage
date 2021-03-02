@@ -157,17 +157,36 @@
                     
                     <br>
                     
-                    <!-- 전화번호 -->
-                    <div class="row mb-3 form-row">
-                        <div class="col-md-3">
-                            <label for="contact">공방 연락처</label>
+ <!-- 전화번호 -->
+					<div class="row mb-3 form-row">
+						<!-- 전화번호1 -->
+						<div class="col-md-3">
+							<select class="custom-select" id="phone1" name="phone1" required>
+								<option>010</option>
+								<option>011</option>
+								<option>016</option>
+								<option>017</option>
+								<option>019</option>
+							</select>
+						</div>
+
+						<!-- 전화번호2 -->
+						<div class="col-md-3">
+							<input type="number" class="form-control phone" id="phone2" maxlength="4" name="phone2" required>
+						</div>
+
+						<!-- 전화번호3 -->
+						<div class="col-md-3">
+							<input type="number" class="form-control phone" id="phone3" maxlength="4" name="phone3" required>
 						</div>
 						
-                        <div class ="col-md-6">
-                            <input type="text" id = "contact" name="shopContact" class="form-control" maxlength="13" placeholder=" 숫자만 입력해 주세요.">
-					    </div>
-                    
-                    </div>
+							<div class="col-md-6 offset-md-3">
+							<span id="checkPhone">&nbsp;</span>
+						</div>
+						
+						</div>
+
+				
                     
                 <!-- 카테고리 버튼 -->
                 <div>
@@ -263,24 +282,62 @@
 </div>
 
 <jsp:include page="../common/footer.jsp"/>
-<script>
-    
 
-    /*  전화 번호 유효성 */
-    $('#contact').keydown(function(event) {
-    var key = event.charCode || event.keyCode || 0;
-    $text = $(this);
-    if (key !== 8 && key !== 9) {
-        if ($text.val().length === 3) {
-            $text.val($text.val() + '-');
-        }
-        if ($text.val().length === 8) {
-            $text.val($text.val() + '-');
-        }
-    }
- 
-    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+<!-- jQuery와 postcodify 를 로딩한다. -->
+	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	<script>
+		// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+		$(function() {
+			$("#postcodify_search_button").postcodifyPopUp();
+		});
+	</script>
+
+<script>
+
+var signUpCheck = {
+		"name" : false,
+		"phone2" : false,
+	};
+    
+var $name = $("#name");
+var $phone2 = $("#phone2");
+var $phone3 = $("#phone3");
+
+$name.on("input", function() {
+	var regExp = /^[가-힣]{2,}$/; // 한글 두 글자 이상
+
+	if (!regExp.test($(this).val())) { // 이름이 정규식을 만족하지 않을경우
+		$("#checkName").text("한글 두 글자 이상을 입력하세요").css("color", "red");
+		signUpCheck.name = false;
+	} else {
+		$("#checkName").text("정상입력").css("color", "green");
+		signUpCheck.name = true;
+	}
 });
+
+// 전화번호 유효성 검사
+$(".phone").on("input", function() {
+
+	// 전화번호 input 태그에 4글자 이상 입력하지 못하게 하는 이벤트
+	if ($(this).val().length > $(this).prop("maxLength")) {
+		$(this).val($(this).val().slice(0, $(this).prop("maxLength")));
+	}
+
+	// 전화번호 유효성 검사
+	var regExp1 = /^\d{3,4}$/; // 숫자 3~4 글자
+	var regExp2 = /^\d{4,4}$/; // 숫자 4 글자
+
+	if (!regExp1.test($phone2.val()) || !regExp2.test($phone3.val())) {
+		$("#checkPhone").text("전화번호가 유효하지 않습니다.").css("color", "red");
+		signUpCheck.phone2 = false;
+	} else {
+		$("#checkPhone").text("유효한 전화번호입니다.").css("color", "green");
+		signUpCheck.phone2 = true;
+	}
+});
+
+
+   
 
 // 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 $(function(){
@@ -330,11 +387,36 @@ $(function(){
 
 	  
 	  function validate(){
+		  
+			for ( var key in signUpCheck) {
+				if (!signUpCheck[key]) {
+					var str;
+					switch (key) {	
+					case "name": str = "이름";	break;
+					case "phone2":str = "전화번호";break;
+					}
+
+					swal({icon:"warning", title:str+" 형식이 유효하지 않습니다."})
+					.then(function(){   // .then  : swal창이 닫힌 후 동작을 지정
+						var id = "#" + key;
+						$(id).focus();
+					});
+					
+					return false;
+				}
+			}
+		  
+		  
+			$shopContact = $("<input>", {type : "hidden", name : "shopContact",
+				value : $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val()
+		});
+			
+			
 		  $shopAdress = $("<input>", {type : "hidden", name : "shopAdress",
 				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
 			});
 		
-			$("form[name='registrationFrom']").append($shopAdress);
+			$("form[name='registrationFrom']").append($shopContact).append($shopAdress);
 			  
 		  
 	  }
