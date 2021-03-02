@@ -19,7 +19,7 @@
   crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>후기 게시글 등록</title>
-</head>
+
 <style>
 
 * {
@@ -30,11 +30,11 @@
   /*  color: #212529; */
    }
    
- .summerNoteArea {
+/* 	.summerNoteArea {
     border: 1px solid black;
     width: 500px;
     height: 500px;
-  }
+  }  */
 
   .btnArea {
     text-align: center;
@@ -134,16 +134,31 @@ body {
   height: 38px;
   margin-bottom: 11px;
 }
+
+
+.thumbnail{
+		margin-left: 15px;
+	}
+	
+
 </style>
 
-
-<body>
-
-	<jsp:include page="../common/header.jsp"/>
 	<!-- summernote 사용 시 필요한 css 파일 추가 -->
 	<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 		
+</head>
+<body>
+
+	<jsp:include page="../common/header.jsp"/>
 	<!-- summernote 사용 시  필요한 js 파일 추가 -->
+		<style>
+		
+		hr{
+			width : 100%;
+		}
+
+	</style>
+	
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
@@ -156,13 +171,13 @@ body {
         <br>
         <hr>
 
-				<form action="#" method="GET" class="text-center" id="insertForm">
+			<form action = "insertAction" enctype="multipart/form-data" method = "post" role = "form" onsubmit = "return validate();" >
         <div class="content-header">
           <div class="row">
             <div class="col-md-7 px-3">
               <p>
-                <span class="pr-4"><b>내용</b></span>
-                <input class="titleInput"> 
+                <span class="pr-4"><b>제목</b></span>
+               <input type="text" class="titleInput" id="title" name="boardTitle" size="40">
               </p>
             </div>
             <div class="col-md-5 px-3">
@@ -200,23 +215,36 @@ body {
           </div>
         </div> <!-- .content-header end -->
 
+				<hr>
+
         <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
+        
+        <div class="form-inline mb-2 thumbnail">
+					<label class="input-group-addon mr-3 insert-label pr-4"><b>썸네일</b></label>
+					<div class="boardImg" id="titleImgArea">
+						<img id="titleImg" width="200" height="200">
+					</div>
+				</div>
+        
+        <hr>
+        
           <div class="col-md-12 summerNoteArea">
-            <!-- <textarea class="form-control" id="summernote" name="boardContent"
-						rows="10" style="resize: none;"></textarea> -->
+						<textarea class="form-control" id="summernote" name="boardContent"
+						rows="10" style="resize: none;"></textarea> 
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->
 
         <hr>
+        <br>
         <div class="row">
           <div class="col-md-8">
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
+              <a class="btn btn-primary btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
+              <button type="submit" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
             </span>
           </div>
           </form>
@@ -227,6 +255,18 @@ body {
       </div>
     </div>
   </div>
+  
+  
+  <script>
+  
+	function validate() {
+		if ($("#title").val().trim().length == 0) {
+			alert("제목을 입력해 주세요.");
+			$("#title").focus();
+			return false;
+		}
+  
+  </script>
 
 
 </body>

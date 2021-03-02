@@ -1,14 +1,25 @@
 package com.kh.RoundTheVillage.shop.model.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.RoundTheVillage.shop.model.dao.ShopDAO;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
+import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
-@Service
-public class ShopService {
+public interface ShopService {
+
 	
-	@Autowired
-	private ShopDAO dao;
+	/** summernote 업로드 이미지 저장 Service
+	 * @param uploadFile
+	 * @param savePath
+	 * @return
+	 */
+	public abstract ShopAttachment insertImage(MultipartFile uploadFile, String savePath);
+
+	/** 공방 등록 Service 
+	 * @param shop
+	 * @param image
+	 * @return
+	 */
+	public abstract int registrateShop(Shop shop, MultipartFile image);
 
 }

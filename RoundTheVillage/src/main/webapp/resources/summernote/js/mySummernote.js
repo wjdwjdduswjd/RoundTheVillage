@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#summernote').summernote({
-        width : 1000, // 에디터 넓이
-        height : 600, // 에디터 높이
+        width : 740, // 에디터 넓이
+        height : 500, // 에디터 높이
         lang : 'ko-KR', // 언어 : 한국어
 
         // 이미지 업로드 이벤트가 발생했을 때 콜백 함수 수행

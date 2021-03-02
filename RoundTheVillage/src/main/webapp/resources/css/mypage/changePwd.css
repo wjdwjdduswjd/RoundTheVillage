@@ -1,0 +1,67 @@
+@charset "UTF-8";
+*{font-family: 'NanumSquare', sans-serif !important;}
+.container{
+	height: 700px;
+}
+
+.myInfo{
+	height : 600px;
+	background-color: #F8F8F8;
+	margin-top: 100px;
+}
+
+
+.info{
+	width: 70%;
+	margin: auto;
+}
+
+.info-a{padding-top: 80px;}
+
+
+
+.info-b{
+	width : 100%;
+	padding-top: 40px;
+	display: inline-block;
+}
+.label-area{
+	width: 130px;
+  text-align: left;
+}
+.output{
+	display: inline-block;
+}
+
+.input-area{
+	border:1px solid #dfdfdf;	 
+	height: 35px;
+	width: 35%;
+}
+
+
+#myInfoChange{
+    width: 80%;
+    height: 40px;
+    border:1px solid #dfdfdf;	
+    border-radius:5px; 
+    background:#FCEAD6;
+    margin-top: 80px;
+}
+#myInfoChange:hover{
+    background:#FBBC73;
+}
+.myInfoChange-area{
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+

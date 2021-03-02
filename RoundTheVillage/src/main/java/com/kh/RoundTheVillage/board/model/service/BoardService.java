@@ -5,15 +5,39 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
 
 public interface BoardService {
 
-	PageInfo getPageInfo(int cp);
+	/** 페이징 처리 객체 생성 
+	 * @param cp
+	 * @return pInfo
+	 */
+	public abstract PageInfo getPageInfo(int cp);
 
-	List<Board> selectList(PageInfo pInfo);
+	/** 게시글 목록 조회
+	 * @param pInfo
+	 * @return bList
+	 */ 
+	public abstract List<Board> selectList(PageInfo pInfo);
+
+	/** 썸네일 목록 조회
+	 * @param bList
+	 * @return thList
+	 */
+	public abstract List<Attachment> selectThumbnailList(List<Board> bList);
+
+	/** 게시글 상세 조회
+	 * @param boardNo
+	 * @return 
+	 */
+	public abstract Board selectBoard(int boardNo);
+	
+	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
 
 
 

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.RoundTheVillage.board.model.dao.BoardDAO;
+import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
@@ -40,7 +41,86 @@ public class BoardServiceImpl implements BoardService{
 		return dao.selectList(pInfo);
 	}
 
+	// 썸네일 목록 조회
+	@Override
+	public List<Attachment> selectThumbnailList(List<Board> bList) {
+		// TODO Auto-generated method stub
+		return dao.selectThumbnailList(bList);
+	}
+	
+	// 게시글 상세 조회
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Board selectBoard(int boardNo) {
+		
+		Board temp = new Board();
+		temp.setBoardNo(boardNo);
+
+		Board board = dao.selectBoard(temp);
+		
+		return null;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath) {
+		
+		int result = 0;
+		
+		int boardNo = dao.selectNextNo();
+		
+		if(boardNo > 0) {
+			map.put("boardNo", boardNo); 
+			
+			String boardTitle = (String)map.get("boardTitle");
+			String boardContent = (String)map.get("boardContent");
+			
+			boardTitle = replaceParameter(boardTitle);
+			boardContent = replaceParameter(boardContent);
+			
+			map.put("boardTitle", boardTitle);
+			map.put("boardContent", boardContent);
+			
+			
+			result = dao.insertBoard(map);
+
+		}
+		
+		
+		if(result > 0) {
+			
+			List<Attachment> uploadImages = new ArrayList<Attachment>();
+			
+			String filePath = null;
+			result = boardNo;
+			
+			
+		}
+		
+		
+		
+		return result;
+	}
+	
+	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+	private String replaceParameter(String param) {
+		String result = param;
+		if(param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		
+		return result;
+	}
+
+	
+
+	}
+
 
 	
 	
-}
+

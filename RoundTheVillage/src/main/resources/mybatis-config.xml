@@ -11,12 +11,16 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.Lesson" alias="Lesson"/>
+		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonDetail" alias="LessonDetail"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Pay" alias="Pay"/>
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Coupon" alias="Coupon"/>
 		<typeAlias type="com.kh.RoundTheVillage.banner.model.vo.Banner" alias="Banner"/>
 		<typeAlias type="com.kh.RoundTheVillage.CScenter.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.Shop" alias="Shop"/>
+		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
+		
 	</typeAliases>  
 
   <mappers>
@@ -25,6 +29,7 @@
 	  <mapper resource="/mappers/pay-mapper.xml"/>
 	  <mapper resource="/mappers/banner-mapper.xml"/>
 	  <mapper resource="/mappers/notice-mapper.xml"/>
+	  <mapper resource="/mappers/shop-mapper.xml"/>
   </mappers>
 
 
