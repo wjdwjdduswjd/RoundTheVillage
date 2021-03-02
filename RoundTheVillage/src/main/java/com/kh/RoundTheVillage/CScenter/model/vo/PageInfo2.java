@@ -17,10 +17,9 @@ public class PageInfo2 {
 	
 	public PageInfo2() {}
 	
-	public PageInfo2(int currentPage, int listCount, int boardType) {
+	public PageInfo2(int currentPage, int listCount) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
-		this.boardType = boardType;
 		
 		// 값을 입력 받은 후 계산 진행
 		makePageInfo();
@@ -45,14 +44,6 @@ public class PageInfo2 {
 		
 		makePageInfo();
 	}
-
-
-	
-	
-	public PageInfo2(int cp, int listCount) {
-	}
-	
-	
 	
 
 	public int getListCount() {

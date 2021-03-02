@@ -34,7 +34,6 @@ public class NoticeDAO {
 	 */
 	public List<Notice> selectList(PageInfo2 pInfo) {
 		
-		// RowBounds 객체 : offset과 limit을 이용하여 조회 내용 중 일부 행만 조회하는 마이바티스 객체
 		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
@@ -61,6 +60,30 @@ public class NoticeDAO {
 	}
 	
 	
+	/** 다음 게시글 번호 얻어오기 DAO
+	 * @return
+	 */
+	public int selectNextNo() {
+		return sqlSession.selectOne("noticeMapper.selectNextNo");
+	}
+	
+	
+	/** 게시글 삽입 DAO
+	 * @param map
+	 * @return
+	 */
+	public int insertNotice(Map<String, Object> map) {
+		return sqlSession.insert("noticeMapper.insertNotice", map);
+	}
+	
+	
+	/** 파일 정보 삽입 DAO
+	 * @param uploadImages
+	 * @return result (성공한 행의 개수)
+	 */
+	public int insertAttachmentList(List<Attachment> uploadImages) {
+		return sqlSession.insert("noticeMapper.insertAttachmentList", uploadImages);
+	}
 }	
 	
 	

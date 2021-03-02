@@ -7,7 +7,6 @@
 		<id property="noticeNo" column="NOTICE_NO" />
 		<result property="noticeTitle" column="NOTICE_TITLE" />
 		<result property="noticeContent" column="NOTICE_CONTENT" />
-		<result property="memberType" column="MEM_TYPE" />
 		<result property="noticeCreateDate" column="NOTICE_CREATE_DT" />
 		<result property="noticeStatus" column="NOTICE_STATUS" />
 	</resultMap>
@@ -23,14 +22,14 @@
 	<!-- 전체 게시글 수 조회 -->
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM NOTICE
-		WHERE NOTICE_STATUS = 'N'
+		WHERE NOTICE_STATUS = 'Y'
 	</select>
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="selectList" parameterType="_int" resultMap="notice_rm">
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CREATE_DT
 		FROM NOTICE
-		WHERE NOTICE_STATUS = 'N'
+		WHERE NOTICE_STATUS = 'Y'
 		ORDER BY NOTICE_NO DESC
 	</select>
 	
@@ -38,7 +37,7 @@
 	<select id="selectBoard" parameterType="Notice" resultMap="notice_rm">
 		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DT
 		FROM NOTICE
-		WHERE NOTICE_STATUS = 'N'
+		WHERE NOTICE_STATUS = 'Y'
 		AND NOTICE_NO = #{noticeNo}
 	</select>
 	
@@ -50,5 +49,31 @@
 		ORDER BY FILE_LEVEL
 	</select>
 	
+	
+	<!-- 다음 게시글 번호 얻어오기 -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_NNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 게시글 삽입 -->
+	<insert id="insertNotice" parameterType="map">
+		INSERT INTO NOTICE VALUES ( #{noticeNo}, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT)
+	</insert>
+	
+	
+	<!-- 파일 정보 삽입 (List 이용) -->
+	<insert id="insertAttachmentList" parameterType="list">
+		INSERT INTO ATTACHMENT
+		SELECT SEQ_NFNO.NEXTVAL, A.* FROM (
+		
+			<foreach collection="list" item="item" separator=" UNION ALL ">
+				SELECT #{item.filePath} FILE_PATH,
+							 #{item.fileName} FILE_NAME,
+							 #{item.fileLevel} FILE_LEVEL,
+							 #{item.parentNoticeNo} PARENT_NOTICE_NO
+	 			FROM DUAL							 
+			</foreach>
+		)A
+	</insert>
 	
 </mapper>

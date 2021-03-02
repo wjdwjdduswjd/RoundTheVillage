@@ -40,4 +40,14 @@ public interface NoticeService {
 	 * @return attachmentList
 	 */
 	public abstract List<Attachment> selectAttachmentList(int noticeNo);
+	
+	
+	/** 게시글 삽입 (+파일 업로드) Service
+	 * @param map
+	 * @param savePath 
+	 * @param images 
+	 * @return result
+	 */
+	public abstract int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
 }

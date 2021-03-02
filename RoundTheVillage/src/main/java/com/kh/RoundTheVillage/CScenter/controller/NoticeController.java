@@ -25,6 +25,7 @@ import com.kh.RoundTheVillage.CScenter.model.service.NoticeService;
 import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 
 @Controller // 컨트롤러 + 빈 등록
 @SessionAttributes({ "loginMember" })
@@ -46,16 +47,15 @@ public class NoticeController {
 
 		PageInfo2 pInfo = service.getPageInfo(cp);
 
-		List<Notice> bList = service.selectList(pInfo);
+		List<Notice> nList = service.selectList(pInfo);
 
-		model.addAttribute("bList", bList);
+		model.addAttribute("nList", nList);
 		model.addAttribute("pInfo", pInfo);
 
 		return "CScenter/noticeList";
 	}
 
-	// 게시글 상세 조회 Controller
-	// ------------------------------------------------------------------------------------
+	// 게시글 상세 조회 Controller ------------------------------------------------------------------------------------
 	@RequestMapping("noticeNo")
 	public String boardView(@PathVariable("type") int type, @PathVariable("noticeNo") int noticeNo, Model model,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
@@ -63,7 +63,6 @@ public class NoticeController {
 		String url = null;
 
 		Notice notice = service.selectNotice(noticeNo);
-
 
 		if (notice != null) { // 상세조회성공
 
@@ -88,19 +87,52 @@ public class NoticeController {
 		}
 		return url;
 	}
-	
+
 	
 	// 게시글 등록 화면 전환용 Controller ---------------------------------------------------------------------------------------------------
-		@RequestMapping("noticeInsert")
-		public String insertView() {
-			
-			return "CScenter/noticeInsert";
-			
+	@RequestMapping("noticeInsert")
+	public String insertView() {
+		return "CScenter/noticeInsert";
+	}
+
+	
+	// 게시글 등록 Controller --------------------------------------------------------------------------------------------------------------
+	@RequestMapping("insertAction")
+	public String insertAction(@ModelAttribute Notice notice, 
+			@RequestParam(value = "images", required = false) List<MultipartFile> images, 
+			HttpServletRequest request, RedirectAttributes ra) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeTitle", notice.getNoticeTitle());
+		map.put("noticeContent", notice.getNoticeContent());
+
+		String savePath = null;
+		
+		// summernote 추가시 수정 부분 -------------------------------------------------------------------
+		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		
+		// 게시글 삽입 Service 호출
+		int result = service.insertNotice(map, images, savePath);
+
+		String url = null;
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 등록 성공";
+			url = "redirect:" + result;
+
+			request.getSession().setAttribute("returnListURL", "../list");
+
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 삽입 실패";
+			url = "redirect:insert";
 		}
-	
-	
-	
-	
-	
+
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+		return url;
+	}
 
 }

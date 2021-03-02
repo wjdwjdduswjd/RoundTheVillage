@@ -11,7 +11,7 @@
 .insert-label {
   display: inline-block;
   width: 80px;
-  line-height: 40px
+  line-height: 40px;
 }
 
 #bigTitle {
@@ -19,12 +19,14 @@
 	font-family: 'NanumSquare', sans-serif !important;
 }
 
+
 .form-group {
 	margin-top: 30px;
 	
 }
 
 form {
+	width: 1140;
 	padding: 0px;
 	margin: 30px;
 }
@@ -41,7 +43,7 @@ form {
 }
 
 #insert {
-	margin-left: 73px;
+	margin-left: 89px;
 	margin-top: 100px;
 }
 
@@ -61,6 +63,16 @@ form {
 	margin-left: 20px;
 }
 
+.line1 { 
+	width: 1140px;
+}
+
+
+#summernote{
+	width: 1140px;
+}
+
+
 
 </style>
 
@@ -78,8 +90,10 @@ form {
 	
 	<div class="container">
 
+			<div id="titleDiv">
 			<h3 id="bigTitle">공지사항 등록</h3>
 			<hr class="line1">
+			</div>
 			
 		<div class="container pb-5 mb-5">
 
@@ -194,7 +208,27 @@ form {
       	}
 			}
 		}
-		
+	  
+<!--  
+	  // summernote 설정
+	  $(document).ready(function() {
+		    $('#Nsummernote').summernote({
+		        width : 1140, // 에디터 넓이
+		        height : 500, // 에디터 높이
+		        lang : 'ko-KR', // 언어 : 한국어
+
+		        // 이미지 업로드 이벤트가 발생했을 때 콜백 함수 수행
+		        callbacks : {
+		            onImageUpload : function(files){
+		                // files : 업로드 된 이미지가 배열로 저장되어 있음.
+		                // editor == this : 이미지가 업로드 된 섬머노트 에디터 
+		                sendFile(files[0], this);
+		            }
+		        }
+
+		    });
+		  });
+-->			
 	</script>
 </body>
 </html>

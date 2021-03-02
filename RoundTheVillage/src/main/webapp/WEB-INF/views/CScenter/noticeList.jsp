@@ -65,7 +65,7 @@
 }
 
 .pagination {
-	margin-top: 120px;
+	margin-top: 90px;
 }
 </style>
 
@@ -85,14 +85,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty bList}">
+					<c:if test="${empty nList}">
 						<tr>
 							<td colspan="6">존재하는 게시글이 없습니다.</td>
 						</tr>
 					</c:if>
 
-					<c:if test="${!empty bList}">
-						<c:forEach var="notice" items="${bList}" varStatus="vs">
+					<c:if test="${!empty nList}">
+						<c:forEach var="notice" items="${nList}" varStatus="vs">
 
 							<tr>
 								<td>${notice.noticeNo}</td>
@@ -120,7 +120,6 @@
 			</table>
 		</div>
 
-		<hr>
 
 		<%-- 로그인이 되어있는 경우 --%> <!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
 		<%-- <c:if test="${!empty loginMember && loginMember.memberType =='A' }">--%>
