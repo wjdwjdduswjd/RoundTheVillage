@@ -83,6 +83,7 @@ public class BoardServiceImpl implements BoardService{
 			
 			
 			result = dao.insertBoard(map);
+
 		}
 		
 		
@@ -91,6 +92,7 @@ public class BoardServiceImpl implements BoardService{
 			List<Attachment> uploadImages = new ArrayList<Attachment>();
 			
 			String filePath = null;
+			result = boardNo;
 			
 			
 		}

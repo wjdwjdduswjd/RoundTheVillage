@@ -30,11 +30,11 @@
   /*  color: #212529; */
    }
    
- .summerNoteArea {
+/* 	.summerNoteArea {
     border: 1px solid black;
-    width: 500px
+    width: 500px;
     height: 500px;
-  }
+  }  */
 
   .btnArea {
     text-align: center;
@@ -139,6 +139,7 @@ body {
 .thumbnail{
 		margin-left: 15px;
 	}
+	
 
 </style>
 
@@ -150,6 +151,14 @@ body {
 
 	<jsp:include page="../common/header.jsp"/>
 	<!-- summernote 사용 시  필요한 js 파일 추가 -->
+		<style>
+		
+		hr{
+			width : 100%;
+		}
+
+	</style>
+	
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
@@ -234,8 +243,8 @@ body {
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
+              <a class="btn btn-primary btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
+              <button type="submit" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
             </span>
           </div>
           </form>

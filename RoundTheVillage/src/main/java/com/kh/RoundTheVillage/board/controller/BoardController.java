@@ -79,6 +79,14 @@ public class BoardController {
 	  
 	   Board board = service.selectBoard(boardNo);
 	   
+	   String url = null;
+	   
+	   if(board != null) {
+		   
+			/* List<Attachment> attachmentList = service.selectAttachmentList() */
+		   
+		   
+	   }
 	   
 	   
 	   
@@ -89,12 +97,10 @@ public class BoardController {
    }
    
    
+
    
    
-   
-   
-   
-   
+   // 게시글 등록 화면 전환
    @RequestMapping("insert")
   public String insertView() {
 	 
@@ -107,27 +113,44 @@ public class BoardController {
    @RequestMapping("insertAction")
    public String insertAction( 
 		  @ModelAttribute Board board, // 작성한 글제목, 내용, 카테고리코드를 얻기위한 어노테이션 
-		  @ModelAttribute("loginMember") Member loginMember, 
+		  //@ModelAttribute("loginMember") Member loginMember, 
 		  @RequestParam(value="images", required = false) List<MultipartFile> images,
 		  HttpServletRequest request,
 		  RedirectAttributes ra) {
 	   
 	  Map<String, Object> map = new HashMap<String, Object>(); // 맵을 이용해 받아온 정보들을 한곳에 담기
 	  // map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
+	   map.put("memberNo", 1); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
 	   map.put("boardContent", board.getBoardContent()); // 내가 작성한 글 내용
-	   map.put("categoryNo", board.getClassCategoryNo()); // 카테고리 코드
-	   map.put("classNo", board.getClassNo()); // 공방 번호
+	   map.put("classNo", 1 /*board.getClassNo()*/); // 공방 번호
+	   map.put("classCategoryNo", 1/* board.getClassCategoryNo()*/); // 카테고리 코드
 	  
 	  String savePath = null;
 	   
 	  savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
    
-	  int result = service.insertBoard(map, images, savePath);
+		int result = service.insertBoard(map, images, savePath);
 	 
-	  
-	   
-	   return null;
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 등록 성공";
+			url = "redirect:" + result;
+			
+			request.getSession().setAttribute("returnListURL", "../list");
+		
+		}else {
+			   swalIcon = "error";
+			   swalTitle = "게시글 삽입 실패";
+			   url = "redirect:insert"; 
+		   }
+		   
+		   ra.addFlashAttribute("swalIcon", swalIcon);
+		   ra.addFlashAttribute("swalTitle", swalTitle);
+		   
+		   return url;
 	   
    }
    
