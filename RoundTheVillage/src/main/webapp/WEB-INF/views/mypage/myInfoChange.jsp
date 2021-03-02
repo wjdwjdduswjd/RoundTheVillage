@@ -65,7 +65,7 @@
 
 					<div class="info-b">
 						<label class="label-area">비밀번호 변경</label>
-						<button type="button" id="chagePwd" class="chagePwd">비밀번호 변경</button>
+						<button type="button" id="chagePwd" class="chagePwd" onclick="location.href='${contextPath}/mypage/changePwd'">비밀번호 변경</button>
 					</div>
 		
 		
@@ -141,17 +141,18 @@
            </div>
 
 
-
-
-
-
-
 				</div>
 			</div>
 
-
-
+		
+			<!-- 탈퇴하기 -->
+			<div class="secession">
+				<a onclick="location.href='${contextPath}/mypage/secession'" class="a-text">탈퇴하기</a> 
+			</div>
+			
+			
 		</div>
+		
 	</div>
 
 

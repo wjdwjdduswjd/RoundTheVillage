@@ -14,15 +14,15 @@ public class MypageController {
 	}
 	
 	//비밀번호 변경
-//	@RequestMapping("changePwd")
-//	public String changePwd() {
-//		return "mypage/changePwd";
-//	}
-//	
-//	// 회원 탈퇴
-//	@RequestMapping("secession")
-//  public String secession() {
-//		return "mypage/secession";
-//	}
+	@RequestMapping("changePwd")
+	public String changePwd() {
+		return "mypage/changePwd";
+	}
+	
+	// 회원 탈퇴
+	@RequestMapping("secession")
+	public String secession() {
+		return "mypage/secession";
+	}
 		
 }
