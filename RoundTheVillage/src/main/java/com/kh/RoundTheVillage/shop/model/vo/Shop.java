@@ -7,7 +7,7 @@ public class Shop {
 	private String shopName; // 공방명
 	private String shopAdress; // 공방 주소
 	private String shopInfo; // 공방 소개
-	private int shopContact; // 공방 연락처
+	private String shopContact; // 공방 연락처
 	private String thumbInfo; // 썸네일 소개글
 	private String shopCategoryName; // 공방 카테고리 이름
 	private int shopCategoryNo; // 공방 카테고리 번호
@@ -99,7 +99,7 @@ public class Shop {
 	/**
 	 * @return the shopContact
 	 */
-	public int getShopContact() {
+	public String getShopContact() {
 		return shopContact;
 	}
 
@@ -107,7 +107,7 @@ public class Shop {
 	/**
 	 * @param shopContact the shopContact to set
 	 */
-	public void setShopContact(int shopContact) {
+	public void setShopContact(String shopContact) {
 		this.shopContact = shopContact;
 	}
 
@@ -167,6 +167,7 @@ public class Shop {
 				+ ", thumbInfo=" + thumbInfo + ", shopCategoryName=" + shopCategoryName + ", shopCategoryNo="
 				+ shopCategoryNo + "]";
 	}
+
 
 
 
