@@ -27,6 +27,38 @@
 	margin-top: 30px;
 }
 
+/* 관심분야 체크박스 버튼 관련 */
+/* 관심분야 체크박스 없애는 */
+.box-radio-input input[type="radio"]{
+    display:none;
+    width: 100%;
+    
+}
+
+.box-radio-input input[type="radio"] + span{
+    width: 82px;
+    display:inline-block;
+      background:none;
+      border:1px solid #dfdfdf;    
+      text-align:center;
+      line-height:50px;
+      font-weight:400;
+      cursor:pointer;
+    background:#FCEAD6;
+    /* 모서리 */
+    border-radius:5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    
+}
+
+.box-radio-input input[type="radio"]:checked + span{
+    border:1px solid #FBBC73;
+      background:#FBBC73;
+      color:rgb(0, 0, 0);
+    font-weight:550;
+}
+
 
 </style>
 
@@ -52,7 +84,7 @@
             
             <div class="col-md-7 offset-md-3">
                              
-                <form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();">
+                <form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();" enctype="multipart/form-data">
                 
 
                         <!-- 대표자 이름 -->
@@ -62,7 +94,7 @@
                                 <label for="storeUserName">대표자</label>
                             </div>
                             <div class ="col-md-6">
-                                <input type = "text"  class="form-control" id = "name" name = "storeUserName" placeholder="이름을 입력하세요." autocomplete="off" required >
+                                <input type = "text"  class="form-control" id = "name" name = "shopOwnerName" placeholder="이름을 입력하세요." autocomplete="off" required >
                             </div>
                             
                     <div class="col-md-6 offset-md-3">
@@ -132,7 +164,7 @@
 						</div>
 						
                         <div class ="col-md-6">
-                            <input type="text" id = "contact" name="contact" class="form-control" maxlength="13" placeholder=" 숫자만 입력해 주세요.">
+                            <input type="text" id = "contact" name="shopContact" class="form-control" maxlength="13" placeholder=" 숫자만 입력해 주세요.">
 					    </div>
                     
                     </div>
@@ -144,38 +176,41 @@
                
                 <hr>
 
-                <div>
+<label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="art" value="1" checked="checked"><span>미술</span>
+            </label>
 
-                    <div>      
-                        
-                        <button>미술</button>
-                        
-                        <button>사진/영상</button>
-                        
-                        <button>요리/음료</button>
-                    
-                        <button>뷰티</button>
-                        
-                        <button>음악</button>
-                        
-                    </div>
-                    <br>
-                        <div>
-                            
-                            <button>운동</button>
-                            
-                            <button>공예</button>
-                            
-                            <button>글쓰기</button>
-                                    
-                            <button>키즈</button>
- 
-                            <button>플라워</button>
-                            
-                            
-                        </div>
-                        
-                    </div>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="pic" value="2"><span>사진/영상</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="cook" value="3"><span>요리/음료</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="bty" value="4"><span>뷰티</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="music" value="5"><span>음악</span>
+            </label>
+            <br><!--  -->
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="exercise" value="6"><span>운동</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="craft" value="7"><span>공예</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="writing" value="8"><span>글쓰기</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="kids" value="9"><span>키즈</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="flowers" value="10"><span>플라워</span>
+            </label>
                         
                     
                 <hr>
@@ -190,28 +225,28 @@
 
                 <br>
                 
+       		<!-- 파일 업로드 하는 부분 -->
+				<div id="fileArea">
+					<input type="file" id="img0" name="image" onchange="LoadImg(this,0)"> 
+				</div>
                 <!-- 공방 썸네일 소개 글 -->
                 <div>
                     <label>공방 썸네일 소개글</label>
                     <div>
-                        <input  class="form-control" id ="introshop" autocomplete="off" required >
+                        <input  class="form-control" id ="introshop" name ="thumbInfo" autocomplete="off" required >
                     </div>
                 </div>
 
                 
                 <br>
                 
-       		<!-- 파일 업로드 하는 부분 -->
-				<div id="fileArea">
-					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
-				</div>
 
 				<div class="form-group">
 					<div>
 						<label for="content">내용</label>
 					</div>
-					<textarea class="form-control" id="summernote" name="boardContent"
-						rows="10" style="resize: none;"></textarea>
+					<textarea class="form-control" id="summernote" name="shopInfo"
+						rows="5" style="resize: none;"></textarea>
 				</div>
 
         
@@ -253,14 +288,8 @@ $(function(){
 			
 			$(".boardImg").on("click", function(){ // 이미지 영역이 클릭 되었을 때
 				
-				// 클릭한 이미지 영역 인덱스 얻어오기
-				var index = $(".boardImg").index(this);
-						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
-						
-				//console.log(index);
-				
-				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
-				$("#img" + index).click();
+
+				$("#img").click();
 			});
 			
 		});
@@ -298,6 +327,19 @@ $(function(){
       	}
 			}
 		}
+
+	  
+	  function validate(){
+		  $shopAdress = $("<input>", {type : "hidden", name : "shopAdress",
+				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
+			});
+		
+			$("form[name='registrationFrom']").append($shopAdress);
+			  
+		  
+	  }
+	  
+
 		
 
 
