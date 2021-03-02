@@ -18,6 +18,50 @@
 	margin-top: 50px;
 	font-family: 'NanumSquare', sans-serif !important;
 }
+
+.form-group {
+	margin-top: 30px;
+	
+}
+
+form {
+	padding: 0px;
+	margin: 30px;
+}
+
+.text-center{
+	margin-top: 30px;
+}
+
+#insert, #back {
+	color: #FFF;
+	background-color: #FBBC73;
+	border : 1px solid #FBBC73;
+	margin-top: -5px;
+}
+
+#insert {
+	margin-left: 73px;
+	margin-top: 100px;
+}
+
+#back {
+	margin-right: 20px;
+}
+
+#createDt {
+	margin-left: 80px;
+}
+
+#today{
+	margin-right: 20px;
+}
+
+#contentTitle, #title{
+	margin-left: 20px;
+}
+
+
 </style>
 
 <!-- summernote 사용시 필요한 css 파일 추가 -->
@@ -34,10 +78,11 @@
 	
 	<div class="container">
 
+			<h3 id="bigTitle">공지사항 등록</h3>
+			<hr class="line1">
+			
 		<div class="container pb-5 mb-5">
 
-			<h3 id="bigTitle">게시글 등록</h3>
-			<hr>
 			<!-- 파일 업로드 시 enctype="multipart/form-data" 지정 -->
 			<!-- 
 				- enctype : form 태그 데이터가 서버로 제출 될 때 인코딩 되는 방법을 지정. (POST 방식일 때만 사용 가능)
@@ -47,19 +92,15 @@
 			<form action="insertAction"  method="post" enctype="multipart/form-data" role="form" onsubmit="return validate();">
 			
 				<div class="form-inline mb-2">
-					<label class="input-group-addon mr-3 insert-label">제목</label> 
+				
+					<label class="input-group-addon mr-3 insert-label" id="contentTitle">제목 :</label> 
 					<input type="text" class="form-control" id="title" name="boardTitle" size="70">
-				</div>
-
-				<div class="form-inline mb-2">
-					<label class="input-group-addon mr-3 insert-label">작성일</label>
+					
+					<label class="input-group-addon mr-3 insert-label" id="createDt">작성일 :</label>
 					<h6 class="my-0" id="today">
-						<jsp:useBean id="now" class="java.util.Date" />
-						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/>
+						<jsp:useBean id="now" class="java.util.Date" /><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/>
 					</h6>
-				</div>  
-
-				<hr>
+				</div>
 
 
 
@@ -74,12 +115,9 @@
 						rows="10" style="resize: none;"></textarea>
 				</div>
 
-
-				<hr class="mb-4">
-
 				<div class="text-center">
-					<button type="submit" class="btn btn-success">등록</button>
-					<a class="btn btn-success float-right" href="${sessionScope.returnListURL}">목록으로</a>
+					<button type="submit" class="btn btn-success" id="insert">등록</button>
+					<a class="btn btn-success float-right" href="${sessionScope.returnListURL}" id="back">목록으로</a>
 				</div>
 
 			</form>
