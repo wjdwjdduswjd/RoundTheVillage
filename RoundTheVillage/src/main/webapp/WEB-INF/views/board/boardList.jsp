@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%-- <jsp:include page="../common/header.jsp"/> --%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +22,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"></script>
-</head>
+
+<jsp:include page="../common/header.jsp"/>
+
 <style>
 
    * {
@@ -142,8 +143,6 @@ body {
 }
 /* ------------------------------------------------------- */
 
-HTML CSSResult Skip Results Iframe
-
 /* 
 .box {
   position: absolute;
@@ -219,9 +218,9 @@ HTML CSSResult Skip Results Iframe
 
 
 </style>
-
+</head>
 <body>
-	<jsp:include page="../common/header.jsp"/> 
+	<%-- <jsp:include page="../common/header.jsp"/> --%>
    <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -264,28 +263,39 @@ HTML CSSResult Skip Results Iframe
 
 
                 </div>
+                
+                
+               
+                     <c:if test="${empty bList }">
+                  <tr>
+                     <td colspan="6">존재하는 게시글이 없습니다.</td>
+                  </tr>
+               </c:if>
 
                 <br>
 
+							 <c:if test="${!empty bList }">
                 <div class="row thumbnailArea">
-                    <div class="col-md-3 area3">
+                <!--     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
                         <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
                         <img src="하트.png" class="like">300
-                    </div>
+                    </div> -->
                     
-                    <%-- <c:forEach var="board" items="bList">
+                    <c:forEach var="board" items="${bList}" varStatus="vs">
                     	 <div class="col-md-3 area3">
 	                        <img src="공방.PNG" class="thumbnail">
-	                        <span class="badge badge-default">${board.title } </span>
+	                        <span class="badge badge-default">${board.boardTitle}</span>
 	                        <img src="하트.png" class="like">300
 	                    </div>
-                    </c:forEach> --%>
+                    </c:forEach> 
                    
               </div> 
+              
+             </c:if>
                 
                 
-                <div class="row thumbnailArea">
+             <!--    <div class="row thumbnailArea">
                     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
                         <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
@@ -352,7 +362,7 @@ HTML CSSResult Skip Results Iframe
                         <img src="하트.png" class="like">300
                     </div>
                 </div>
-                <br>
+                <br> -->
 
 								
 								  
@@ -362,7 +372,22 @@ HTML CSSResult Skip Results Iframe
                     <ul class="pagination pagination-sm justify-content-center">
 
 
+											  <!-- 화살표에 들어갈 주소를 변수로 생성 -->
+		            <c:set var="firstPage" value="${pageUrl}cp=1"/>
+		            <c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
 
+
+								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+		            <fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+		            <c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+		            
+		            
+		            <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+		            <fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+		            <c:set var="nextPage" value="${pageUrl}cp=${next}" />
+
+
+											 <c:if test="${pInfo.currentPage > pInfo.pageSize}">
                         <li class="page-item">
                             <!-- 첫 페이지로 이동(<<) -->
                             <a class="page-link" href="${firstPage}">&lt;&lt;</a>
@@ -372,18 +397,25 @@ HTML CSSResult Skip Results Iframe
                             <!-- 이전 페이지로 이동(<) -->
                             <a class="page-link" href="${prevPage}">&lt;</a>
                         </li>
+                         </c:if>
 
+												<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+													<c:choose>
+													<c:when test="${pInfo.currentPage == page }">
+		                        <li class="page-item">
+		                            <a class="page-link" style="color:orange;">${page}</a>
+		                        </li>
+		                      </c:when>
+		                      
+		                      <c:otherwise>
+			                        <li class="page-item">
+			                            <a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
+			                        </li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
 
-                        <li class="page-item">
-                            <a class="page-link" style="color:orange;">${page}</a>
-                        </li>
-
-                        <li class="page-item">
-                            <a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
-                        </li>
-
-
-
+											<c:if test="${next <= pInfo.maxPage}">
                         <li class="page-item">
                             <!-- 다음 페이지로 이동(>) -->
                             <a class="page-link" href="${nextPage}">&gt;</a>
@@ -393,16 +425,16 @@ HTML CSSResult Skip Results Iframe
                             <!-- 마지막 페이지로 이동(>>) -->
                             <a class="page-link" href="${lastPage}">&gt;&gt;</a>
                         </li>
-
+										</c:if>
 
                     </ul>
                 </div>
+                
+                
                     <div class="col-md-3 area3">
-                    
-                    
+                        
 									<a class="btn btn-secondary btn-sm writeBtn" href="../board/insert">글쓰기</a>
                     
-                
                     </div>
                 
             </div>
