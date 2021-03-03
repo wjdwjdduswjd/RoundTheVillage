@@ -4,8 +4,73 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="lessonMapper">
 
- <resultMap type="Lesson" id="lesson_rm">
+	<resultMap type="Lesson" id="lesson_rm">
+		<id property="lesNo" column="LES_NO"/>
+		<result property="lesTitle" column="LES_TITLE"/>
+		<result property="lesContent" column="LES_CONTENT"/>
+		<result property="lesCurri" column="LES_CURRI"/>
+		<result property="lesPrice" column="LES_PRICE"/>
+		<result property="lesCategory" column="LES_CATEGORY"/>
+		<result property="lesFl" column="LES_FL"/>
+		<result property="craftshopNo" column="CRAFTSHOP_NO"/>
+	</resultMap>
+	
+	<resultMap type="LessonDetail" id="lessondetail_rm">
+		<id property="lesNo" column="LES_NO"/>
+		<result property="lesDate" column="LES_DATE"/>
+		<result property="lesTime" column="LES_TIME"/>
+		<result property="lesLimit" column="LES_LIMIT"/>
+		<result property="lesParticipant" column="LES_PARTICIPANT"/>
+	</resultMap>
+	
+	<resultMap type="LessonFile" id="lessonfile_rm">
+		<id property="fileNo" column="FILE_NO"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="lesNo" column="LES_NO"/>
+	</resultMap>
 
- </resultMap>
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_LNO.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="selectList" resultMap="lesson_rm">
+		SELECT * FROM LESSON
+	</select>
+	
+	<select id="selectFileList" resultMap="lessonfile_rm">
+		SELECT * FROM LESSON_FILE
+	</select>
 
+	<select id="selectSumParti" resultMap="lessondetail_rm">
+		SELECT LES_NO, SUM(LES_PARTICIPANT) LES_PARTICIPANT FROM LESSON_DETAIL
+		GROUP BY LES_NO
+	</select>
+
+	<select id="selectLesson" parameterType="_int" resultMap="lesson_rm">
+		SELECT * FROM LESSON WHERE LES_NO = #{lesNo}
+	</select>
+	<select id="selectDateList" parameterType="_int" resultMap="lesson_rm">
+		SELECT * FROM LESSON_DETAIL WHERE LES_NO = #{lesNo}
+	</select>
+	
+	<insert id="insertInfo" parameterType="Lesson">
+		INSERT INTO LESSON
+		VALUES(#{lesNo}, #{lesTitle}, #{lesContent}, #{lesCurri}, #{lesPrice}, DEFAULT, 1, #{lesCategory})
+	</insert>
+	
+	<insert id="insertDate" parameterType="map">
+		INSERT INTO LESSON_DETAIL(LES_DATE, LES_TIME, LES_LIMIT, LES_PARTICIPANT, LES_NO) 
+		VALUES(#{date}, #{lesTime}, #{lesLimit}, 0, #{lesNo})
+	</insert>
+	
+	<insert id="insertImageFile" parameterType="map">
+		INSERT INTO LESSON_FILE(FILE_NO, FILE_PATH, FILE_NAME, LES_NO)
+		VALUES(SEQ_LFNO.NEXTVAL, #{filePath}, #{fileName}, #{lesNo})
+	</insert>
+	
+	<select id="selectFile" parameterType="_int" resultMap="lessonfile_rm">
+		SELECT * FROM LESSON_FILE 
+		WHERE LES_NO = #{lesNo}
+	</select>
 </mapper>

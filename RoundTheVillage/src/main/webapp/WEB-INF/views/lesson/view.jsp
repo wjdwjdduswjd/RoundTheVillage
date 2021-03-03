@@ -5,16 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>view</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
 
 <style>
+body {
+	width: 100%;
+}
 * {padding: 0; margin: 0;}
 a {text-decoration: none !important; color: #666;}
 a:hover {
@@ -54,14 +53,12 @@ li {list-style: none;}
 }
 .info-left {
 	width: 60%;
-	height: 450px;
 	border-radius: 10px;
 	overflow: hidden;
 	margin : 0;
 }
 .info-right {
 	width: 38%;
-	height: 450px;
 	padding: 22px;
   border: 1px solid #e4e9ef;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -72,6 +69,8 @@ li {list-style: none;}
 .main-image {
 	width: 100%;
 	height: 100%;
+	min-width: 666px;
+	min-height: 500px;
 }
 .lesson-info {
 	padding: 15px;
@@ -87,6 +86,7 @@ li {list-style: none;}
 	width: 25%
 }
 .container {
+	width: 1200px;
 	margin-top: 30px;
 }
 .title {
@@ -203,17 +203,24 @@ li {list-style: none;}
 .time-buttons {
 	margin-top: 10px;
 }
+.wrapper {
+	margin: 50px 0;
+}
 </style>
 </head>
 <body>
+<jsp:include page="../common/header.jsp"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <div class="container">
-	<div>
+	<div class="wrapper">
 	<div class="info-right">
 			<div class="lesson-info-form">
 			 <div class="lesson-info info1">
-			 	<p class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">삼청동</p>
-			 	<p class="lesson-name">플라워 원데이 클래스</p>
+			 	<span class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">삼청동</span> <br>
+			 	<span class="lesson-name">플라워 원데이 클래스</span>
 			 </div>
 			 <div class="lesson-info info2">
 			 	<div class="lesson-craft">
@@ -247,24 +254,6 @@ li {list-style: none;}
 			 	<div class="lesson-time">
 			 		<img src="${contextPath}/resources/images/clock.png">
 			 		시간선택
-			 		<div class="time-buttons">
-				 		<button class="time-button">9</button>
-				 		<button class="time-button">10</button>
-				 		<button class="time-button">11</button>
-				 		<button class="time-button">12</button>
-				 		<button class="time-button">13</button>
-			 		</div>
-			 		<div class="time-buttons">
-				 		<button class="time-button">14</button>
-				 		<button class="time-button">15</button>
-				 		<button class="time-button">16</button>
-				 		<button class="time-button">17</button>
-				 		<button class="time-button">18</button>
-			 		</div>
-			 	</div>
-			 	<div class="lesson-button">
-					<input type="checkbox"> 원데이클래스
-					<input type="checkbox"> 정기권
 			 	</div>
 			 	<div class="lesson-amount">
 						<button class="lesson-minus">-</button>
@@ -279,7 +268,7 @@ li {list-style: none;}
 		</div>
 	</div>
 		<div class="info-left">
-			<img class="main-image" src="${contextPath}/resources/images/flower.jpg">
+			<img class="main-image" src="${contextPath}${file.filePath}/${file.fileName}">
 		</div>
 	</div>
 	<div id="tab-menu">

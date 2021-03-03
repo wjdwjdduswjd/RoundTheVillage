@@ -14,30 +14,12 @@ public class Board {
 	 	private String boardStatus;
 	 	private int classNo;
 	 	private int classCategoryNo;
+	 	private String memberNickname;
 	 	
 	 	public Board() {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Board(int boardNo, String boardTitle, String boardContent, String memberNo, int readCount,
-				Timestamp boardCreateDate, Timestamp boardModifyDate, String boardStatus, int classNo,
-				int classCategoryNo) {
-			super();
-			this.boardNo = boardNo;
-			this.boardTitle = boardTitle;
-			this.boardContent = boardContent;
-			this.memberNo = memberNo;
-			this.readCount = readCount;
-			this.boardCreateDate = boardCreateDate;
-			this.boardModifyDate = boardModifyDate;
-			this.boardStatus = boardStatus;
-			this.classNo = classNo;
-			this.classCategoryNo = classCategoryNo;
-		}
-
-		
-		
-		
 		public int getBoardNo() {
 			return boardNo;
 		}
@@ -118,14 +100,23 @@ public class Board {
 			this.classCategoryNo = classCategoryNo;
 		}
 
+		public String getMemberNickname() {
+			return memberNickname;
+		}
+
+		public void setMemberNickname(String memberNickname) {
+			this.memberNickname = memberNickname;
+		}
+
 		@Override
 		public String toString() {
 			return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 					+ ", memberNo=" + memberNo + ", readCount=" + readCount + ", boardCreateDate=" + boardCreateDate
 					+ ", boardModifyDate=" + boardModifyDate + ", boardStatus=" + boardStatus + ", classNo=" + classNo
-					+ ", classCategoryNo=" + classCategoryNo + "]";
+					+ ", classCategoryNo=" + classCategoryNo + ", memberNickname=" + memberNickname + "]";
 		}
 
+		
 	
 	 	
 }

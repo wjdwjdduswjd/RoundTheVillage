@@ -30,7 +30,7 @@
    
   .summerNoteArea {
     border: 1px solid black;
-    width: 500px;
+    width: 740px;
     height: 500px;
   }
 
@@ -74,14 +74,6 @@ body {
 }
 
 
-.btnBtn1{
-  background-color: #fbbc73;
-  color: white;
-  border: white;
-  border-radius: 5px;
-  height: 38px;
-  margin-bottom: 11px;
-}
 
 .writer{
   margin-right: 20px;
@@ -93,6 +85,18 @@ body {
     height: 20px;
   }
 
+.btnBtn1{
+  background-color: #fbbc73;
+  color: white;
+  border: white;
+  border-radius: 5px;
+  height: 38px;
+  margin-bottom: 11px;
+}
+
+.readCountArea{
+	float: right;
+}
 </style>
 
 <body>
@@ -111,12 +115,12 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>제목</b></span>
-              제목제목제목
+              ${board.boardTitle}
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4 writer"><b>작성자</b></span>닉네임
+                <span class="pr-4 writer"><b>작성자</b></span>${board.memberNickname}
               </p>
             </div>
           </div>
@@ -125,13 +129,13 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-                잔산플라워
+               ${board.classNo}
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
                 <span class="pr-4"><b>카테고리</b></span> 
-                플라워
+                ${board.classCategoryNo}
               </p>
             </div>
           </div>
@@ -140,12 +144,13 @@ body {
         <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
           <div class="col-md-12 summerNoteArea">
-            <썸머노트 공간>
+           		썸머노트 공간
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->
 
-        <img src="하트.png" class="like"> 300
+        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
+        <span class="readCountArea"><b>조회수 ${board.readCount}</b></span> 
         <hr>
         <div class="row">
           <div class="col-md-8">

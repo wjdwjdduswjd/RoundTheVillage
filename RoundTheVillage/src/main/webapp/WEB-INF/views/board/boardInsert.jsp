@@ -30,11 +30,11 @@
   /*  color: #212529; */
    }
    
- .summerNoteArea {
+/* 	.summerNoteArea {
     border: 1px solid black;
-    width: 500px
+    width: 500px;
     height: 500px;
-  }
+  }  */
 
   .btnArea {
     text-align: center;
@@ -139,6 +139,7 @@ body {
 .thumbnail{
 		margin-left: 15px;
 	}
+	
 
 </style>
 
@@ -150,6 +151,14 @@ body {
 
 	<jsp:include page="../common/header.jsp"/>
 	<!-- summernote 사용 시  필요한 js 파일 추가 -->
+		<style>
+		
+		hr{
+			width : 100%;
+		}
+
+	</style>
+	
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
@@ -173,7 +182,7 @@ body {
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4 writer"><b>작성자</b></span>닉네임
+                <span class="pr-4 writer"><b>작성자</b></span>${board.memberNickname}
               </p>
             </div>
           </div>
@@ -220,6 +229,12 @@ body {
         
         <hr>
         
+        <div id="fileArea">
+					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+				</div>
+        
+        
+        
           <div class="col-md-12 summerNoteArea">
 						<textarea class="form-control" id="summernote" name="boardContent"
 						rows="10" style="resize: none;"></textarea> 
@@ -234,8 +249,8 @@ body {
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
+              <a class="btn btn-primary btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
+              <button type="submit" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
             </span>
           </div>
           </form>
@@ -255,7 +270,67 @@ body {
 			alert("제목을 입력해 주세요.");
 			$("#title").focus();
 			return false;
+			
 		}
+			
+			// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+			$(function(){
+			$("#fileArea").hide(); // #fileArea 요소를 숨김.		
+			
+			$(".boardImg").on("click", function(){ // 이미지 영역이 클릭 되었을 때
+				
+				// 클릭한 이미지 영역 인덱스 얻어오기
+				var index = $(".boardImg").index(this);
+						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
+						
+				//console.log(index);
+				
+				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
+				$("#img" + index).click();
+			});
+			
+		});
+		 
+			
+			  function LoadImg(value, num) {
+				  // value.files : 파일이 업로드되어 있으면 true
+				  // value.files[0] : 여러 파일 중 첫번째 파일이 업로드 되어 있으면 true
+				  
+					if(value.files && value.files[0]){ // 해당 요소에 업로드된 파일이 있을 경우
+						
+						var reader = new FileReader();
+		       	// 자바스크립트 FileReader
+		      	// 웹 애플리케이션이 비동기적으로 데이터를 읽기 위하여 
+		      	// 읽을 파일을 가리키는 File 혹은 Blob객체를 이용해 
+		      	// 파일의 내용을 읽고 사용자의 컴퓨터에 저장하는 것을 가능하게 해주는 객체
+		      	
+		      	reader.readAsDataURL(value.files[0]);
+		        // FileReader.readAsDataURL()
+		      	// 지정된의 내용을 읽기 시작합니다. 
+		      	// Blob완료되면 result속성 data:에 파일 데이터를 나타내는 URL이 포함 됩니다.	
+		      	
+		      	reader.onload = function(e){
+		        	// FileReader.onload
+							// load 이벤트의 핸들러. 
+							// 이 이벤트는 읽기 동작이 성공적으로 완료 되었을 때마다 발생합니다.	
+		      		
+							// 읽어들인 내용(이미지 파일)을 화면에 출력
+							
+							$(".boardImg").eq(num).children("img").attr("src", e.target.result);
+							// e.target.result : 파일 읽기 동작을 성공한 요소가 읽어들인 파일 내용
+							
+		      	}
+					}
+				}
+				
+			
+			
+			
+		
+		
+		
+		
+		
   
   </script>
 

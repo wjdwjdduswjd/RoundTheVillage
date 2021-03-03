@@ -27,6 +27,38 @@
 	margin-top: 30px;
 }
 
+/* 관심분야 체크박스 버튼 관련 */
+/* 관심분야 체크박스 없애는 */
+.box-radio-input input[type="radio"]{
+    display:none;
+    width: 100%;
+    
+}
+
+.box-radio-input input[type="radio"] + span{
+    width: 82px;
+    display:inline-block;
+      background:none;
+      border:1px solid #dfdfdf;    
+      text-align:center;
+      line-height:50px;
+      font-weight:400;
+      cursor:pointer;
+    background:#FCEAD6;
+    /* 모서리 */
+    border-radius:5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    
+}
+
+.box-radio-input input[type="radio"]:checked + span{
+    border:1px solid #FBBC73;
+      background:#FBBC73;
+      color:rgb(0, 0, 0);
+    font-weight:550;
+}
+
 
 </style>
 
@@ -52,7 +84,7 @@
             
             <div class="col-md-7 offset-md-3">
                              
-                <form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();">
+                <form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();" enctype="multipart/form-data">
                 
 
                         <!-- 대표자 이름 -->
@@ -62,7 +94,7 @@
                                 <label for="storeUserName">대표자</label>
                             </div>
                             <div class ="col-md-6">
-                                <input type = "text"  class="form-control" id = "name" name = "storeUserName" placeholder="이름을 입력하세요." autocomplete="off" required >
+                                <input type = "text"  class="form-control" id = "name" name = "shopOwnerName" placeholder="이름을 입력하세요." autocomplete="off" required >
                             </div>
                             
                     <div class="col-md-6 offset-md-3">
@@ -125,17 +157,36 @@
                     
                     <br>
                     
-                    <!-- 전화번호 -->
-                    <div class="row mb-3 form-row">
-                        <div class="col-md-3">
-                            <label for="contact">공방 연락처</label>
+ <!-- 전화번호 -->
+					<div class="row mb-3 form-row">
+						<!-- 전화번호1 -->
+						<div class="col-md-3">
+							<select class="custom-select" id="phone1" name="phone1" required>
+								<option>010</option>
+								<option>011</option>
+								<option>016</option>
+								<option>017</option>
+								<option>019</option>
+							</select>
+						</div>
+
+						<!-- 전화번호2 -->
+						<div class="col-md-3">
+							<input type="number" class="form-control phone" id="phone2" maxlength="4" name="phone2" required>
+						</div>
+
+						<!-- 전화번호3 -->
+						<div class="col-md-3">
+							<input type="number" class="form-control phone" id="phone3" maxlength="4" name="phone3" required>
 						</div>
 						
-                        <div class ="col-md-6">
-                            <input type="text" id = "contact" name="contact" class="form-control" maxlength="13" placeholder=" 숫자만 입력해 주세요.">
-					    </div>
-                    
-                    </div>
+							<div class="col-md-6 offset-md-3">
+							<span id="checkPhone">&nbsp;</span>
+						</div>
+						
+						</div>
+
+				
                     
                 <!-- 카테고리 버튼 -->
                 <div>
@@ -144,38 +195,41 @@
                
                 <hr>
 
-                <div>
+<label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="art" value="1" checked="checked"><span>미술</span>
+            </label>
 
-                    <div>      
-                        
-                        <button>미술</button>
-                        
-                        <button>사진/영상</button>
-                        
-                        <button>요리/음료</button>
-                    
-                        <button>뷰티</button>
-                        
-                        <button>음악</button>
-                        
-                    </div>
-                    <br>
-                        <div>
-                            
-                            <button>운동</button>
-                            
-                            <button>공예</button>
-                            
-                            <button>글쓰기</button>
-                                    
-                            <button>키즈</button>
- 
-                            <button>플라워</button>
-                            
-                            
-                        </div>
-                        
-                    </div>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="pic" value="2"><span>사진/영상</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="cook" value="3"><span>요리/음료</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="bty" value="4"><span>뷰티</span>
+            </label>
+
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="music" value="5"><span>음악</span>
+            </label>
+            <br><!--  -->
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="exercise" value="6"><span>운동</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="craft" value="7"><span>공예</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="writing" value="8"><span>글쓰기</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="kids" value="9"><span>키즈</span>
+            </label>
+            <label class="box-radio-input">
+                <input type="radio" name="shopCategoryNo" id="flowers" value="10"><span>플라워</span>
+            </label>
                         
                     
                 <hr>
@@ -190,28 +244,28 @@
 
                 <br>
                 
+       		<!-- 파일 업로드 하는 부분 -->
+				<div id="fileArea">
+					<input type="file" id="img0" name="image" onchange="LoadImg(this,0)"> 
+				</div>
                 <!-- 공방 썸네일 소개 글 -->
                 <div>
                     <label>공방 썸네일 소개글</label>
                     <div>
-                        <input  class="form-control" id ="introshop" autocomplete="off" required >
+                        <input  class="form-control" id ="introshop" name ="thumbInfo" autocomplete="off" required >
                     </div>
                 </div>
 
                 
                 <br>
                 
-       		<!-- 파일 업로드 하는 부분 -->
-				<div id="fileArea">
-					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
-				</div>
 
 				<div class="form-group">
 					<div>
 						<label for="content">내용</label>
 					</div>
-					<textarea class="form-control" id="summernote" name="boardContent"
-						rows="10" style="resize: none;"></textarea>
+					<textarea class="form-control" id="summernote" name="shopInfo"
+						rows="5" style="resize: none;"></textarea>
 				</div>
 
         
@@ -228,24 +282,62 @@
 </div>
 
 <jsp:include page="../common/footer.jsp"/>
-<script>
-    
 
-    /*  전화 번호 유효성 */
-    $('#contact').keydown(function(event) {
-    var key = event.charCode || event.keyCode || 0;
-    $text = $(this);
-    if (key !== 8 && key !== 9) {
-        if ($text.val().length === 3) {
-            $text.val($text.val() + '-');
-        }
-        if ($text.val().length === 8) {
-            $text.val($text.val() + '-');
-        }
-    }
- 
-    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));          
+<!-- jQuery와 postcodify 를 로딩한다. -->
+	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+	<script>
+		// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+		$(function() {
+			$("#postcodify_search_button").postcodifyPopUp();
+		});
+	</script>
+
+<script>
+
+var signUpCheck = {
+		"name" : false,
+		"phone2" : false,
+	};
+    
+var $name = $("#name");
+var $phone2 = $("#phone2");
+var $phone3 = $("#phone3");
+
+$name.on("input", function() {
+	var regExp = /^[가-힣]{2,}$/; // 한글 두 글자 이상
+
+	if (!regExp.test($(this).val())) { // 이름이 정규식을 만족하지 않을경우
+		$("#checkName").text("한글 두 글자 이상을 입력하세요").css("color", "red");
+		signUpCheck.name = false;
+	} else {
+		$("#checkName").text("정상입력").css("color", "green");
+		signUpCheck.name = true;
+	}
 });
+
+// 전화번호 유효성 검사
+$(".phone").on("input", function() {
+
+	// 전화번호 input 태그에 4글자 이상 입력하지 못하게 하는 이벤트
+	if ($(this).val().length > $(this).prop("maxLength")) {
+		$(this).val($(this).val().slice(0, $(this).prop("maxLength")));
+	}
+
+	// 전화번호 유효성 검사
+	var regExp1 = /^\d{3,4}$/; // 숫자 3~4 글자
+	var regExp2 = /^\d{4,4}$/; // 숫자 4 글자
+
+	if (!regExp1.test($phone2.val()) || !regExp2.test($phone3.val())) {
+		$("#checkPhone").text("전화번호가 유효하지 않습니다.").css("color", "red");
+		signUpCheck.phone2 = false;
+	} else {
+		$("#checkPhone").text("유효한 전화번호입니다.").css("color", "green");
+		signUpCheck.phone2 = true;
+	}
+});
+
+
+   
 
 // 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 $(function(){
@@ -253,14 +345,8 @@ $(function(){
 			
 			$(".boardImg").on("click", function(){ // 이미지 영역이 클릭 되었을 때
 				
-				// 클릭한 이미지 영역 인덱스 얻어오기
-				var index = $(".boardImg").index(this);
-						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
-						
-				//console.log(index);
-				
-				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
-				$("#img" + index).click();
+
+				$("#img").click();
 			});
 			
 		});
@@ -298,6 +384,44 @@ $(function(){
       	}
 			}
 		}
+
+	  
+	  function validate(){
+		  
+			for ( var key in signUpCheck) {
+				if (!signUpCheck[key]) {
+					var str;
+					switch (key) {	
+					case "name": str = "이름";	break;
+					case "phone2":str = "전화번호";break;
+					}
+
+					swal({icon:"warning", title:str+" 형식이 유효하지 않습니다."})
+					.then(function(){   // .then  : swal창이 닫힌 후 동작을 지정
+						var id = "#" + key;
+						$(id).focus();
+					});
+					
+					return false;
+				}
+			}
+		  
+		  
+			$shopContact = $("<input>", {type : "hidden", name : "shopContact",
+				value : $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val()
+		});
+			
+			
+		  $shopAdress = $("<input>", {type : "hidden", name : "shopAdress",
+				value : $("#post").val() + "," + $("#address1").val() + "," + $("#address2").val()
+			});
+		
+			$("form[name='registrationFrom']").append($shopContact).append($shopAdress);
+			  
+		  
+	  }
+	  
+
 		
 
 

@@ -6,22 +6,10 @@ public class Attachment {
 	private String filePath;
 	private String fileName;
 	private int fileLevel;
-	private int parentBoardNo;
+	private int noticeNo;
 	
 	public Attachment() {
 	}
-
-	
-
-	public Attachment(String filePath, String fileName, int fileLevel, int parentBoardNo) {
-		super();
-		this.filePath = filePath;
-		this.fileName = fileName;
-		this.fileLevel = fileLevel;
-		this.parentBoardNo = parentBoardNo;
-	}
-
-
 
 	public int getFileNo() {
 		return fileNo;
@@ -55,19 +43,22 @@ public class Attachment {
 		this.fileLevel = fileLevel;
 	}
 
-	public int getParentBoardNo() {
-		return parentBoardNo;
+	public int getNoticeNo() {
+		return noticeNo;
 	}
 
-	public void setParentBoardNo(int parentBoardNo) {
-		this.parentBoardNo = parentBoardNo;
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
 	}
 
 	@Override
 	public String toString() {
 		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", fileLevel="
-				+ fileLevel + ", parentBoardNo=" + parentBoardNo + "]";
+				+ fileLevel + ", noticeNo=" + noticeNo + "]";
 	}
+
+	
+
 	
 	
 	
