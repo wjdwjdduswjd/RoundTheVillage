@@ -31,17 +31,28 @@ public class BoardDAO {
 
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 
-		return sqlSession.selectList("boardMapper.selectList", pInfo.getBoardType(), rowBounds);
+		return sqlSession.selectList("boardMapper.selectList"/*pInfo.getBoardType()*/, rowBounds);
 	}
 
 	public List<Attachment> selectThumbnailList(List<Board> bList) {
 		return sqlSession.selectList("boardMapper.selectThumbnailList", bList);
 	}
 
-	public Board selectBoard(Board temp) {
+	public Board selectBoard(int boardNo) {
 
-		return sqlSession.selectOne("boardMapper.selectBoard", temp);
+		return sqlSession.selectOne("boardMapper.selectBoard", boardNo);
 	}
+	
+	public int increaseReadCount(int boardNo) {
+
+		return sqlSession.update("boardMapper.increaseReadCount", boardNo);
+	}
+	
+	public List<Attachment> selectAttachmentList(int boardNo) {
+		
+		return sqlSession.selectList("boardMapper.selectAttachmentList", boardNo);
+	}
+
 
 	
 	 public int selectNextNo() { // TODO Auto-generated method stub return
@@ -52,5 +63,12 @@ public class BoardDAO {
 	public int insertBoard(Map<String, Object> map) {
 		return sqlSession.insert("boardMapper.insertBoard", map);
 	}
+
+	public int insertAttachmentList(List<Attachment> uploadImages) {
+		return sqlSession.insert("boardMapper.insertAttachmentList", uploadImages);
+	}
+
+
+	
 
 }

@@ -74,8 +74,10 @@
     margin-right: 10ch;
 }
 .area3 {
-    margin-bottom: 10px;
+    margin-bottom: 10px;  
 }
+
+.area3:hover{cursor : pointer;}
 
 .like {
     width: 20px;
@@ -283,12 +285,12 @@ body {
                     </div> -->
                     
                     <c:forEach var="board" items="${bList}" varStatus="vs">
-                    	 <div class="col-md-3 area3">
-	                        <img src="공방.PNG" class="thumbnail">
+                    	 <div class="col-md-3 area3" id="${board.boardNo}">
+	                        <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail">
 	                        <span class="badge badge-default">${board.boardTitle}</span>
-	                        <img src="하트.png" class="like">300
+	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
 	                    </div>
-                    </c:forEach> 
+                    </c:forEach>   
                    
               </div> 
               
@@ -373,18 +375,18 @@ body {
 
 
 											  <!-- 화살표에 들어갈 주소를 변수로 생성 -->
-		            <c:set var="firstPage" value="${pageUrl}cp=1"/>
-		            <c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
+		            <c:set var="firstPage" value="?cp=1"/>
+		            <c:set var="lastPage" value="?cp=${pInfo.maxPage}"/>
 
 
 								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
 		            <fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
-		            <c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+		            <c:set var="prevPage" value="?cp=${prev}" />
 		            
 		            
 		            <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
 		            <fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-		            <c:set var="nextPage" value="${pageUrl}cp=${next}" />
+		            <c:set var="nextPage" value="?cp=${next}" />
 
 
 											 <c:if test="${pInfo.currentPage > pInfo.pageSize}">
@@ -409,7 +411,7 @@ body {
 		                      
 		                      <c:otherwise>
 			                        <li class="page-item">
-			                            <a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
+			                            <a class="page-link" href="?cp=${page}${searchStr}">${page}</a>
 			                        </li>
 														</c:otherwise>
 													</c:choose>
@@ -491,11 +493,21 @@ body {
         });
 
 
+	$(".area3").on("click", function(){
+		var boardNo = $(this).attr("id");
+		//console.log(boardNo);
+		
+		location.href = boardNo;
+		
+	});
 
 
     </script>
+	
 
-</script>
+
+
+
 
 </body>
 </html>

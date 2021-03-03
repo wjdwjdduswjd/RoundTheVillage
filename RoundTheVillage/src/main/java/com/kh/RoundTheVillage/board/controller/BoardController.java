@@ -71,6 +71,7 @@ public class BoardController {
       return "board/boardList";
    }
    
+   // 게시글 상세 조회
    @RequestMapping("{boardNo}")
    public String boardView(@PathVariable("boardNo") int boardNo,
 		   					Model model, 
@@ -79,20 +80,39 @@ public class BoardController {
 	  
 	   Board board = service.selectBoard(boardNo);
 	   
+	   System.out.println("보드 : " + board);
 	   String url = null;
 	   
 	   if(board != null) {
 		   
-			/* List<Attachment> attachmentList = service.selectAttachmentList() */
+			List<Attachment> attachmentList = service.selectAttachmentList(boardNo); 
 		   
+			  if(attachmentList != null && !attachmentList.isEmpty()) {
+				   model.addAttribute("attachmentList", attachmentList);
+			   }
+			   
+			   
+			   model.addAttribute("board", board);
+			   
+			   url = "board/boardView";
+			
 		   
+	   }else {
+		   // 이전 요청 주소가 없는 경우
+		   if(referer == null) {
+			   url = "redirect:../list"; 
+			   
+		   }else { // 이전 요청 주소가 있는 경우
+			   
+			   url = "redirect:" + referer;
+		   }
+		   
+		   ra.addFlashAttribute("swalIcon", "error");
+		   ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
 	   }
 	   
-	   
-	   
-	   
-	   
-	   return null;
+
+	   return url;
 	   
    }
    
@@ -103,6 +123,8 @@ public class BoardController {
    // 게시글 등록 화면 전환
    @RequestMapping("insert")
   public String insertView() {
+	   
+	   
 	 
 	  return "board/boardInsert";
 	  
@@ -134,6 +156,7 @@ public class BoardController {
 	 
 		String url = null;
 		
+		
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
@@ -153,6 +176,28 @@ public class BoardController {
 		   return url;
 	   
    }
+   
+   
+   // summernote에 업로드 된 이미지 저장 Controller 
+   @ResponseBody // 응답 시 값 자체를 돌려보냄
+   @RequestMapping("insertImage")
+   public String insertImage(HttpServletRequest request,
+		   				@RequestParam("uploadFile") MultipartFile uploadFile) {
+	  
+	   // 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
+	   String savePath = 
+			   request.getSession().getServletContext().getRealPath("resources/boardImages");
+	   
+	   Attachment at = service.insertImage(uploadFile, savePath);
+	   
+	   // java -> js로 객체 전달 : JSON
+	   
+	   return new Gson().toJson(at);
+  }
+   
+   
+   
+   
    
 }
 
