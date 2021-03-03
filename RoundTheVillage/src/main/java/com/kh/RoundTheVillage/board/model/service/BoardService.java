@@ -36,7 +36,17 @@ public interface BoardService {
 	 */
 	public abstract Board selectBoard(int boardNo);
 	
+	/** 게시글에 포함된 이미지 목록 조회 Service
+	 * @param boardNo
+	 * @return attachmentList
+	 */
+	public abstract List<Attachment> selectAttachmentList(int boardNo);
+	
+	
 	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath);
+
+	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
+
 
 
 

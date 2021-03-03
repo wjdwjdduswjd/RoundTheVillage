@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Repository
 public class LessonDAO {
@@ -16,8 +18,24 @@ public class LessonDAO {
 	@Autowired
 	SqlSessionTemplate session;
 	
+	public int selectNextNo() {
+		return session.selectOne("lessonMapper.selectNextNo");
+	}
+	
 	public List<Lesson> selectList() {
 		return session.selectList("lessonMapper.selectList");
+	}
+
+	public List<LessonFile> selectFileList() {
+		return session.selectList("lessonMapper.selectFileList");
+	}
+	
+	public List<Shop> selectShopList() {
+		return session.selectList("shopMapper.selectShopList");
+	}
+	
+	public List<Lesson> selectSumParti() {
+		return session.selectList("lessonMapper.selectSumParti");
 	}
 	
 	public Lesson selectLesson(int lesNo) {
@@ -35,4 +53,14 @@ public class LessonDAO {
 	public int insertDate(Map<String, String> map) {
 		return session.insert("lessonMapper.insertDate", map);
 	}
+
+	public int insertImageFile(Map<String, String> map) {
+		return session.insert("lessonMapper.insertImageFile", map);
+	}
+
+	public LessonFile selectFile(int lesNo) {
+		return session.selectOne("lessonMapper.selectFile", lesNo);
+	}
+
+
 }

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@
 	            <img src="${contextPath}/resources/images/ff.jpg" class="rounded float-left mb-4 w-100" id="classImg">
 	        </div>
 	        <div class="col-md-6 d-flex flex-column position-static">
-	            <h3 class="mb-2 font-weight-bold" id="lseTitle">[플라워 원데이 클래스]</h3>
+	            <h3 class="mb-2 font-weight-bold" id="lseTitle">${lesson.lesTitle}</h3>
 	            <div class="mb-4">플라워 공방</div>
 	
 	            <div class="row">
@@ -36,7 +36,7 @@
 			            <div>
 			                <h6 class="my-0 font-weight-bold">상품 금액</h6>
 			            </div>
-			            <span>50,000원</span>
+			            <span>${lesson.lesPrice}원</span>
 			        </li>
 			        <li class="list-group-item d-flex justify-content-between bg-light">
 			            <div class="text-around">
@@ -64,10 +64,12 @@
 			
 			    <div class="px-4 py-5 bb">
 			        <h6 class="mb-3 font-weight-bold">쿠폰 선택</h6>
-			        <select class="col-md-12 custom-select" name="cupon">
+			        <select class="col-md-12 custom-select" name="coupon" id="coupon">
 			            <option id="sel0"></option>
-			            <option value="0.1">회원가입 쿠폰(10%)</option>
-			            <option value="3000">3000원 할인 쿠폰</option>
+			            
+			            <c:forEach var="coupon" items="${cList}">
+								    	<option value="${coupon.discount}">${coupon.couponName}</option>
+									</c:forEach>
 			        </select>
 			    </div>
 			</div>
@@ -147,25 +149,23 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
-    var price = 50000;
+    var price = "${lesson.lesPrice}";
     var grade = 1;
-    var cupon = 2;
+    var cupon = "${cList.size()}";
     var cuponDis = 0;
 
     $("#gradeDis").text("- " + price * (grade * 5 / 100) + "원");
-
+    
     if (cupon < 1)
         $("#sel0").text("적용 가능한 쿠폰이 없습니다.");
     else
         $("#sel0").text("적용 가능 쿠폰 (" + cupon + "개)");
 
-    $("select[name=cupon]").change(function () {
-
-        console.log($(this).val())
+    $("#coupon").change(function () {
         if ($(this).val() < 1)
             cuponDis = price * $(this).val()
         else if ($(this).val() > 1)
-            cuponDis = $(this).val()
+            cuponDis = Math.floor($(this).val())
         else
             cuponDis = 0;
 
@@ -194,7 +194,7 @@
 	
   function requestPay() {
       // IMP.request_pay(param, callback) 호출
-      IMP.request_pay({ // param
+      /* IMP.request_pay({ // param
           pg: "html5_inicis",
           pay_method: "card",
           name: $("#lseTitle").text(),
@@ -204,20 +204,31 @@
           buyer_tel: phone,
       }, function (rsp) { // callback
     	  	console.log(rsp.imp_uid);
-          if (rsp.success) { // 가맹점 서버 결제 API 성공시 로직
+          if (rsp.success) { */ // 가맹점 서버 결제 API 성공시 로직
 	          jQuery.ajax({
 	              url: "${contextPath}/pay/payAction", // 가맹점 서버
 	              method: "POST",
 	              data: {
-	            		imp_uid: rsp.imp_uid
+	            	  dateStr: "2021-03-21 10:53:00",
+	            		payAmt: 123,
+	            		//payAmt: rsp.paid_amount,
+	            		gradeDis: $("#gradeDis").text().slice(1, -1),
+	            		cuponDis: $("#cuponDis").text().slice(1, -1),
+	            		impUid: "imp_308261361245",
+	            		//impUid: rsp.imp_uid,
+	            		couponNo: "1",
+	            		lesNo: ${lesson.lesNo}
 	              }
-	          }).done(function (data) {
-	        		console.log("rsp.imp_uid" + rsp.imp_uid)
+	          })/* .done(function (data) {
+	        	  if(data > 0)
+		        	  location.href = "/complete";
+	        	  else 
+	        		  alert("결제에 실패하였습니다.");
 	          })
           } else {
         	  alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
           }
-      });
+      }); */
     }
 </script>
 </body>
