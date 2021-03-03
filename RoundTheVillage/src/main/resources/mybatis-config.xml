@@ -12,6 +12,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.Lesson" alias="Lesson"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonDetail" alias="LessonDetail"/>
+		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonFile" alias="LessonFile"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Pay" alias="Pay"/>
