@@ -123,7 +123,7 @@
 
 		<%-- 로그인이 되어있는 경우 --%> <!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
 		<%-- <c:if test="${!empty loginMember && loginMember.memberType =='A' }">--%>
-			<a class="btn btn-success float-right" id="insertBtn" href="noticeInsert">글쓰기</a>
+			<a class="btn btn-warning float-right" id="insertBtn" href="noticeInsert">글쓰기</a>
 		<%-- </c:if> --%>
 
 		<!--------------------------------- pagination  ---------------------------------->
@@ -138,11 +138,6 @@
 				<c:set var="firstPage" value="${pageUrl}cp=1"/>
 				<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
 				
-				<%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다--%>
-				<%-- 
-					<fmt:parseNumber>   : 숫자 형태를 지정하여 변수 선언 
-					integerOnly="true"  : 정수로만 숫자 표현 (소수점 버림)
-				--%>
 				
 				<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
 				<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
@@ -215,8 +210,7 @@
 	<jsp:include page="../common/footer.jsp" />
 	
 	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
-	<c:set var="returnListURL" value="${contextPath}/board/list/${pageUrl}cp=${pInfo.currentPage}"
-															scope="session" />
+	<c:set var="returnListURL" value="${contextPath}/CScenter/noticeList/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
 																
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
@@ -224,17 +218,7 @@
 			var noticeNo = $(this).parent().children().eq(0).text();
 											//td    tr        td      첫 번째(게시글 번호)
 											
-			// 게시글 상세 조회 요청 주소 조합
-			
-			// 게시글 목록 : /spring/board/list/1
-			// 상세 조회 :  /spring/board/1/500
-			
-			// 절대 경로
-			//var boardViewURL = "${contextPath}/board/${pInfo.boardType}/"+boardNo;
-														// spring   /board         /1            /500
-			
-			// 상대 경로
-			var noticeViewURL = "../${pInfo}/" + noticeNo;
+			var noticeViewURL = noticeNo;
 			
 			location.href = noticeViewURL;
 		});

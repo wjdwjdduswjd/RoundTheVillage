@@ -51,33 +51,38 @@ public class NoticeController {
 
 		model.addAttribute("nList", nList);
 		model.addAttribute("pInfo", pInfo);
-
+		
 		return "CScenter/noticeList";
 	}
 
 	// 게시글 상세 조회 Controller ------------------------------------------------------------------------------------
-	@RequestMapping("noticeNo")
-	public String boardView(@PathVariable("type") int type, @PathVariable("noticeNo") int noticeNo, Model model,
+	@RequestMapping("{noticeNo}")
+	public String noticeView(@PathVariable("noticeNo") int noticeNo, Model model,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 
 		String url = null;
 
 		Notice notice = service.selectNotice(noticeNo);
-
+		
+		
 		if (notice != null) { // 상세조회성공
-
+			
+			System.out.println("notice:" + notice);
+			
 			List<Attachment> attachmentList = service.selectAttachmentList(noticeNo);
+			System.out.println("noticeNo:" + noticeNo);
 
 			if (attachmentList != null && !attachmentList.isEmpty()) { // 조회된 이미지 목록이 있을 경우
 				model.addAttribute("attachmentList", attachmentList);
 			}
 
 			model.addAttribute("notice", notice);
-			url = "notice/noticeView";
-
+			url = "CScenter/noticeView";
+			
+			
 		} else { // 이전 요청 주소가 없는 경우
 			if (referer == null) {
-				url = "redirect:../list/";
+				url = "redirect:../noticeList/";
 
 			} else {
 				url = "redirect:" + referer;
@@ -85,7 +90,7 @@ public class NoticeController {
 			ra.addFlashAttribute("swalIcon", "error");
 			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
 		}
-		return url;
+		return "CScenter/noticeView";
 	}
 
 	
@@ -101,11 +106,14 @@ public class NoticeController {
 	public String insertAction(@ModelAttribute Notice notice, 
 			@RequestParam(value = "images", required = false) List<MultipartFile> images, 
 			HttpServletRequest request, RedirectAttributes ra) {
-
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeNo", notice.getNoticeNo());
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
 
+		
 		String savePath = null;
 		
 		// summernote 추가시 수정 부분 -------------------------------------------------------------------
@@ -131,7 +139,7 @@ public class NoticeController {
 
 		ra.addFlashAttribute("swalIcon", swalIcon);
 		ra.addFlashAttribute("swalTitle", swalTitle);
-
+		
 		return url;
 	}
 
