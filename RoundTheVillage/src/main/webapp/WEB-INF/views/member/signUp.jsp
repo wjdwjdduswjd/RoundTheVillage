@@ -76,12 +76,15 @@
 				<label class="title">* 이메일</label><br>
 				<div class="email">
 					<input type="email" name="memberEmail" id="email" placeholder="example@naver.com" required>
-					<button class="email_button">이메일 인증</button>
+					<button class="email_button" id="email_button"   onsubmit="memberJoinvalidate()">이메일 인증</button>
 				</div>
 				<div class="check">
 					<span id="checkEmail">&nbsp;</span>
 				</div>
-				<label class="title"><input type="text" name="memberEmail" id="email" placeholder="받은 인증번호를 입력해주세요."></label>
+				<label class="title"><input type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요." required></label>
+				<div class="check">
+					<span id="checkNumEmail">&nbsp;</span>
+				</div>
 
 
 
@@ -167,7 +170,6 @@
 			"name" : false,
 			"email" : false,
 			"nickName" : false
-			
 		};
 
 		var $id = $("#id");
@@ -220,7 +222,7 @@
 			}
 		});
 		
-		//닉네님 유효겅 검사
+		//닉네님 유효성 검사
 		$nickName.on("input", function(){
 			
 			$.ajax({
@@ -342,24 +344,12 @@
 				if (!signUpCheck[key]) {
 					var str;
 					switch (key) {
-					case "name":
-						str = "이름";
-						break;
-					case "id":
-						str = "아이디";
-						break;
-					case "pwd1":
-						str = "비밀번호";
-						break;
-					case "pwd2":
-						str = "비밀번호 확인";
-						break;
-					case "email":
-						str = "이메일";
-						break;
-					case "nickName":
-						str = "닉네임";
-						break;
+					case "name" : str = "이름"; break;
+					case "id" : str = "아이디"; break;
+					case "pwd1" : str = "비밀번호"; break;
+					case "pwd2" : str = "비밀번호 확인"; break;
+					case "email" : str = "이메일"; break;
+					case "nickName" : str = "닉네임"; break;
 					}
 
 					swal({
@@ -384,6 +374,55 @@
 			$("form[name='signUpForm']").append($memberAddr);
 
 		}
+		
+		
+		
+		// ----------------메일 인증 AJAX -------------------------
+        var key;
+        
+        $("#email_button").click(function() {// 메일 입력 유효성 검사
+         var mail = $("#email").val(); //사용자의 이메일 입력값. 
+         
+         if (mail == "") {
+            alert("메일 주소가 입력되지 않았습니다.");
+         } else {
+            $.ajax({
+               url : 'normalSignUpMail',
+               data : { mail : mail },
+               type : 'post',
+               success : function(result){
+                  key = result;
+                  
+               }
+            });
+         alert("인증번호가 전송되었습니다.");
+         }
+      }); 
+      
+      $("#verifyEmail").on("propertychange change keyup paste input", function() {
+         if ($("#verifyEmail").val() == key) {   //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
+            $("#checkNumEmail").text("인증에 성공하셨습니다.").css("color", "green");
+            isCertification = true;  //인증 성공여부 check
+         } else {
+            $("#checkNumEmail").text("인증 번호가 틀렸습니다. 다시 입력해주세요.").css("color", "red");
+            isCertification = false; //인증 실패
+         }
+      });
+      
+      
+      $("#signBtn").click(function validate(){
+         if(isCertification==false){
+            alert("메일 인증이 완료되지 않았습니다.");
+            return false;
+         }
+      }); 
+		
+		
+		
+		
+		
+		
+		
 	</script>
 
 </body>
