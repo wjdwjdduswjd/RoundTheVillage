@@ -61,7 +61,7 @@
 .title{
     width: 100%;
     text-align: left;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 0;
 }
 input{
@@ -86,12 +86,12 @@ input::placeholder {
 .box-checkbox-input input[type="checkbox"] + span{
     width: 82px;
     display:inline-block;
-	background:none;
-	border:1px solid #dfdfdf;	 
-	text-align:center;
-	line-height:50px;
-	font-weight:400;
-	cursor:pointer;
+		background:none;
+		border:1px solid #dfdfdf;	 
+		text-align:center;
+		line-height:50px;
+		font-weight:400;
+		cursor:pointer;
     background:#FCEAD6;
     /* 모서리 */
     border-radius:5px;
@@ -105,23 +105,37 @@ input::placeholder {
     font-weight:550;
 }
 
+.box-checkbox-input input[type="checkbox"] + span:hover{
+	background:#FBBC73;
+}
 
-
+.email{
+	
+	text-align: left;
+}
+#email{
+	width: 72%;
+}
 /* 이메인 인증 버튼 */
 .email_button{
-    width: 85px;
+    width: 110px;
     height: 41px;
     margin-left: 10px;
     border:1px solid #dfdfdf;	 
-	background:#5B3929;
-	color:rgb(255, 255, 255);
+		background:#5B3929;
+		color:rgb(255, 255, 255);
     border-radius:5px;
-    float: left;
+    float: right;
 }
 
 
 /*  */
-
+.addr-title{
+	  width: 100%;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
 
 .addr{
     float: left;
@@ -148,8 +162,8 @@ input::placeholder {
     height: 41px;
     margin-left: 10px;
     border:1px solid #dfdfdf;	 
-	background:#5B3929;
-	color:rgb(255, 255, 255);
+		background:#5B3929;
+		color:rgb(255, 255, 255);
     border-radius:5px;
     float: left;
 }
@@ -167,6 +181,20 @@ input::placeholder {
 #signBtn:hover{
     background:#FBBC73;
 }
+
+/* 유효성 검사 */
+.check{
+padding-top: 2px;
+padding-left: 3px;
+height: 10px; 
+text-align: left;
+font-size: 13px;
+}
+
+#pwd, #pwd2{
+	font-color: black;
+}
+
 
 
 

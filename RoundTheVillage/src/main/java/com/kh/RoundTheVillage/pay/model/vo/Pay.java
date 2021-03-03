@@ -11,9 +11,15 @@ public class Pay {
 	private int gradeDis;
 	private int couponDis;
 	private String impUid;
-	private int lesNo;
-	private int memNo;
 	private int couponNo;
+	private int memNo;
+	private int lesNo;
+	private String lesTitle;
+	private String lesCategory;
+	private int lesPrice;
+	private int craftshopNo;
+	private String craftshopName;
+	private String fileName;
 	
 	public Pay() {}
 
@@ -97,10 +103,60 @@ public class Pay {
 		this.couponNo = couponNo;
 	}
 
+	public String getLesTitle() {
+		return lesTitle;
+	}
+
+	public void setLesTitle(String lesTitle) {
+		this.lesTitle = lesTitle;
+	}
+
+	public String getLesCategory() {
+		return lesCategory;
+	}
+
+	public void setLesCategory(String lesCategory) {
+		this.lesCategory = lesCategory;
+	}
+
+	public int getLesPrice() {
+		return lesPrice;
+	}
+
+	public void setLesPrice(int lesPrice) {
+		this.lesPrice = lesPrice;
+	}
+
+	public int getCraftshopNo() {
+		return craftshopNo;
+	}
+
+	public void setCraftshopNo(int craftshopNo) {
+		this.craftshopNo = craftshopNo;
+	}
+
+	public String getCraftshopName() {
+		return craftshopName;
+	}
+
+	public void setCraftshopName(String craftshopName) {
+		this.craftshopName = craftshopName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	@Override
 	public String toString() {
 		return "Pay [payNo=" + payNo + ", payDate=" + payDate + ", resDate=" + resDate + ", payAmt=" + payAmt
-				+ ", gradeDis=" + gradeDis + ", couponDis=" + couponDis + ", impUid=" + impUid + ", lesNo=" + lesNo
-				+ ", memNo=" + memNo + ", couponNo=" + couponNo + "]";
+				+ ", gradeDis=" + gradeDis + ", couponDis=" + couponDis + ", impUid=" + impUid + ", couponNo="
+				+ couponNo + ", memNo=" + memNo + ", lesNo=" + lesNo + ", lesTitle=" + lesTitle + ", lesCategory="
+				+ lesCategory + ", lesPrice=" + lesPrice + ", craftshopNo=" + craftshopNo + ", craftshopName="
+				+ craftshopName + ", fileName=" + fileName + "]";
 	}
 }
