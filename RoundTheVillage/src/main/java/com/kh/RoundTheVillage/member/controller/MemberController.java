@@ -43,7 +43,7 @@ public class MemberController {
 	public int emailDupCheck( @RequestParam("memberEmail") String memberEmail) { 
 		
 		// 아이디 중복 검사 서비스 호출
-		int result = service.idDupCheck(memberEmail);
+		int result = service.emailDupCheck(memberEmail);
 		
 		//System.out.println(result);
 		

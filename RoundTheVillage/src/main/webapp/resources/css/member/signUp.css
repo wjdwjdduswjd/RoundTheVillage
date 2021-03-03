@@ -105,6 +105,10 @@ input::placeholder {
     font-weight:550;
 }
 
+.box-checkbox-input input[type="checkbox"] + span:hover{
+	background:#FBBC73;
+}
+
 .email{
 	
 	text-align: left;

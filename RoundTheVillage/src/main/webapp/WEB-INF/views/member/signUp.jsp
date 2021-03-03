@@ -124,9 +124,19 @@
 
 
 				<!-- 관심분야 -->
-				<label class="title">관심분야 <label style="font-size: 12px; margin-bottom: 0.5;">(중복선택 가능)</label></label><br> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="art" value="미술" checked="checked"><span>미술</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="pic" value="사진/영상"><span>사진/영상</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="cook" value="요리/음료"><span>요리/음료</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="bty" value="뷰티"><span>뷰티</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="music" value="음악"><span>음악</span></label> <br>
+				<label class="title">관심분야 <label style="font-size: 12px; margin-bottom: 0.5;">(중복선택 가능)</label></label>
+				<br> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="art" value="미술"><span>미술</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="pic" value="사진/영상"><span>사진/영상</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="cook" value="요리/음료"><span>요리/음료</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="bty" value="뷰티"><span>뷰티</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="music" value="음악"><span>음악</span></label> <br>
 				<!--  -->
-				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="exercise" value="운동"><span>운동</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="craft" value="공예"><span>공예</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="writing" value="글쓰기"><span>글쓰기</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="kids" value="키즈"><span>키즈</span></label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="flowers" value="플라워"><span>플라워</span></label>
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="exercise" value="운동"><span>운동</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="craft" value="공예"><span>공예</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="writing" value="글쓰기"><span>글쓰기</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="kids" value="키즈"><span>키즈</span></label> 
+				<label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="flowers" value="플라워"><span>플라워</span></label>
 
 
 
