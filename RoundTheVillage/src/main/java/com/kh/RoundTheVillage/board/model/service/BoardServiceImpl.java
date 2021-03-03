@@ -269,6 +269,11 @@ public class BoardServiceImpl implements BoardService{
 		
 		return at;
 	}
+
+	@Override
+	public List<Board> selectClass(int memberNo) {
+		return dao.selectClass(memberNo);
+	}
 	}
 
 

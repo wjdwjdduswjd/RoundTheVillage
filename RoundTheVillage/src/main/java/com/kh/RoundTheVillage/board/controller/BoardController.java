@@ -27,6 +27,9 @@ import com.kh.RoundTheVillage.board.model.service.BoardService;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+
+import sun.nio.ch.SelChImpl;
+
 import com.kh.RoundTheVillage.board.model.vo.Attachment;
 
 
@@ -80,7 +83,7 @@ public class BoardController {
 	  
 	   Board board = service.selectBoard(boardNo);
 	   
-	   System.out.println("보드 : " + board);
+	   // System.out.println("보드 : " + board);
 	   String url = null;
 	   
 	   if(board != null) {
@@ -122,10 +125,15 @@ public class BoardController {
    
    // 게시글 등록 화면 전환
    @RequestMapping("insert")
-  public String insertView() {
+  public String insertView(Model model) {
 	   
-	   
+	   int memberNo = 1; //int memberNo = loginMemer.getMemberNo();
+	  List<Board> selectClass = service.selectClass(memberNo);
 	 
+	  model.addAttribute("selectClass", selectClass);
+	  
+	  System.out.println(selectClass);
+	  
 	  return "board/boardInsert";
 	  
 	  
@@ -145,8 +153,10 @@ public class BoardController {
 	   map.put("memberNo", 1); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
 	   map.put("boardContent", board.getBoardContent()); // 내가 작성한 글 내용
-	   map.put("classNo", 1 /*board.getClassNo()*/); // 공방 번호
-	   map.put("classCategoryNo", 1/* board.getClassCategoryNo()*/); // 카테고리 코드
+	   map.put("classNo", board.getClassNo()); // 공방 번호
+	   map.put("classCategoryNo", board.getClassCategoryNo()); // 카테고리 코드
+	   
+	   System.out.println(map);
 	  
 	  String savePath = null;
 	   
@@ -194,6 +204,8 @@ public class BoardController {
 	   
 	   return new Gson().toJson(at);
   }
+   
+   
    
    
    

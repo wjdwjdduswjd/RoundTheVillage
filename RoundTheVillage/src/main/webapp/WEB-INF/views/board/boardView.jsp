@@ -129,13 +129,13 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-               ${board.classNo}
+               ${board.boardTitle}
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
                 <span class="pr-4"><b>카테고리</b></span> 
-                ${board.classCategoryNo}
+                ${board.classCategoryNm}
               </p>
             </div>
           </div>
@@ -154,6 +154,9 @@ body {
         <hr>
         <div class="row">
           <div class="col-md-8">
+         		 <a class="reportBtn" id="reportBtn" name="reportBtn" href="">
+          			신고하기
+         		</a>
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
