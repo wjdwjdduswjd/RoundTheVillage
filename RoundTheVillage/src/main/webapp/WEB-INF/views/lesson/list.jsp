@@ -159,11 +159,18 @@ img {
 		<div class="result-bottom">
 		
 <c:forEach var="lesson" items="${list}" varStatus="status">
-			<div class="result-form">
+			<div class="result-form" onclick="view(${lesson.lesNo})">
 				<div class="search-info">
 					<div class="search-info-main">
 						<div class="info-participant">
-							25명참가중
+						
+						
+							<c:forEach var="Parti" items="${sumParti}">
+								<c:if test="${Parti.lesNo == lesson.lesNo}">
+									${Parti.lesParticipant}명참가중
+								</c:if>
+							</c:forEach>
+						
 						</div>
 						<div class="info-price">
 							<h4>${lesson.lesPrice}원</h4>
@@ -172,11 +179,22 @@ img {
 					<p>${lesson.lesTitle}</p>
 					<p>${lesson.craftshopNo} </p>
 					<p>${lesson.lesCategory}</p>
-					<p>주소</p>
-					<p>전화번호</p>
+					
+					<c:forEach var="shop" items="${shopList}">
+						<c:if test="${lesson.craftshopNo == shop.shopNo}">
+							<p>${shop.shopAdress}</p>
+							<p>${shop.shopContact}</p>
+						</c:if>
+					</c:forEach>
 				</div>
 				<div class="search-image">
-					<img src="#" style="background-color: red">
+				
+				<c:forEach var="file" items="${fileList}" >
+					<c:if test="${lesson.lesNo == file.lesNo}">
+						<img src="${contextPath}${file.filePath}/${file.fileName}">
+					</c:if>
+				</c:forEach>
+
 				</div>
 			</div>
 		</c:forEach>
@@ -242,9 +260,9 @@ btn.click(function() {
 	}
 });
 
-$(".result-form").click(function() {
-	location.href = "${contextPath}/lesson/view/1";
-});
+function view(lesNo) {
+	location.href = "${contextPath}/lesson/view/" + lesNo;
+}
 </script>
 </body>
 </html>

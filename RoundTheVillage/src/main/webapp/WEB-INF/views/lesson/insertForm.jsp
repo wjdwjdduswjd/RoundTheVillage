@@ -4,23 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>lessonInsertForm</title>
-<jsp:include page="../common/header.jsp"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
-<script src="../resources/timepicker/tempusdominus-bootstrap.js"></script>
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
 <link rel="stylesheet" href="../resources/timepicker/tempusdominus-bootstrap.css"/>
-
 <link rel="stylesheet" href="${contextPath}/resources/timepicker/jquery.timepicker.min.css">
-<script src="${contextPath}/resources/timepicker/jquery.timepicker.js"></script>
-
 <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <style>
 .container {
@@ -97,20 +89,25 @@ body {
 	height: 60px;
 	margin: 0 20px;
 }
+#mainimage {
+	width: 320px;
+	height: 240px;
+}
 </style>
 </head>
 <body>
-
+<jsp:include page="../common/header.jsp"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
+<script src="../resources/timepicker/tempusdominus-bootstrap.js"></script>
+<script src="${contextPath}/resources/timepicker/jquery.timepicker.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 <script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
-	
-<script type="text/javascript">
-
-</script>
 
 	<div class="container">
-	<form action="${contextPath}/lesson/insert" method="post" onsubmit="return validate();" onreset="return validate2();">
+	<form action="${contextPath}/lesson/insert" method="post" enctype="multipart/form-data" onsubmit="return validate();" onreset="return validate2();">
 
 		<div class="insert-main">
 			
@@ -196,18 +193,6 @@ body {
 				</script>
 			</div>
 			
-<!-- 			<div class="insert-time">
-				<p class="insert-p">수업시간</p>
-				<div class="time-area">
-					<select>
-						<option>09:00</option>
-					</select> ~ 
-					<select>
-						<option>10:00</option>
-					</select> 
-					<button type="button" id="add-time">시간추가</button>
-				</div>
-			</div> -->
 			<div class="form-group insert-limit">
 				<p class="insert-p">정원</p>
 				<input type="number" class="form-control" name="lesLimit" id="limit" placeholder="정원">
@@ -219,7 +204,8 @@ body {
 			
 			<div class="form-group insert-cover">
 				<p class="insert-p">대표이미지</p>
-				<input type="file">
+				<img id="mainimage">
+				<input type="file" id="mainimage-file" name="mainimageFile" onchange="LoadImg(this)">
 			</div>
 			
 			<div class="form-group insert-price">
@@ -378,6 +364,24 @@ btn.click(function() {
 		$(this).css("background-color", "#FBBC73");
 	
 });
+
+$(function() {
+	$("#mainimage-file").hide();
+	$("#mainimage").click(function() {
+		$("#mainimage-file").click();
+	})
+})
+
+function LoadImg(value) {
+	if(value.files && value.files[0]){ // 해당 요소에 업로드된 파일이 있을 경우
+		var reader = new FileReader();
+    	reader.readAsDataURL(value.files[0]);
+    	reader.onload = function(e){
+    	$("#mainimage").prop("src", e.target.result);
+    }
+	}
+}
+
 
 </script>
 	
