@@ -13,13 +13,13 @@
 
     <!-- <h5 class="hr-sect mb-4">수업 결제</h5> -->
     <div class="row p-3">
-	    <div class="bb">
+	    <div class="bb row">
 	        <div class="col-md-6">
-	            <img src="${contextPath}/resources/images/ff.jpg" class="rounded float-left mb-4 w-100" id="classImg">
+	            <img src="${contextPath}/resources/images/lesson/${lesson.fileName}" class="rounded float-left mb-4 w-100" id="classImg">
 	        </div>
 	        <div class="col-md-6 d-flex flex-column position-static">
 	            <h3 class="mb-2 font-weight-bold" id="lseTitle">${lesson.lesTitle}</h3>
-	            <div class="mb-4">플라워 공방</div>
+	            <div class="mb-4">${lesson.craftshopName}</div>
 	
 	            <div class="row">
 	                <div class="col-md-4">
@@ -54,7 +54,7 @@
 			            <div>
 			                <h6 class="my-0 text-around">쿠폰 할인</h6>
 			            </div>
-			            <span class="text-around" id="cuponDis">- 0원</span>
+			            <span class="text-around" id="couponDis">- 0원</span>
 			        </li>
 			        <li class="list-group-item d-flex justify-content-between">
 			            <strong>결제 금액</strong>
@@ -64,11 +64,11 @@
 			
 			    <div class="px-4 py-5 bb">
 			        <h6 class="mb-3 font-weight-bold">쿠폰 선택</h6>
-			        <select class="col-md-12 custom-select" name="coupon" id="coupon">
-			            <option id="sel0"></option>
+			        <select class="col-md-12 custom-select" id="coupon">
+			            <option class="couponCnt"></option>
 			            
 			            <c:forEach var="coupon" items="${cList}">
-								    	<option value="${coupon.discount}">${coupon.couponName}</option>
+								    	<option value="${coupon.discount}" id="${coupon.couponNo}">${coupon.couponName}</option>
 									</c:forEach>
 			        </select>
 			    </div>
@@ -151,31 +151,33 @@
 <script>
     var price = "${lesson.lesPrice}";
     var grade = 1;
-    var cupon = "${cList.size()}";
-    var cuponDis = 0;
+    var coupon = 0;
+    var couponCnt = "${cList.size()}";
+    var couponDis = 0;
 
-    $("#gradeDis").text("- " + price * (grade * 5 / 100) + "원");
+    var gradeDis = Math.floor(price * (grade * 0.05));
+    $("#gradeDis").text("- " + gradeDis + "원");
     
-    if (cupon < 1)
-        $("#sel0").text("적용 가능한 쿠폰이 없습니다.");
+    if (couponCnt < 1)
+        $(".couponCnt").text("적용 가능한 쿠폰이 없습니다.");
     else
-        $("#sel0").text("적용 가능 쿠폰 (" + cupon + "개)");
+        $(".couponCnt").text("적용 가능 쿠폰 (" + couponCnt + "개)");
 
     $("#coupon").change(function () {
         if ($(this).val() < 1)
-            cuponDis = price * $(this).val()
+            couponDis = Math.floor(price * $(this).val());
         else if ($(this).val() > 1)
-            cuponDis = Math.floor($(this).val())
+            couponDis = Math.floor($(this).val());
         else
-            cuponDis = 0;
+            couponDis = 0;
 
-        $("#cuponDis").text("- " + cuponDis + "원");
-        $("#totalDis").text("- " + (price * (grade * 0.05) + Number(cuponDis)) + "원");
-        $("#totalPrice").text("- " + (price - price * grade * 0.05 - cuponDis) + "원");
+        $("#couponDis").text("- " + couponDis + "원");
+        $("#totalDis").text("- " + (gradeDis + Number(couponDis)) + "원");
+        $("#totalPrice").text(price - gradeDis - couponDis + "원");
     });
 
-    $("#totalDis").text("- " + (price * grade * 0.05 + cuponDis) + "원");
-    $("#totalPrice").text((price - price * grade * 0.05) + "원");
+    $("#totalDis").text("- " + (gradeDis + Number(couponDis)) + "원");
+    $("#totalPrice").text((price - gradeDis) + "원");
     
     // 전화번호
     $(".phone").on("input", function() {
@@ -194,7 +196,7 @@
 	
   function requestPay() {
       // IMP.request_pay(param, callback) 호출
-      /* IMP.request_pay({ // param
+       IMP.request_pay({ // param
           pg: "html5_inicis",
           pay_method: "card",
           name: $("#lseTitle").text(),
@@ -203,32 +205,43 @@
           buyer_name: $("#name").text(),
           buyer_tel: phone,
       }, function (rsp) { // callback
-    	  	console.log(rsp.imp_uid);
-          if (rsp.success) { */ // 가맹점 서버 결제 API 성공시 로직
+          if (rsp.success) {  // 가맹점 서버 결제 API 성공시 로직
 	          jQuery.ajax({
 	              url: "${contextPath}/pay/payAction", // 가맹점 서버
 	              method: "POST",
 	              data: {
 	            	  dateStr: "2021-03-21 10:53:00",
-	            		payAmt: 123,
-	            		//payAmt: rsp.paid_amount,
+	            	  //dateStr: "2021-03-21 10:53:00",
+	            		payAmt: rsp.paid_amount,
 	            		gradeDis: $("#gradeDis").text().slice(1, -1),
-	            		cuponDis: $("#cuponDis").text().slice(1, -1),
-	            		impUid: "imp_308261361245",
-	            		//impUid: rsp.imp_uid,
-	            		couponNo: "1",
+	            		couponDis: $("#couponDis").text().slice(1, -1),
+	            		impUid: rsp.imp_uid,
+	            		couponNo: $("#coupon option:selected").attr("id"),
 	            		lesNo: ${lesson.lesNo}
 	              }
-	          })/* .done(function (data) {
-	        	  if(data > 0)
-		        	  location.href = "/complete";
+	          }) .done(function (data) {
+	        		  console.log(data > 0)
+	        	  if(data > 0){
+	        		  console.log("go")
+
+        		    var form = $("<form>");
+        		    form.attr("method", "post");
+        		    form.attr("action", "complete");
+								
+        		    var impUid = $("<input>").attr("type", "hidden").attr("name", "impUid").val(rsp.imp_uid);
+        		    form.append(impUid);
+        		    $(document.body).append(form);
+        		    
+        		    form.submit();
+		        	  //location.href = "complete/" + rsp.imp_uid;
+	        	  }
 	        	  else 
 	        		  alert("결제에 실패하였습니다.");
 	          })
           } else {
         	  alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
           }
-      }); */
+      }); 
     }
 </script>
 </body>

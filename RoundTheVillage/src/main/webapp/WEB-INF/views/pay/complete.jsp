@@ -23,23 +23,23 @@
                   <div class="">
                       <h6 class="my-0">예약 번호</h6>
                   </div>
-                  <span class="">23442423</span>
+                  <span class="">${pay.payNo}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                       <h6 class="my-0">수업명</h6>
                   </div>
-                  <span class="">[플라워 원데이 클래스]</span>
+                  <span class="">${pay.lesTitle}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                       <h6 class="my-0">예약 날짜</h6>
                   </div>
-                  <span>2021.2.18 2:00 PM</span>
+                  <span>${pay.resDate}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
                   <span>결제 금액</span>
-                  <span>48,000원</span>
+                  <span>${pay.payAmt}원</span>
               </li>
           </ul>
       </div>
