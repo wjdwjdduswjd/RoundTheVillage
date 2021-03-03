@@ -149,13 +149,13 @@
 
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/noticeList" />
+				<c:url var="pageUrl" value="/CScenter/noticeList" />
 
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/noticeList" />
+				<c:url var="pageUrl" value="/CScenter/noticeList" />
 			</c:otherwise>
 		</c:choose>
 
@@ -228,8 +228,8 @@
 	<jsp:include page="../common/footer.jsp" />
 
 	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
-	<c:set var="returnListURL" value="${contextPath}/CScenter/noticeList/${pageUrl}cp=${pInfo.currentPage}" scope="session" />
-
+	<c:set var="returnListURL" value="${pageUrl}?cp=${pInfo.currentPage}" scope="session" />
+	
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$("#list-table td").on("click", function(){
