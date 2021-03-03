@@ -19,11 +19,11 @@
                 <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
             </div>
             <div class="d-flex justify-content-left py-4 mb-5 bb">
-                <img src="${contextPath}/resources/images/ff.jpg" class="rounded img-responsive w-25">
+                <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
                 <div class="p-3">
-                    <h4 class="">[플라워 원데이 클래스]</h4>
-                    <span class="">삼청동</span> |
-                    <span class="">생활</span>
+                    <h4 class="">${pay.lesTitle}</h4>
+                    <span class="">${pay.craftshopName}</span> |
+                    <span class="">${pay.lesCategory}</span>
                     
                     <div class="row pt-4 d-block">
 	                    <span class="font-weight-bold col-md-6">예약 날짜</span>
@@ -41,7 +41,7 @@
                     <div>
                         <h6 class="my-0 font-weight-bold">상품 금액</h6>
                     </div>
-                    <span class="font-weight-bold">50,000원</span>
+                    <span class="font-weight-bold">${pay.lesPrice}원</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed bg-light">
                     <div class="text-around">
