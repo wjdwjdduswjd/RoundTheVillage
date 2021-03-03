@@ -24,6 +24,11 @@
 
 </resultMap>
 
+<select id="selectShopList" resultMap="shop_rm">
+	SELECT * FROM CRAFTSHOP
+</select>
+
+
 <!-- 다음 공방 번호 조회 -->
 <select id="selectNextNo" resultType = "_int">
 	SELECT SEQ_SNO.NEXTVAL FROM DUAL
