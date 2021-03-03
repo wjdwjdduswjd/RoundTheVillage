@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="payMapper">
-	
+
 	<resultMap type="Pay" id="pay_rm">
 		<id property="payNo" column="PAY_NO"/>
 		<result property="payDate" column="PAY_DT"/>
+		<result property="resDate" column="RES_DT"/>
 		<result property="payAmt" column="PAY_AMT"/>
 		<result property="gradeDis" column="GRADE_DIS"/>
-		<result property="cuponDis" column="COUPON_DIS"/>
+		<result property="couponDis" column="COUPON_DIS"/>
 		<result property="impUid" column="IMP_UID"/>
 		<result property="lesNo" column="LES_NO"/>
 		<result property="memNo" column="MEM_NO"/>
@@ -26,4 +26,29 @@
 		<result property="memNo" column="MEM_NO"/>
 	</resultMap>
 	
+	<insert id="insertPay">
+		INSERT INTO PAY 
+		VALUES (SEQ_PNO.NEXTVAL, SYSDATE, #{resDate}, #{PAY_AMT}, #{GRADE_DIS}, #{COUPON_DIS}, #{impUid}, #{LES_NO}, #{MEM_NO}, #{COUPON_NO})
+	</insert>
+	
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM PAY
+		WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="pay_rm">
+		SELECT * FROM V_PAY
+		WHERE MEM_NO = #{memNo}
+		ORDER BY PAY_NO DESC
+	</select>
+	
+	<select id="selectPay" parameterType="_int" resultMap="pay_rm">
+		SELECT * FROM V_PAY
+		WHERE PAY_NO = #{payNo}
+	</select>
+	
+	<select id="selectCupon" parameterType="_int" resultMap="coupon_rm">
+		SELECT * FROM COUPON
+		WHERE MEM_NO = #{memNo}
+	</select>
 </mapper>

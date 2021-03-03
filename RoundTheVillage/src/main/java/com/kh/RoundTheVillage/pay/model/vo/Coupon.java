@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Coupon {
 	private int couponNo;
 	private String couponName;
-	private int discount;
+	private double discount;
 	private Date issueDate;
 	private Date expireDate;
 	private Date useDate;
@@ -30,11 +30,11 @@ public class Coupon {
 		this.couponName = couponName;
 	}
 
-	public int getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 

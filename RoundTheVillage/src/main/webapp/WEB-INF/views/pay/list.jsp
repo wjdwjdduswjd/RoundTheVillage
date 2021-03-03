@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +14,27 @@
 
     <!-- <h5 class="hr-sect">구매 내역</h5> -->
     <div class="row p-3 bg-light rounded mb-5">
-        <div class="col-md-12">
-            <div class="d-flex justify-content-between bb">
-                <span class="">2021.02.16</span>
-                <a href="#" class="">내역 상세 보기 ></a>
-            </div>
-            <div class="d-flex justify-content-left py-4 mb-5 bb">
-                <img src="${contextPath}/resources/images/ff.jpg" class="rounded img-responsive w-25">
-                <div class="p-3">
-                    <h4 class="">[플라워 원데이 클래스]</h4>
-                    <span class="">삼청동</span> |
-                    <span class="">생활</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="d-flex justify-content-between bb">
-                <span class="">2021.02.16</span>
-                <a href="#" class="">내역 상세 보기 ></a>
-            </div>
-            <div class="d-flex justify-content-left py-5 mb-4 bb">
-                <img src="${contextPath}/resources/images/ff.jpg" class="rounded img-responsive w-25">
-                <div class="p-3">
-                    <h4 class="">[플라워 원데이 클래스]</h4>
-                    <span class="">삼청동</span> |
-                    <span class="">생활</span>
-                </div>
-            </div>
-        </div>
+		    <c:forEach var="pay" items="${pList}">
+	        <div class="col-md-12">
+	            <div class="d-flex justify-content-between bb">
+	                <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
+	                <a href="${pay.payNo}" class="ahover">내역 상세 보기 ></a>
+	            </div>
+	            <div class="d-flex justify-content-left py-4 mb-5 bb">
+	                <img src="${contextPath}/resources/images/ff.jpg" class="rounded img-responsive w-25">
+	                <div class="p-3">
+	                    <h4 class="">[플라워 원데이 클래스]</h4>
+	                    <span class="">삼청동</span> |
+	                    <span class="">생활</span>
+	                    
+	                    <div class="row pt-4 d-block">
+		                    <span class="font-weight-bold col-md-6">예약 날짜</span>
+		                    <span class="col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
+                    </div>
+	                </div>
+	            </div>
+	        </div>
+		    </c:forEach>
     </div>
 
     <nav aria-label="Page navigation example">
@@ -73,5 +66,9 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" />
+
+<script type="text/javascript">
+console.log(pList);
+</script>
 </body>
 </html>
