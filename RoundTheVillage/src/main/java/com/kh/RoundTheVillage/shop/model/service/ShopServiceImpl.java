@@ -22,6 +22,12 @@ public class ShopServiceImpl implements ShopService{
 	private ShopDAO dao;
 
 	
+
+	
+	
+	
+	
+	
 	
 	 // summernote 업로드 이미지 저장 Service
     @Override
@@ -53,30 +59,7 @@ public class ShopServiceImpl implements ShopService{
     }
     
     
-    // 공방 등록 Service
-    @Override
-    public int registrateShop(Shop shop, MultipartFile image){
-    	
-    	 int shopNo = dao.selectNextNo();
-    	
-    	
-    	 int result = dao.registrateShop(shop);
-    	 
-    	 
-    	 if(result > 0) { // 삽입 성공 시
-    		 
-    		 
-    		 
-    		 
-    		 
-    		 
-    		 
-    	 }
-    	
-    	
-    	return 0;
-    }
-    
+   
     
     
     
@@ -100,6 +83,36 @@ public class ShopServiceImpl implements ShopService{
        
        return date + str + ext;
     }
+
+
+
+
+
+
+
+
+
+
+
+	@Override
+	public int registrateShop(Shop shop, MultipartFile image, String savePath) {
+		
+		
+	
+		
+		return dao.registrateShop(shop);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
     
 
