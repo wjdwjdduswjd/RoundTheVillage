@@ -10,6 +10,15 @@ public class Attachment {
 	
 	public Attachment() {
 	}
+	
+	public Attachment(String filePath, String fileName, int fileLevel, int parentBoardNo) {
+		super();
+		this.filePath = filePath;
+		this.fileName = fileName;
+		this.fileLevel = fileLevel;
+		this.noticeNo = noticeNo;
+	}
+	
 
 	public int getFileNo() {
 		return fileNo;
