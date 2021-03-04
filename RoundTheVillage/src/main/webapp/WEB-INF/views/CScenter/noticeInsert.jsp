@@ -72,6 +72,10 @@ form {
 	width: 1140px;
 }
 
+#titleDiv {
+	margin-right: 40px;
+}
+
 
 
 </style>
@@ -88,11 +92,10 @@ form {
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 	
-	<div class="container">
+	<div class="container" id="write">
 
 			<div id="titleDiv">
-			<h3 id="bigTitle">공지사항 등록</h3>
-			<hr class="line1">
+			<h3 id="bigTitle">[공지사항 등록]</h3>
 			</div>
 			
 		<div class="container pb-5 mb-5">
@@ -108,16 +111,17 @@ form {
 				<div class="form-inline mb-2">
 				
 					<label class="input-group-addon mr-3 insert-label" id="contentTitle">제목 :</label> 
-					<input type="text" class="form-control" id="title" name="boardTitle" size="70">
+					<input type="text" class="form-control" id="title" name="noticeTitle" size="70">
 					
 					<label class="input-group-addon mr-3 insert-label" id="createDt">작성일 :</label>
 					<h6 class="my-0" id="today">
 						<jsp:useBean id="now" class="java.util.Date" /><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/>
 					</h6>
 				</div>
-
-
-
+				
+				
+				
+				
 				<!-- 파일 업로드 하는 부분 -->
 				<div id="fileArea">
 					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 

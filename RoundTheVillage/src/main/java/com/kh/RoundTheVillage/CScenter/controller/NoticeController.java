@@ -112,7 +112,7 @@ public class NoticeController {
 		String savePath = null;
 		
 		// summernote 추가시 수정 부분 -------------------------------------------------------------------
-		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 		
 		// 게시글 삽입 Service 호출
 		int result = service.insertNotice(map, images, savePath);
@@ -137,5 +137,30 @@ public class NoticeController {
 		
 		return url;
 	}
+	
+	
+	
+	// summernote에 업로드된 이미지 저장 Controller
+		@ResponseBody // 응답시 값 자체를 돌려보냄
+		@RequestMapping("insertImage")
+		public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
+
+			// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
+			String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
+
+			Attachment at = service.insertImage(uploadFile, savePath);
+
+			// Java -> js로 객체 전달 : JSON
+			return new Gson().toJson(at);
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

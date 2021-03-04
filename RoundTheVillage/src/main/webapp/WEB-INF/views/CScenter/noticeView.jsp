@@ -57,6 +57,10 @@
 	border : 1px solid #FBBC73;
 	}
 	
+	#back {
+		margin-left: 10px;	
+	}
+	
 </style>
 </head>
 <body>
@@ -116,12 +120,8 @@
 					</c:choose>
 					
 					
-					<a href="${goToList}" class="btn btn-primary float-right">목록으로</a>
-	        <div>
-	        ${pInfo.currentPage} 
-	        ${param.cp}   
-	        </div>    	
-	                	<!-- 로그인된 회원이 글 작성자인 경우 -->
+					<a href="${sessionScope.returnListURL}" class="btn btn-warning float-right" id="back">목록으로</a>
+					
 					<%-- 	<c:if test="${(loginMember != null) && (member.memberType == 'A')}"> --%>
 							<a href="${updateUrl}" class="btn btn-warning ml-1 mr-1" id="updateBtn">수정</a>
 							<button id="deleteBtn" class="btn btn-warning">삭제</button> 
