@@ -110,10 +110,9 @@ input::placeholder {
 }
 
 .email{
-	
 	text-align: left;
 }
-#email{
+#email{ 
 	width: 72%;
 }
 /* 이메인 인증 버튼 */
