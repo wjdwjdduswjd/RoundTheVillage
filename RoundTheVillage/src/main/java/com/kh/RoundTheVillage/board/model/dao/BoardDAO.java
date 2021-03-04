@@ -68,6 +68,10 @@ public class BoardDAO {
 		return sqlSession.insert("boardMapper.insertAttachmentList", uploadImages);
 	}
 
+	public List<Board> selectClass(int memberNo) {
+		return sqlSession.selectList("boardMapper.selectClass", memberNo);
+	}
+
 
 	
 

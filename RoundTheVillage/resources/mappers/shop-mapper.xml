@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shopMapper">
+	
+	<resultMap type="Shop" id="shop_rm">
+		<id property="shopNo" column="CRAFTSHOP_NO"/>
+		<result property="shopOwnerName" column="NAME"/>
+		<result property="shopName" column="CRAFTSHOP_NAME"/>
+		<result property="shopAdress" column="CRAFTSHOP_ADDR"/>
+		<result property="shopInfo" column="INTRODUCE"/>
+		<result property="shopContact" column="CRAFTSHOP_CONTACT"/>
+		<result property="thumbInfo" column="THUMBNAIL_INFO"/>
+		<result property="shopCategoryName" column="CS_CATE_NM"/>
+		<result property="shopCategoryNo" column="CS_CATE_NO"/>
+	</resultMap>
+	
+	<resultMap type = "ShopAttachment" id = "shopAttachment_rm">
+
+<id property = "fileNo" column = "FILE_NO"/>
+<result property = "filePath"  column ="FILE_PATH"/>
+<result property = "fileName"  column ="FILE_NAME"/>
+<result property = "shopNo"  column ="CRAFTSHOP_NO"/>
+
+</resultMap>
+
+<!-- 다음 공방 번호 조회 -->
+<select id="selectNextNo" resultType = "_int">
+	SELECT SEQ_SNO.NEXTVAL FROM DUAL
+</select>
+
+<!-- 공방 등록  -->
+<insert id="registrateShop" parameterType ="Shop">
+INSERT INTO CRAFTSHOP VALUES
+(#{shopNo}, #{shopOwnerName}, #{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo})
+</insert>
+	
+
+	
+</mapper>

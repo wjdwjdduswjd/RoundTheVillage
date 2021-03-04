@@ -47,6 +47,8 @@ public interface BoardService {
 
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 
+	public abstract List<Board> selectClass(int memberNo);
+
 
 
 

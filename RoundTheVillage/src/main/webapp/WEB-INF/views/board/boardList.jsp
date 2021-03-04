@@ -214,15 +214,20 @@ body {
 }
 
 
-
-
-
-
-
 </style>
 </head>
 <body>
 	<%-- <jsp:include page="../common/header.jsp"/> --%>
+	
+			<style>
+		
+		hr{
+			width : 100%;
+		}
+
+	</style>
+	
+	
    <div class="container">
         <div class="row">
             <div class="col-md-2">
@@ -286,7 +291,19 @@ body {
                     
                     <c:forEach var="board" items="${bList}" varStatus="vs">
                     	 <div class="col-md-3 area3" id="${board.boardNo}">
-	                        <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail">
+                    	  <c:forEach items="${thList}" var="th">
+                           	
+                           		<c:if test="${th.boardNo == board.boardNo}">
+                           		
+                           			<img src="${contextPath}${th.filePath}/${th.fileName}">
+				                           			
+                           		</c:if>
+                           
+                           </c:forEach>
+                    	 
+                    	 
+                    	 
+	                      <%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
 	                        <span class="badge badge-default">${board.boardTitle}</span>
 	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
 	                    </div>
@@ -374,19 +391,21 @@ body {
                     <ul class="pagination pagination-sm justify-content-center">
 
 
+								 <c:url var="pageUrl" value="${pInfo}?"/>
+
 											  <!-- 화살표에 들어갈 주소를 변수로 생성 -->
-		            <c:set var="firstPage" value="?cp=1"/>
-		            <c:set var="lastPage" value="?cp=${pInfo.maxPage}"/>
+		            <c:set var="firstPage" value="${pageUrl}cp=1"/>
+		            <c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
 
 
 								<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
 		            <fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
-		            <c:set var="prevPage" value="?cp=${prev}" />
+		            <c:set var="prevPage" value="${pageUrl}cp=${prev}" />
 		            
 		            
 		            <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
 		            <fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
-		            <c:set var="nextPage" value="?cp=${next}" />
+		            <c:set var="nextPage" value="${pageUrl}cp=${next}" />
 
 
 											 <c:if test="${pInfo.currentPage > pInfo.pageSize}">
@@ -411,7 +430,7 @@ body {
 		                      
 		                      <c:otherwise>
 			                        <li class="page-item">
-			                            <a class="page-link" href="?cp=${page}${searchStr}">${page}</a>
+			                            <a class="page-link" href="${pageUrl}cp=${page}${searchStr}">${page}</a>
 			                        </li>
 														</c:otherwise>
 													</c:choose>
@@ -501,7 +520,16 @@ body {
 		
 	});
 
-
+	
+	$(".categoryBtn").on("click", function(){
+		
+		
+		
+		
+	});
+	
+	
+	
     </script>
 	
 
