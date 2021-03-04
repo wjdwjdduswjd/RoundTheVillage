@@ -2,49 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="shopMapper">
-	
+
 	<resultMap type="Shop" id="shop_rm">
-		<id property="shopNo" column="CRAFTSHOP_NO"/>
-		<result property="shopOwnerName" column="NAME"/>
-		<result property="shopName" column="CRAFTSHOP_NAME"/>
-		<result property="shopAdress" column="CRAFTSHOP_ADDR"/>
-		<result property="shopInfo" column="INTRODUCE"/>
-		<result property="shopContact" column="CRAFTSHOP_CONTACT"/>
-		<result property="thumbInfo" column="THUMBNAIL_INFO"/>
-		<result property="shopCategoryName" column="CS_CATE_NM"/>
-		<result property="shopCategoryNo" column="CS_CATE_NO"/>
+		<id property="shopNo" column="CRAFTSHOP_NO" />
+		<result property="shopOwnerName" column="NAME" />
+		<result property="shopName" column="CRAFTSHOP_NAME" />
+		<result property="shopAdress" column="CRAFTSHOP_ADDR" />
+		<result property="shopInfo" column="INTRODUCE" />
+		<result property="shopContact" column="CRAFTSHOP_CONTACT" />
+		<result property="thumbInfo" column="THUMBNAIL_INFO" />
+		<result property="shopCategoryName" column="CS_CATE_NM" />
+		<result property="shopCategoryNo" column="CS_CATE_NO" />
 	</resultMap>
-	
-	<resultMap type = "ShopAttachment" id = "shopAttachment_rm">
 
-<id property = "fileNo" column = "FILE_NO"/>
-<result property = "filePath"  column ="FILE_PATH"/>
-<result property = "fileName"  column ="FILE_NAME"/>
-<result property = "shopNo"  column ="CRAFTSHOP_NO"/>
+	<resultMap type="ShopAttachment" id="shopAttachment_rm">
 
-</resultMap>
+		<id property="fileNo" column="FILE_NO" />
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileName" column="FILE_NAME" />
+		<result property="shopNo" column="CRAFTSHOP_NO" />
 
-<select id="selectShopList" resultMap="shop_rm">
-	SELECT * FROM CRAFTSHOP
-</select>
+	</resultMap>
 
-<select id="selectShopInfo" resultMap="shop_rm">
-	SELECT * FROM CRAFTSHOP
-	WHERE CRAFTSHOP_NO = #{shopNo}
-</select>
+	<!-- 공방 등록 여부 확인 -->
+	<select id="selectRegistrationFlag" parameterType="_int" resultType="_int">
+		SELECT DECODE((SELECT MAX(SHOP_REGI_FL) 
+			FROM CRAFTSHOP WHERE CRAFTSHOP_NO = #{memberNo}),'Y',1,'N',0,-1 ) RES
+		FROM DUAL
+	</select>
+
+	<!-- 공방 정보 조회(+ 카테고리명) -->
+	<select id="selectShop" parameterType="_int" resultMap="shop_rm">
+		SELECT * FROM CRAFTSHOP
+		JOIN CS_CATEGORY USING(CS_CATE_NO)
+		WHERE CRAFTSHOP_NO = #{memberNo}
+	</select>
+
+	<!-- 공방 좋아요 개수 조회 -->
+	<select id="selectCsGoodCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM CS_GOOD
+		WHERE CRAFTSHOP_NO = #{memberNo}	
+	</select>
 
 
-<!-- 다음 공방 번호 조회 -->
-<select id="selectNextNo" resultType = "_int">
-	SELECT SEQ_SNO.NEXTVAL FROM DUAL
-</select>
 
-<!-- 공방 등록  -->
-<insert id="registrateShop" parameterType ="Shop">
-INSERT INTO CRAFTSHOP VALUES
-(#{shopNo}, #{shopOwnerName}, #{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo})
-</insert>
-	
+	<select id="selectShopList" resultMap="shop_rm">
+		SELECT * FROM CRAFTSHOP
+	</select>
 
-	
+	<select id="selectShopInfo" resultMap="shop_rm">
+		SELECT * FROM CRAFTSHOP
+		WHERE CRAFTSHOP_NO = #{shopNo}
+	</select>
+
+
+	<!-- 다음 공방 번호 조회 -->
+	<select id="selectNextNo" resultType="_int">
+		SELECT SEQ_SNO.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 공방 등록 -->
+	<insert id="registrateShop" parameterType="Shop">
+		INSERT INTO CRAFTSHOP VALUES
+		(#{shopNo}, #{shopOwnerName},
+		#{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo})
+	</insert>
+
+
+
 </mapper>
