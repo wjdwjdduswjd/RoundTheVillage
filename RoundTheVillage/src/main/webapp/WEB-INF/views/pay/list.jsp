@@ -18,14 +18,14 @@
 	        <div class="col-md-12">
 	            <div class="d-flex justify-content-between bb">
 	                <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
-	                <a href="${pay.payNo}" class="ahover">내역 상세 보기 ></a>
+	                <a href="view/${pay.payNo}" class="ahover">내역 상세 보기 ></a>
 	            </div>
 	            <div class="d-flex justify-content-left py-4 mb-5 bb">
-	                <img src="${contextPath}/resources/images/ff.jpg" class="rounded img-responsive w-25">
+	                <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
 	                <div class="p-3">
-	                    <h4 class="">[플라워 원데이 클래스]</h4>
-	                    <span class="">삼청동</span> |
-	                    <span class="">생활</span>
+	                    <h4 class="">${pay.lesTitle}</h4>
+	                    <span class="">${pay.craftshopName}</span> |
+	                    <span class="">${pay.lesCategory}</span>
 	                    
 	                    <div class="row pt-4 d-block">
 		                    <span class="font-weight-bold col-md-6">예약 날짜</span>
@@ -66,9 +66,5 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" />
-
-<script type="text/javascript">
-console.log(pList);
-</script>
 </body>
 </html>
