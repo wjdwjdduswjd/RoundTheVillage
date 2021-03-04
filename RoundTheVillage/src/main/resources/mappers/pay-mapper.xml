@@ -19,6 +19,7 @@
 		<result property="craftshopNo" column="CRAFTSHOP_NO"/>
 		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
 		<result property="fileName" column="FILE_NAME"/>
+		<result property="payFl" column="PAY_FL"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="coupon_rm">
@@ -36,19 +37,21 @@
 		<id property="lesNo" column="LES_NO"/>
 		<id property="lesTitle" column="LES_TITLE"/>
 		<result property="lesPrice" column="LES_PRICE"/>
+		<result property="lesCategory" column="LES_CATEGORY"/>
 		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
 		<result property="fileName" column="FILE_NAME"/>
 	</resultMap>
 	
 	<select id="selectCupon" parameterType="_int" resultMap="coupon_rm">
 		SELECT * FROM COUPON
-		WHERE MEM_NO = #{memNo}
+		WHERE MEM_NO = #{memNo} AND USE_FL = 'N' 
+		    AND TO_CHAR(EXPIRE_DT, 'YYYYMMDD') >= TO_CHAR(SYSDATE, 'YYYYMMDD')
 		ORDER BY COUPON_NO DESC
 	</select>
 	
 	<select id="selectLesson" parameterType="_int" resultMap="payles_rm">
 		SELECT * FROM V_PAY_LES
-		WHERE LES_NO = #{lesNo}
+		WHERE LES_NO = #{lesNo} 
 	</select>
 	
 	<insert id="insertPay" parameterType="Pay">
@@ -64,24 +67,31 @@
 		</choose>
 	</insert>
 	
+	
+	<update id="updateCoupon" parameterType="_int">
+		UPDATE COUPON
+		SET USE_FL = 'Y'
+		WHERE COUPON_NO = #{couponNo};
+	</update>
+	
 	<select id="selectPayByUid" parameterType="string" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE IMP_UID = #{impUid}
+		WHERE IMP_UID = #{impUid} AND PAY_FL = 'N'
 	</select>
 	
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM PAY
-		WHERE MEM_NO = #{memNo}
+		WHERE MEM_NO = #{memNo} AND PAY_FL = 'N'
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE MEM_NO = #{memNo}
+		WHERE MEM_NO = #{memNo} AND PAY_FL = 'N'
 		ORDER BY PAY_NO DESC
 	</select>
 	
 	<select id="selectPay" parameterType="_int" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE PAY_NO = #{payNo}
+		WHERE PAY_NO = #{payNo} AND PAY_FL = 'N'
 	</select>
 </mapper>

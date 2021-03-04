@@ -72,7 +72,12 @@ public class PayController {
 		pay.setMemNo(1);
 		//pay.setMemNo(loginMember.getMemNo());
 		
-		return service.insertPay(pay);
+		int result = service.insertPay(pay);
+		
+		if(result > 0)
+			result = service.updateCoupon(pay.getCouponNo());
+			
+		return result;
 	}
 	
 //	@RequestMapping("complete/{impUid}")

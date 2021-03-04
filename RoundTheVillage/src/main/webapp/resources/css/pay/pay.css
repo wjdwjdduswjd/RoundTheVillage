@@ -98,11 +98,14 @@ a.page-link:focus {
     margin: 0px 15px;
     background-color: white;
     cursor: pointer;
-    width: 300px;
     height: 300px;
     padding: 10px;
     border-collapse: separate;
     border: solid #cacece 1px;
+}
+
+#calendar td {
+	width: 40px;
 }
 
 .selected,

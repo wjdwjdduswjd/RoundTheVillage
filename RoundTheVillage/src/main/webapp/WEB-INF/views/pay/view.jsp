@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -13,22 +14,30 @@
 
     <h4 class="mt-5 mb-4">예약 내역</h4>
     <div class="row p-3 bg-light rounded mb-5">
-        <div class="col-md-12 py-4">
+        <div class="col-md-12 py-2">
             <div class="d-flex justify-content-between bb">
                 <span>결제 번호: ${pay.payNo}</span>
                 <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
             </div>
             <div class="d-flex justify-content-left py-4 mb-5 bb">
                 <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
-                <div class="p-3">
-                    <h4>${pay.lesTitle}</h4>
+                <div class="p-3 col-md-9">
+                    <h4 class="mt-4">${pay.lesTitle}</h4>
                     <span>${pay.craftshopName}</span> |
                     <span>${pay.lesCategory}</span>
                     
                     <div class="row pt-4 d-block">
 	                    <span class="font-weight-bold col-md-6">예약 날짜</span>
-	                    <span class="col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
+	                    <span class="font-weight-bold col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
                     </div>
+                    
+                    <fmt:formatDate var="resDate" value="${pay.resDate}" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate var="now" value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/> 
+										<c:if test="${resDate > now}">
+	                    <div class="text-right mt-3">
+									        <button class="btn btn-around" onclick="cancelPay()">예약 취소</button>
+									    </div>
+										</c:if>
                 </div>
             </div>
         </div>
@@ -70,9 +79,28 @@
     </div>
 
     <div class="text-right">
-        <button class="btn btn-around">목록으로</button>
+        <button class="btn btn-around" onclick="location.href='${returnListURL}'">목록으로</button>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" />
+
+ <script>
+   function cancelPay() {
+     jQuery.ajax({
+       "url": "http://www.myservice.com/payments/cancel",
+       "type": "POST",
+       "contentType": "application/json",
+       "data": JSON.stringify({
+         "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
+         "cancel_request_amount": 2000, // 환불금액
+         "reason": "테스트 결제 환불" // 환불사유
+         "refund_holder": "홍길동", // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+         "refund_bank": "88" // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(ex. KG이니시스의 경우 신한은행은 88번)
+         "refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+       }),
+       "dataType": "json"
+     });
+   }
+ </script>
 </body>
 </html>
