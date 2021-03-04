@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lessonMapper2">
+	
+	<resultMap type="LessonReview" id="lessonreview_rm">
+		<id property="revNo" column="REV_NO"/>
+		<result property="revContent" column="REV_CONTENT"/>
+		<result property="revCreateDt" column="REV_CREATE_DT"/>
+		<result property="revRating" column="REV_RATING"/>
+		<result property="lesNo" column="LES_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	<insert id="insertReview" parameterType="LessonReview">
+		INSERT INTO LESSON_REVIEW 
+		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, 1)
+	</insert>
+
+	<select id="selectReview" parameterType="_int" resultMap="lessonreview_rm">
+		SELECT * FROM LESSON_REVIEW 
+		WHERE LES_NO = #{lesNo}
+		ORDER BY REV_NO DESC 
+	</select>
+	
+	<update id="updateReview" parameterType="LessonReview">
+		UPDATE LESSON_REVIEW SET REV_CONTENT = #{revContent}
+		WEHRE REV_NO = #{revNo}
+	</update>
+	
+	<delete id="deleteReview" parameterType="_int">
+		DELETE LESSON_REVIEW
+		WHERE REV_NO = #{revNo}
+	</delete>
+</mapper>
