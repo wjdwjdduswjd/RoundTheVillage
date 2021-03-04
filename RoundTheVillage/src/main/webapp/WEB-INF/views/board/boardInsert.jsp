@@ -182,7 +182,7 @@ body {
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4 writer"><b>작성자</b></span>${loginMember.memberNickname} 정연정
+                <span class="pr-4 writer"><b>작성자</b></span>${loginMember.memberNickname}
               </p>
             </div>
           </div>
@@ -190,12 +190,12 @@ body {
           <div class="row">
             <div class="col-md-7 px-3">
               <p>
-              <c:forEach var="cls" items="${selectClass}" varStatus="vs">
                 <span class="pr-4"><b>공방</b></span> 
                 <select name="classNo" id="workshopSelect">
+              <c:forEach var="cls" items="${selectClass}" varStatus="vs">
                   <option value="${cls.classNo}">${cls.lessonTitle}</option>
-                </select>
               </c:forEach>
+                </select>
               	
               </p>
             </div>
