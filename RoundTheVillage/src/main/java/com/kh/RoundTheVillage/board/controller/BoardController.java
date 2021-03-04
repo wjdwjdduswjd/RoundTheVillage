@@ -150,11 +150,11 @@ public class BoardController {
 	   
 	  Map<String, Object> map = new HashMap<String, Object>(); // 맵을 이용해 받아온 정보들을 한곳에 담기
 	  // map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
-	   map.put("memberNo", 1); // 세션에 올려져있는 멤버넘버
+	   map.put("memberNo", 46); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
 	   map.put("boardContent", board.getBoardContent()); // 내가 작성한 글 내용
 	   map.put("classNo", board.getClassNo()); // 공방 번호
-	   map.put("classCategoryNo", board.getClassCategoryNo()); // 카테고리 코드
+	   //map.put("classCategoryNo", board.getClassCategoryNo()); // 카테고리 코드
 	   
 	   System.out.println(map);
 	  
@@ -166,7 +166,7 @@ public class BoardController {
 	 
 		String url = null;
 		
-		
+		System.out.println("result : " + result);
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
@@ -175,15 +175,15 @@ public class BoardController {
 			request.getSession().setAttribute("returnListURL", "../list");
 		
 		}else {
-			   swalIcon = "error";
-			   swalTitle = "게시글 삽입 실패";
-			   url = "redirect:insert"; 
-		   }
+		   swalIcon = "error";
+		   swalTitle = "게시글 삽입 실패";
+		   url = "redirect:insert"; 
+	   }
 		   
-		   ra.addFlashAttribute("swalIcon", swalIcon);
-		   ra.addFlashAttribute("swalTitle", swalTitle);
-		   
-		   return url;
+	   ra.addFlashAttribute("swalIcon", swalIcon);
+	   ra.addFlashAttribute("swalTitle", swalTitle);
+	   
+	   return url;
 	   
    }
    

@@ -65,7 +65,7 @@
 				CLA_NO, CS_CATE_NO, MEM_NICKNAME, LES_TITLE
 	FROM V_BOARD
 	WHERE BOARD_STATUS = 'Y'
-	AND BOARD_NO = #{boardNo}zn
+	AND BOARD_NO = #{boardNo}
 </select>
 
 <!-- 게시글 조회 수 증가 -->
@@ -86,8 +86,11 @@
 	INSERT INTO BOARD VALUES
 	(#{boardNo}, #{boardTitle}, #{boardContent},
 		DEFAULT, DEFAULT, DEFAULT, DEFAULT, #{memberNo},
-		#{classNo}, #{classCategoryNo}<!--  #{lessonTitle}, #{classCategoryNm} -->)
+		#{classNo}, DEFAULT)
+		
+		<!--  #{lessonTitle}, #{classCategoryNm} -->
 	</insert>
+		<!--  integrity constraint (AROUND.FK_LESSON_TO_BOARD_1) violated - parent key not found -->
 	
 	
 <!-- 게시글에 포함된 이미지 목록 조회 -->
@@ -104,11 +107,11 @@
 		SELECT SEQ_FNO.NEXTVAL, A.* FROM (
 		
 			<foreach collection="list" item="item" separator=" UNION ALL ">
-				SELECT #{item.filePath} B_FILE_PATH,
-							 #{item.fileName} B_FILE_NAME,
-							 #{item.fileLevel} B_FILE_LEVEL,
-							 #{item.boardNo} BOARD_NO
-						<!-- 	 #{item.fileCreateDate} B_FILE_DT -->
+				SELECT  #{item.fileName} B_FILE_NAME, 
+								#{item.fileLevel} B_FILE_LEVEL,
+ 							 	<!-- #{item.fileCreateDate} B_FILE_DT, -->
+								#{item.filePath} B_FILE_PATH,
+								#{item.boardNo} BOARD_NO
 				FROM DUAL
 			</foreach>
 		
@@ -116,10 +119,13 @@
 	</insert>
 	
 	<select id="selectClass" parameterType="_int" resultMap="board_rm">
-		    SELECT CLA_NO , CS_CATE_NM, LES_TITLE
-        FROM V_BOARD
-        JOIN PAY ON(MEMBER_NO = MEM_NO)
-        WHERE MEMBER_NO = 999
+    <!-- SELECT CLA_NO , CS_CATE_NM, LES_TITLE
+     FROM V_BOARD
+     JOIN PAY ON(MEMBER_NO = MEM_NO)
+     WHERE MEMBER_NO = 46 -->
+		SELECT LES_NO CLA_NO, LES_TITLE FROM LESSON
+		JOIN PAY USING(LES_NO)
+		WHERE MEM_NO = 46
 	</select>
 
 
