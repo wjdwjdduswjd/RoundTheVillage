@@ -106,25 +106,32 @@ public class NoticeController {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeNo", notice.getNoticeNo());
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
+		
+		System.out.println("noticeTitle"+notice.getNoticeTitle());
+		
+		//System.out.println("map:" + map);
 		
 		String savePath = null;
 		
 		// summernote 추가시 수정 부분 -------------------------------------------------------------------
-		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 		
 		// 게시글 삽입 Service 호출
 		int result = service.insertNotice(map, images, savePath);
 
 		String url = null;
-
+		
+		System.out.println("noticeNo"+notice.getNoticeNo());
+		
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 
-			request.getSession().setAttribute("returnListURL", "noticeList");
+			request.getSession().setAttribute("returnListURL", "/noticeList");
 
 		} else {
 			swalIcon = "error";
@@ -146,7 +153,7 @@ public class NoticeController {
 		public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 			// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
-			String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages");
+			String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 
 			Attachment at = service.insertImage(uploadFile, savePath);
 

@@ -111,7 +111,7 @@ form {
 				<div class="form-inline mb-2">
 				
 					<label class="input-group-addon mr-3 insert-label" id="contentTitle">제목 :</label> 
-					<input type="text" class="form-control" id="title" name="boardTitle" size="70">
+					<input type="text" class="form-control" id="title" name="noticeTitle" size="70">
 					
 					<label class="input-group-addon mr-3 insert-label" id="createDt">작성일 :</label>
 					<h6 class="my-0" id="today">
@@ -129,7 +129,7 @@ form {
 				</div>
 
 				<div class="form-group">
-					<textarea class="form-control" id="summernote" name="boardContent"
+					<textarea class="form-control" id="summernote" name="noticeContent"
 						rows="10" style="resize: none;"></textarea>
 				</div>
 

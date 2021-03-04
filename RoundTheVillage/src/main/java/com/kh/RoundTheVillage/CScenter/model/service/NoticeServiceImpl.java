@@ -36,6 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
 		return new PageInfo2(cp, listCount);
 	}
 
+	
+	
 	// 게시글 목록 조회 Service 구현
 	// ----------------------------------------------------------------------------------------------------------
 	@Override
@@ -43,6 +45,8 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.selectList(pInfo);
 	}
 
+	
+	
 	// 게시글 상세 조회 Service 구현
 	// -----------------------------------------------------------------------------------------------------------
 	@Transactional(rollbackFor = Exception.class)
@@ -57,6 +61,8 @@ public class NoticeServiceImpl implements NoticeService {
 		return notice;
 	}
 
+	
+	
 	// 게시글에 포함된 이미지 목록 조회 Service 구현
 	// -----------------------------------------------------------------------------------------------
 	@Override
@@ -64,55 +70,98 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.selectAttachmentList(noticeNo);
 	}
 
+	
+	
+	// 게시글 삽입 Service --------------------------------------------------------------------------------
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath) {
 
-		int result = 0;
-
+		int result = 0; // 최종 결과 저장 변수 선언
 		int noticeNo = dao.selectNextNo();
 
-		result = dao.insertNotice(map);
-
-		if (noticeNo > 0) {
-			map.put("noticeNo", noticeNo);
-			System.out.println("noticeNo : " + noticeNo);
-
-			String noticeTitle = (String) map.get("noticeTitle");
-			String noticeContent = (String) map.get("noticeContent");
-
-			noticeTitle = replaceParameter(noticeTitle);
-			noticeContent = replaceParameter(noticeContent);
-
-			map.put("noticeTitle", noticeTitle);
-			map.put("noticeContent", noticeContent);
-
+		if (noticeNo > 0) { // 다음 게시글 번호를 얻어온 경우
+			map.put("noticeNo", noticeNo); // map에 noticeNo 추가
 			result = dao.insertNotice(map);
+			
+			if (result > 0) {
+				List<Attachment> uploadImages = new ArrayList<Attachment>();
 
-		}
+				// summernote 추가시 수정 부분 ---------------------------------------------
+				String filePath = null;
+				filePath = "/resources/infoImages/notice";
 
-		if (result > 0) {
+				for (int i = 0; i < images.size(); i++) {
 
-			List<Attachment> uploadImages = new ArrayList<Attachment>();
+					if (!images.get(i).getOriginalFilename().equals("")) {
+						String fileName = rename(images.get(i).getOriginalFilename());
+						// Attachment 객체 생성
+						Attachment at = new Attachment(filePath, fileName, i, noticeNo);
+						uploadImages.add(at); // 리스트에 추가
+					}
+				}
 
-			String filePath = null;
-			result = noticeNo;
+				
+					Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출
+
+					// SummerNote에 작성된 내용 중 img태그의 src속성의 값을 검사하여 매칭되는 값을 Matcher객체에 저장함.
+					Matcher matcher = pattern.matcher((String) map.get("noticeContent"));
+
+					String fileName = null; // 파일명 변환 후 저장할 임시 참조 변수
+					String src = null; // src 속성값을 저장할 임시 참조 변수
+
+					while (matcher.find()) {
+						src = matcher.group(1); // 매칭된 src 속성값을 Matcher 객체에서 꺼내서 src에 저장
+
+						filePath = src.substring(src.indexOf("/", 2), src.lastIndexOf("/")); // 파일명을 제외한 경로만 별도로 저장.
+
+						fileName = src.substring(src.lastIndexOf("/") + 1); // 업로드된 파일명만 잘라서 별도로 저장.
+
+						Attachment at = new Attachment(filePath, fileName, 1, noticeNo);
+						uploadImages.add(at);
+					}
+				
+
+				// ------------------------------------------ summernote ------------------------------------------------------
+
+				if (!uploadImages.isEmpty()) { // 업로드된 이미지가 있을 경우
+					result = dao.insertAttachmentList(uploadImages);
+
+					if (result == uploadImages.size()) {
+						result = noticeNo; // result에 noticeNo 저장
+
+
+						int size = 0;
+						if (!images.get(0).getOriginalFilename().equals("")) {
+							size = images.size();
+						}
+
+						for (int i = 0; i < size; i++) {
+
+							try {
+								images.get(uploadImages.get(i).getFileLevel())
+										.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
+
+							} catch (Exception e) {
+								e.printStackTrace();
+
+								throw new InsertAttachmentFailException("파일 서버 저장 실패");
+							}
+						}
+					}
+
+				} else { // 파일 정보를 DB에 삽입하는데 실패했을 때
+					throw new InsertAttachmentFailException("파일 정보 DB 삽입 실패");
+				}
+			} else { // 업로드된 이미지가 없을 경우
+				result = noticeNo;
+			}
 		}
 		return result;
 	}
-
-	// 크로스 사이트 스크립트 방지 처리 메소드
-	private String replaceParameter(String param) {
-		String result = param;
-		if (param != null) {
-			result = result.replaceAll("&", "&amp;");
-			result = result.replaceAll("<", "&lt;");
-			result = result.replaceAll(">", "&gt;");
-			result = result.replaceAll("\"", "&quot;");
-		}
-
-		return result;
-	}
+	
+	
+	
 
 	// 파일명 변경 메소드
 	// ---------------------------------------------------------------------------------------------------------------------
@@ -130,35 +179,33 @@ public class NoticeServiceImpl implements NoticeService {
 
 		return date + str + ext;
 	}
-	
-	
-	
-	// summernote 업로드 이미지 저장 Service 
-	   @Override
-	   public Attachment insertImage(MultipartFile uploadFile, String savePath) {
-	      
-	      // 파일명 변경
-	      String fileName = rename(uploadFile.getOriginalFilename());
-	      
-	      // 웹상 접근 주소 
-	      String filePath = "/resources/infoImages";
-	      
-	      // 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
-	      Attachment at = new Attachment();
-	      at.setFilePath(filePath);
-	      at.setFileName(fileName);
-	      
-	      // 서버에 파일 저장 ( transferTo() )
-	      
-	      try {
-	         uploadFile.transferTo( new File( savePath + "/" + fileName ) );
-	                              // ~~/infoImages   /   202102~~~
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	         
-	         throw new InsertAttachmentFailException("summernote 파일 업로드 실패");
-	      }
-	      
-	      return at;
-	   }
+
+	// summernote 업로드 이미지 저장 Service
+	@Override
+	public Attachment insertImage(MultipartFile uploadFile, String savePath) {
+
+		// 파일명 변경
+		String fileName = rename(uploadFile.getOriginalFilename());
+
+		// 웹상 접근 주소
+		String filePath = "/resources/infoImages/notice";
+
+		// 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
+		Attachment at = new Attachment();
+		at.setFilePath(filePath);
+		at.setFileName(fileName);
+
+		// 서버에 파일 저장 ( transferTo() )
+
+		try {
+			uploadFile.transferTo(new File(savePath + "/" + fileName));
+			// ~~/infoImages / 202102~~~
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new InsertAttachmentFailException("summernote 파일 업로드 실패");
+		}
+
+		return at;
+	}
 }

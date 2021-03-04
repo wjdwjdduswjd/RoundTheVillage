@@ -58,7 +58,7 @@
 	
 	<!-- 게시글 삽입 -->
 	<insert id="insertNotice" parameterType="map">
-		INSERT INTO NOTICE VALUES ( #{noticeNo}, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT)
+		INSERT INTO NOTICE VALUES (#{noticeNo}, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT)
 	</insert>
 	
 	
