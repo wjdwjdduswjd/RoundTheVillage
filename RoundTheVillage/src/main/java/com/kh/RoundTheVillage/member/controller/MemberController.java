@@ -38,6 +38,13 @@ public class MemberController {
 	@Autowired  
 	private JavaMailSender mailSender;   //메일
 	
+	
+	// sweet alert 메세지 전달용 변수 선언
+	private String swalIcon;
+	private String swalTitle;
+	private String swalText;
+	
+	
 	//회원가입 연결
 	@RequestMapping("signUp")
 	public String signUp() {
@@ -89,19 +96,21 @@ public class MemberController {
       
       String setfrom = "wldnsro1128@gmail.com";
       String tomail = request.getParameter("mail"); // 받는 사람 이메일
-      String title = "[동네한바퀴 회원가입] 회원 가입에 필요한 이메일 인증 번호"; // 제목
+      //String title = "[동네한바퀴 회원가입] 회원 가입에 필요한 이메일 인증 번호"; // 제목
+      String title = request.getParameter("title"); //제목
+      
       String content = "해당 인증번호를 인증번호 확인영역에 입력해주세요."; // 내용
       String key = "";
-
+      System.out.println(tomail);
       try {
          Random random = new Random();
            
            for (int i = 0; i < 3; i++) {
                int index = random.nextInt(25) + 65; // A~Z까지 랜덤 알파벳 생성
                key += (char) index;
-            }
-            int numIndex = random.nextInt(8999) + 1000; // 4자리 정수를 생성
-            key += numIndex;
+	        }
+	        int numIndex = random.nextInt(8999) + 1000; // 4자리 정수를 생성
+	        key += numIndex;
             
             
          MimeMessage message = mailSender.createMimeMessage();
@@ -145,17 +154,11 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-	
-	
 	// 로그인화면 연결
 	@RequestMapping("login")
 	public String login() {
 		return "member/login";
 	}
-	
 	
 	// 로그인 동작
 	@RequestMapping("loginAction")
@@ -196,14 +199,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 아이디/비밀번호 찾기 연결
 	@RequestMapping("idFind")
 	public String idFind() {
@@ -220,19 +215,33 @@ public class MemberController {
 	
 	// 아이디 찾기 성공 페이지
 	@RequestMapping("idFindComplete")
-	public String idFindComplete(@ModelAttribute Member findMember) {
+	public String idFindComplete(@ModelAttribute Member findMember, Model model) {
 		
-		//String memberIdFind =  service.idFind(findMember);
+		String memberIdFind =  service.idFind(findMember);
 		
+		System.out.println(memberIdFind);
 		
+		String url = null;
 		
+		if(memberIdFind != null) {
+			
+			model.addAttribute("memberIdFind", memberIdFind);
+			
+			url = "member/idFindComplete";
+			
+		}else {  
+			
+			url = "member/idFind";
+		}
 		
-		
-		return "member/idFindComplete";
+		return url;
 	}
 	
 	
-	// 아이디 찾기 성공 페이지
+	
+	
+	
+	// 비밀번호 찾기 성공 페이지
 	@RequestMapping("pwdFindComplete")
 	public String pwdFindComplete() {
 		return "member/pwdFindComplete";

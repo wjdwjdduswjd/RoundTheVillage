@@ -76,7 +76,7 @@
 				<label class="title">* 이메일</label><br>
 				<div class="email">
 					<input type="email" name="memberEmail" id="email" placeholder="example@naver.com" required>
-					<button class="email_button" id="email_button"   onsubmit="memberJoinvalidate()">이메일 인증</button>
+					<button class="email_button" id="email_button">이메일 인증</button>
 				</div>
 				<div class="check">
 					<span id="checkEmail">&nbsp;</span>
@@ -388,14 +388,15 @@
          } else {
             $.ajax({
                url : 'normalSignUpMail',
-               data : { mail : mail },
+               data : { mail : mail,
+            	   "title" : "[동네한바퀴 회원가입] 회원가입에 필요한 이메일 인증 번호"},
                type : 'post',
                success : function(result){
                   key = result;
                   
+         alert("인증번호가 전송되었습니다.");
                }
             });
-         alert("인증번호가 전송되었습니다.");
          }
       }); 
       

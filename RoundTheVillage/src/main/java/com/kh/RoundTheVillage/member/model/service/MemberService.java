@@ -34,6 +34,12 @@ public interface MemberService {
 	 */
 	public abstract Member loginAction(Member inputMember);
 
+	/**아이디 찾기
+	 * @param findMember
+	 * @return result
+	 */
+	public abstract String idFind(Member findMember);
+
 
 
 }
