@@ -11,9 +11,10 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
 
-    <!-- <h5 class="hr-sect">배너 결제</h5> -->
+    <h4 class="mt-5 mb-4">배너 결제</h4>
     <div class="row bg-light rounded">
-        <form class=" col-md-12" onsubmit="return vaildation()">
+    
+        <form class="col-md-12 p-4">
             <div class="form-group">
                 <label for="URL" class="font-weight-bold py-3">링크 URL</label>
                 <input type="text" class="form-control" id="URL" name="URL">
@@ -61,7 +62,7 @@
             </div>
 
             <div class="text-center p-5">
-                <button type="submit" class="btn btn-around">결제하기</button>
+                <button type="submit" class="btn btn-around" onclick="requestPay()">결제하기</button>
                 <a href="#" class="btn btn-around-2">취소</a>
             </div>
         </form>
@@ -72,7 +73,6 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +91,10 @@
             // swal({ icon: "info", title: "시작 날짜를 선택해주세요" });
             $("#myModal").modal("show");
             return false;
-        }
+        } else {
+	        	requestPay();
+	        	return false;
+        }        
     }
 
     function LoadImg(value) {
@@ -186,7 +189,6 @@
         $(this).addClass("selected");
 
         startDate = new Date(today.getFullYear(), today.getMonth(), $(this).text());
-        console.log(startDate)
         var startDateStr = today.getFullYear() + "." + (today.getMonth() + 1) + "." + $(this).text();
 
         var endDate = new Date(today.getFullYear(), today.getMonth(), $(this).text());
@@ -195,6 +197,47 @@
 
         $("#term").val(startDateStr + " ~ " + endDateStr);
     });
+    
 </script>
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+	IMP.init("imp47764579"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+	
+  function requestPay() {
+      // IMP.request_pay(param, callback) 호출
+      IMP.request_pay({ // param
+          pg: "html5_inicis",
+          pay_method: "kakaopay",
+          merchant_uid: "ORD20180131-0000011",
+          name: "노르웨이 회전 의자",
+          amount: 100,
+          buyer_email: "gildong@gmail.com",
+          buyer_name: "홍길동",
+          buyer_tel: "010-4242-4242",
+          buyer_addr: "서울특별시 강남구 신사동",
+          buyer_postcode: "01181"
+      }, function (rsp) { // callback
+						if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+						    // jQuery로 HTTP 요청
+						    jQuery.ajax({
+						        url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+						        method: "POST",
+						        headers: { "Content-Type": "application/json" },
+						        data: {
+						            imp_uid: rsp.imp_uid,
+						            merchant_uid: rsp.merchant_uid
+						        }
+						    }).done(function (data) {
+						      // 가맹점 서버 결제 API 성공시 로직
+						    })
+						  } else {
+						    alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+						  }
+      });
+    }
+</script>
+
 </body>
 </html>
