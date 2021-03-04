@@ -23,6 +23,26 @@ public interface ShopService {
 	 */
 	public abstract int registrateShop(Shop shop, MultipartFile image, String savePath);
 
+	
+	/** 공방 등록 여부 확인 Service
+	 * @param memberNo
+	 * @return result
+	 */
+	public abstract int selectRegistrationFlag(int memberNo);
+
+	
+	/** 공방 상세 조회 Service
+	 * @param memberNo
+	 * @return result
+	 */
+	public abstract Shop selectShop(int memberNo);
+
+	/** 공방 좋아요 개수 조회 Service
+	 * @param memberNo
+	 * @return csGoodCount
+	 */
+	public abstract int selectCsGoodCount(int memberNo);
+
 
 
 }
