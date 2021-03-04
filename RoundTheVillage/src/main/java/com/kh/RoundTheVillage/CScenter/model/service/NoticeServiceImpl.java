@@ -141,7 +141,7 @@ public class NoticeServiceImpl implements NoticeService {
 	      String fileName = rename(uploadFile.getOriginalFilename());
 	      
 	      // 웹상 접근 주소 
-	      String filePath = "/resources/infoImages/notice";
+	      String filePath = "/resources/infoImages";
 	      
 	      // 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
 	      Attachment at = new Attachment();
