@@ -28,6 +28,12 @@ public interface MemberService {
 	 */
 	public abstract int signUp(Member signUpMember);
 
+	/** 로그인 Service
+	 * @param inputMember
+	 * @return result
+	 */
+	public abstract Member loginAction(Member inputMember);
+
 
 
 }

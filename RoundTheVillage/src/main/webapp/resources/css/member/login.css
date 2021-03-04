@@ -5,6 +5,10 @@
 	padding-bottom: 50px; 
 }
 
+input[type='password'] {
+	font-family: sans-serif !important;
+}
+
 .login-logo{
 	width: 150px;
 }

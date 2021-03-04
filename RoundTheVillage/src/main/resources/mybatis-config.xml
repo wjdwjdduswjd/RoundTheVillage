@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.Lesson" alias="Lesson"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonDetail" alias="LessonDetail"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonFile" alias="LessonFile"/>
+		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonReview" alias="LessonReview"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Pay" alias="Pay"/>
@@ -27,6 +28,7 @@
 
   <mappers>
 	  <mapper resource="/mappers/lesson-mapper.xml"/>
+	  <mapper resource="/mappers/lesson-mapper2.xml"/>
 	  <mapper resource="/mappers/board-mapper.xml"/>
 	  <mapper resource="/mappers/pay-mapper.xml"/>
 	  <mapper resource="/mappers/banner-mapper.xml"/>

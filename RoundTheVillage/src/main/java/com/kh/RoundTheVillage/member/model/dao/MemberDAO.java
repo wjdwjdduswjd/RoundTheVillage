@@ -44,4 +44,9 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.nickNameDupCheck", memberNickname);
 	}
 
+	// 로그인 DAO
+	public Member loginAction(Member inputMember) {
+		return sqlSession.selectOne("memberMapper.loginAction", inputMember);
+	}
+
 }

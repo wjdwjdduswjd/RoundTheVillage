@@ -15,11 +15,14 @@ public interface ShopService {
 	 */
 	public abstract ShopAttachment insertImage(MultipartFile uploadFile, String savePath);
 
-	/** 공방 등록 Service 
+	/** 공방 등록 Service
 	 * @param shop
 	 * @param image
+	 * @param savePath 
 	 * @return
 	 */
-	public abstract int registrateShop(Shop shop, MultipartFile image);
+	public abstract int registrateShop(Shop shop, MultipartFile image, String savePath);
+
+
 
 }
