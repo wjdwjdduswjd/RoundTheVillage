@@ -27,6 +27,9 @@ import com.kh.RoundTheVillage.board.model.service.BoardService;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+
+import sun.nio.ch.SelChImpl;
+
 import com.kh.RoundTheVillage.board.model.vo.Attachment;
 
 
@@ -80,7 +83,7 @@ public class BoardController {
 	  
 	   Board board = service.selectBoard(boardNo);
 	   
-	   System.out.println("보드 : " + board);
+	   // System.out.println("보드 : " + board);
 	   String url = null;
 	   
 	   if(board != null) {
@@ -122,10 +125,15 @@ public class BoardController {
    
    // 게시글 등록 화면 전환
    @RequestMapping("insert")
-  public String insertView() {
+  public String insertView(@ModelAttribute("loginMember") Member loginMember, Model model) {
 	   
-	   
+	  int memberNo = loginMember.getMemberNo();
+	  List<Board> selectClass = service.selectClass(memberNo);
 	 
+	  model.addAttribute("selectClass", selectClass);
+	  
+	  System.out.println(selectClass);
+	  
 	  return "board/boardInsert";
 	  
 	  
@@ -135,18 +143,20 @@ public class BoardController {
    @RequestMapping("insertAction")
    public String insertAction( 
 		  @ModelAttribute Board board, // 작성한 글제목, 내용, 카테고리코드를 얻기위한 어노테이션 
-		  //@ModelAttribute("loginMember") Member loginMember, 
+		  @ModelAttribute("loginMember") Member loginMember, 
 		  @RequestParam(value="images", required = false) List<MultipartFile> images,
 		  HttpServletRequest request,
 		  RedirectAttributes ra) {
 	   
 	  Map<String, Object> map = new HashMap<String, Object>(); // 맵을 이용해 받아온 정보들을 한곳에 담기
-	  // map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
-	   map.put("memberNo", 1); // 세션에 올려져있는 멤버넘버
+	  map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
+	  // map.put("memberNo", 46); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
 	   map.put("boardContent", board.getBoardContent()); // 내가 작성한 글 내용
-	   map.put("classNo", 1 /*board.getClassNo()*/); // 공방 번호
-	   map.put("classCategoryNo", 1/* board.getClassCategoryNo()*/); // 카테고리 코드
+	   map.put("classNo", board.getClassNo()); // 공방 번호
+	   //map.put("classCategoryNo", board.getClassCategoryNo()); // 카테고리 코드
+	   
+	   System.out.println(map);
 	  
 	  String savePath = null;
 	   
@@ -156,7 +166,7 @@ public class BoardController {
 	 
 		String url = null;
 		
-		
+		System.out.println("result : " + result);
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
@@ -165,15 +175,15 @@ public class BoardController {
 			request.getSession().setAttribute("returnListURL", "../list");
 		
 		}else {
-			   swalIcon = "error";
-			   swalTitle = "게시글 삽입 실패";
-			   url = "redirect:insert"; 
-		   }
+		   swalIcon = "error";
+		   swalTitle = "게시글 삽입 실패";
+		   url = "redirect:insert"; 
+	   }
 		   
-		   ra.addFlashAttribute("swalIcon", swalIcon);
-		   ra.addFlashAttribute("swalTitle", swalTitle);
-		   
-		   return url;
+	   ra.addFlashAttribute("swalIcon", swalIcon);
+	   ra.addFlashAttribute("swalTitle", swalTitle);
+	   
+	   return url;
 	   
    }
    
@@ -194,6 +204,8 @@ public class BoardController {
 	   
 	   return new Gson().toJson(at);
   }
+   
+   
    
    
    

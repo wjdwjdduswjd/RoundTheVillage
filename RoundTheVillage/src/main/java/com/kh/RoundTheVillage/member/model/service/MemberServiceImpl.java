@@ -52,6 +52,26 @@ public class MemberServiceImpl implements MemberService{
 		return dao.signUp(signUpMember);
 	}
 
+	// 로그인  Service 구현
+	@Override
+	public Member loginAction(Member inputMember) {
+		
+		Member loginMember = dao.loginAction(inputMember);
+		
+		if(loginMember != null) {
+			if( enc.matches(inputMember.getMemberPwd(), loginMember.getMemberPwd()) ) {
+				
+				loginMember.setMemberPwd(null);
+			}else {
+				loginMember = null;
+			}
+		}
+		
+		
+		
+		return loginMember;
+	}
+
 
 
 

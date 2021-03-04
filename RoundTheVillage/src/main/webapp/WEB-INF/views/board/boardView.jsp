@@ -97,6 +97,29 @@ body {
 .readCountArea{
 	float: right;
 }
+
+
+      .modal-body span{
+            display: inline;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .btn-group{
+            background-color: #fbbc73;
+            border-color: #fbbc73;
+            color: #5b3929
+        }
+
+        .modal-btn-area{
+            text-align: center;
+        }
+
+        .modal-header{
+            border-bottom: none;
+        }
+    </style>
+
 </style>
 
 <body>
@@ -129,13 +152,13 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-               ${board.classNo}
+               ${cls.lessonTitle}
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
                 <span class="pr-4"><b>카테고리</b></span> 
-                ${board.classCategoryNo}
+                ${board.classCategoryNm}
               </p>
             </div>
           </div>
@@ -153,7 +176,10 @@ body {
         <span class="readCountArea"><b>조회수 ${board.readCount}</b></span> 
         <hr>
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-8" >
+         		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        신고
+    </button>
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
@@ -169,6 +195,81 @@ body {
       </div>
     </div>
   </div>
+
+	
+	  <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="px-3">
+                        <p>
+                            <span class="pr-4">제목</span> ${board.boardTitle}
+                        </p>
+                        <p>
+                            <span class="pr-4">작성자</span>${board.memberNickname}
+                        </p>
+                    </div>
+                    <div class="pt-4 px-3">
+                        <p>
+                            <span class="pr-4">신고사유</span>
+                        </p>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">홍보성</label>
+                        </div>
+                        <br>
+    
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">비방</label>
+                        </div>
+                        <br>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">도배</label>
+                        </div>
+                        <br>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">개인정보 노출</label>
+                        </div>
+                        <br>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">기타</label>
+                        </div>
+                    
+                    
+                        <div class="pt-5"> 
+                            <span class="pr-4">상세내용</span>
+                            <textarea class="mt-2" rows="5" style="resize: none; width: 100%;"></textarea>
+                        </div>
+
+                        <div class="modal-btn-area my-4">
+                            <button class="btn btn-group">신고하기</button>
+                        </div>
+                    </div>
+
+                    
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>		
+
+
+
+
+
 
 
 </body>

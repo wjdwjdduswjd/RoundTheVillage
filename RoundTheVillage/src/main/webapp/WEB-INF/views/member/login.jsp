@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,47 +27,51 @@
 							<a href="${contextPath}"><img src="${contextPath}/resources/images/member/zero.png" class="login-logo"></a>
 						</div>
 						
-            <!-- 아이디 입력 -->
-            <label class="title">아이디</label><br>
-            <input type="text" name="id" id="id" class="text-input">
-            
-            <!-- 비밀번호 -->
-            <label class="title">비밀번호</label><br>
-            <input type="text" name="pwd" id="pwd" class="text-input">
-            
-            <!-- 아이디 저장 -->
-            <label class="id-checkbox">
-                <input type="checkbox" name="saveId">
-            </label>
-            <label class="id-checkbox-text">아이디저장</label>
+						<form action="loginAction" method="post">
+	            <!-- 아이디 입력 -->
+	            <label class="title">아이디</label><br>
+	            <input type="text" name="memberId" id="memberId" class="text-input" value="${cookie.saveId.value}" required>
+	            
+	            <!-- 비밀번호 -->
+	            <label class="title">비밀번호</label><br>
+	            <input type="password" name="memberPwd" id="memberPwd" class="text-input" required>
+	            
+	            <!-- 아이디 저장 -->
+	            <label class="id-checkbox">
+	                <input type="checkbox" name="saveId"
+	                	<c:if test="${!empty cookie.saveId.value}"> checked </c:if>
+	                >
+	            </label>
+	            <label class="id-checkbox-text">아이디저장</label>
+	
+	            <!-- 로그인 버튼 -->
+	            <div>
+	                <button type="submit" id="loginBtn" name="loginBtn" class="loginBtn">로그인</button>
+	            </div>
+	
+	            <!-- 아이디/비밀번호 찾기 -->
+	            <div class="idPwdSignUp">
+	                <span class="id-link-area">
+	                    <a href="${contextPath}/member/idFind" class="search-id-pwd">아이디</a> <a class="search-id-pwd">/</a>
+	                    <a href="${contextPath}/member/pwdFind" class="search-id-pwd">비밀번호 찾기</a>
+	                </span>
+	                <span class="signUp-link-area">
+	                    <a href="${contextPath}/member/signUp" class="search-id-pwd">회원가입</a>
+	                </span>
+	            </div>
+	            <hr>
+	
+	            <!-- 카카오계정 로그인 -->
+	            <div>
+	                <img src="${contextPath}/resources/images/member/kakaoLogin.png" class="sns-btn kakaoBtn">
+	            </div>
+	                
+	            <!-- 네이버계정 로그인 -->
+	            <div>
+	                <img src="${contextPath}/resources/images/member/naverLogin.png" class="sns-btn">
+	            </div>
 
-            <!-- 로그인 버튼 -->
-            <div>
-                <button type="submit" id="loginBtn" name="loginBtn" class="loginBtn" onclick="location.href='${contextPath}/member/loginAction'"   >로그인</button>
-            </div>
-
-            <!-- 아이디 -->
-            <div class="idPwdSignUp">
-                <span class="id-link-area">
-                    <a href="${contextPath}/member/idFind" class="search-id-pwd">아이디</a> <a class="search-id-pwd">/</a>
-                    <a href="${contextPath}/member/pwdFind" class="search-id-pwd">비밀번호 찾기</a>
-                </span>
-                <span class="signUp-link-area">
-                    <a href="${contextPath}/member/signUp" class="search-id-pwd">회원가입</a>
-                </span>
-            </div>
-            <hr>
-
-            <!-- 카카오계정 로그인 -->
-            <div>
-                <img src="${contextPath}/resources/images/member/kakaoLogin.png" class="sns-btn kakaoBtn">
-            </div>
-                
-            <!-- 네이버계정 로그인 -->
-            <div>
-                <img src="${contextPath}/resources/images/member/naverLogin.png" class="sns-btn">
-            </div>
-
+						</form>
         </div>
 
     </div>
