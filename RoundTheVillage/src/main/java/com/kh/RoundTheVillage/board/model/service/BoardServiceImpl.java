@@ -92,13 +92,13 @@ public class BoardServiceImpl implements BoardService{
 			map.put("boardNo", boardNo); 
 			
 			String boardTitle = (String)map.get("boardTitle");
-			String boardContent = (String)map.get("boardContent");
+			//String boardContent = (String)map.get("boardContent");
 			
 			boardTitle = replaceParameter(boardTitle);
-			boardContent = replaceParameter(boardContent);
+			//boardContent = replaceParameter(boardContent);
 			
 			map.put("boardTitle", boardTitle);
-			map.put("boardContent", boardContent);
+			//map.put("boardContent", boardContent);
 			
 			
 			result = dao.insertBoard(map);
