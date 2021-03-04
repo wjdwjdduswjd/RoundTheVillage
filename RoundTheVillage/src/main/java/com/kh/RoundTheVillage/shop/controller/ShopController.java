@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.service.ShopService;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
@@ -48,11 +49,19 @@ public class ShopController {
 	   @RequestMapping("RegistrationAction")
 	   public String RegistrationAction (@ModelAttribute Shop shop,
 			  							RedirectAttributes ra, HttpServletRequest request,
-			  							@RequestParam("image") MultipartFile image
+			  							@RequestParam("image") MultipartFile image,
+			  							@ModelAttribute Member loginMember
 			  							) {
 		   
 		   
-		   int result = service.registrateShop(shop,image);
+		   int shopNo = loginMember.getMemberNo();
+		   
+		   shop.setShopNo(shopNo);
+		   
+		   String savePath = null;
+	         
+		   
+		   int result = service.registrateShop(shop,image,savePath);
 		   
 		   
 		   

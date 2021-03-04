@@ -182,7 +182,7 @@ body {
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4 writer"><b>작성자</b></span>${board.memberNickname}
+                <span class="pr-4 writer"><b>작성자</b></span>${loginMember.memberNickname}
               </p>
             </div>
           </div>
@@ -191,17 +191,16 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-                <select id="workshopSelect">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
-                  <option>Option 4</option>
-                  <option>Option 5</option>
+                <select name="classNo" id="workshopSelect">
+              <c:forEach var="cls" items="${selectClass}" varStatus="vs">
+                  <option value="${cls.classNo}">${cls.lessonTitle}</option>
+              </c:forEach>
                 </select>
+              	
               </p>
             </div>
             <div class="col-md-5 px-3">
-              <p>
+            <!--   <p>
                 <span class="pr-4"><b>카테고리</b></span>
                 <select id="categorySelect">
                   <option>Option 1</option>
@@ -210,7 +209,7 @@ body {
                   <option>Option 4</option>
                   <option>Option 5</option>
                 </select>
-              </p>
+              </p> -->
             </div>
           </div>
         </div> <!-- .content-header end -->
@@ -227,7 +226,7 @@ body {
 					</div>
 				</div>
         
-        <hr>
+
         
         <div id="fileArea">
 					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
@@ -251,7 +250,7 @@ body {
             <span class="btnBtn">
               <a class="btn btn-primary btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
               <button type="submit" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
-            </span>
+            </span>  
           </div>
           </form>
         </div>
@@ -262,7 +261,7 @@ body {
     </div>
   </div>
   
-  
+
   <script>
   
 	function validate() {
@@ -272,6 +271,8 @@ body {
 			return false;
 			
 		}
+		
+	}
 			
 			// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 			$(function(){
@@ -283,7 +284,7 @@ body {
 				var index = $(".boardImg").index(this);
 						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
 						
-				//console.log(index);
+				console.log(index);
 				
 				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
 				$("#img" + index).click();
@@ -323,15 +324,7 @@ body {
 					}
 				}
 				
-			
-			
-			
-		
-		
-		
-		
-		
-  
+
   </script>
 
 

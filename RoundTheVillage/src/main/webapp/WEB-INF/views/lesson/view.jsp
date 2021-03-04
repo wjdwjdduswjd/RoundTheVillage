@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +59,7 @@ li {list-style: none;}
 }
 .info-right {
 	width: 38%;
+	min-height: 500px;
 	padding: 22px;
   border: 1px solid #e4e9ef;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -206,6 +207,38 @@ li {list-style: none;}
 .wrapper {
 	margin: 50px 0;
 }
+.lesson-time > div > span {
+	cursor: pointer;
+}
+
+.time-list {
+	width: 390px;
+	height: 70px;
+	border: 1px solid #e4e9ef;
+	padding: 0 20px;
+}
+.closed {
+	background-color: #f8fafb;
+  color: #bfc0c1;
+}
+#schedule-participant {
+	height: 100%;
+	line-height: 70px;
+	float: right;
+}
+
+.schedule-time {
+	height: 100%;
+	line-height: 70px;
+	float: left;
+}
+.time-list.active2 {
+	background-color : #6a82ec;
+	color: #FFFFFF
+}
+.disabled {
+	color: #dad8d8 !important;
+}
 </style>
 </head>
 <body>
@@ -219,13 +252,13 @@ li {list-style: none;}
 	<div class="info-right">
 			<div class="lesson-info-form">
 			 <div class="lesson-info info1">
-			 	<span class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">삼청동</span> <br>
-			 	<span class="lesson-name">플라워 원데이 클래스</span>
+			 	<span class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">${shopInfo.shopAdress}</span> <br>
+			 	<span class="lesson-name">${lesson.lesTitle}</span>
 			 </div>
 			 <div class="lesson-info info2">
 			 	<div class="lesson-craft">
 			 		<img src="${contextPath}/resources/images/home.png">
-			 		찐팅허 꽃집
+			 		${shopInfo.shopName}
 			 	</div>
 			 	<div class="lesson-participant">
 			 		<img src="${contextPath}/resources/images/user.png">
@@ -239,8 +272,8 @@ li {list-style: none;}
 	          <div class="input-group-append" data-target="#datetimepicker14" data-toggle="datetimepicker">
 	          	<div class="input-group date" id="datetimepicker14" data-target-input="nearest">
                     <input type="hidden" class="form-control datetimepicker-input" data-target="#datetimepicker14"/> <!-- 타입 text → hidden으로 바꾸기 -->
-	              <div class="input-group-text"><p class="fa fa-calendar">
-									<img id="calendar" src="${contextPath}/resources/images/calendar.png">날짜선택</p>
+	              <div class="input-group-text" style="background-color: #FFFFFF; border:0"><div class="fa fa-calendar">
+									<img id="calendar" src="${contextPath}/resources/images/calendar.png">날짜선택</div>
 								</div>
 							</div>
 	          </div>
@@ -252,14 +285,13 @@ li {list-style: none;}
 			 	<div class="lesson-calendar">
 			 	</div>
 			 	<div class="lesson-time">
-			 		<img src="${contextPath}/resources/images/clock.png">
-			 		시간선택
+			 		<div style="margin-bottom: 20px"><span><img src="${contextPath}/resources/images/clock.png"> 시간선택 </span></div>
 			 	</div>
 			 	<div class="lesson-amount">
 						<button class="lesson-minus">-</button>
 						<div class="lesson-amount-num">1</div>
 						<button class="lesson-plus">+</button>
-					<div class="lesson-price">55000 <span>원</span> </div>
+					<div class="lesson-price">${lesson.lesPrice}<span>원</span> </div>
 			 	</div>
 			 	<div class="lesson-order">
 			 		<a href="#">결제하기</a>
@@ -275,7 +307,7 @@ li {list-style: none;}
 		  <div id="tab-btn">
 		    <ul>
 		      <li class="active tapmenu"><a href="#">클래스 정보</a></li>
-		      <li class="tapmenu"><a href="#">후기</a></li>
+		      <li class="tapmenu" id="review"><a href="#">후기</a></li>
 		      <li class="tapmenu"><a href="#">문의</a></li>
 		      <li class="tapmenu"><a href="#">환불 및 취소</a></li>
 		    </ul>
@@ -289,20 +321,32 @@ li {list-style: none;}
 		</div>
 </div>
 
+
+
 <script type="text/javascript">
 	var maxDate = new Date();
 	var minDate = new Date();
 	minDate.setDate(minDate.getDate() + 1);
 	maxDate.setDate(maxDate.getDate() + 30);
+	
+	var enabledate = [];
+	<c:forEach var="item" items="${detailList}">
+		enabledate.push("${item.lesDate}");
+	</c:forEach>
+	
 	$(function() {
 	  $('#datetimepicker14').datetimepicker( {
 		  //allowMultidate: true,
 		  //multidateSeparator: ',',
-		  format: 'YYYY-MM-DD',
+		  format: 'L',
 	 	  locale: 'ko',
-	 	  daysOfWeekDisabled : [0,2,4,6],
-	  	  maxDate: maxDate,
-	      minDate: minDate
+		  showMonthAfterYear: true,
+			enabledDates: enabledate,
+			buttonImageOnly: true,
+			dayViewHeaderFormat: 'YYYY년 MMMM'
+			//daysOfWeekDisabled : [0,2,4,6],
+  	  //maxDate: maxDate,
+      //minDate: minDate
 	  }); 
 	});
 	
@@ -311,6 +355,8 @@ li {list-style: none;}
 <script>
 var tabBtn = $("#tab-btn > ul > li");     //각각의 버튼을 변수에 저장
 var tabCont = $("#tab-cont > div");       //각각의 콘텐츠를 변수에 저장
+
+var lesNo = ${lesson.lesNo};
 
 tabCont.hide().eq(0).show();
 
@@ -328,12 +374,12 @@ var minus = $(".lesson-minus");
 var amount = $(".lesson-amount-num");
 plus.click(function() {
 	amount.text(Number(amount.text())+1);
-	$(".lesson-price").html( 55000 * Number(amount.text()) + " <span>원</span>"); // 가격 적기
+	$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>"); // 가격 적기
 });
 minus.click(function() {
 	if(amount.text()>1){
 		amount.text(Number(amount.text())-1);
-		$(".lesson-price").html( 55000 * Number(amount.text()) + " <span>원</span>"); // 가격 적기
+		$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>"); // 가격 적기
 	}
 });
 
@@ -352,6 +398,58 @@ timeBtn.click(function() {
 		$(this).css("background-color", "#FBBC73");
 	}
 });
+
+$(".fa-calendar").click(function() {
+	$(".time-list").remove();
+})
+
+$(".lesson-time > div > span").click(function(){
+	console.log("123");
+	$(".time-list").remove();
+	$date = $(".datetimepicker-input").val();
+	var startTime = [];
+	var endTime = [];
+	var limit = [];
+	var participant = [];
+	if(!$date=="") {
+		<c:forEach var="item" items="${detailList}">
+			if($date=="${item.lesDate}") {
+				startTime.push("${item.lesTime}".split(',')[0]);
+				endTime.push("${item.lesTime}".split(',')[1]);
+				limit.push("${item.lesLimit}");
+				participant.push("${item.lesParticipant}");
+			}
+		</c:forEach>
+		for(var i in startTime){
+			var $schedule = $("<div>", {id: "schedule"+i, onclick:"func(" + i + ")"});
+			var $b;
+			if(participant[i] < limit[i]) {
+				$b = $("<div>", {id: "schedule-time"}).text("[모집중]" + startTime[i] + " ~ " + endTime[i]);
+			} else {
+				$b = $("<div>", {id: "schedule-time"}).text("[마감]" + startTime[i] + " ~ " + endTime[i]);
+				$schedule.addClass("closed");
+			}
+			$b.addClass("schedule-time");
+			var	$c = $("<div>", {id: "schedule-participant"}).text(participant[i] + " / " + limit[i] + " 명 (최소 1명)");
+			
+			$schedule.append($b).append($c);
+			$schedule.addClass("time-list");
+			$(".lesson-time").append($schedule);
+		}
+	}
+});
+
+function func(i) {
+	if(!$("#schedule" + i).hasClass("closed")){
+		$(".time-list").removeClass("active2");
+		$("#schedule" + i).addClass("active2");
+	}
+}
+
+$("#review").click(function(){
+	selectReview();
+})
+
 </script>
 </body>
 </html>

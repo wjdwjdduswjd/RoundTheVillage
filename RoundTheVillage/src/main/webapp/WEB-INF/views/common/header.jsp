@@ -25,10 +25,28 @@
 <body>
   <div id="header">
     <div id="header-group">
-      <div class="header-right-items">
-        <a href="${contextPath}/member/login" class="header-item" id="header-login">로그인</a> <br>
-        <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
-      </div>
+    	
+    	<c:choose>
+    		
+	    		<%-- 로그인 안되어있을 때 --%>  
+	    		<c:when test="${empty sessionScope.loginMember }">
+		    <div class="header-right-items">
+		        <a href="${contextPath}/member/login" class="header-item" id="header-login">로그인</a> <br>
+		        <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
+		     </div>
+	    		</c:when>
+	    		<%--  로그인 되어있는 경우--%>  
+	    		<c:otherwise>
+		    <div class="header-right-items">
+	    			<a href="${contextPath}/member/logout" class="header-item" id="header-logout">로그아웃</a> <br>
+		     </div>
+	    		</c:otherwise>
+    		
+    		
+    		
+      
+    	</c:choose>
+      
     </div>
 
     <div class="logoDiv">

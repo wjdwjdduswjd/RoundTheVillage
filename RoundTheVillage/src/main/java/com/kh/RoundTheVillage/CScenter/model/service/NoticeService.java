@@ -49,5 +49,12 @@ public interface NoticeService {
 	 * @return result
 	 */
 	public abstract int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath);
-
+	
+	
+	/** summernote 업로드 이미지 저장 Service
+	 * @param uploadFile
+	 * @param savePath
+	 * @return at
+	 */
+	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 }

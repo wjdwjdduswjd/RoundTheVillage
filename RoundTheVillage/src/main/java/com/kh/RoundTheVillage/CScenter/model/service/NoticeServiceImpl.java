@@ -68,68 +68,97 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath) {
 
-		int result = 0; 
+		int result = 0;
 
 		int noticeNo = dao.selectNextNo();
 
 		result = dao.insertNotice(map);
-		
-		if(noticeNo > 0) {
+
+		if (noticeNo > 0) {
 			map.put("noticeNo", noticeNo);
 			System.out.println("noticeNo : " + noticeNo);
-			
-			String noticeTitle = (String)map.get("noticeTitle");
-			String noticeContent = (String)map.get("noticeContent");
-			
+
+			String noticeTitle = (String) map.get("noticeTitle");
+			String noticeContent = (String) map.get("noticeContent");
+
 			noticeTitle = replaceParameter(noticeTitle);
 			noticeContent = replaceParameter(noticeContent);
-			
+
 			map.put("noticeTitle", noticeTitle);
 			map.put("noticeContent", noticeContent);
-			
-			
+
 			result = dao.insertNotice(map);
 
 		}
-		
-		
-		if(result > 0) {
-			
+
+		if (result > 0) {
+
 			List<Attachment> uploadImages = new ArrayList<Attachment>();
-			
+
 			String filePath = null;
 			result = noticeNo;
 		}
 		return result;
 	}
-		
-		
+
 	// 크로스 사이트 스크립트 방지 처리 메소드
-		private String replaceParameter(String param) {
-			String result = param;
-			if(param != null) {
-				result = result.replaceAll("&", "&amp;");
-				result = result.replaceAll("<", "&lt;");
-				result = result.replaceAll(">", "&gt;");
-				result = result.replaceAll("\"", "&quot;");
-			}
-			
-			return result;
+	private String replaceParameter(String param) {
+		String result = param;
+		if (param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
 		}
+
+		return result;
+	}
+
+	// 파일명 변경 메소드
+	// ---------------------------------------------------------------------------------------------------------------------
+	public String rename(String originFileName) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
+		String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
+
+		int ranNum = (int) (Math.random() * 100000); // 5자리 랜덤 숫자 생성
+
+		String str = "_" + String.format("%05d", ranNum);
+		// String.format : 문자열을 지정된 패턴의 형식으로 변경하는 메소드
+		// %05d : 오른쪽 정렬된 십진 정수(d) 5자리(5)형태로 변경. 빈자리는 0으로 채움(0)
+
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+
+		return date + str + ext;
+	}
 	
-	// 파일명 변경 메소드 ---------------------------------------------------------------------------------------------------------------------
-		public String rename(String originFileName) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-			String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
-				
-			int ranNum = (int)(Math.random()*100000); // 5자리 랜덤 숫자 생성
-				
-			String str = "_" + String.format("%05d", ranNum);
-			//String.format : 문자열을 지정된 패턴의 형식으로 변경하는 메소드
-			// %05d : 오른쪽 정렬된 십진 정수(d) 5자리(5)형태로 변경. 빈자리는 0으로 채움(0)
-				
-			String ext = originFileName.substring(originFileName.lastIndexOf("."));
-				
-			return date + str + ext;
-			}
+	
+	
+	// summernote 업로드 이미지 저장 Service 
+	   @Override
+	   public Attachment insertImage(MultipartFile uploadFile, String savePath) {
+	      
+	      // 파일명 변경
+	      String fileName = rename(uploadFile.getOriginalFilename());
+	      
+	      // 웹상 접근 주소 
+	      String filePath = "/resources/infoImages/notice";
+	      
+	      // 돌려 보내줄 파일 정보를 Attachment 객체에 담아서 전달.
+	      Attachment at = new Attachment();
+	      at.setFilePath(filePath);
+	      at.setFileName(fileName);
+	      
+	      // 서버에 파일 저장 ( transferTo() )
+	      
+	      try {
+	         uploadFile.transferTo( new File( savePath + "/" + fileName ) );
+	                              // ~~/infoImages   /   202102~~~
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         
+	         throw new InsertAttachmentFailException("summernote 파일 업로드 실패");
+	      }
+	      
+	      return at;
+	   }
 }

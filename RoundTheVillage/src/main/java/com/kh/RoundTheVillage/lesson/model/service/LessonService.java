@@ -15,6 +15,7 @@ import com.kh.RoundTheVillage.lesson.model.dao.LessonDAO;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Service
@@ -22,19 +23,24 @@ public class LessonService {
 
 	@Autowired
 	LessonDAO dao;
+	
+	private String replaceParameter(String param) {
+		String result = param;
+		if(param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		return result;
+	}
 
 	public String rename(String originFileName) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
-
-		int ranNum = (int)(Math.random()*100000); // 5자리 랜덤 숫자 생성
-
+		int ranNum = (int)(Math.random()*100000);
 		String str = "_" + String.format("%05d", ranNum);
-		//String.format : 문자열을 지정된 패턴의 형식으로 변경하는 메소드
-		// %05d : 오른쪽 정렬된 십진 정수(d) 5자리(5)형태로 변경. 빈자리는 0으로 채움(0)
-
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-
 		return date + str + ext;
 	}
 	
@@ -54,21 +60,20 @@ public class LessonService {
 		return dao.selectLesson(lesNo);
 	}
 
-	public List<LessonDetail> selectDateList(int lesNo) {
-		return dao.selectDateList(lesNo);
-	}
-
-	public int insert(Map<String, Object> map) {
-		return 0;
+	public List<LessonDetail> selectDetailList(int lesNo) {
+		return dao.selectDetailList(lesNo);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public int insertInfo(Lesson lesson) {
+		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
+		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
 		return dao.insertInfo(lesson);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public int insertDate(String[] date, String[] startTime, String[] endTime, String lesLimit, int lesNo) {
+		int result = 0;
 		for(int i=0; i<date.length; i++) {
 			Map<String, String> map = new HashMap<String, String>();
 			String lesTime = startTime[i] + "," + endTime[i];
@@ -76,9 +81,9 @@ public class LessonService {
 			map.put("lesTime", lesTime);
 			map.put("lesLimit", lesLimit);
 			map.put("lesNo", ""+lesNo);
-			int result = dao.insertDate(map);
+			result = dao.insertDate(map);
 		}
-		return 0;
+		return result;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -105,7 +110,6 @@ public class LessonService {
 		map.put("fileName", fileName);
 		map.put("lesNo", ""+lesNo);
 		int result = dao.insertImageFile(map);
-		
 		LessonFile file = new LessonFile();
 		file.setFilePath(filePath);
 		file.setFileName(fileName);
@@ -129,5 +133,30 @@ public class LessonService {
 		return dao.selectFile(lesNo);
 	}
 
+	public Shop selectShopInfo(int shopNo) {
+		return dao.selectShopInfo(shopNo);
+	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public int insertReview(LessonReview review) {
+		review.setRevContent(replaceParameter(review.getRevContent()));
+		review.setRevContent(review.getRevContent().replaceAll("\n", "<br>"));
+		return dao.insertReview(review);
+	}
+
+	public List<LessonReview> selectReview(int lesNo) {
+		return dao.selectReview(lesNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int updateReview(LessonReview review) {
+		review.setRevContent(replaceParameter(review.getRevContent()));
+		review.setRevContent(review.getRevContent().replaceAll("\n", "<br>"));
+		return dao.updateReview(review);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteReview(int revNo) {
+		return dao.deleteReview(revNo);
+	}
 }
