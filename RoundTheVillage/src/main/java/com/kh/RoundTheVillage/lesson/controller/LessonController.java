@@ -25,6 +25,7 @@ import com.kh.RoundTheVillage.lesson.model.service.LessonService;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -127,5 +128,14 @@ public class LessonController {
 	public int deleteReview(@PathVariable int revNo) {
 		int result = service.deleteReview(revNo);
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/selectQuestion/{lesNo}")
+	public List<LessonQuestion> selectQuestion(@PathVariable int lesNo) {
+		List<LessonQuestion> list = new ArrayList<LessonQuestion>();
+		list = service.selectQuestion(lesNo);
+		System.out.println(list);
+		return list;
 	}
 }

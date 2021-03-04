@@ -448,7 +448,8 @@ function func(i) {
 
 $("#review").click(function(){
 	selectReview();
-})
+});
+
 
 </script>
 </body>

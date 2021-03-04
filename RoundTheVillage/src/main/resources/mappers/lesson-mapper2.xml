@@ -13,6 +13,14 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
 	
+	<resultMap type="LessonQuestion" id="lessonquestion_rm">
+		<id property="queNo" column="REV_NO"/>
+		<result property="queDt" column="QUE_DT"/>
+		<result property="queContent" column="QUE_CONTENT"/>
+		<result property="lesNo" column="LES_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
 	<insert id="insertReview" parameterType="LessonReview">
 		INSERT INTO LESSON_REVIEW 
 		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, 1)
@@ -26,11 +34,16 @@
 	
 	<update id="updateReview" parameterType="LessonReview">
 		UPDATE LESSON_REVIEW SET REV_CONTENT = #{revContent}
-		WEHRE REV_NO = #{revNo}
+		WHERE REV_NO = #{revNo}
 	</update>
 	
 	<delete id="deleteReview" parameterType="_int">
 		DELETE LESSON_REVIEW
 		WHERE REV_NO = #{revNo}
 	</delete>
+	
+	<select id="selectQuestion" parameterType="_int" resultMap="lessonquestion_rm">
+		SELECT * FROM LESSON_QUESTION
+		WHERE LES_NO = #{lesNo}
+	</select>
 </mapper>

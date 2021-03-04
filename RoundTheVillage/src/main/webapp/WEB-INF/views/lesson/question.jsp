@@ -136,6 +136,68 @@
 </div>
 <!-- ------------------------------------- -->
 
-<br>
+<script>
+
+$(function(){
+	selectQuestion();
+})
+
+function selectQuestion() {
+	$.ajax({
+		url: "${contextPath}/lesson/selectQuestion/" + lesNo,
+		type: "post",
+		success: function(list) {
+			
+	/* <div class="question-bottom">
+			<div class="question-Q">
+				<div class="question-photo">
+					<img src="${contextPath}/resources/images/realking.jpg" style="width:54px; height:54px;">
+				</div>
+				<div class="question-text">
+					<div class="question-time">2020.02.15</div>
+					<div class="question-name">진선</div>
+					<div class="question-content">직접 수령 못할 것 같은데 택배로 보내 주실 수 있나요~~~?? <br>직접 수령 못할 것 같은데 택배로 보내 주실 수 있나요~~~??<br>직접 수령 못할 것 같은데 택배로 보내 주실 수 있나요~~~??</div>
+					<div class="question-buttons">
+						<button class="question-button" id="answerButton1">답글달기</button>
+						<button class="question-button" id="updateButton1">수정</button>
+						<button class="question-button" id="deleteButton1">삭제</button>
+					</div>
+				</div>
+			</div>
+			<div class="question-A">
+			<div class="question-text">
+					<div class="question-time">2020.02.15</div>
+					<div class="question-name"> <img src="${contextPath}/resources/images/right-arrow.png" style="width:15px; height:15px;"> 찐팅허 꽃집</div>
+					<div class="question-content">오세요 그냥. <br>오세요 그냥.<br>오세요 그냥.</div>
+					<div class="question-buttons">
+						<button class="question-button">삭제</button>
+						<button class="question-button">수정</button>
+					</div>
+				</div>
+			</div>
+		</div> */
+		var questionbottom = $("<div>").addClass("question-bottom");
+		var questionQ = $("<div>").addClass("question-Q");
+		var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/user.png" style="width:54px; height:54px;">'); s
+		var questiontext = $("<div>").addClass("question-text");
+		var questiontime = $("<div>").addClass("question-time");
+		var questionname = $("<div>").addClass("question-name");
+		var questioncontent = $("<div>").addClass("question-content");
+		var questionbuttons = $("<div>").addClass("question-buttons");
+		var answerButton = $("<button>", {id: "answerButton"}).addClass("question-button"); // 번호붙이기
+		var updateButton = $("<button>", {id: "updateButton"}).addClass("question-button"); // 번호붙이기
+		var deleteButton = $("<button>", {id: "deleteButton"}).addClass("question-button"); // 번호붙이기
+		questionbuttons.append(answerButton).append(updateButton).append(deleteButton);
+		questiontext.append(questiontime).append(questionname).append(questioncontent).append(questionbuttons);
+		questionQ.append(questionphoto).append(questiontext);
+		questionbottom.append(questionQ);
+
+		}, error: function() {
+			console.log("문의 조회 실패");
+		}	
+	})
+}
+</script>
+
 </body>
 </html>

@@ -15,6 +15,7 @@ import com.kh.RoundTheVillage.lesson.model.dao.LessonDAO;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -158,5 +159,9 @@ public class LessonService {
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteReview(int revNo) {
 		return dao.deleteReview(revNo);
+	}
+
+	public List<LessonQuestion> selectQuestion(int lesNo) {
+		return dao.selectQuestion(lesNo);
 	}
 }
