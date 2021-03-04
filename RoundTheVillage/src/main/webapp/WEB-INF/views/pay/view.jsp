@@ -11,7 +11,7 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
 
-    <!-- <h5 class="hr-sect">구매 내역</h5> -->
+    <h4 class="mt-5 mb-4">예약 내역</h4>
     <div class="row p-3 bg-light rounded mb-5">
         <div class="col-md-12 py-4">
             <div class="d-flex justify-content-between bb">

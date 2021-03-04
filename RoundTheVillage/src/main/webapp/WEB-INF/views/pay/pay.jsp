@@ -10,8 +10,7 @@
 <body>
 <jsp:include page="../common/header.jsp"/>
 <div class="container">
-
-    <!-- <h5 class="hr-sect mb-4">수업 결제</h5> -->
+    <h4 class="hr-sect mt-5">수업 결제</h4>
     <div class="row p-3">
 	    <div class="bb row">
 	        <div class="col-md-6">

@@ -52,8 +52,6 @@ public class PayController {
 		List<Coupon> cList = service.selectCupon(1);
 		PayLes lesson = service.selectLesson(lesNo);
 		
-		System.out.println(cList);
-		System.out.println(lesson);
 		model.addAttribute("cList", cList);
 		model.addAttribute("lesson", lesson);
 		
@@ -73,7 +71,6 @@ public class PayController {
 		pay.setResDate(new java.sql.Timestamp(date.getTime()));
 		pay.setMemNo(1);
 		//pay.setMemNo(loginMember.getMemNo());
-		System.out.println("insert | "+pay);
 		
 		return service.insertPay(pay);
 	}
@@ -92,7 +89,6 @@ public class PayController {
 		
 		Pay pay = service.selectPayByUid(impUid);
 		model.addAttribute("pay", pay);
-		System.out.println(pay);
 		
 		return "pay/complete";
 	}
@@ -103,14 +99,6 @@ public class PayController {
 		
 		PageInfo pInfo = service.getPageInfo(1, cp);
 		List<Pay> pList = service.selectList(pInfo);
-		System.out.println(pList);
-		
-//		if(pList != null && !pList.isEmpty()) {
-//			List<Attachment> thumbnailList = service.selectThumbnailList(bList);
-//			
-//			if(thumbnailList != null)
-//				model.addAttribute("thList", thumbnailList);
-//		}
 		
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
@@ -127,11 +115,6 @@ public class PayController {
 		String url = null;
 		
 		if(pay != null) {
-//			Lesson lesson = service
-			
-//			Attachment attachment = service.selectAttachmentList(payNo);
-//			
-//			model.addAttribute("attachmentList", attachmentList);
 			model.addAttribute("pay", pay);
 			url = "pay/view";
 			
@@ -142,7 +125,7 @@ public class PayController {
 				url = "redirect:" + referer;
 
 			ra.addFlashAttribute("swalIcon", "error");
-			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 예약 내역입니다.");
 		}
 		
 		return url;

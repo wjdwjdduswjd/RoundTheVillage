@@ -43,6 +43,7 @@
 	<select id="selectCupon" parameterType="_int" resultMap="coupon_rm">
 		SELECT * FROM COUPON
 		WHERE MEM_NO = #{memNo}
+		ORDER BY COUPON_NO DESC
 	</select>
 	
 	<select id="selectLesson" parameterType="_int" resultMap="payles_rm">

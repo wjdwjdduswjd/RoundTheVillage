@@ -12,8 +12,8 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
 
-    <!-- <h5 class="hr-sect">구매 내역</h5> -->
-    <div class="row p-3 bg-light rounded mb-5">
+    <h4 class="mt-5 mb-4">예약 내역</h4>
+    <div class="row p-3 pt-4 bg-light rounded mb-5">
 		    <c:forEach var="pay" items="${pList}">
 	        <div class="col-md-12">
 	            <div class="d-flex justify-content-between bb">
@@ -37,33 +37,54 @@
 		    </c:forEach>
     </div>
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;&lt;</a>
-            </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;</a>
-            </li>
-            <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">&gt;</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">&gt;&gt;</a>
-            </li>
-        </ul>
-    </nav>
+ 		<!--------------------------------- pagination  ---------------------------------->
 
-    <div class="text-right">
-        <button class="btn btn-around">등록</button>
-        <button class="btn btn-around-2">취소</button>
-        <button class="btn btn-around-2">목록으로</button>
-    </div>
+		<div class="my-4">
+			<ul class="pagination justify-content-center">
+				<c:url var="pageUrl" value="list?"/>
+
+				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+				<c:set var="firstPage" value="${pageUrl}cp=1"/>
+				<c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
+				
+				<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+				<fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+				<c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+				
+				
+				<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+				<fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+				<c:set var="nextPage" value="${pageUrl}cp=${next}" />
+				
+				<c:if test="${pInfo.currentPage > pInfo.pageSize}">
+					<li><a class="page-link" href="${firstPage}">&lt;&lt;</a></li>
+					<li><a class="page-link" href="${prevPage}">&lt;</a></li>
+				</c:if>
+
+				<!-- 페이지 목록 -->
+				<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+					<c:choose>
+						<c:when test="${pInfo.currentPage == page }">
+							<li class="page-item disabled"><a class="page-link">${page}</a></li>
+						</c:when>
+					
+						<c:otherwise>
+							<li><a class="page-link" href="${pageUrl}cp=${page}">${page}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+		
+				<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
+				<c:if test="${next <= pInfo.maxPage}">
+					<li><a class="page-link" href="${nextPage}">&gt;</a></li>
+					<li><a class="page-link" href="${lastPage}">&gt;&gt;</a></li>
+				</c:if>
+			</ul>
+		</div>
+		<!-- ---------------------------------------------------------------------------------- -->
+		
+		<%-- 목록으로 버튼에 사용할 URL 변수 선언 --%>
+		<c:set var="returnListURL" value="${contextPath}/board/list/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 </div>
 <jsp:include page="../common/footer.jsp" />
 </body>

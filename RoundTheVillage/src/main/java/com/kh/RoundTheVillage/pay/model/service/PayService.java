@@ -40,7 +40,7 @@ public class PayService {
 
 	public PageInfo getPageInfo(int memNo, int cp) {
 		int listCount = dao.getListCount(memNo);
-		return new PageInfo(cp, listCount, memNo);
+		return new PageInfo(cp, listCount, 10, 10, memNo);
 	}
 
 	public List<Pay> selectList(PageInfo pInfo) {

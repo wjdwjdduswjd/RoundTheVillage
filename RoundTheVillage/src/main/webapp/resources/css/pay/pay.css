@@ -77,9 +77,20 @@ a.ahover:hover {
     text-decoration: none;
 }
 
-a.page-link,
-a.page-link:hover {
+a.page-link {
     color: #FBBC73;
+    background-color: inherit;
+    border: 1px solid #dee2e6;
+}
+
+a.page-link:hover {
+		color: #FBBC73;
+}
+
+a.page-link:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: inherit;
 }
 
 #calendar {
