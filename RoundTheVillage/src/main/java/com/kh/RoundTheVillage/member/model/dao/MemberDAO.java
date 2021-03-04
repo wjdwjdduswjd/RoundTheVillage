@@ -49,4 +49,9 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.loginAction", inputMember);
 	}
 
+	// 아이디 찾지
+	public String idFind(Member findMember) {
+		return sqlSession.selectOne("memberMapper.idFind", findMember);
+	}
+
 }

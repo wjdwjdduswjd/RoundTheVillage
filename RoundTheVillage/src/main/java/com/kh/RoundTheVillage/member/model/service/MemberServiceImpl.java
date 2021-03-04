@@ -72,6 +72,15 @@ public class MemberServiceImpl implements MemberService{
 		return loginMember;
 	}
 
+	// 아이디 찾기
+	@Override
+	public String idFind(Member findMember) {
+		
+		String memberIdFind = dao.idFind(findMember);
+		
+		return memberIdFind;
+	}
+
 
 
 

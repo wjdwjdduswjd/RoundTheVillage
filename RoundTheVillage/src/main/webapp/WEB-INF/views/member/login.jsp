@@ -52,7 +52,7 @@
 	            <!-- 아이디/비밀번호 찾기 -->
 	            <div class="idPwdSignUp">
 	                <span class="id-link-area">
-	                    <a href="${contextPath}/member/idFind" class="search-id-pwd">아이디</a> <a class="search-id-pwd">/</a>
+	                    <a href="${contextPath}/member/idFind" class="search-id-pwd">아이디 찾기</a> <a class="search-id-pwd">/</a>
 	                    <a href="${contextPath}/member/pwdFind" class="search-id-pwd">비밀번호 찾기</a>
 	                </span>
 	                <span class="signUp-link-area">
