@@ -190,7 +190,7 @@ public class MemberController {
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
-		status.setComplete();
+		status.setComplete();// 세션에서 지움
 		
 		return "redirect:/"; //메인화면 재요청
 	}
@@ -215,14 +215,24 @@ public class MemberController {
 		return "member/pwdFind";
 	}
 	
-	// 아이지 찾기 성공 페이지
+	
+	
+	
+	// 아이디 찾기 성공 페이지
 	@RequestMapping("idFindComplete")
-	public String idFindComplete() {
+	public String idFindComplete(@ModelAttribute Member findMember) {
+		
+		//String memberIdFind =  service.idFind(findMember);
+		
+		
+		
+		
+		
 		return "member/idFindComplete";
 	}
 	
 	
-	// 아이지 찾기 성공 페이지
+	// 아이디 찾기 성공 페이지
 	@RequestMapping("pwdFindComplete")
 	public String pwdFindComplete() {
 		return "member/pwdFindComplete";
