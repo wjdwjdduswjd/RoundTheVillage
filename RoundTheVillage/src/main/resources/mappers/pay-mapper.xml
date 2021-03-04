@@ -10,9 +10,15 @@
 		<result property="gradeDis" column="GRADE_DIS"/>
 		<result property="couponDis" column="COUPON_DIS"/>
 		<result property="impUid" column="IMP_UID"/>
-		<result property="lesNo" column="LES_NO"/>
-		<result property="memNo" column="MEM_NO"/>
 		<result property="couponNo" column="COUPON_NO"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="lesNo" column="LES_NO"/>
+		<result property="lesTitle" column="LES_TITLE"/>
+		<result property="lesCategory" column="LES_CATEGORY"/>
+		<result property="lesPrice" column="LES_PRICE"/>
+		<result property="craftshopNo" column="CRAFTSHOP_NO"/>
+		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="coupon_rm">
@@ -26,10 +32,41 @@
 		<result property="memNo" column="MEM_NO"/>
 	</resultMap>
 	
-	<insert id="insertPay">
+	<resultMap type="PayLes" id="payles_rm">
+		<id property="lesNo" column="LES_NO"/>
+		<id property="lesTitle" column="LES_TITLE"/>
+		<result property="lesPrice" column="LES_PRICE"/>
+		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+	</resultMap>
+	
+	<select id="selectCupon" parameterType="_int" resultMap="coupon_rm">
+		SELECT * FROM COUPON
+		WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<select id="selectLesson" parameterType="_int" resultMap="payles_rm">
+		SELECT * FROM V_PAY_LES
+		WHERE LES_NO = #{lesNo}
+	</select>
+	
+	<insert id="insertPay" parameterType="Pay">
 		INSERT INTO PAY 
-		VALUES (SEQ_PNO.NEXTVAL, SYSDATE, #{resDate}, #{PAY_AMT}, #{GRADE_DIS}, #{COUPON_DIS}, #{impUid}, #{LES_NO}, #{MEM_NO}, #{COUPON_NO})
+		VALUES (SEQ_PNO.NEXTVAL, SYSDATE, #{resDate}, #{payAmt}, #{gradeDis}, #{couponDis}, #{impUid}, #{lesNo}, #{memNo},
+		<choose>
+			<when test="couponNo == 0">
+				NULL)
+			</when>
+			<otherwise>
+				#{couponNo})
+			</otherwise>
+		</choose>
 	</insert>
+	
+	<select id="selectPayByUid" parameterType="string" resultMap="pay_rm">
+		SELECT * FROM V_PAY
+		WHERE IMP_UID = #{impUid}
+	</select>
 	
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM PAY
@@ -45,10 +82,5 @@
 	<select id="selectPay" parameterType="_int" resultMap="pay_rm">
 		SELECT * FROM V_PAY
 		WHERE PAY_NO = #{payNo}
-	</select>
-	
-	<select id="selectCupon" parameterType="_int" resultMap="coupon_rm">
-		SELECT * FROM COUPON
-		WHERE MEM_NO = #{memNo}
 	</select>
 </mapper>
