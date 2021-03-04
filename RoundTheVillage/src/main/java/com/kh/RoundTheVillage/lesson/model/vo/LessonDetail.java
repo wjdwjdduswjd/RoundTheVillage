@@ -4,14 +4,14 @@ public class LessonDetail {
 	private int lesNo;
 	private int lesLimit;
 	private int lesParticipant;
-	private int lesDate;
+	private String lesDate;
 	private String lesTime;
 	
 	public LessonDetail() {
 		super();
 	}
 
-	public LessonDetail(int lesNo, int lesLimit, int lesParticipant, int lesDate, String lesTime) {
+	public LessonDetail(int lesNo, int lesLimit, int lesParticipant, String lesDate, String lesTime) {
 		super();
 		this.lesNo = lesNo;
 		this.lesLimit = lesLimit;
@@ -44,11 +44,11 @@ public class LessonDetail {
 		this.lesParticipant = lesParticipant;
 	}
 
-	public int getLesDate() {
+	public String getLesDate() {
 		return lesDate;
 	}
 
-	public void setLesDate(int lesDate) {
+	public void setLesDate(String lesDate) {
 		this.lesDate = lesDate;
 	}
 

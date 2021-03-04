@@ -16,11 +16,11 @@
 	</resultMap>
 	
 	<resultMap type="LessonDetail" id="lessondetail_rm">
-		<id property="lesNo" column="LES_NO"/>
 		<result property="lesDate" column="LES_DATE"/>
 		<result property="lesTime" column="LES_TIME"/>
 		<result property="lesLimit" column="LES_LIMIT"/>
 		<result property="lesParticipant" column="LES_PARTICIPANT"/>
+		<result property="lesNo" column="LES_NO"/>
 	</resultMap>
 	
 	<resultMap type="LessonFile" id="lessonfile_rm">
@@ -50,7 +50,7 @@
 	<select id="selectLesson" parameterType="_int" resultMap="lesson_rm">
 		SELECT * FROM LESSON WHERE LES_NO = #{lesNo}
 	</select>
-	<select id="selectDateList" parameterType="_int" resultMap="lesson_rm">
+	<select id="selectDetailList" parameterType="_int" resultMap="lessondetail_rm">
 		SELECT * FROM LESSON_DETAIL WHERE LES_NO = #{lesNo}
 	</select>
 	

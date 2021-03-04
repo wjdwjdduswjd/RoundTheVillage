@@ -25,6 +25,7 @@ import com.kh.RoundTheVillage.lesson.model.service.LessonService;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Controller
@@ -54,12 +55,14 @@ public class LessonController {
 	public String view(@PathVariable("lesNo") int lesNo,
 					   Model model) {
 		Lesson lesson = service.selectLesson(lesNo); // 제목이나 내용
-		List<LessonDetail> dateList = new ArrayList<>();
-		dateList = service.selectDateList(lesNo); // 정원, 참가자 , 날짜 등등
+		List<LessonDetail> detailList = new ArrayList<>();
+		detailList = service.selectDetailList(lesNo); // 정원, 참가자 , 날짜 등등
 		LessonFile file = service.selectFile(lesNo);
+		Shop shopInfo = service.selectShopInfo(lesson.getCraftshopNo());
 		model.addAttribute("lesson", lesson);
-		model.addAttribute("dateList", dateList);
+		model.addAttribute("detailList", detailList);
 		model.addAttribute("file", file);
+		model.addAttribute("shopInfo", shopInfo);
 		return "lesson/view";
 	}
 	
@@ -76,8 +79,6 @@ public class LessonController {
 						 @RequestParam("lesLimit") String lesLimit,
 						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
 						 HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(mainimageFile);
 		int lesNo = service.selectNextNo();
 		lesson.setLesNo(lesNo);
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
@@ -94,5 +95,37 @@ public class LessonController {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
 		LessonFile file = service.insertImage(uploadFile, savePath);
 		return new Gson().toJson(file);
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/selectReview/{lesNo}")
+	public List<LessonReview> selectReview(@PathVariable int lesNo) {
+		List<LessonReview> list = new ArrayList<LessonReview>();
+		list = service.selectReview(lesNo);
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/reviewInsert")
+	public int insertReview(@ModelAttribute LessonReview review) {
+		System.out.println(review);
+		int result = service.insertReview(review);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/updateReview/{revNo}")
+	public int updateReview(@PathVariable int revNo,
+							@ModelAttribute LessonReview review) {
+		review.setRevNo(revNo);
+		int result = service.updateReview(review);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/deleteReview/{revNo}")
+	public int deleteReview(@PathVariable int revNo) {
+		int result = service.deleteReview(revNo);
+		return result;
 	}
 }

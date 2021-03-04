@@ -27,7 +27,6 @@
 } 
 
 .form-control {
-	width: 800px !important;
 }
 .date-buttons {
 }
@@ -93,6 +92,22 @@ body {
 	width: 320px;
 	height: 240px;
 }
+.datetimepicker-input {
+	width: 1%;
+}
+#add-timeinput {
+	width: 60px;
+	height: 40px;
+	background-color: #F0F0F0;
+	border: 0;
+}
+#curri {
+	width: 738px;
+	resize: none;
+}
+textarea:focus{
+	outline: none;
+}
 </style>
 </head>
 <body>
@@ -140,15 +155,16 @@ body {
 				<p class="insert-p">수업시간</p>
 				
        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-           <input type="hidden" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="date" name="date"/>
+           <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="date" name="date"/>
            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-               <div class="input-group-text"><span class="fa fa-calendar"><img id="calendar" src="${contextPath}/resources/images/calendar.png">날짜선택</span></div>
+               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
        </div>
       </div>
       <script type="text/javascript">
           $(function () {
               $('#datetimepicker1').datetimepicker({
-                  format: 'L'
+                  format: 'L',
+                  dayViewHeaderFormat: 'YYYY년 MMMM'
               });
           });
       </script>
@@ -172,7 +188,6 @@ body {
 				    change : function(){
 				    	$(".timepicker.t2").val("");
 				    	time = Number($(".timepicker.t1").val().substring(0, 2)) + 1;
-				    	//console.log(time);
 				    	$('.timepicker.t2').timepicker({
 						    timeFormat: 'HH:mm',
 						    interval: 60,
@@ -210,8 +225,7 @@ body {
 			
 			<div class="form-group insert-price">
 				<p class="insert-p">커리큘럼</p>
-				<textarea rows="10" cols="20" placeholder="커리큘럼" name="lesCurri"></textarea>
-				<!-- <input type="number" class="form-control" name="lesCurri" id="curri" placeholder="커리큘럼"> <button type="button">추가</button> -->
+				<textarea rows="10" cols="20" placeholder="커리큘럼" id="curri" name="lesCurri"></textarea>
 			</div>
 			
 		</div>
@@ -310,10 +324,9 @@ $("#add-timeinput").click(function(event) {
 	var $startinput = $("<input>", {'class' : "form-control timepicker t1", id:"start-time"+index, name:"start-time", placeholder:"시작시간"});
 	var $endinput = $("<input>", {'class' : "form-control timepicker t2", id:"end-time"+index, name:"end-time", placeholder:"종료시간"});
 	var dateinput = '<div class="input-group date" id="datetimepicker' + index + '" data-target-input="nearest">' +
-						'<input type="hidden" class="form-control datetimepicker-input" data-target="#datetimepicker' + index + '" id="date" name="date"/>' +
+						'<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker' + index + '" id="date" name="date"/>' +
             '<div class="input-group-append" data-target="#datetimepicker' + index + '" data-toggle="datetimepicker">' + 
-                '<div class="input-group-text"><span class="fa fa-calendar"><img id="calendar" src="${contextPath}/resources/images/calendar.png">날짜선택</span></div></div></div>'
-                
+                '<div class="input-group-text"><i class="fa fa-calendar"></i></div></div></div>'
    $(function () {
               $('#datetimepicker'+index).datetimepicker({
                   format: 'L'

@@ -17,7 +17,8 @@
 		<p>${lesson.lesContent}</p>
 	</div>
 	<div class="lesson-curriculum">
-		<div class="title">${lesson.lesCurri}</div>
+		<div class="title">커리큘럼</div>
+		<p>${lesson.lesCurri}</p>
 	</div>
 	<div class="lesson-location">
 		<div class="title">위치</div>
