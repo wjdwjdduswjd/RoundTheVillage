@@ -125,9 +125,9 @@ public class BoardController {
    
    // 게시글 등록 화면 전환
    @RequestMapping("insert")
-  public String insertView(Model model) {
+  public String insertView(@ModelAttribute("loginMember") Member loginMember, Model model) {
 	   
-	   int memberNo = 1; //int memberNo = loginMemer.getMemberNo();
+	  int memberNo = loginMember.getMemberNo();
 	  List<Board> selectClass = service.selectClass(memberNo);
 	 
 	  model.addAttribute("selectClass", selectClass);
@@ -143,14 +143,14 @@ public class BoardController {
    @RequestMapping("insertAction")
    public String insertAction( 
 		  @ModelAttribute Board board, // 작성한 글제목, 내용, 카테고리코드를 얻기위한 어노테이션 
-		  //@ModelAttribute("loginMember") Member loginMember, 
+		  @ModelAttribute("loginMember") Member loginMember, 
 		  @RequestParam(value="images", required = false) List<MultipartFile> images,
 		  HttpServletRequest request,
 		  RedirectAttributes ra) {
 	   
 	  Map<String, Object> map = new HashMap<String, Object>(); // 맵을 이용해 받아온 정보들을 한곳에 담기
-	  // map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
-	   map.put("memberNo", 46); // 세션에 올려져있는 멤버넘버
+	  map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
+	  // map.put("memberNo", 46); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
 	   map.put("boardContent", board.getBoardContent()); // 내가 작성한 글 내용
 	   map.put("classNo", board.getClassNo()); // 공방 번호
