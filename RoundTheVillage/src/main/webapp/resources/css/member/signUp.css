@@ -1,5 +1,10 @@
 @charset "UTF-8";
 *{font-family: 'NanumSquare', sans-serif !important;}
+input[type='password'] {
+	font-family: sans-serif !important;
+}
+
+
 .login-logo-area{
 	padding-top: 64px; 
 	padding-bottom: 50px; 
@@ -110,10 +115,9 @@ input::placeholder {
 }
 
 .email{
-	
 	text-align: left;
 }
-#email{
+#email{ 
 	width: 72%;
 }
 /* 이메인 인증 버튼 */
