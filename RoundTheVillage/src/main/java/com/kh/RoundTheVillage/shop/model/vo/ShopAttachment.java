@@ -9,6 +9,20 @@ public class ShopAttachment {
 	
 	
 	public ShopAttachment() {}
+	
+	
+	
+
+
+	public ShopAttachment(String filePath, String fileName, int shopNo) {
+		super();
+		FilePath = filePath;
+		FileName = fileName;
+		this.shopNo = shopNo;
+	}
+
+
+
 
 
 	public ShopAttachment(int fileNo, String filePath, String fileName, int shopNo) {
@@ -18,6 +32,11 @@ public class ShopAttachment {
 		FileName = fileName;
 		this.shopNo = shopNo;
 	}
+
+
+
+
+
 
 
 	/**
