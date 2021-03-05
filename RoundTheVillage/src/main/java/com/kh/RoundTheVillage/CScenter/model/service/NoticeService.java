@@ -56,4 +56,11 @@ public interface NoticeService {
 	 * @return at
 	 */
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
+
+
+	/** 게시글 수정 Service
+	 * @param updateNotice
+	 * @return result
+	 */
+	//public abstract int updateNotice(Notice updateNotice);
 }
