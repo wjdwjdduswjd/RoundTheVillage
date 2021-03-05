@@ -214,13 +214,20 @@ body {
 }
 
 .area3{
-	width : 200px;
-	height : 200px;
+	width : 200px;  
+	height : 400px;
+	padding : 20px;
+	font-size : 18px;
 }
 
+.thArea{
+	width: 100%;
+	height: 90%;
+}
+ 
 .thImg{
 	width: 100%;
-	height: 90%; 
+	height: 100%; 
 }
 
 
@@ -236,6 +243,21 @@ margin-top : 20px;
 	border: 1px solid gray;
 	width : 250px;
 	height : 250px;
+}
+ 
+.likeArea{
+    position: absolute;
+    right: 30px;
+    bottom: 65px;
+    font-size : 30px;
+    color : #eee;
+   /*  width: 50px;
+    height: 50px; */ 
+}
+
+.likeArea > img{
+	width: 35px;
+  height: 35px;
 }
 
 </style>
@@ -320,22 +342,25 @@ margin-top : 20px;
                     
                     
                     <c:forEach var="board" items="${bList}" varStatus="vs">
-                    	 <div class="col-md-3 area3" id="${board.boardNo}">
-                    	  <c:forEach items="${thList}" var="th">
-                           	
-                           		<c:if test="${th.boardNo == board.boardNo}">
-                           		
-                           			<img class="thImg" src="${contextPath}${th.filePath}/${th.fileName}">
-				                           			
-                           		</c:if>
-                           
-                     		</c:forEach>
+                    	 <div class="col-md-4 area3" id="${board.boardNo}">
+                    		<div class="thArea">
+	                    	  <c:forEach items="${thList}" var="th">
+	                           	
+	                           		<c:if test="${th.boardNo == board.boardNo}">
+	                           				<img class="thImg" src="${contextPath}${th.filePath}/${th.fileName}">
+	                           		</c:if>
+	                           
+	                     		</c:forEach>
+                       	</div>   			
                     	 
-                    	 
+                    	  
                     	 
 	                      <%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
 	                        <span class="badge badge-default">${board.boardTitle}</span>
-	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">${board.likeCount }
+	                        <div class="likeArea">
+		                        <img src="${contextPath}/resources/images/boardListImages/yellowHeart.png" class="like"> 
+		                        ${board.likeCount }
+	                        </div>
            
            						</div>
 	                   

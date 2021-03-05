@@ -134,7 +134,7 @@ body {
 					<div class="row">
 						<div class="col-md-7 px-3">
 							<p>
-								<span class="pr-4"><b>공방</b></span> ${cls.lessonTitle}
+								<span class="pr-4"><b>공방</b></span> ${board.lessonTitle}
 							</p>
 						</div>
 						<div class="col-md-5 px-3">
