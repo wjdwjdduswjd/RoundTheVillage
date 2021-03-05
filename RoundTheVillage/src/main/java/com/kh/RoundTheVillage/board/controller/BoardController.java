@@ -263,6 +263,14 @@ public class BoardController {
 	   return result;
    }   
    
+   // 좋아요 카운트 Contoller
+   @ResponseBody 
+   @RequestMapping("selectLikeCount")
+   public int selectLikeCount(@RequestParam("boardNo") int boardNo) {
+	   
+	   return service.selectLikeCount(boardNo);
+   }   
+   
    
    
    

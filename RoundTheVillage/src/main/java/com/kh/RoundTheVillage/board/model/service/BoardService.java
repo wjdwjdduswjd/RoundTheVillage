@@ -66,6 +66,12 @@ public interface BoardService {
 	 */
 	public abstract int deleteLike(Map<String, Integer> map);
 
+	/** 좋아요 카운트 Service
+	 * @param boardNo
+	 * @return count
+	 */
+	public abstract int selectLikeCount(int boardNo);
+
 	
 
 

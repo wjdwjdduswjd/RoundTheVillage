@@ -335,7 +335,7 @@ margin-top : 20px;
                     	 
 	                      <%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
 	                        <span class="badge badge-default">${board.boardTitle}</span>
-	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
+	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">${board.likeCount }
            
            						</div>
 	                   

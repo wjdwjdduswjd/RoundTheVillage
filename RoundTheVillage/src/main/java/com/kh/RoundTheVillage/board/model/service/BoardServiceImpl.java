@@ -283,6 +283,12 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteLike(Map<String, Integer> map) {
 		return dao.deleteLike(map);
 	}
+
+	// 좋아요 카운트 Service 구현
+	@Override
+	public int selectLikeCount(int boardNo) {
+		return dao.selectLikeCount(boardNo);
+	}
 	
 	
 	

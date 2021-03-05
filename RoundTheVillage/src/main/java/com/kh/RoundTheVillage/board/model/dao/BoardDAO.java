@@ -91,10 +91,18 @@ public class BoardDAO {
  
 	/** 좋아용 삭제 DAO
 	 * @param map
-	 * @return
+	 * @return result
 	 */
 	public int deleteLike(Map<String, Integer> map) {
 		return sqlSession.delete("boardMapper.deleteLike", map);
+	}
+
+	/** 좋아요 카운트 DAO
+	 * @param boardNo
+	 * @return  result
+	 */
+	public int selectLikeCount(int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectLikeCount", boardNo);
 	}
 
 

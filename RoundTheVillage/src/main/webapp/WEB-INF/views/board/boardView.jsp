@@ -107,8 +107,6 @@ body {
 }
 </style>
 
-</style>
-
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<div class="container">
@@ -163,7 +161,7 @@ body {
 						<img src="${contextPath}/resources/images/boardListImages/fill-heart.png" class="like">
 					</c:otherwise>
 				</c:choose>
-				300
+				<span id="likeCount">${board.likeCount}</span>
 				
 				
 				<span class="readCountArea"><b>조회수 ${board.readCount}</b></span>
@@ -292,6 +290,7 @@ body {
 								$(".like").attr("src", "${contextPath}/resources/images/boardListImages/heart.png");
 							}
 							
+							selectLikeCount();
 						},error : function(){
 							console.log("좋아요 실패")
 						}
@@ -300,6 +299,20 @@ body {
 				}
 			}
 		});
+		
+		
+		// 좋아요 개수 카운트
+		function selectLikeCount(){
+			$.ajax({
+				url : "selectLikeCount",
+				data : {"boardNo" : boardNo},
+				success : function(likeCount){
+					$("#likeCount").text(likeCount);
+				},error : function(){
+					console.log("좋아요 카운트 실패")
+				}
+			});
+		}
 	</script>
 
 

@@ -17,6 +17,7 @@ public class Board {
 	 	private String memberNickname;
 	 	private String lessonTitle;
 	 	private String classCategoryNm;
+	 	private int likeCount;
 	 	
 	 	public Board() {
 			// TODO Auto-generated constructor stub
@@ -126,14 +127,24 @@ public class Board {
 			this.classCategoryNm = classCategoryNm;
 		}
 
+		public int getLikeCount() {
+			return likeCount;
+		}
+
+		public void setLikeCount(int likeCount) {
+			this.likeCount = likeCount;
+		}
+
 		@Override
 		public String toString() {
 			return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 					+ ", memberNo=" + memberNo + ", readCount=" + readCount + ", boardCreateDate=" + boardCreateDate
 					+ ", boardModifyDate=" + boardModifyDate + ", boardStatus=" + boardStatus + ", classNo=" + classNo
 					+ ", classCategoryNo=" + classCategoryNo + ", memberNickname=" + memberNickname + ", lessonTitle="
-					+ lessonTitle + ", classCategoryNm=" + classCategoryNm + "]";
+					+ lessonTitle + ", classCategoryNm=" + classCategoryNm + ", likeCount=" + likeCount + "]";
 		}
+		
+		
 
 		
 }
