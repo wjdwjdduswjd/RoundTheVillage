@@ -87,5 +87,21 @@ public class LessonDAO {
 	public List<LessonQuestion> selectQuestion(int lesNo) {
 		return session.selectList("lessonMapper2.selectQuestion", lesNo);
 	}
+
+	public int insertQuetion(LessonQuestion question) {
+		return session.insert("lessonMapper2.insertQuestion", question);
+	}
+
+	public int insertAnswer(LessonQuestion question) {
+		return session.insert("lessonMapper2.insertAnswer", question);
+	}
+
+	public int deleteQuestion(int queNo) {
+		return session.delete("lessonMapper2.deleteQuestion", queNo);
+	}
+
+	public int updateQuestion(LessonQuestion question) {
+		return session.update("lessonMapper2.updateQuestion", question);
+	}
 	
 }

@@ -252,7 +252,17 @@ li {list-style: none;}
 	<div class="info-right">
 			<div class="lesson-info-form">
 			 <div class="lesson-info info1">
-			 	<span class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png">${shopInfo.shopAdress}</span> <br>
+			 	<span class="lesson-loc"><img class="info-image" src="${contextPath}/resources/images/pin.png"></span> <br>
+			 	
+			 	<script>
+			 		$(function(){
+			 			var address = "${shopInfo.shopAdress}";
+			 			address = address.substring(address.indexOf(',')+1, address.indexOf(" "));
+				 		console.log(address);
+				 		$(".lesson-loc").append("<span>" + address + "<span>");
+			 		});
+			 	</script>
+			 	
 			 	<span class="lesson-name">${lesson.lesTitle}</span>
 			 </div>
 			 <div class="lesson-info info2">

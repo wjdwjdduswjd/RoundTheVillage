@@ -85,7 +85,7 @@ textarea:focus {
 .review-name {
 	font-weight: bold;
 	font-size: 20px;
-	margin-right: 40px;
+	margin-right: 15px;
 }
 .review-star {
 }
@@ -93,16 +93,16 @@ textarea:focus {
 }
 .review-content {
 	padding: 20px;
+	padding-bottom: 0;
 }
 .review-update-delete-button {
-	padding-top: 10px;
 }
 .review-update-delete-button > button {
 	background-color: #FFFFFF;
 	color: #7A7A7A;
 	border: 0;
-	font-size: 17px;
-	padding-left: 10px;
+	font-size: 12px;
+	padding-right: 10px;
 }
 .review-update {
 	margin: 0 10px;
@@ -244,16 +244,15 @@ function selectReview() {
 				
 				var stars = "";
 				for(var i=0; i<item.revRating; i++){
-					stars += "★";
+					stars += "<img src='${contextPath}/resources/images/star2.png' width='15px'/>";
 				}
 				for(var i=0; i<5-item.revRating; i++){
-					stars += "☆";
+					stars += "<img src='${contextPath}/resources/images/star1.png' width='13px'/>";
 				}
-				var reviewstar = $("<div>").addClass("review-star").html(stars + "이미지로ㄱㄱ");
+				var reviewstar = $("<div>").addClass("review-star").html(stars);
 				reviewnamestar.append(reviewname).append(reviewstar);
 				
 				var reviewtime = $("<div>").addClass("review-time");
-				reviewtime.html(item.revCreateDt);
 				reviewtime.html(moment(item.revCreateDt).format('YYYY-MM-DD'));
 				
 				var reviewcontent = $("<div>").addClass("review-content");
@@ -280,7 +279,6 @@ function selectReview() {
 		}	
 	})
 }
-
 
 
 function updateReviewForm(i) {
@@ -317,7 +315,7 @@ function updateReview(i) {
 }
 
 function deleteUpdateForm(i) {
-	$("#review-update"+i).html("");
+	$("#review-update"+i).remove();
 }
 
 function deleteReview(i) {
