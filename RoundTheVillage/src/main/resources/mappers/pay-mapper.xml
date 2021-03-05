@@ -76,22 +76,22 @@
 	
 	<select id="selectPayByUid" parameterType="string" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE IMP_UID = #{impUid} AND PAY_FL = 'N'
+		WHERE IMP_UID = #{impUid}
 	</select>
 	
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM PAY
-		WHERE MEM_NO = #{memNo} AND PAY_FL = 'N'
+		WHERE MEM_NO = #{memNo}
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE MEM_NO = #{memNo} AND PAY_FL = 'N'
+		WHERE MEM_NO = #{memNo}
 		ORDER BY PAY_NO DESC
 	</select>
 	
 	<select id="selectPay" parameterType="_int" resultMap="pay_rm">
 		SELECT * FROM V_PAY
-		WHERE PAY_NO = #{payNo} AND PAY_FL = 'N'
+		WHERE PAY_NO = #{payNo}
 	</select>
 </mapper>

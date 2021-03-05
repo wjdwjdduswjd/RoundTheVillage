@@ -51,8 +51,8 @@ public class PayService {
 		return new PageInfo(cp, listCount, 10, 10, memNo);
 	}
 
-	public List<Pay> selectList(PageInfo pInfo) {
-		return dao.selectList(pInfo);
+	public List<Pay> selectList(PageInfo pInfo, int memNo) {
+		return dao.selectList(pInfo, memNo);
 	}
 	
 	public Pay selectPay(int payNo) {
