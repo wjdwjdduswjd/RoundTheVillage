@@ -232,6 +232,12 @@ body {
 margin-top : 20px;
 }
 
+.entireArea{
+	border: 1px solid gray;
+	width : 250px;
+	height : 250px;
+}
+
 </style>
 </head>
 <body>
@@ -301,14 +307,17 @@ margin-top : 20px;
                </c:if>
 
                 <br>
-
+							
+							
 							 <c:if test="${!empty bList}">
                 <div class="row thumbnailArea">
+						
                 <!--     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
                         <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
                         <img src="하트.png" class="like">300
                     </div> -->
+                    
                     
                     <c:forEach var="board" items="${bList}" varStatus="vs">
                     	 <div class="col-md-3 area3" id="${board.boardNo}">
@@ -327,13 +336,14 @@ margin-top : 20px;
 	                      <%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
 	                        <span class="badge badge-default">${board.boardTitle}</span>
 	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
-	                    </div>
+           
+           						</div>
+	                   
                     </c:forEach>   
                    
-              </div> 
               
              </c:if>
-                
+               </div>
                 
              <!--    <div class="row thumbnailArea">
                     <div class="col-md-3 area3">
