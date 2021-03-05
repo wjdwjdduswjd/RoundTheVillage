@@ -77,7 +77,7 @@ public class BoardController {
    // 게시글 상세 조회
    @RequestMapping("{boardNo}")
    public String boardView(@PathVariable("boardNo") int boardNo,
-		   					Model model, 
+		   					Model model,  @ModelAttribute("loginMember") Member loginMember,
 		   				 @RequestHeader(value="referer", required = false) String referer,
 		   				   RedirectAttributes ra) {
 	  
@@ -96,6 +96,12 @@ public class BoardController {
 			   
 			   
 			   model.addAttribute("board", board);
+			   
+			   Map<String, Integer> map = new HashMap<String, Integer>();
+			   map.put("boardNo", boardNo);
+			   map.put("memberNo", loginMember.getMemberNo());
+			   int likeFl = service.selectLikeFl(map); // 0: 좋아요 X, 1:좋아요 누른적 있음
+			   model.addAttribute("likeFl", likeFl);
 			   
 			   url = "board/boardView";
 			
@@ -228,21 +234,34 @@ public class BoardController {
 	   return "board/boardUpdate";
    }
    
-   // 좋아요 기능
- //  @RequestMapping("like")
- //  public void read(@RequestParam("boardId") int boardId, Model model,
+   // 좋아요 추가 Contoller
+   @ResponseBody
+   @RequestMapping("insertLike")
+   public int insertLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	   
+	   Map<String, Integer> map = new HashMap<String, Integer>();
+	   map.put("boardNo", boardNo);
+	   map.put("memberNo", loginMember.getMemberNo());
+	   
+	   int result = service.insertLike(map);
+	   
+	   return result;
+   }
        
-
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
+   // 좋아요 삭제 Contoller
+   @ResponseBody 
+   @RequestMapping("deleteLike")
+   public int deleteLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	   
+	   Map<String, Integer> map = new HashMap<String, Integer>();
+	   map.put("boardNo", boardNo);
+	   map.put("memberNo", loginMember.getMemberNo());
+	   
+	   int result = service.deleteLike(map);
+	   
+	   return result;
+   }   
    
    
    

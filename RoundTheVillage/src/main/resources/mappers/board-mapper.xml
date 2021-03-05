@@ -130,4 +130,29 @@
 	</select>
 
 
+
+	<!-- 좋아요 여부 확인 -->
+	<select id="selectLikeFl" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_GOOD
+		WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_NO = #{boardNo}
+	</select>
+
+
+	<!-- 좋아요 삽입 -->
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO BOARD_GOOD
+		VALUES(#{memberNo}, #{boardNo})
+	</insert>
+
+	<!-- 좋아요 삭제-->
+	<insert id="deleteLike" parameterType="map">
+		DELETE FROM BOARD_GOOD
+		WHERE MEMBER_NO = #{memberNo}
+		AND BOARD_NO = #{boardNo}
+	</insert>
+
+
+
+
 </mapper>
