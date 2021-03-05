@@ -13,6 +13,16 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
 	
+	<resultMap type="LessonQuestion" id="lessonquestion_rm">
+		<id property="queNo" column="QUE_NO"/>
+		<result property="queDt" column="QUE_DT"/>
+		<result property="queContent" column="QUE_CONTENT"/>
+		<result property="lesNo" column="LES_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="queType" column="QUE_TYPE"/>
+		<result property="queParentNo" column="QUE_PARENT_NO"/>
+	</resultMap>
+	
 	<insert id="insertReview" parameterType="LessonReview">
 		INSERT INTO LESSON_REVIEW 
 		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, 1)
@@ -26,11 +36,36 @@
 	
 	<update id="updateReview" parameterType="LessonReview">
 		UPDATE LESSON_REVIEW SET REV_CONTENT = #{revContent}
-		WEHRE REV_NO = #{revNo}
+		WHERE REV_NO = #{revNo}
 	</update>
 	
 	<delete id="deleteReview" parameterType="_int">
 		DELETE LESSON_REVIEW
 		WHERE REV_NO = #{revNo}
 	</delete>
+	
+	<select id="selectQuestion" parameterType="_int" resultMap="lessonquestion_rm">
+		SELECT * FROM LESSON_QUESTION
+		WHERE LES_NO = #{lesNo}
+		ORDER BY QUE_PARENT_NO DESC, QUE_TYPE DESC
+	</select>
+	
+	<insert id="insertQuestion" parameterType="LessonQuestion">
+		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, 1, 'Q', SEQ_LQUNO.CURRVAL)
+	</insert>
+	
+	<insert id="insertAnswer" parameterType="LessonQuestion">
+		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, 1, 'A', #{queParentNo})
+	</insert>
+
+	<delete id="deleteQuestion" parameterType="_int">
+		DELETE LESSON_QUESTION 
+		WHERE QUE_NO = #{queNo}
+	</delete>
+	
+	<update id="updateQuestion" parameterType="LessonQuestion">
+		UPDATE LESSON_QUESTION SET QUE_CONTENT = #{queContent}
+		WHERE QUE_NO = #{queNo}
+	</update>
+	
 </mapper>

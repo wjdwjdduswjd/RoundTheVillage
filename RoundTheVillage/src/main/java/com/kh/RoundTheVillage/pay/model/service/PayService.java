@@ -12,6 +12,9 @@ import com.kh.RoundTheVillage.pay.model.dao.PayDAO;
 import com.kh.RoundTheVillage.pay.model.vo.Coupon;
 import com.kh.RoundTheVillage.pay.model.vo.Pay;
 import com.kh.RoundTheVillage.pay.model.vo.PayLes;
+
+import oracle.net.aso.e;
+
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 
@@ -34,13 +37,18 @@ public class PayService {
 		return dao.insertPay(pay);
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
+	public int updateCoupon(int couponNo) {
+		return dao.updateCoupon(couponNo);
+	}
+	
 	public Pay selectPayByUid(String impUid) {
 		return dao.selectPayByUid(impUid);
 	}
 
 	public PageInfo getPageInfo(int memNo, int cp) {
 		int listCount = dao.getListCount(memNo);
-		return new PageInfo(cp, listCount, memNo);
+		return new PageInfo(cp, listCount, 10, 10, memNo);
 	}
 
 	public List<Pay> selectList(PageInfo pInfo) {

@@ -15,6 +15,7 @@ import com.kh.RoundTheVillage.lesson.model.dao.LessonDAO;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -159,4 +160,35 @@ public class LessonService {
 	public int deleteReview(int revNo) {
 		return dao.deleteReview(revNo);
 	}
+
+	public List<LessonQuestion> selectQuestion(int lesNo) {
+		return dao.selectQuestion(lesNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int insertQuestion(LessonQuestion question) {
+		question.setQueContent(replaceParameter(question.getQueContent()));
+		question.setQueContent(question.getQueContent().replaceAll("\n", "<br>"));
+		return dao.insertQuetion(question);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int insertAnswer(LessonQuestion question) {
+		question.setQueContent(replaceParameter(question.getQueContent()));
+		question.setQueContent(question.getQueContent().replaceAll("\n", "<br>"));	
+		return dao.insertAnswer(question);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteQuestion(int queNo) {
+		return dao.deleteQuestion(queNo);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public int updateQuestion(LessonQuestion question) {
+		question.setQueContent(replaceParameter(question.getQueContent()));
+		question.setQueContent(question.getQueContent().replaceAll("\n", "<br>"));	
+		return dao.updateQuestion(question);
+	}
+
 }

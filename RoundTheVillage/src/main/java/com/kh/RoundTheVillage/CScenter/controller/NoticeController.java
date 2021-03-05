@@ -106,8 +106,13 @@ public class NoticeController {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noticeNo", notice.getNoticeNo());
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
+		
+		System.out.println("noticeTitle"+notice.getNoticeTitle());
+		
+		//System.out.println("map:" + map);
 		
 		String savePath = null;
 		
@@ -118,13 +123,15 @@ public class NoticeController {
 		int result = service.insertNotice(map, images, savePath);
 
 		String url = null;
-
+		
+		System.out.println("noticeNo"+notice.getNoticeNo());
+		
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 
-			request.getSession().setAttribute("returnListURL", "noticeList");
+			request.getSession().setAttribute("returnListURL", "/noticeList");
 
 		} else {
 			swalIcon = "error";

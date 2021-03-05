@@ -129,7 +129,7 @@ form {
 				</div>
 
 				<div class="form-group">
-					<textarea class="form-control" id="summernote" name="boardContent"
+					<textarea class="form-control" id="summernote" name="noticeContent"
 						rows="10" style="resize: none;"></textarea>
 				</div>
 

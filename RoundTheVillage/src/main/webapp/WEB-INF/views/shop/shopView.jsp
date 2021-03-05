@@ -80,20 +80,20 @@
 			<div class="top" style="width: 90%;">
 
 				<div class="top" id="shopname" style="width: auto">
-					<p>공방이름
-					<h1 style="font-weight: bold;"></h1>
+					<p>
+						<h1 style="font-weight: bold;">${shop.shopName }</h1>
 					</p>
 				</div>
 				<div class="top" id="category" style="width: auto; font-size: 15px;">
 
-					<p>카테고리</p>
+					<p>${shop.shopCategoryName }</p>
 				</div>
 			</div>
 
 			<div class="top">
 
 				<div class="likeArea" id="like">
-					<p>좋아요</p>
+					<p>${csGoodCount}</p>
 				</div>
 			</div>
 
@@ -123,13 +123,7 @@
 			<img id="shopImg" name="thumbnail" width="800" height="200">
 		</div>
 
-		<!--공방 주인일 경우 보이는 수정 버튼 -->
-		<%--     <c:if test="${}">
-                <a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
-            </c:if>
-             --%>
-
-
+    <a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
 
 
 
@@ -163,23 +157,24 @@
 
 				<br>
 
-				<div style ="font-size:12px">
-				
-				
+				<div style="font-size: 12px">
+
+
 					<div class="row mb-3 form-row">
 
-						<div  class="col-md-3" id="infotitle">
+						<div class="col-md-3" id="infotitle">
 							<label for="infoshop">공방소개</label>
 						</div>
-						<div class="col-md-7" style="height: auto;">공방 소개 내용 부분 입니다~~~~~ ☆저희 성북구 래요공방에서는 슬로우메이킹을 지향합니다.☆ 도자기공예를 애정해주시는 ♡ 님께 도자기클래스에서 신박하게 ! 내손으로 만들기 소개♡~ 1.전기물레 사용으로 그릇,접시, 등 아름다운 작품을 만들고자 합니다. 2.핸드페인팅으로 도안에 맞는 디자인드로잉+채색 가능합니다. 3.전사지기법으로 오리고 붙여서 표현하고 바로 받아 보실 수도 있습니다. 4.판작업으로 화병,접시 ㅡ 캐릭터그릇을 만들 수 있습니다. 5. 4명까지 개인1:1수업으로 진행드립니다.</div>
-					</div>
+						<div class="col-md-7" style="height: auto;">
+							${shop.shopInfo}
+						</div>
 
 					<div class="row mb-3 form-row">
 
 						<div class="col-md-3" id="infotitle">
 							<label for="contact">연락처</label>
 						</div>
-						<div class="col-md-6">010-1234-5678</div>
+						<div class="col-md-6">${shop.shopContact}</div>
 					</div>
 					<div class="row mb-3 form-row">
 
@@ -187,7 +182,7 @@
 							<label for="address">위치</label>
 						</div>
 
-						<div id="map" class="col-md-7"></div>
+						<div id="map"  style="width:400px; height:400px;"></div>
 
 					</div>
 
@@ -292,6 +287,7 @@
 
 
 		</div>
+	</div>
 </body>
 
 <jsp:include page="../common/footer.jsp" />
@@ -299,43 +295,50 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0195b24c7dce0dc71f3dbcf7ca0a12c4&libraries=services,clusterer,drawing"></script>
 
 <script>
+	var addr = "${shop.shopAdress}";
+	addr = addr.substring(addr.indexOf(',')+1 , addr.lastIndexOf(','));
+
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+	mapOption = {
+		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		level : 3
+	// 지도의 확대 레벨
+	};
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다 // 상세 주소
-geocoder.addressSearch('${shop.address2}', function(result, status) {
+	
+	// 주소로 좌표를 검색합니다 // 상세 주소
+	geocoder.addressSearch(addr,function(result, status) {
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+		// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			var coords = new kakao.maps.LatLng(result[0].y,
+					result[0].x);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+			// 결과값으로 받은 위치를 마커로 표시합니다
+			var marker = new kakao.maps.Marker({
+				map : map,
+				position : coords
+			});
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${hospital.hospNm }</div>'
-        });
-        infowindow.open(map, marker);
+			// 인포윈도우로 장소에 대한 설명을 표시합니다
+			var infowindow = new kakao.maps.InfoWindow(
+					{
+						content : '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${shop.shopName }</div>'
+					});
+			infowindow.open(map, marker);
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } else{
-    	console.log(result);
-    }
-});    
-	</script>
+			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			map.setCenter(coords);
+		} else {
+			console.log(result);
+		}
+	});
+</script>
 
 </html>

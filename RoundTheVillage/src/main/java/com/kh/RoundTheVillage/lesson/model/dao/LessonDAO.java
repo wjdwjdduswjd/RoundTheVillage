@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -83,4 +84,24 @@ public class LessonDAO {
 		return session.delete("lessonMapper2.deleteReview", revNo);
 	}
 
+	public List<LessonQuestion> selectQuestion(int lesNo) {
+		return session.selectList("lessonMapper2.selectQuestion", lesNo);
+	}
+
+	public int insertQuetion(LessonQuestion question) {
+		return session.insert("lessonMapper2.insertQuestion", question);
+	}
+
+	public int insertAnswer(LessonQuestion question) {
+		return session.insert("lessonMapper2.insertAnswer", question);
+	}
+
+	public int deleteQuestion(int queNo) {
+		return session.delete("lessonMapper2.deleteQuestion", queNo);
+	}
+
+	public int updateQuestion(LessonQuestion question) {
+		return session.update("lessonMapper2.updateQuestion", question);
+	}
+	
 }

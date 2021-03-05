@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +41,7 @@
 }
 .review-text {
 	width: 100%;
-	min-height: 150px;
+	min-height: 130px;
 	font-size: 18px;
 }
 textarea {
@@ -68,7 +68,8 @@ textarea:focus {
 	color: #FFFFFF;
 }
 .review {
-	margin-top: 50px;
+	margin-top: 30px;
+	border-top: 1px solid #c7c7c7;
 }
 .review > div {
 	padding-left: 10px;
@@ -84,7 +85,7 @@ textarea:focus {
 .review-name {
 	font-weight: bold;
 	font-size: 20px;
-	margin-right: 40px;
+	margin-right: 15px;
 }
 .review-star {
 }
@@ -92,17 +93,48 @@ textarea:focus {
 }
 .review-content {
 	padding: 20px;
+	padding-bottom: 0;
 }
 .review-update-delete-button {
-	float: right;
-	padding-top: 10px;
 }
 .review-update-delete-button > button {
 	background-color: #FFFFFF;
 	color: #7A7A7A;
 	border: 0;
-	font-size: 17px;
-	padding-left: 10px;
+	font-size: 12px;
+	padding-right: 10px;
+}
+.review-update {
+	margin: 0 10px;
+}
+.close-update {
+	float: right;
+}
+.review-update-content {
+	border: 1px solid #E5E5E5;
+}
+.review-update-text {
+	width: 100%;
+	min-height: 80px;
+	padding: 16px;
+}
+.review-update-button {
+	width: 80px;
+	height: 40px;
+	float: right;
+	border: none;
+	padding: 0;
+	margin: 0;
+	background-color: #F6B60E;
+	color: #FFFFFF;
+}
+.update-button-area {
+		border: 1px solid #E5E5E5;	
+    height: 42px;
+    line-height: 42px;
+}
+.close-update {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -113,11 +145,11 @@ textarea:focus {
 	<div class="reviewtotal-rating">
 		<div class="rating">
 			<div>평점</div>
-			<div style="font-size: 35px; color: black">4.7</div>
+			<div style="font-size: 35px; color: black" class="averageRating">(리뷰점수)</div>
 		</div>
 		<div class="reviewtotal">
 			<div>클래스 후기</div>
-			<div style="font-size: 35px; color: black">56</div>
+			<div style="font-size: 35px; color: black" class="reviewcount">(후기개수)</div>
 		</div>
 	</div>
 	
@@ -156,6 +188,15 @@ textarea:focus {
 					<button>삭제</button>
 					<button>신고하기</button>
 				</div>
+				
+				<div class="review-update" style="display:none">
+					<div style="height:24px;"><a class="close-update"> Ⅹ</a></div>
+					<div class="review-update-content">
+						<textarea class="review-update-text" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+					</div>
+					<div class="update-button-area"><button class="review-update-button">후기 수정</button></div>
+				</div>
+				
 			</div>
 		
 			<div class="review">
@@ -166,7 +207,7 @@ textarea:focus {
 				<div class="review-time">2020.02.16  15:48</div>
 				<div class="review-content">혹시 액션이 어떻게 되는지 아세요? 무한~~ <br> 무야~호~ 뭐~ <br> 그만큼 신나시는거지~ </div>
 				<div class="review-update-delete-button">
-					<button>수정</button>
+					<button class="updateButton">수정</button>
 					<button>삭제</button>
 					<button>신고하기</button>
 				</div>
@@ -194,47 +235,70 @@ function selectReview() {
 			
 			var reviewArea = $(".review-list");
 			reviewArea.html("");
-			
+			var averageRating = 0;
 			$.each(list, function(index, item) {
 				
-				var review = $("<div>").addClass("review");
+				var review = $("<div>",{id:"review"+item.revNo}).addClass("review");
 				var reviewnamestar = $("<div>").addClass("review-name-star");
 				var reviewname = $("<div>").addClass("review-name").html("이름");
 				
 				var stars = "";
 				for(var i=0; i<item.revRating; i++){
-					stars += "★";
+					stars += "<img src='${contextPath}/resources/images/star2.png' width='15px'/>";
 				}
 				for(var i=0; i<5-item.revRating; i++){
-					stars += "☆";
+					stars += "<img src='${contextPath}/resources/images/star1.png' width='13px'/>";
 				}
-				var reviewstar = $("<div>").addClass("review-star").html(stars + "이미지로ㄱㄱ");
+				var reviewstar = $("<div>").addClass("review-star").html(stars);
 				reviewnamestar.append(reviewname).append(reviewstar);
 				
 				var reviewtime = $("<div>").addClass("review-time");
-				reviewtime.html(item.revCreateDt);
 				reviewtime.html(moment(item.revCreateDt).format('YYYY-MM-DD'));
 				
 				var reviewcontent = $("<div>").addClass("review-content");
 				reviewcontent.html(item.revContent);
 				
 				var reviewupdatedeletebutton = $("<div>").addClass("review-update-delete-button");
-				var updateButton = $("<button>", {onclick:"updateReview(" + item.revNo +")"}).html("수정");
-				var deleteButton = $("<button>", {onclick:"deleteReview(" + item.revNo +")"}).html("삭제");
-				//reviewupdatedeletebutton.html("<button>수정</button><button>삭제</button><button>신고하기</button>");
+				var updateButton = $("<button>", {onclick:"updateReviewForm(" + item.revNo + ")", id:"updateButton"+item.revNo}).html("수정").addClass("updateButton");
+				var deleteButton = $("<button>", {onclick:"deleteReview(" + item.revNo + ")"}).html("삭제");
 				reviewupdatedeletebutton.append(updateButton).append(deleteButton);
+				
 				review.append(reviewnamestar).append(reviewtime).append(reviewcontent).append(reviewupdatedeletebutton);
 
 				reviewArea.append(review);
+				
+				averageRating += item.revRating;
 			});
+			if(averageRating != 0){
+				averageRating /= list.length;
+			}
+			$(".averageRating").text(averageRating.toFixed(1)); // 리뷰 평균점수
+			$(".reviewcount").text(list.length);
 		}, error: function() {
 			console.log("댓글 조회 실패");
 		}	
 	})
 }
 
-// 댓글 수정
+
+function updateReviewForm(i) {
+	$(".review-update").html("");
+	var reviewupdate = $("<div>", {id:"review-update"+i}).addClass("review-update");
+	var closeArea = $("<div>", {style:"height:24px"}).html('<a class="close-update" onclick="deleteUpdateForm(' + i + ')"> Ⅹ</a></div>');
+	var reviewupdatecontent = $("<div>").addClass("review-update-content");
+	var reviewupdatetext = $("<textarea>", {onkeydown:"resize(this)", onkeyup:"resize(this)"}).addClass("review-update-text");
+	reviewupdatecontent.append(reviewupdatetext);
+	var updatebuttonarea = $("<div>").addClass("update-button-area").html('<button class="review-update-button" onclick="updateReview(' + i + ')">후기 수정</button>');
+	reviewupdate.append(closeArea).append(reviewupdatecontent).append(updatebuttonarea);
+	$("#review" + i).append(reviewupdate)
+	$(".review-update-text").focus();
+	
+}
+
+
 function updateReview(i) {
+	
+	var revContent = $(".review-update-text").val();
 	$.ajax({
 		url: "${contextPath}/lesson/updateReview/" + i,
 		type: "post",
@@ -248,6 +312,10 @@ function updateReview(i) {
 			console.log("댓글수정 실패");
 		}
 	})
+}
+
+function deleteUpdateForm(i) {
+	$("#review-update"+i).remove();
 }
 
 function deleteReview(i) {
@@ -293,6 +361,8 @@ $(".review-submit").click(function() {
 		}
 	})
 })
+
+
 </script>
 
 </body>

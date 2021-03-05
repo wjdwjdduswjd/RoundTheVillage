@@ -59,8 +59,13 @@
 	</select>
 	
 	
-	
-	
+	<!-- 아이디 찾기 -->
+	<select id="idFind" parameterType="Member" resultType="string">
+		SELECT MEM_ID FROM MEMBER
+		WHERE MEM_NAME = #{memberName}
+				AND MEM_EMAIL = #{memberEmail}
+				AND MEM_SCSN_FL = 'N'
+	</select>
 	
 	
 	
