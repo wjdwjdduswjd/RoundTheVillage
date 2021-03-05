@@ -187,8 +187,8 @@
 			
       // IMP.request_pay(param, callback) 호출
        IMP.request_pay({ // param
-          pg: "html5_inicis",
-          pay_method: "card",
+          pg: "kakaopay",
+          pay_method: "kakaopay",
           name: $("#lseTitle").text(),
           amount: amt,
           buyer_email: $("#email").text(),
@@ -210,10 +210,7 @@
 	            		lesNo: ${lesson.lesNo}
 	              }
 	          }) .done(function (data) {
-	        		  console.log(data > 0)
-	        	  if(data > 0){
-	        		  console.log("go")
-
+	        	  if(data > 0){ // 결제 완료 페이지로
         		    var form = $("<form>");
         		    form.attr("method", "post");
         		    form.attr("action", "complete");

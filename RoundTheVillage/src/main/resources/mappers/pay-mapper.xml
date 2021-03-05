@@ -56,15 +56,16 @@
 	
 	<insert id="insertPay" parameterType="Pay">
 		INSERT INTO PAY 
-		VALUES (SEQ_PNO.NEXTVAL, SYSDATE, #{resDate}, #{payAmt}, #{gradeDis}, #{couponDis}, #{impUid}, #{lesNo}, #{memNo},
+		VALUES (SEQ_PNO.NEXTVAL, DEFAULT, #{resDate}, #{payAmt}, #{gradeDis}, #{couponDis}, #{impUid}, #{lesNo}, #{memNo},
 		<choose>
 			<when test="couponNo == 0">
-				NULL)
+				NULL
 			</when>
 			<otherwise>
-				#{couponNo})
+				#{couponNo}
 			</otherwise>
 		</choose>
+		, DEFAULT)
 	</insert>
 	
 	

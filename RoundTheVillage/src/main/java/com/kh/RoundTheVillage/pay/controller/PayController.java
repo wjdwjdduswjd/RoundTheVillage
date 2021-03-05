@@ -47,9 +47,9 @@ public class PayController {
 	
 	// 결제 화면
 	@RequestMapping("{lesNo}")
-	public String pay(@PathVariable("lesNo") int lesNo/* , @ModelAttribute("loginMember") Member loginMember */, Model model) {
+	public String pay(@PathVariable("lesNo") int lesNo, @ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		List<Coupon> cList = service.selectCupon(1);
+		List<Coupon> cList = service.selectCupon(loginMember.getMemberNo());
 		PayLes lesson = service.selectLesson(lesNo);
 		
 		model.addAttribute("cList", cList);
@@ -62,15 +62,15 @@ public class PayController {
 	@ResponseBody
 	@RequestMapping("payAction")
 	public int payAction(
-			@ModelAttribute Pay pay, @RequestParam("dateStr") String dateStr,/* @ModelAttribute("loginMember") Member loginMember, */
-			@RequestParam("lesNo") int lesNo, HttpServletRequest request, RedirectAttributes ra) throws ParseException {
+			@ModelAttribute Pay pay,
+			@RequestParam("dateStr") String dateStr/*, @ModelAttribute("loginMember") Member loginMember */) throws ParseException {
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = (Date) transFormat.parse(dateStr);
 		
 		pay.setResDate(new java.sql.Timestamp(date.getTime()));
+//		pay.setMemNo(loginMember.getMemberNo());
 		pay.setMemNo(1);
-		//pay.setMemNo(loginMember.getMemNo());
 		
 		int result = service.insertPay(pay);
 		
@@ -79,14 +79,6 @@ public class PayController {
 			
 		return result;
 	}
-	
-//	@RequestMapping("complete/{impUid}")
-//	public String complete(@PathVariable("impUid") String impUid, Model model) {
-//		Pay pay = service.selectPayComplete(impUid);
-//		model.addAttribute("pay", pay);
-//		System.out.println(pay);
-//		return "pay/complete";
-//	}
 	
 	// 결제 완료 페이지
 	@RequestMapping("complete")
@@ -100,9 +92,11 @@ public class PayController {
 	
 	// 예약 목록
 	@RequestMapping("list")
-	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			Model model/* , @ModelAttribute("loginMember") Member loginMember */) {
 		
 		PageInfo pInfo = service.getPageInfo(1, cp);
+//		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
 		List<Pay> pList = service.selectList(pInfo);
 		
 		model.addAttribute("pList", pList);
