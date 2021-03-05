@@ -97,7 +97,8 @@ public class PayController {
 		
 		PageInfo pInfo = service.getPageInfo(1, cp);
 //		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
-		List<Pay> pList = service.selectList(pInfo);
+		List<Pay> pList = service.selectList(pInfo, 1);
+//		List<Pay> pList = service.selectList(pInfo, loginMember.getMemberNo());
 		
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);

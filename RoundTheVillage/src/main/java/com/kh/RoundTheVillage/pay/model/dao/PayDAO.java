@@ -40,10 +40,10 @@ public class PayDAO {
 		return sqlSession.selectOne("payMapper.getListCount", memNo);
 	}
 
-	public List<Pay> selectList(PageInfo pInfo) {
+	public List<Pay> selectList(PageInfo pInfo, int memNo) {
 		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
-		return sqlSession.selectList("payMapper.selectList", 1, rowBounds);
+		return sqlSession.selectList("payMapper.selectList", memNo, rowBounds);
 	}
 	
 	public Pay selectPay(int payNo) {

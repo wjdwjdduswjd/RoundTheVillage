@@ -26,4 +26,14 @@
 		SELECT * FROM BANNER
 		WHERE IMP_UID = #{impUid}
 	</select>
+	
+	<select id="getListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM BANNER
+		WHERE MEM_NO = #{memNo} AND BANNER_FL = 'N'
+	</select>
+	
+	<select id="selectList" parameterType="_int" resultMap="banner_rm">
+		SELECT * FROM BANNER
+		WHERE MEM_NO = ${memNo}
+	</select>
 </mapper>
