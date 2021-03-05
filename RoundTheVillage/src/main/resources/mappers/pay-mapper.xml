@@ -68,7 +68,6 @@
 		, DEFAULT)
 	</insert>
 	
-	
 	<update id="updateCoupon" parameterType="_int">
 		UPDATE COUPON
 		SET USE_FL = 'Y'

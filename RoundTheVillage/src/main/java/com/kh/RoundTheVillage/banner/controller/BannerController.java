@@ -3,6 +3,7 @@ package com.kh.RoundTheVillage.banner.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.banner.model.service.BannerService;
 import com.kh.RoundTheVillage.banner.model.vo.Banner;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+
+import oracle.net.aso.b;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -58,23 +62,27 @@ public class BannerController {
 		banner.setEndDate(new java.sql.Date(endDate.getTime()));
 //		banner.setMemNo(loginMember.getMemberNo());
 		banner.setMemNo(1);
-		System.out.println(banner);
 		
 		return service.insertBanner(banner);
 	}
 	
 	@RequestMapping("payComplete")
-	public String payComplete(@RequestParam("impUid") String impUid, Model model) {
+	public String payComplete(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, @RequestParam("impUid") String impUid, Model model) {
 		
+		PageInfo pInfo = service.getPageInfo(1, cp);
 		Banner banner = service.selectBannerByUid(impUid);
 		model.addAttribute("banner", banner);
-		System.out.println(banner);
+		model.addAttribute("pInfo", pInfo);
 		
 		return "banner/payComplete";
 	}
 	
 	@RequestMapping("payList")
-	public String payList() {
+	public String payList(/*@ModelAttribute("loginMember") Member loginMember, */Model model) {
+		
+		List<Banner> bList = service.selectList(1);
+		model.addAttribute("bList", bList);
+		
 		return "banner/payList";
 	}
 	

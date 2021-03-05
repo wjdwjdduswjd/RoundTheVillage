@@ -38,7 +38,6 @@
     </div>
 
  		<!--------------------------------- pagination  ---------------------------------->
-
 		<div class="my-4">
 			<ul class="pagination justify-content-center">
 				<c:url var="pageUrl" value="list?"/>
