@@ -5,6 +5,7 @@ public class PayLes {
 	private int lesNo;
 	private String lesTitle;
 	private int lesPrice;
+	private String lesCategory;
 	private String craftshopName;
 	private String fileName;
 	
@@ -34,6 +35,13 @@ public class PayLes {
 		this.lesPrice = lesPrice;
 	}
 
+	public String getLesCategory() {
+		return lesCategory;
+	}
+
+	public void setLesCategory(String lesCategory) {
+		this.lesCategory = lesCategory;
+	}
 
 	public String getCraftshopName() {
 		return craftshopName;
@@ -53,7 +61,7 @@ public class PayLes {
 
 	@Override
 	public String toString() {
-		return "PayLes [lesNo=" + lesNo + ", lesTitle=" + lesTitle + ", lesPrice=" + lesPrice + ", craftshopName="
-				+ craftshopName + ", fileName=" + fileName + "]";
+		return "PayLes [lesNo=" + lesNo + ", lesTitle=" + lesTitle + ", lesPrice=" + lesPrice + ", lesCategory="
+				+ lesCategory + ", craftshopName=" + craftshopName + ", fileName=" + fileName + "]";
 	}
 }

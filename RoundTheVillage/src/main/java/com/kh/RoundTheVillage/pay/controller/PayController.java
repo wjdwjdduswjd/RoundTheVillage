@@ -47,13 +47,11 @@ public class PayController {
 	
 	// 결제 화면
 	@RequestMapping("{lesNo}")
-	public String pay(@PathVariable("lesNo") int lesNo/* , @ModelAttribute("loginMember") Member loginMember */, Model model) {
+	public String pay(@PathVariable("lesNo") int lesNo, @ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		List<Coupon> cList = service.selectCupon(1);
+		List<Coupon> cList = service.selectCupon(loginMember.getMemberNo());
 		PayLes lesson = service.selectLesson(lesNo);
 		
-		System.out.println(cList);
-		System.out.println(lesson);
 		model.addAttribute("cList", cList);
 		model.addAttribute("lesson", lesson);
 		
@@ -64,27 +62,23 @@ public class PayController {
 	@ResponseBody
 	@RequestMapping("payAction")
 	public int payAction(
-			@ModelAttribute Pay pay, @RequestParam("dateStr") String dateStr,/* @ModelAttribute("loginMember") Member loginMember, */
-			@RequestParam("lesNo") int lesNo, HttpServletRequest request, RedirectAttributes ra) throws ParseException {
+			@ModelAttribute Pay pay,
+			@RequestParam("dateStr") String dateStr/*, @ModelAttribute("loginMember") Member loginMember */) throws ParseException {
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = (Date) transFormat.parse(dateStr);
 		
 		pay.setResDate(new java.sql.Timestamp(date.getTime()));
+//		pay.setMemNo(loginMember.getMemberNo());
 		pay.setMemNo(1);
-		//pay.setMemNo(loginMember.getMemNo());
-		System.out.println("insert | "+pay);
 		
-		return service.insertPay(pay);
+		int result = service.insertPay(pay);
+		
+		if(result > 0)
+			result = service.updateCoupon(pay.getCouponNo());
+			
+		return result;
 	}
-	
-//	@RequestMapping("complete/{impUid}")
-//	public String complete(@PathVariable("impUid") String impUid, Model model) {
-//		Pay pay = service.selectPayComplete(impUid);
-//		model.addAttribute("pay", pay);
-//		System.out.println(pay);
-//		return "pay/complete";
-//	}
 	
 	// 결제 완료 페이지
 	@RequestMapping("complete")
@@ -92,25 +86,18 @@ public class PayController {
 		
 		Pay pay = service.selectPayByUid(impUid);
 		model.addAttribute("pay", pay);
-		System.out.println(pay);
 		
 		return "pay/complete";
 	}
 	
 	// 예약 목록
 	@RequestMapping("list")
-	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			Model model/* , @ModelAttribute("loginMember") Member loginMember */) {
 		
 		PageInfo pInfo = service.getPageInfo(1, cp);
+//		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
 		List<Pay> pList = service.selectList(pInfo);
-		System.out.println(pList);
-		
-//		if(pList != null && !pList.isEmpty()) {
-//			List<Attachment> thumbnailList = service.selectThumbnailList(bList);
-//			
-//			if(thumbnailList != null)
-//				model.addAttribute("thList", thumbnailList);
-//		}
 		
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
@@ -127,11 +114,6 @@ public class PayController {
 		String url = null;
 		
 		if(pay != null) {
-//			Lesson lesson = service
-			
-//			Attachment attachment = service.selectAttachmentList(payNo);
-//			
-//			model.addAttribute("attachmentList", attachmentList);
 			model.addAttribute("pay", pay);
 			url = "pay/view";
 			
@@ -142,7 +124,7 @@ public class PayController {
 				url = "redirect:" + referer;
 
 			ra.addFlashAttribute("swalIcon", "error");
-			ra.addFlashAttribute("swalTitle", "존재하지 않는 게시글입니다.");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 예약 내역입니다.");
 		}
 		
 		return url;

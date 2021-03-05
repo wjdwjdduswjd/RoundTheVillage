@@ -49,4 +49,8 @@ public class PayDAO {
 	public Pay selectPay(int payNo) {
 		return sqlSession.selectOne("payMapper.selectPay", payNo);
 	}
+
+	public int updateCoupon(int couponNo) {
+		return sqlSession.update("payMapper.updateCoupon", couponNo);
+	}
 }

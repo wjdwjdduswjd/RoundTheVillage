@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,31 +23,36 @@
                   <div>
                       <h6 class="my-0">결제 번호</h6>
                   </div>
-                  <span class="">23442423</span>
+                  <span class="">${banner.banNo}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
                   <div class="">
                       <h6 class="my-0">링크 URL</h6>
                   </div>
-                  <span class="">https://www.naver.com</span>
+                  <span class="">
+                  	<c:choose>
+	                  	<c:when test="${banner.URL} != ''">${banner.URL}공방 상세 페이지</c:when> 
+	                  	<c:otherwise>공방 상세 페이지</c:otherwise>
+                  	</c:choose>
+                 	</span>
               </li>
               <li class="list-group-item d-flex justify-content-between lh-condensed">
                   <div>
                       <h6 class="my-0">기간</h6>
                   </div>
-                  <span>2021.2.17 ~ 2021.2.23</span>
+                  <span>${banner.startDate} ~ ${banner.endDate}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
                   <span>결제 금액</span>
-                  <span>48,000원</span>
+                  <span>${banner.payAmt}원</span>
               </li>
           </ul>
       </div>
     </div>
 
     <div class="text-center p-5">
-        <button class="btn btn-around">예약 내역</button>
-        <button class="btn btn-around-2">홈으로</button>
+        <button class="btn btn-around" onclick="location.href='payList'">결제 내역</button>
+        <button class="btn btn-around-2" onclick="location.href='${contextPath}'">홈으로</button>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" />

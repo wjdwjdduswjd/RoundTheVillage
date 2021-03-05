@@ -20,6 +20,7 @@ public class Pay {
 	private int craftshopNo;
 	private String craftshopName;
 	private String fileName;
+	private char payFl;
 	
 	public Pay() {}
 
@@ -151,12 +152,20 @@ public class Pay {
 		this.fileName = fileName;
 	}
 
+	public char getPayFl() {
+		return payFl;
+	}
+
+	public void setPayFl(char payFl) {
+		this.payFl = payFl;
+	}
+
 	@Override
 	public String toString() {
 		return "Pay [payNo=" + payNo + ", payDate=" + payDate + ", resDate=" + resDate + ", payAmt=" + payAmt
 				+ ", gradeDis=" + gradeDis + ", couponDis=" + couponDis + ", impUid=" + impUid + ", couponNo="
 				+ couponNo + ", memNo=" + memNo + ", lesNo=" + lesNo + ", lesTitle=" + lesTitle + ", lesCategory="
 				+ lesCategory + ", lesPrice=" + lesPrice + ", craftshopNo=" + craftshopNo + ", craftshopName="
-				+ craftshopName + ", fileName=" + fileName + "]";
+				+ craftshopName + ", fileName=" + fileName + ", payFl=" + payFl + "]";
 	}
 }
