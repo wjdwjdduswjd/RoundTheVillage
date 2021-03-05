@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,12 +42,19 @@ public class BannerController {
 	@RequestMapping("insertImage")
 	@ResponseBody
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
-		System.out.println(uploadFile);
 		
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/bannerImages"); // 서버에 파일 저장할 폴더 경로
 		String fileName = service.insertImage(uploadFile, savePath);
 		
 		return new Gson().toJson(fileName);
+	}
+	
+	@RequestMapping("selectDate")
+	//@ResponseBody
+	public String selectDate() {
+		List<Date> dList = service.selectDate();
+		
+		return new Gson().toJson(dList);
 	}
 	
 	@ResponseBody
@@ -67,27 +75,34 @@ public class BannerController {
 	}
 	
 	@RequestMapping("payComplete")
-	public String payComplete(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, @RequestParam("impUid") String impUid, Model model) {
+	public String payComplete(@RequestParam("impUid") String impUid, Model model) {
 		
-		PageInfo pInfo = service.getPageInfo(1, cp);
 		Banner banner = service.selectBannerByUid(impUid);
 		model.addAttribute("banner", banner);
-		model.addAttribute("pInfo", pInfo);
 		
 		return "banner/payComplete";
 	}
 	
 	@RequestMapping("payList")
-	public String payList(/*@ModelAttribute("loginMember") Member loginMember, */Model model) {
+	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, 
+			/*@ModelAttribute("loginMember") Member loginMember, */Model model) {
 		
-		List<Banner> bList = service.selectList(1);
+		PageInfo pInfo = service.getPageInfo(1, cp);
+		List<Banner> bList = service.selectList(pInfo, 1);
+//		List<Banner> bList = service.selectList(pInfo, loginMember.getMemberNo());
+		
+		model.addAttribute("pInfo", pInfo);
 		model.addAttribute("bList", bList);
 		
 		return "banner/payList";
 	}
 	
-	@RequestMapping("payView")
-	public String payView() {
+	@RequestMapping("payView/{banNo}")
+	public String payView(@PathVariable("banNo") int banNo, Model model) {
+		
+		Banner banner = service.selectBanner(banNo);
+		model.addAttribute("banner", banner);
+		
 		return "banner/payView";
 	}
 	

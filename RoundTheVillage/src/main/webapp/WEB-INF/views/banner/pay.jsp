@@ -86,6 +86,7 @@
 </div>
 
 <script>
+		// 이미지
 		var banImg;
 
     function LoadImg(value) {
@@ -97,20 +98,17 @@
                 var img = $("<img>").attr("src", e.target.result).addClass("col-md-10");
                 $(".imgPrivew").append(img);
                 
-                // ajax
-                var formData = new FormData(); // form 태그 내부 값 전송을 위한 객체. 추가된 값을 k=v 형태로 쉽게 생성해주는 객체
+                var formData = new FormData(); 
                 formData.append("uploadFile", value.files[0]);
 
                 $.ajax({
                     url: "insertImage",
                     type: "post",
-                    enctype: "multipart/form-data", // 파일 전송 형식
+                    enctype: "multipart/form-data", 
                     data: formData,
-                    contentType: false, // 서버로 전송되는 데이터 형식
-                                            // 기본값: application/x-www-form-urlencoded; charset=utf-8 (텍스트)
-                                            // false: 바이트 코드 있는 그대로
+                    contentType: false,
                     cache: false,
-                    processData: false, // 서버로 전달되는 값을 쿼리스트링으로 전달할 경우 true, 아니면 false (파일 전송 시 false)
+                    processData: false,
                     dataType: "json",
                     success: function(fileName) {
                         banImg = fileName;
@@ -126,10 +124,11 @@
     var startDate;
     var endDate;
     var day;
+    
     build();
 
     function beforem() { // 이전 달을 today에 값을 저장
-        today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+        today = new Date(today.getFullYear(), today.getMonth() - 1, 1);
 
         if (today.getFullYear() > date.getFullYear() || today.getMonth() >= date.getMonth())
             build();
@@ -138,7 +137,7 @@
     }
 
     function nextm() { // 다음 달을 today에 저장
-        today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        today = new Date(today.getFullYear(), today.getMonth() + 1, 1);
         build();
     }
 
@@ -147,24 +146,22 @@
         var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); // 현재 달의 마지막 날
         var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
         var yearmonth = document.getElementById("yearmonth"); // 년도와 월 출력할곳
-        yearmonth.innerHTML = today.getFullYear() + "." + (today.getMonth() + 1); // 년도와 월 출력
-
-        // 남은 테이블 줄 삭제
-        while (tbcal.rows.length > 2) {
+        yearmonth.innerHTML = today.getFullYear() + "." + (today.getMonth() + 1); // 년도와 월 출력 
+         
+        while (tbcal.rows.length > 2) { // 남은 테이블 줄 삭제
             tbcal.deleteRow(tbcal.rows.length - 1);
         }
+        
         var row = null;
         row = tbcal.insertRow();
         var cnt = 0;
-
-        // 1일 시작칸 찾기
-        for (var i = 0; i < nMonth.getDay(); i++) {
+        
+        for (var i = 0; i < nMonth.getDay(); i++) { // 1일 시작칸 찾기
             cell = row.insertCell();
             cnt++;
         }
-
-        // 달력 출력
-        for (var i = 1; i <= lastDate.getDate(); i++) { // 1일부터 마지막 일까지
+        
+        for (var i = 1; i <= lastDate.getDate(); i++) { // 달력 출력
 
             cell = row.insertCell();
             cell.innerHTML = i;
@@ -176,7 +173,6 @@
                 cell.innerHTML = "<font color=#007bff>" + i;
                 row = calendar.insertRow(); // 줄 추가
             }
-
 
             if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i == date.getDate()) {
                 cell.bgColor = "#FBBC73"; // 오늘
@@ -194,7 +190,22 @@
                 $(cell).prop("disabled", true);
             }
         }
+        //
     }
+    
+    // ajax
+		jQuery.ajax({
+		   url: "${contextPath}/banner/selectDate", 
+		   method: "POST",
+		   data: {
+		   	startStr: start,
+		   	endStr: end,
+		   	URL: $("#URL").val(),
+		   	img: banImg,
+		   	payAmt: rsp.paid_amount,
+		   	impUid: rsp.imp_uid
+		   }
+		})
 
     // 날짜 선택
     $(document).on("click", "td", function (event) {
@@ -250,7 +261,7 @@
 								        	URL: $("#URL").val(),
 								        	img: banImg,
 								        	payAmt: rsp.paid_amount,
-								        	impUid: rsp.imp_uid,
+								        	impUid: rsp.imp_uid
 								        }
 								    }).done(function (data) {
 								      // 가맹점 서버 결제 API 성공시 로직

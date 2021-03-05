@@ -29,11 +29,24 @@
 	
 	<select id="getListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM BANNER
-		WHERE MEM_NO = #{memNo} AND BANNER_FL = 'N'
+		WHERE MEM_NO = #{memNo}
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="banner_rm">
 		SELECT * FROM BANNER
-		WHERE MEM_NO = ${memNo}
+		WHERE MEM_NO = #{memNo}
+		ORDER BY BAN_NO DESC
+	</select>
+	
+	<select id="selectBanner" parameterType="_int" resultMap="banner_rm">
+		SELECT * FROM BANNER
+		WHERE BAN_NO = #{banNo}
+	</select>
+	
+	<select id="selectTodayBanner" resultMap="banner_rm">
+		SELECT * FROM BANNER
+		<![CDATA[
+			WHERE START_DT < SYSDATE AND END_DT > SYSDATE
+		]]>
 	</select>
 </mapper>

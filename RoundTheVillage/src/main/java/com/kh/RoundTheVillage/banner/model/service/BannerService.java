@@ -2,6 +2,7 @@ package com.kh.RoundTheVillage.banner.model.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,19 @@ public class BannerService {
 		return new PageInfo(cp, listCount, 10, 10, memNo);
 	}
 
-	public List<Banner> selectList(int memNo) {
-		return dao.selectList(memNo);
+	public List<Banner> selectList(PageInfo pInfo, int memNo) {
+		return dao.selectList(pInfo, memNo);
+	}
+
+	public Banner selectBanner(int banNo) {
+		return dao.selectBanner(banNo);
+	}
+	
+	public List<Banner> selectTodayBanner() {
+		return dao.selectTodayBanner();
+	}
+
+	public List<Date> selectDate() {
+		return null;
 	}
 }
