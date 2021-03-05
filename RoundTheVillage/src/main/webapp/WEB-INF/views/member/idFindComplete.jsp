@@ -40,7 +40,7 @@
    
    <!-- 아이디 출력부분 -->
    <div class="output-area">
-			<div>회원님의 ID는 ******입니다.</div>
+			<div style="font-size: 22px;">회원님의 ID는 <strong>${memberIdFind}</strong>입니다.</div>
    </div>
    	
    	<!-- 로그인 , 홈으로  -->
