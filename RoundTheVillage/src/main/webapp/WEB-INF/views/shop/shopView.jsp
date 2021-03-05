@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,7 +9,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공방 상세 조회</title>
-<title>html문서 제목</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
@@ -86,7 +87,7 @@
 				</div>
 				<div class="top" id="category" style="width: auto; font-size: 15px;">
 
-					<p>${shop.shopCategoryName }</p>
+					<p>${shop.shopCategoryName}</p>
 				</div>
 			</div>
 
@@ -166,7 +167,13 @@
 							<label for="infoshop">공방소개</label>
 						</div>
 						<div class="col-md-7" style="height: auto;">
-							${shop.shopInfo}
+			<%
+						pageContext.setAttribute("newLine", "\n");
+					%>
+
+					${fn:replace(shop.shopInfo , newLine, "<br>" ) }
+						</div>
+						
 						</div>
 
 					<div class="row mb-3 form-row">
@@ -174,14 +181,24 @@
 						<div class="col-md-3" id="infotitle">
 							<label for="contact">연락처</label>
 						</div>
-						<div class="col-md-6">${shop.shopContact}</div>
+						<div class="col-md-7">
+						${shop.shopContact}
+						</div>
 					</div>
+					
+					
 					<div class="row mb-3 form-row">
 
 						<div class="col-md-3" id="infotitle">
 							<label for="address">위치</label>
 						</div>
-
+						
+						<div class="col-md-7">
+						${shop.shopAdress}
+						</div>
+						
+					
+						<div></div>
 						<div id="map"  style="width:400px; height:400px;"></div>
 
 					</div>
@@ -201,54 +218,17 @@
 
 
 				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
+				<div style="width: 260px; height: 260px;">
+				<c:forEach var="lesson" items="${lesList}">
+				
+				<c:forEach var="th" items="${thList}">
+				
+					<img src ="${contextPath}${th.filePath}/${th.fileName}">
+					
+					</c:forEach>
+					</c:forEach>
+</div>
 				</div>
-
-				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
-				</div>
-
-				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
-
-				</div>
-
-				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
-				</div>
-
-				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
-				</div>
-
-				<div id="classImg">
-					<div style="width: 260px; height: 260px;">
-						<a href=""> <img style="width: 260px; height: 260px;">
-						</a>
-					</div>
-
-				</div>
-
 
 			</div>
 
