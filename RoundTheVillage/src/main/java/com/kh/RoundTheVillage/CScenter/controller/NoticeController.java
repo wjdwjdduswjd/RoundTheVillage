@@ -161,6 +161,33 @@ public class NoticeController {
 	
 	
 	
+	// 게시글 수정 -------------------------------------------------------------------
+	//@RequestMapping("{noticeNo}/updateAction")
+	//public String updateAction(@PathVariable ("noticeNo") int noticeNo,
+							   //@ModelAttribute Notice updateNotice,
+							  // Model model, RedirectAttributes ra,
+							   //HttpServletRequest request) {
+		/*
+		// noticeNo를 updateNotice에 세팅
+		updateNotice.setNoticeNo(noticeNo);
+		
+		System.out.println(updateNotice);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
+		
+		// 게시글 수정
+	    int result = service.updateNotice(updateNotice);
+	    
+	    String url = null;
+	    
+	    
+	    
+	    
+	     
+		return url;
+	}*/
+	
 	
 	
 	
