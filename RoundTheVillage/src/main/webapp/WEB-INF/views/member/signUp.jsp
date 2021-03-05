@@ -398,7 +398,7 @@
                }
             });
          }
-      }); 
+      }); F
       
       $("#verifyEmail").on("propertychange change keyup paste input", function() {
          if ($("#verifyEmail").val() == key) {   //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교

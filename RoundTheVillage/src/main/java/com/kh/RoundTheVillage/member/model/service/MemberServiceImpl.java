@@ -1,5 +1,7 @@
 package com.kh.RoundTheVillage.member.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -81,7 +83,27 @@ public class MemberServiceImpl implements MemberService{
 		return memberIdFind;
 	}
 
+	// 비밀번호 찾기
+	@Override
+	public int pwdFind(Member findMember) {
+		int memberPwdFind = dao.pwdFind(findMember);
+		return memberPwdFind;
+	}
 
+	// 비밀번호 찾기의 새로운 비밀번호 등록
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updatePwd(Map<String, Object> map) {
+		
+		String newPwd = enc.encode((String)(map.get("newPwd")));
+		
+		map.put("newPwd", newPwd);
+		
+		return dao.updatePwd(map);
+	}
+
+
+	
 
 
 
