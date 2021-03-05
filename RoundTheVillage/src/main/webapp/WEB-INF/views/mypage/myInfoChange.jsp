@@ -19,12 +19,16 @@
 
 		<div class="mypageInfo">
 
+		<form method="POST" action="updateAction" name="updateForm"  onsubmit="return updateValidate();" class="form-horizontal" role="form">
+
 			<!-- 내 등급  -->
 			<div class="grade">
 				<div class="my-grade">내 등급</div>
 			</div><!-- 
 			
-	--><div class="grade">
+			
+			
+	--><div class="grade">   <!-- 등급 계산 필요   누적 금액으로 계산하기!!!  -->
 				<div class="my-grade">LV.5 GOLD</div>
 			</div>
 
@@ -141,6 +145,7 @@
            </div>
 
 
+
 				</div>
 			</div>
 
@@ -150,6 +155,9 @@
 				<a onclick="location.href='${contextPath}/mypage/secession'" class="a-text">탈퇴하기</a> 
 			</div>
 			
+			
+			
+		</form>
 			
 		</div>
 		
