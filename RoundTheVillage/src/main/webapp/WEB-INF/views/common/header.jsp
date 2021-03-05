@@ -21,8 +21,18 @@
 
 <!-- css 연결  -->
 <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
-
+	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+  	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
 <body>
+	<c:if test="${!empty swalTitle}">
+		<script>
+			swal({icon : "${swalIcon}",
+				 title : "${swalTitle}",
+				 text : "${swalText}"});
+		
+		</script>
+	</c:if>
   <div id="header">
     <div id="header-group">
     	
@@ -63,13 +73,17 @@
       <div class="dropdown">
       <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
+        	
+        	<%-- 공방 회원만 보이기 --%>
+        	<c:if test="${loginMember.memberType == 'C' }">
+          	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
+          </c:if>
           <a class="dropdown-item" href="${contextPath}/mypage/myInfoChange">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
         </div>
       </div>
-
+     
       <div class="dropdown">
         <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객센터</a>
         <div class="dropdown-menu cs" aria-labelledby="dropdownMenuLink">

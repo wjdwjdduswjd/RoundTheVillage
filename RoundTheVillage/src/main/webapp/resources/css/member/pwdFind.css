@@ -107,8 +107,23 @@ input::placeholder {
     border-radius:5px;
 }
 
-
-
-
+/* 유효성 검사 */
+.check{
+padding-top: 2px;
+padding-left: 3px;
+height: 10px; 
+text-align: left;
+font-size: 13px;
+}
+.email_button{
+    width: 110px;
+    height: 41px;
+    margin-left: 10px;
+    border:1px solid #dfdfdf;	 
+		background:#5B3929;
+		color:rgb(255, 255, 255);
+    border-radius:5px;
+    float: right;
+}
 
 
