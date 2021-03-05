@@ -75,32 +75,24 @@ public class NoticeServiceImpl implements NoticeService {
 	// 게시글 삽입 Service --------------------------------------------------------------------------------
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath) {
+	public int insertNotice(Map<String, Object> map, String savePath) {
 
 		int result = 0; // 최종 결과 저장 변수 선언
 		int noticeNo = dao.selectNextNo();
+		
+		//System.out.println("noticeNo"+noticeNo);
 
 		if (noticeNo > 0) { // 다음 게시글 번호를 얻어온 경우
 			map.put("noticeNo", noticeNo); // map에 noticeNo 추가
 			result = dao.insertNotice(map);
 			
+			//System.out.println(map);
+			
 			if (result > 0) {
 				List<Attachment> uploadImages = new ArrayList<Attachment>();
 
 				// summernote 추가시 수정 부분 ---------------------------------------------
-				String filePath = null;
-				filePath = "/resources/infoImages/notice";
-
-				for (int i = 0; i < images.size(); i++) {
-
-					if (!images.get(i).getOriginalFilename().equals("")) {
-						String fileName = rename(images.get(i).getOriginalFilename());
-						// Attachment 객체 생성
-						Attachment at = new Attachment(filePath, fileName, i, noticeNo);
-						uploadImages.add(at); // 리스트에 추가
-					}
-				}
-
+				String filePath = "/resources/infoImages/notice";
 				
 					Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출
 
@@ -125,38 +117,24 @@ public class NoticeServiceImpl implements NoticeService {
 				// ------------------------------------------ summernote ------------------------------------------------------
 
 				if (!uploadImages.isEmpty()) { // 업로드된 이미지가 있을 경우
+					
+					System.out.println(uploadImages);
+					
 					result = dao.insertAttachmentList(uploadImages);
 
 					if (result == uploadImages.size()) {
 						result = noticeNo; // result에 noticeNo 저장
 
-
-						int size = 0;
-						if (!images.get(0).getOriginalFilename().equals("")) {
-							size = images.size();
-						}
-
-						for (int i = 0; i < size; i++) {
-
-							try {
-								images.get(uploadImages.get(i).getFileLevel())
-										.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
-
-							} catch (Exception e) {
-								e.printStackTrace();
-
-								throw new InsertAttachmentFailException("파일 서버 저장 실패");
-							}
-						}
-					}
-
-				} else { // 파일 정보를 DB에 삽입하는데 실패했을 때
+					}else { // 파일 정보를 DB에 삽입하는데 실패했을 때
 					throw new InsertAttachmentFailException("파일 정보 DB 삽입 실패");
 				}
-			} else { // 업로드된 이미지가 없을 경우
+			} 
+				
+			else { // 업로드된 이미지가 없을 경우
 				result = noticeNo;
 			}
 		}
+	}
 		return result;
 	}
 	
