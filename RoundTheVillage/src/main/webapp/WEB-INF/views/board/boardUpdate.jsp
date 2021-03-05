@@ -29,11 +29,11 @@
    font-size: 16px;
    color: #212529;
    }
-  .summerNoteArea {
+/*   .summerNoteArea {
     border: 1px solid black;
     width: 500px;
     height: 500px;
-  }
+  } */
 
   .btnArea {
     text-align: center;
@@ -43,13 +43,13 @@
     float: right;
   }
 
-  .btn-group {
+/*   .btn-group {
     background-color: #fbbc73;
     border-color: #fbbc73;
     color: #5b3929;
     text-align: center;
     float: right;
-  }
+  } */
 
 /*   .dropdown{
     margin-left: 60px;
@@ -93,14 +93,6 @@ body {
   padding: 30px;
 }
 
-.btnBtn1{
-  background-color: #fbbc73;
-                color: white;
-                border: white;
-                border-radius: 5px;
-                height: 38px;
-                margin-bottom: 11px;
-}
 
 .titleInput{
   width: 300px;
@@ -108,8 +100,17 @@ body {
   
 }
 
-.writer{
-  margin-right: 20px;
+/* .writer{
+  margin-right: 10px;
+} */
+
+.btnBtn3{
+  background-color: #fbbc73;
+                color: #fff;
+                border: white;
+                border-radius: 5px;
+                height: 38px;
+                margin-bottom: 11px;
 }
 
 	
@@ -118,9 +119,9 @@ body {
 	<jsp:include page="../common/header.jsp"/>
 	 <div class="container">
     <div class="row">
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-8">
+     <!--  <div class="col-md-2">
+      </div> -->
+      <div class="col-md-12">
         <br>
         <hr>
 
@@ -129,13 +130,13 @@ body {
           <div class="row">
             <div class="col-md-7 px-3">
               <p>
-                <span class="pr-4"><b>내용</b></span>
-                <input class="titleInput">
+                <span class="pr-4"><b>제목</b></span>
+                 <input type="text" class="titleInput" id="title" name="boardTitle" size="40">
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4 writer"><b>작성자</b></span>닉네임
+                <span class="pr-4 writer"><b>작성자</b></span>${board.memberNickname}
               </p>
             </div>
           </div>
@@ -144,19 +145,13 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-                잔산플라워
+              		 잔산플라워
               </p>
             </div>
             <div class="col-md-5 px-3">
               <p>
-                <span class="pr-4"><b>카테고리</b></span>
-                <select id="categorySelect">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
-                  <option>Option 4</option>
-                  <option>Option 5</option>
-                </select>
+                <span class="pr-4"><b>카테고리</b></span> 
+                ${board.classCategoryNm}
               </p>
             </div>
           </div>
@@ -165,7 +160,7 @@ body {
         <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
           <div class="col-md-12 summerNoteArea">
-            <썸머노트 공간>
+            <!--<썸머노트 공간>  -->
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->
@@ -176,18 +171,23 @@ body {
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">수정</button>
+              <button type="button" class="btn btn-warning btn-sm px-2 btnBtn3">목록</button>
+              <button type="button" class="btn btn-warning btn-sm px-2 btnBtn3">수정</button>
             </span>
           </div>
+          </div>
           </form>
+        
+        
+        
         </div>
       </div> <!-- .col-md-8 end -->
     
-      <div class="col-md-2">
-      </div>
-    </div>
-  </div>
+    	</div>
+    <!--   <div class="col-md-2">
+      </div> -->
+ 
+ 
 
 </body>
 </html>

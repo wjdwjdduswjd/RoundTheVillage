@@ -28,11 +28,11 @@
    color: #212529;
    }
    
-  .summerNoteArea {
+/*   .summerNoteArea {
     border: 1px solid black;
     width: 740px;
     height: 500px;
-  }
+  } */
 
   .btnArea {
     text-align: center;
@@ -86,12 +86,13 @@ body {
   }
 
 .btnBtn1{
-  background-color: #fbbc73;
-  color: white;
-  border: white;
-  border-radius: 5px;
-  height: 38px;
-  margin-bottom: 11px;
+  background-color: #fbbc73 !important;
+  color: white !important;
+  border: white !important;
+  border-radius: 5px !important;
+  height: 38px !important;
+  margin-bottom: 11px !important;  
+ 	line-height: 30px !important; 
 }
 
 .readCountArea{
@@ -126,9 +127,9 @@ body {
 	<jsp:include page="../common/header.jsp"/>
    <div class="container">
     <div class="row">
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-8">
+      <!-- <div class="col-md-2">
+      </div> -->
+      <div class="col-md-12">
         <a class="classBtn">해당 공방 수업 바로가기 >></a>
         <br>
         <hr>
@@ -183,11 +184,16 @@ body {
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <button type="button" class="btn btn-primary btn-sm px-2 btnBtn1">목록</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">수정</button>
-              <button type="button" class="btn btn-secondary btn-sm px-2 btnBtn1">삭제</button>
-            </span>
-          </div>
+            <c:url var="updateUrl" value="${board.boardNo}/update"/>
+                 
+            
+            <c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
+              <a href="${updateUrl}" type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">수정</a>
+              <button type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">삭제</button>            
+            </c:if>
+              <button type="button" class="btnBtn1 btn btn-primary btn-sm px-2 ">목록</button>
+            </span>   
+          </div>   
         </div>
       </div> <!-- .col-md-8 end -->
     
@@ -266,6 +272,18 @@ body {
         </div>
     </div>		
 
+
+<script>
+$(".like").click(function(){
+    if(confirm("해당 글을 추천하시겠습니까?")){
+        document.form1.action="recommend.do";
+        document.form1.submit();
+        
+        alert("해당 글을 추천하였습니다.")
+        
+        }
+    });
+</script>
 
 
 

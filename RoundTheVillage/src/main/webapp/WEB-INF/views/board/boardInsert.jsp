@@ -117,7 +117,7 @@ body {
   
 }
 
-.btnBtn1{
+.btn-warning{
   background-color: #fbbc73;
   color: white;
   border: white;
@@ -248,8 +248,8 @@ body {
           </div>
           <div class="col-md-4 text-right px-0 btnArea">
             <span class="btnBtn">
-              <a class="btn btn-primary btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
-              <button type="submit" class="btn btn-secondary btn-sm px-2 btnBtn1">등록</button>
+              <a class="btn btn-warning btn-sm px-2 btnBtn1" href="${sessionScope.returnListURL}">목록</a>
+              <button type="submit" class="btn btn-warning btn-sm px-2 btnBtn1">등록</button>
             </span>  
           </div>
           </form>

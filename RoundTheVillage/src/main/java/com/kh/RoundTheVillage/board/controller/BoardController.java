@@ -206,6 +206,58 @@ public class BoardController {
   }
    
    
+   // 게시글 수정 화면 전환용 Controller
+   @RequestMapping("{boardNo}/update")
+   public String update(@PathVariable("boardNo") int boardNo, Model model) {
+	   
+	   // 1) 게시글 상세 조회
+	   Board board = service.selectBoard(boardNo);
+	   
+	   // 2) 해당 게시글에 포함된 이미지 목록 조회
+	  if(board != null) {
+		  
+		  List<Attachment> attachmentList = service.selectAttachmentList(boardNo);
+		  
+			  model.addAttribute("attachmentList", attachmentList);
+			  // null 값이 전달되어도 EL이 빈 문자열로 처리해줌
+		  
+	  }
+	   
+	  model.addAttribute("board", board);
+	
+	   return "board/boardUpdate";
+   }
+   
+   // 좋아요 기능
+ //  @RequestMapping("like")
+ //  public void read(@RequestParam("boardId") int boardId, Model model,
+       
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   // 게시글 검색 Controller
+//   
+//   @RequestMapping("search")
+//    public String searchBoard(@RequestParam(value="cp", required = )) {
+//    	
+//    	
+//    	
+//    	return null;
+//    }
+//   
+//   
    
    
    
