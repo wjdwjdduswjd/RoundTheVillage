@@ -101,7 +101,6 @@ public class NoticeController {
 	// 게시글 등록 Controller --------------------------------------------------------------------------------------------------------------
 	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute Notice notice, 
-			@RequestParam(value = "images", required = false) List<MultipartFile> images, 
 			HttpServletRequest request, RedirectAttributes ra) {
 		
 		
@@ -120,11 +119,10 @@ public class NoticeController {
 		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 		
 		// 게시글 삽입 Service 호출
-		int result = service.insertNotice(map, images, savePath);
+		int result = service.insertNotice(map, savePath);
 
 		String url = null;
 		
-		System.out.println("noticeNo"+notice.getNoticeNo());
 		
 		if (result > 0) {
 			swalIcon = "success";

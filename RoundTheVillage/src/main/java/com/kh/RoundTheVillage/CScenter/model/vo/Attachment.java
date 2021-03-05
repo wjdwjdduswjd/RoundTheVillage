@@ -11,7 +11,7 @@ public class Attachment {
 	public Attachment() {
 	}
 	
-	public Attachment(String filePath, String fileName, int fileLevel, int parentBoardNo) {
+	public Attachment(String filePath, String fileName, int fileLevel, int noticeNo) {
 		super();
 		this.filePath = filePath;
 		this.fileName = fileName;
@@ -51,6 +51,7 @@ public class Attachment {
 	public void setFileLevel(int fileLevel) {
 		this.fileLevel = fileLevel;
 	}
+
 
 	public int getNoticeNo() {
 		return noticeNo;

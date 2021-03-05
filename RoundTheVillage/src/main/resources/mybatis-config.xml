@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.pay.model.vo.Coupon" alias="Coupon"/>
 		<typeAlias type="com.kh.RoundTheVillage.banner.model.vo.Banner" alias="Banner"/>
 		<typeAlias type="com.kh.RoundTheVillage.CScenter.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.RoundTheVillage.CScenter.model.vo.Attachment" alias="NoticeAttachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.Shop" alias="Shop"/>
 		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.member.model.vo.Member" alias="Member"/>
