@@ -213,7 +213,15 @@ body {
                 margin-bottom: 11px;
 }
 
+.area3{
+	width : 200px;
+	height : 200px;
+}
 
+.thImg{
+	width: 100%;
+	height: 90%; 
+}
 </style>
 </head>
 <body>
@@ -273,7 +281,7 @@ body {
                 
                 
                
-                     <c:if test="${empty bList }">
+                     <c:if test="${empty bList}">
                   <tr>
                      <td colspan="6">존재하는 게시글이 없습니다.</td>
                   </tr>
@@ -281,7 +289,7 @@ body {
 
                 <br>
 
-							 <c:if test="${!empty bList }">
+							 <c:if test="${!empty bList}">
                 <div class="row thumbnailArea">
                 <!--     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
@@ -295,11 +303,11 @@ body {
                            	
                            		<c:if test="${th.boardNo == board.boardNo}">
                            		
-                           			<img src="${contextPath}${th.filePath}/${th.fileName}">
+                           			<img class="thImg" src="${contextPath}${th.filePath}/${th.fileName}">
 				                           			
                            		</c:if>
                            
-                           </c:forEach>
+                     		</c:forEach>
                     	 
                     	 
                     	 
@@ -528,8 +536,7 @@ body {
 		
 	});
 	
-	
-	
+v	
     </script>
 	
 

@@ -167,7 +167,7 @@ body {
         <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
           <div class="col-md-12 summerNoteArea">
-           		썸머노트 공간
+           		${board.boardContent}
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->

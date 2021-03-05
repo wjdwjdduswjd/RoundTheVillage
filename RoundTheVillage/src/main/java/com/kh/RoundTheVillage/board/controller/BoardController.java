@@ -149,6 +149,8 @@ public class BoardController {
 		  RedirectAttributes ra) {
 	   
 	  Map<String, Object> map = new HashMap<String, Object>(); // 맵을 이용해 받아온 정보들을 한곳에 담기
+	  
+	  map.put("boardNo", board.getBoardNo()); // 세션에 올려져있는 멤버넘버
 	  map.put("memberNo", loginMember.getMemberNo()); // 세션에 올려져있는 멤버넘버
 	  // map.put("memberNo", 46); // 세션에 올려져있는 멤버넘버
 	   map.put("boardTitle", board.getBoardTitle()); // 내가 작성한 글제목
@@ -156,7 +158,6 @@ public class BoardController {
 	   map.put("classNo", board.getClassNo()); // 공방 번호
 	   //map.put("classCategoryNo", board.getClassCategoryNo()); // 카테고리 코드
 	   
-	   System.out.println(map);
 	  
 	  String savePath = null;
 	   
@@ -166,13 +167,12 @@ public class BoardController {
 	 
 		String url = null;
 		
-		System.out.println("result : " + result);
 		if(result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
-			url = "redirect:" + result;
+			url = "redirect:" + result ;
 			
-			request.getSession().setAttribute("returnListURL", "../list");
+			request.getSession().setAttribute("returnListURL", "list");
 		
 		}else {
 		   swalIcon = "error";
