@@ -25,6 +25,7 @@ import com.kh.RoundTheVillage.lesson.model.service.LessonService;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -128,4 +129,47 @@ public class LessonController {
 		int result = service.deleteReview(revNo);
 		return result;
 	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/selectQuestion/{lesNo}")
+	public List<LessonQuestion> selectQuestion(@PathVariable int lesNo) {
+		List<LessonQuestion> list = new ArrayList<LessonQuestion>();
+		list = service.selectQuestion(lesNo);
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/insertQuestion/{lesNo}")
+	public int insertQuestion(@PathVariable int lesNo,
+							  @ModelAttribute LessonQuestion question) {
+		question.setLesNo(lesNo);
+		int result = service.insertQuestion(question);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/insertAnswer/{queParentNo}")
+	public int insertAnswer(@PathVariable int queParentNo,
+			@ModelAttribute LessonQuestion question) {
+		question.setQueParentNo(queParentNo);
+		int result = service.insertAnswer(question);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/deleteQuestion/{queNo}")
+	public int deleteQuestion(@PathVariable int queNo) {
+		int result = service.deleteQuestion(queNo);
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson/updateQuestion/{queNo}")
+	public int updateQuestion(@PathVariable int queNo,
+							  @ModelAttribute LessonQuestion question) {
+		question.setLesNo(queNo);
+		int result = service.updateQuestion(question);
+		return result;
+	}
+	
 }
