@@ -73,4 +73,25 @@
 		SELECT * FROM LESSON_FILE 
 		WHERE LES_NO = #{lesNo}
 	</select>
+	
+	
+	<!-- 수업 목록 조회  -->
+	<select id = "selectlesList" parameterType = "_int" resultMap = "lesson_rm">
+	SELECT LES_TITLE FROM LESSON
+	JOIN CRAFTSHOP USING(CRAFTSHOP_NO)
+	WHERE CRAFTSHOP_NO = #{craftshopNo}
+	</select>
+	
+		<!-- 수업 썸네일 조회  -->
+	
+	<select id = "selectThumbnailList" resultMap ="lessonfile_rm">
+SELECT * FROM LESSON_FILE
+WHERE LES_NO IN
+<foreach collection = "list" item ="lesson" separator = "," open = "(" close = ")">
+#{lesson.lesNo}
+</foreach>
+</select>
+	
+
+	
 </mapper>

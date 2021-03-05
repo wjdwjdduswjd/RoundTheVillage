@@ -43,12 +43,13 @@
 		SELECT COUNT(*) FROM CS_GOOD
 		WHERE CRAFTSHOP_NO = #{memberNo}	
 	</select>
-
+	
 
 
 	<select id="selectShopList" resultMap="shop_rm">
 		SELECT * FROM CRAFTSHOP
 	</select>
+
 
 	<select id="selectShopInfo" resultMap="shop_rm">
 		SELECT * FROM CRAFTSHOP
@@ -56,10 +57,6 @@
 	</select>
 
 
-	<!-- 다음 공방 번호 조회 -->
-	<select id="selectNextNo" resultType="_int">
-		SELECT SEQ_SNO.NEXTVAL FROM DUAL
-	</select>
 
 	<!-- 공방 등록 -->
 	<insert id="registrateShop" parameterType="Shop">
@@ -67,6 +64,12 @@
 		(#{shopNo}, #{shopOwnerName},
 		#{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo})
 	</insert>
+	
+	<!--공방 번호 조회 -->
+	<select id = "selectshopNo" resultMap="shop_rm">
+	SELECT CRAFTSHOP_NO FROM CRAFTSHOP
+WHERE CRAFTSHOP_NO = #{shopNo};
+	</select>
 
 
 

@@ -1,11 +1,15 @@
 
 package com.kh.RoundTheVillage.shop.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Repository
@@ -48,6 +52,31 @@ public class ShopDAO {
 	public int registrateShop(Shop shop) {
 		return sqlSession.insert("shopMapper.registrateShop", shop);
 	}
+
+	/** 수업 목록 조회 DAO
+	 * @param shopNo
+	 * @return
+	 */
+	public List<Lesson> selectlesList() {
+		return sqlSession.selectList("lessonMapper.selectlesList");
+	}
+
+	/** 수업 썸네일 목록조회
+	 * @param lesList
+	 * @return
+	 */
+	public List<LessonFile> selectThumbnailList(List<Lesson> lesList) {
+		return sqlSession.selectList("lessonMapper.selectThumbnailList",lesList);
+	}
+
+	/** 공방 번호 조회 DAO
+	 * @return
+	 */
+	public int selectshopNo() {
+
+		return sqlSession.selectOne("shopMapper.selectshopNo");
+	}
+
 
 
 

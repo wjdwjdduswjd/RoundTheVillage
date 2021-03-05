@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공방 등록 페이지</title>
+    <title>공방 등록 확인 페이지(관리자)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <style>
@@ -69,9 +69,7 @@
     <jsp:include page="../common/header.jsp" />
 
     	<!-- summernote 사용 시 필요한 js 파일 추가  -->
-	<script src ="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
-	<script src ="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
-	<script src ="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+    	
     <div class = "container">
 
         <div class="py-5">
@@ -158,31 +156,18 @@
                     <br>
                     
  <!-- 전화번호 -->
-					<div class="row mb-3 form-row">
-						<!-- 전화번호1 -->
-						<div class="col-md-3">
-							<select class="custom-select" id="phone1" name="phone1" required>
-								<option>010</option>
-								<option>011</option>
-								<option>016</option>
-								<option>017</option>
-								<option>019</option>
-							</select>
+					
+				<div class="col-md-3" id="infotitle">
+							<label for="contact">연락처</label>
 						</div>
+						<div class="col-md-7">
+						${shop.shopContact}
+						</div>
+					</div>
 
-						<!-- 전화번호2 -->
-						<div class="col-md-3">
-							<input type="number" class="form-control phone" id="phone2" maxlength="4" name="phone2" required>
-						</div>
-
-						<!-- 전화번호3 -->
-						<div class="col-md-3">
-							<input type="number" class="form-control phone" id="phone3" maxlength="4" name="phone3" required>
-						</div>
-						
-							<div class="col-md-6 offset-md-3">
-							<span id="checkPhone">&nbsp;</span>
-						</div>
+				
+		
+					
 						
 						</div>
 
@@ -192,45 +177,13 @@
                 <div>
                     <label>카테고리</label>
                 </div>
+                <div>
+              		 ${shop.shopCategoryName }
+                </div>		
                
                 <hr>
 
-<label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="altn" value="1" ><span>미술</span>
-            </label>
-
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="pic" value="2"><span>사진/영상</span>
-            </label>
-
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="cook" value="3"><span>요리/음료</span>
-            </label>
-
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="bty" value="4"><span>뷰티</span>
-            </label>
-
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="music" value="5"><span>음악</span>
-            </label>
-            <br><!--  -->
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="exercise" value="6"><span>운동</span>
-            </label>
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="craft" value="7"><span>공예</span>
-            </label>
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="writing" value="8"><span>글쓰기</span>
-            </label>
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="kids" value="9"><span>키즈</span>
-            </label>
-            <label class="box-radio-input">
-                <input type="radio" name="shopCategoryNo" id="flowers" value="10"><span>플라워</span>
-            </label>
-                        
+    
                     
                 <hr>
                 
