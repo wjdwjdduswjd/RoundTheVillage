@@ -86,6 +86,8 @@
 </div>
 
 <script>
+		var banImg;
+
     function LoadImg(value) {
         if (value.files && value.files[0]) {
             var reader = new FileReader();
@@ -97,7 +99,7 @@
                 
                 // ajax
                 var formData = new FormData(); // form 태그 내부 값 전송을 위한 객체. 추가된 값을 k=v 형태로 쉽게 생성해주는 객체
-                formData.append("uploadFile", e);
+                formData.append("uploadFile", value.files[0]);
 
                 $.ajax({
                     url: "insertImage",
@@ -110,8 +112,8 @@
                     cache: false,
                     processData: false, // 서버로 전달되는 값을 쿼리스트링으로 전달할 경우 true, 아니면 false (파일 전송 시 false)
                     dataType: "json",
-                    success: function(at) {
-                        console.log(at);
+                    success: function(fileName) {
+                        banImg = fileName;
                     }
                 });
             }
@@ -216,7 +218,6 @@
 	IMP.init("imp47764579"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
 	
   function requestPay() {
-			console.log(startDate)
 		
 			if($("#banImg").val() == "") {
 					//swal({ icon: "info", title: "이미지를 등록해주세요" });
@@ -230,8 +231,6 @@
 					var amt = Number($("#price").val().slice(0, -1));
 					var start = startDate.getFullYear() + "-" + (("00"+(startDate.getMonth() + 1)).slice(-2)) + "-" + (("00"+startDate.getDate()).slice(-2));
 					var end = endDate.getFullYear() + "-" + (("00"+(endDate.getMonth() + 1)).slice(-2)) + "-" + (("00"+endDate.getDate()).slice(-2));
-					console.log(start)
-					console.log(end)
 					
 		      // IMP.request_pay(param, callback) 호출
 		      IMP.request_pay({ // param
@@ -249,7 +248,7 @@
 								        	startStr: start,
 								        	endStr: end,
 								        	URL: $("#URL").val(),
-								        	img: $("#banImg").val(),
+								        	img: banImg,
 								        	payAmt: rsp.paid_amount,
 								        	impUid: rsp.imp_uid,
 								        }
