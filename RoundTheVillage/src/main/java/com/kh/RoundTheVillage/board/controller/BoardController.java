@@ -77,7 +77,7 @@ public class BoardController {
    // 게시글 상세 조회
    @RequestMapping("{boardNo}")
    public String boardView(@PathVariable("boardNo") int boardNo,
-		   					Model model, 
+		   					Model model,  @ModelAttribute("loginMember") Member loginMember,
 		   				 @RequestHeader(value="referer", required = false) String referer,
 		   				   RedirectAttributes ra) {
 	  
@@ -96,6 +96,12 @@ public class BoardController {
 			   
 			   
 			   model.addAttribute("board", board);
+			   
+			   Map<String, Integer> map = new HashMap<String, Integer>();
+			   map.put("boardNo", boardNo);
+			   map.put("memberNo", loginMember.getMemberNo());
+			   int likeFl = service.selectLikeFl(map); // 0: 좋아요 X, 1:좋아요 누른적 있음
+			   model.addAttribute("likeFl", likeFl);
 			   
 			   url = "board/boardView";
 			
@@ -206,6 +212,79 @@ public class BoardController {
   }
    
    
+   // 게시글 수정 화면 전환용 Controller
+   @RequestMapping("{boardNo}/update")
+   public String update(@PathVariable("boardNo") int boardNo, Model model) {
+	   
+	   // 1) 게시글 상세 조회
+	   Board board = service.selectBoard(boardNo);
+	   
+	   // 2) 해당 게시글에 포함된 이미지 목록 조회
+	  if(board != null) {
+		  
+		  List<Attachment> attachmentList = service.selectAttachmentList(boardNo);
+		  
+			  model.addAttribute("attachmentList", attachmentList);
+			  // null 값이 전달되어도 EL이 빈 문자열로 처리해줌
+		  
+	  }
+	   
+	  model.addAttribute("board", board);
+	
+	   return "board/boardUpdate";
+   }
+   
+   // 좋아요 추가 Contoller
+   @ResponseBody
+   @RequestMapping("insertLike")
+   public int insertLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	   
+	   Map<String, Integer> map = new HashMap<String, Integer>();
+	   map.put("boardNo", boardNo);
+	   map.put("memberNo", loginMember.getMemberNo());
+	   
+	   int result = service.insertLike(map);
+	   
+	   return result;
+   }
+       
+   
+   // 좋아요 삭제 Contoller
+   @ResponseBody 
+   @RequestMapping("deleteLike")
+   public int deleteLike(@RequestParam("boardNo") int boardNo, @ModelAttribute("loginMember") Member loginMember) {
+	   
+	   Map<String, Integer> map = new HashMap<String, Integer>();
+	   map.put("boardNo", boardNo);
+	   map.put("memberNo", loginMember.getMemberNo());
+	   
+	   int result = service.deleteLike(map);
+	   
+	   return result;
+   }   
+   
+   // 좋아요 카운트 Contoller
+   @ResponseBody 
+   @RequestMapping("selectLikeCount")
+   public int selectLikeCount(@RequestParam("boardNo") int boardNo) {
+	   
+	   return service.selectLikeCount(boardNo);
+   }   
+   
+   
+   
+   
+   // 게시글 검색 Controller
+//   
+//   @RequestMapping("search")
+//    public String searchBoard(@RequestParam(value="cp", required = )) {
+//    	
+//    	
+//    	
+//    	return null;
+//    }
+//   
+//   
    
    
    

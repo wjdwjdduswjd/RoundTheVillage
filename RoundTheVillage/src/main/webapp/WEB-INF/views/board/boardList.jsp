@@ -222,6 +222,22 @@ body {
 	width: 100%;
 	height: 90%; 
 }
+
+
+.thumbnailArea{
+	margin-top : -100px;
+}
+
+.selectCategory{
+margin-top : 20px;
+}
+
+.entireArea{
+	border: 1px solid gray;
+	width : 250px;
+	height : 250px;
+}
+
 </style>
 </head>
 <body>
@@ -237,11 +253,13 @@ body {
 	
 	
    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-8" style="text-align: center;">
-                <div class="row">
+        <div class="row" style="marg">
+            <!-- <div class="col-md-2">
+            </div> -->
+            <div class="col-md-12" style="text-align: center;">
+            
+            <div class="selectCategory">
+                <div class="row1">
                     <div class="col-md-12">
                         <button type="button" class="btn categoryBtn">미술</button>
                         <button type="button" class="btn categoryBtn">사진/영상</button>
@@ -251,7 +269,7 @@ body {
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row2">
                     <div class="col-md-12">
                         <button type="button" class="btn categoryBtn">운동</button>
                         <button type="button" class="btn categoryBtn">공예</button>
@@ -260,6 +278,7 @@ body {
                         <button type="button" class="btn categoryBtn">플라워</button>
                     </div>
                 </div>
+               </div>
 
                 <hr>
 
@@ -288,14 +307,17 @@ body {
                </c:if>
 
                 <br>
-
+							
+							
 							 <c:if test="${!empty bList}">
                 <div class="row thumbnailArea">
+						
                 <!--     <div class="col-md-3 area3">
                         <img src="공방.PNG" class="thumbnail">
                         <span class="badge badge-default" href="#">플라워 수업 후기입니다!! </span>
                         <img src="하트.png" class="like">300
                     </div> -->
+                    
                     
                     <c:forEach var="board" items="${bList}" varStatus="vs">
                     	 <div class="col-md-3 area3" id="${board.boardNo}">
@@ -313,14 +335,15 @@ body {
                     	 
 	                      <%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
 	                        <span class="badge badge-default">${board.boardTitle}</span>
-	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">300
-	                    </div>
+	                        <img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">${board.likeCount }
+           
+           						</div>
+	                   
                     </c:forEach>   
                    
-              </div> 
               
              </c:if>
-                
+               </div>
                 
              <!--    <div class="row thumbnailArea">
                     <div class="col-md-3 area3">
@@ -473,8 +496,9 @@ body {
                 <div class="row search-area">
                     <div class="col-md-12">
                         <div class="search">
-                            <form action="${contextPath}/fSearch.do" method="GET" class="text-center" id="searchForm">
+                            <form action="../search/${pInfo}" method="GET" class="text-center" id="searchForm">
                                 <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
+                                
                                     <option value="title">글 제목</option>
                                     <option value="content">내용</option>
                                 </select> <input type="text" name="sv" class="form-control"
@@ -487,9 +511,12 @@ body {
             </div>
         </div>
 
-            <div class="col-md-2">
-            </div>
+            <!-- <div class="col-md-2">
+            </div> -->
     </div>
+
+<jsp:include page="../common/footer.jsp"/>
+
 
     <script>
 

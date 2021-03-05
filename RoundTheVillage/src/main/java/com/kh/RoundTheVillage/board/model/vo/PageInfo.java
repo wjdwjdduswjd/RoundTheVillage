@@ -17,14 +17,7 @@ public class PageInfo {
 	
 	public PageInfo() {}
 	
-	public PageInfo(int currentPage, int listCount, int boardType) {
-		this.currentPage = currentPage;
-		this.listCount = listCount;
-		this.boardType = boardType;
-		
-		// 값을 입력 받은 후 계산 진행
-		makePageInfo();
-	}
+
 	
 	
 	
@@ -32,7 +25,10 @@ public class PageInfo {
 	public PageInfo(int currentPage, int listCount) {
 		super();
 		this.currentPage = currentPage;
-		this.listCount = listCount;
+		//this.listCount = listCount;
+		
+		// 값을 입력 받은 후 계산 진행
+		makePageInfo();
 	}
 
 	public int getBoardType() {
@@ -49,7 +45,6 @@ public class PageInfo {
 		this.listCount = listCount;
 		this.limit = limit;
 		this.pageSize = pagingBarSize;
-		this.boardType = boardType;
 		
 		makePageInfo();
 	}
