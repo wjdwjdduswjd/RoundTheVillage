@@ -5,14 +5,25 @@
 
 	<resultMap type="Banner" id="banner_rm">
 		<id property="banNo" column="BAN_NO"/>
-		<result property="banStartDate" column="BAN_START_DT"/>
-		<result property="banEndDate" column="BAN_END_DT"/>
+		<result property="startDate" column="START_DT"/>
+		<result property="endDate" column="END_DT"/>
 		<result property="URL" column="URL"/>
-		<result property="banImg" column="BAN_IMG"/>
-		<result property="banStatus" column="BAN_STATUS"/>
+		<result property="img" column="IMG"/>
 		<result property="payDate" column="PAY_DT"/>
 		<result property="payAmt" column="PAY_AMT"/>
+		<result property="impUid" column="IMP_UID"/>
+		<result property="bannerFl" column="BANNER_FL"/>
+		<result property="aprvlFl" column="APRVL_FL"/>
 		<result property="memNo" column="MEM_NO"/>
 	</resultMap>
 	
+	<insert id="insertBanner" parameterType="Banner">
+		INSERT INTO BANNER 
+		VALUES (SEQ_BANO.NEXTVAL, #{startDate}, #{endDate}, #{URL}, #{img}, DEFAULT, DEFAULT, #{payAmt}, #{memNo}, #{impUid}, DEFAULT)
+	</insert>
+	
+	<select id="selectBannerByUid" parameterType="string" resultMap="banner_rm">
+		SELECT * FROM BANNER
+		WHERE IMP_UID = #{impUid}
+	</select>
 </mapper>

@@ -45,10 +45,9 @@ public interface NoticeService {
 	/** 게시글 삽입 (+파일 업로드) Service
 	 * @param map
 	 * @param savePath 
-	 * @param images 
 	 * @return result
 	 */
-	public abstract int insertNotice(Map<String, Object> map, List<MultipartFile> images, String savePath);
+	public abstract int insertNotice(Map<String, Object> map, String savePath);
 	
 	
 	/** summernote 업로드 이미지 저장 Service
@@ -57,4 +56,11 @@ public interface NoticeService {
 	 * @return at
 	 */
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
+
+
+	/** 게시글 수정 Service
+	 * @param updateNotice
+	 * @return result
+	 */
+	//public abstract int updateNotice(Notice updateNotice);
 }

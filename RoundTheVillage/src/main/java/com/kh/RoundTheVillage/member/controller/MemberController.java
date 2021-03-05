@@ -1,5 +1,7 @@
 package com.kh.RoundTheVillage.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -13,7 +15,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -218,36 +223,55 @@ public class MemberController {
 	public String idFindComplete(@ModelAttribute Member findMember, Model model) {
 		
 		String memberIdFind =  service.idFind(findMember);
-		
-		System.out.println(memberIdFind);
-		
+		//System.out.println(memberIdFind);
 		String url = null;
 		
 		if(memberIdFind != null) {
-			
 			model.addAttribute("memberIdFind", memberIdFind);
-			
 			url = "member/idFindComplete";
-			
 		}else {  
-			
 			url = "member/idFind";
 		}
+		return url;
+	}
+	
+	// 비밀번호 찾기 성공 페이지
+	@RequestMapping("pwdFindComplete")
+	public String pwdFindComplete(@ModelAttribute Member findMember, Model model) {
+		
+		int memberPwdFind = service.pwdFind(findMember); //
+		System.out.println(memberPwdFind);
+		
+		String url = null;
+		
+		if(memberPwdFind > 0) {
+			model.addAttribute("memberPwdFind", memberPwdFind);  // 회원번호가 넘어감.
+			url = "member/pwdFindComplete";
+		}else {
+			url = "member/pwdFind";
+		}
+		
 		
 		return url;
 	}
 	
-	
-	
-	
-	
-	// 비밀번호 찾기 성공 페이지
-	@RequestMapping("pwdFindComplete")
-	public String pwdFindComplete() {
-		return "member/pwdFindComplete";
+	@RequestMapping("updatePwd")
+	// 비밀번호 찾기의 새로운 비밀번호 등록
+	public String updatePwd(@RequestParam("newPwd") String newPwd,
+							@RequestParam("memberPwdFind") int memberPwdFind) {
+		//System.out.println(newPwd);
+		//System.out.println(memberPwdFind);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("newPwd", newPwd);
+		map.put("memNo", memberPwdFind);
+		
+		int result = service.updatePwd(map);
+		 
+		return "member/login";
+		
 	}
-	
-	
 	
 	
 	

@@ -155,7 +155,7 @@
         $.ajax({  
            url : 'normalSignUpMail',
            data : { "mail" : mail,
-        	   				"title" : "[동네한바퀴 아이디 찾기] 아이디 찾기에 필요한 이메일 인증 번호"},
+        	   				"title" : "[동네한바퀴 아이디 찾기] 아이디 찾기에 필요한 이메일 인증 번호    "},
            type : 'post',
            success : function(result){
               key = result;

@@ -101,7 +101,6 @@ public class NoticeController {
 	// 게시글 등록 Controller --------------------------------------------------------------------------------------------------------------
 	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute Notice notice, 
-			@RequestParam(value = "images", required = false) List<MultipartFile> images, 
 			HttpServletRequest request, RedirectAttributes ra) {
 		
 		
@@ -120,11 +119,10 @@ public class NoticeController {
 		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 		
 		// 게시글 삽입 Service 호출
-		int result = service.insertNotice(map, images, savePath);
+		int result = service.insertNotice(map, savePath);
 
 		String url = null;
 		
-		System.out.println("noticeNo"+notice.getNoticeNo());
 		
 		if (result > 0) {
 			swalIcon = "success";
@@ -162,6 +160,33 @@ public class NoticeController {
 		}
 	
 	
+	
+	// 게시글 수정 -------------------------------------------------------------------
+	//@RequestMapping("{noticeNo}/updateAction")
+	//public String updateAction(@PathVariable ("noticeNo") int noticeNo,
+							   //@ModelAttribute Notice updateNotice,
+							  // Model model, RedirectAttributes ra,
+							   //HttpServletRequest request) {
+		/*
+		// noticeNo를 updateNotice에 세팅
+		updateNotice.setNoticeNo(noticeNo);
+		
+		System.out.println(updateNotice);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
+		
+		// 게시글 수정
+	    int result = service.updateNotice(updateNotice);
+	    
+	    String url = null;
+	    
+	    
+	    
+	    
+	     
+		return url;
+	}*/
 	
 	
 	

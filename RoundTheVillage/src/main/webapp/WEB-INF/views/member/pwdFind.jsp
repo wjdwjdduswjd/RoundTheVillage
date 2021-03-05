@@ -37,7 +37,7 @@
 			<!-- 아이디, 이메일 입력 -->
 			<div class="input-text">
 				<div class="input-area in-area">
-					<label class="addr text">아이디</label> <input class="b" type="text" name="memberId" id="id">
+					<label class="addr text">아이디</label> <input class="b" type="text" name="memberId" id="id" required>
 					<div class="check">
 						<label class="text"></label><span id="checkId">&nbsp;</span>
 					</div>
@@ -45,7 +45,7 @@
 
 
 				<div class="input-area">
-					<label class="text">이메일 주소</label><input class="b" type="text" name="memberEmail" id="email" placeholder="가입했을 때 인증했던 이메일을 입력해주세요.">
+					<label class="text">이메일 주소</label><input class="b" type="text" name="memberEmail" id="email" placeholder="가입했을 때 인증했던 이메일을 입력해주세요." required>
 					<button id="email_button" class="email_button">인증번호 받기</button>
 					<div class="check">
 						<label class="text"></label><span id="checkEmail">&nbsp;</span>
@@ -54,7 +54,7 @@
 
 				<!-- 이메일인증번호 입력부분 -->
 				<div class="input-area">
-					<label class="addr text"></label><input class="b" type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요.">
+					<label class="addr text"></label><input class="b" type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요." required>
 					<div class="check">
 						<label class="text"></label><span id="checkNumEmail">&nbsp;</span>
 					</div>
@@ -91,7 +91,11 @@
 		if (!regExp.test($id.val())) {
 			$("#checkId").text("아이디 형식이 유효하지 않습니다.").css("color", "red");
 			signUpCheck.id = false;
-	}
+		}else{
+			$("#checkId").text("올바른 아이디 형식입니다.").css("color", "green");
+			signUpCheck.id = true;
+		}
+	});
 	
 	// 이메일 유효성 검사
 	$email.on("input",function() {
@@ -149,7 +153,7 @@
         $.ajax({  
            url : 'normalSignUpMail',
            data : { "mail" : mail,
-        	   				"title" : "[동네한바퀴 비밀번호 찾기] 아이디 찾기에 필요한 이메일 인증 번호"},
+        	   				"title" : "[동네한바퀴 비밀번호 찾기] 아이디 찾기에 필요한 이메일 인증 번호    "},
            type : 'post',
            success : function(result){
               key = result;

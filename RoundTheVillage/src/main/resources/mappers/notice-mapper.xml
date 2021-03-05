@@ -11,7 +11,7 @@
 		<result property="noticeStatus" column="NOTICE_STATUS" />
 	</resultMap>
 	
-	<resultMap type="Attachment" id="attachment_rm">
+	<resultMap type="NoticeAttachment" id="attachment_rm">
 		<id property="fileNo" column="NOTICE_FILE_NO" />
 		<result property="filePath" column="NOTICE_FILE_PATH" />
 		<result property="fileName" column="NOTICE_FILE_NAME" />

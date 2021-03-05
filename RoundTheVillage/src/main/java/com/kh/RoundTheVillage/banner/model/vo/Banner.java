@@ -4,13 +4,15 @@ import java.sql.Date;
 
 public class Banner {
 	private int banNo;
-	private Date banStartDate;
-	private Date banEndDate;
+	private Date startDate;
+	private Date endDate;
 	private String URL;
-	private String banImg;
-	private char banStatus;
+	private String img;
 	private Date payDate;
 	private int payAmt;
+	private String impUid;
+	private char bannerFl;
+	private char aprvlFl;
 	private int memNo;
 	
 	public Banner() {}
@@ -23,20 +25,20 @@ public class Banner {
 		this.banNo = banNo;
 	}
 
-	public Date getBanStartDate() {
-		return banStartDate;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setBanStartDate(Date banStartDate) {
-		this.banStartDate = banStartDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getBanEndDate() {
-		return banEndDate;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setBanEndDate(Date banEndDate) {
-		this.banEndDate = banEndDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getURL() {
@@ -47,20 +49,12 @@ public class Banner {
 		URL = uRL;
 	}
 
-	public String getBanImg() {
-		return banImg;
+	public String getImg() {
+		return img;
 	}
 
-	public void setBanImg(String banImg) {
-		this.banImg = banImg;
-	}
-
-	public char getBanStatus() {
-		return banStatus;
-	}
-
-	public void setBanStatus(char banStatus) {
-		this.banStatus = banStatus;
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public Date getPayDate() {
@@ -79,6 +73,30 @@ public class Banner {
 		this.payAmt = payAmt;
 	}
 
+	public String getImpUid() {
+		return impUid;
+	}
+
+	public void setImpUid(String impUid) {
+		this.impUid = impUid;
+	}
+
+	public char getBannerFl() {
+		return bannerFl;
+	}
+
+	public void setBannerFl(char bannerFl) {
+		this.bannerFl = bannerFl;
+	}
+
+	public char getAprvlFl() {
+		return aprvlFl;
+	}
+
+	public void setAprvlFl(char aprvlFl) {
+		this.aprvlFl = aprvlFl;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
@@ -89,8 +107,8 @@ public class Banner {
 
 	@Override
 	public String toString() {
-		return "Banner [banNo=" + banNo + ", banStartDate=" + banStartDate + ", banEndDate=" + banEndDate + ", URL="
-				+ URL + ", banImg=" + banImg + ", banStatus=" + banStatus + ", payDate=" + payDate + ", payAmt="
-				+ payAmt + ", memNo=" + memNo + "]";
+		return "Banner [banNo=" + banNo + ", startDate=" + startDate + ", endDate=" + endDate + ", URL=" + URL
+				+ ", img=" + img + ", payDate=" + payDate + ", payAmt=" + payAmt + ", impUid=" + impUid + ", bannerFl="
+				+ bannerFl + ", aprvlFl=" + aprvlFl + ", memNo=" + memNo + "]";
 	}
 }
