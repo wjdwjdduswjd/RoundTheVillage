@@ -1,5 +1,7 @@
 package com.kh.RoundTheVillage.member.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,5 +55,18 @@ public class MemberDAO {
 	public String idFind(Member findMember) {
 		return sqlSession.selectOne("memberMapper.idFind", findMember);
 	}
+
+	// 비밀번호 찾기
+	public int pwdFind(Member findMember) {
+		return sqlSession.selectOne("memberMapper.pwdFind",findMember);
+	}
+
+	public int updatePwd(Map<String, Object> map) {
+		return sqlSession.update("memberMapper.updatePwd", map);
+	}
+
+
+
+//	return sqlSession.update("memberMapper.updatePwd", updatePwd,memberPwdFind);
 
 }

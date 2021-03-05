@@ -67,6 +67,25 @@
 				AND MEM_SCSN_FL = 'N'
 	</select>
 	
+	<!-- 비밀번호 찾기 -->
+	<select id="pwdFind" parameterType="Member" resultType="_int">
+		SELECT MEM_NO FROM MEMBER
+			WHERE MEM_ID = #{memberId}
+			AND MEM_EMAIL = #{memberEmail}
+			AND MEM_SCSN_FL = 'N' 
+	</select>
+	
+	<!-- 비밀번호 찾기의 새로운 비밀번호 등록 -->
+	<update id="updatePwd" parameterType="map" >
+		UPDATE MEMBER SET
+		MEM_PWD = #{newPwd}
+		WHERE MEM_NO = #{memNo}
+	</update>
+	
+	
+	
+	
+	
 	
 	
 	
