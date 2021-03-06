@@ -77,6 +77,9 @@ public class ShopController {
 			model.addAttribute("lesList", lesList);
 
 			// 리뷰 목록 가져 오기----------------------------------------
+			
+			List<Lesson> reviewList = service.selectReviewList(shopNo);
+			
 
 		}
 
