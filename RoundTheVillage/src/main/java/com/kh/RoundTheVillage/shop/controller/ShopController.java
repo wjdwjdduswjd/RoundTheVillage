@@ -50,20 +50,19 @@ public class ShopController {
 		if (shop != null) { // 상세조회 성공 시
 
 			model.addAttribute("shop", shop);
-			
+
 			ShopAttachment thumb = service.selectThumb(shopNo);
 
 			// 조회된 이미지 목록이 있을 경우
 			if (thumb != null) {
 				model.addAttribute("thumb", thumb);
 			}
-			
+
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("shopNo", shopNo);
 			map.put("memberNo", loginMember.getMemberNo());
 			int likeFl = service.selectLikeFl(map); // 0: 좋아요 X, 1:좋아요 누른적 있음
 			model.addAttribute("likeFl", likeFl);
-			
 
 			// 수업 리스트
 			// 가져오기----------------------------------------------------------------------------------
@@ -81,18 +80,16 @@ public class ShopController {
 			model.addAttribute("lesList", lesList);
 
 			// 리뷰 목록 가져 오기----------------------------------------
-			
+
 			List<LessonReview> reviewList = service.selectReviewList(shopNo);
-			
-			model.addAttribute("reviewList",reviewList);
+
+			model.addAttribute("reviewList", reviewList);
 
 		}
 
 		return "shop/shopView";
 
 	}
-	
-
 
 	// 공방 등록 화면 전환용 Controller
 	@RequestMapping("registration")
@@ -168,7 +165,7 @@ public class ShopController {
 	// ----------------------------------summernote------------------------------------
 	// summernote에 업로드 된 이미지 저장 Controller
 	@ResponseBody // 응답 시 값 자체를 돌려보냄
-	@RequestMapping("insertImage")
+	@RequestMapping(value={"insertImage", "update/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
@@ -180,8 +177,76 @@ public class ShopController {
 	}
 
 	
-	// ---------------------- 좋 아 요 ---------------------------
+	// 공방 수정 화면 전환용 Controller
+	@RequestMapping("update/{shopNo}")
+	public String  shopUpdate(@PathVariable("shopNo") int shopNo, Model model ) {
+		
+		// 1) 공방 상세 조회
+		Shop shop = service.selectShop(shopNo);
+		
+		// 2) 해당 공방에 포함된 썸네일 조회
+		if(shop != null) {
+			ShopAttachment thumb = service.selectThumb(shopNo);
+			
+			model.addAttribute("thumb", thumb);
+		}
+		
+		model.addAttribute("shop" , shop);
+		
+		return "shop/shopUpdate";
+	}
 	
+	
+	// 공방 수정 Controller
+	@RequestMapping("updateAction/{shopNo}")
+	public String  shopUpdateAction(@PathVariable("shopNo") int shopNo, Model model,
+									@ModelAttribute Shop shop, RedirectAttributes ra,
+									HttpServletRequest request,
+									@RequestParam(value="images", required = false) List<MultipartFile> images) {
+		
+		// shopNo를 shop에 세팅
+		shop.setShopNo(shopNo);
+		
+		// 파일 저장 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/images/shop");
+		
+		// 파일 수정 Service 호출
+		int result= service.updateShop(shop, images, savePath);
+		
+		String url = null;
+		
+		if(result > 0) {
+			swalIcon = "success";
+			swalTitle = "공방 수정 성공";
+			url = "redirect:../"+shopNo;
+		}else {
+			swalIcon = "error";
+			swalTitle = "공방 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		
+		
+		return url;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ---------------------- 좋 아 요 ---------------------------
+
 	// 좋아요 추가 Contoller
 	@ResponseBody
 	@RequestMapping("insertLike")
@@ -217,5 +282,5 @@ public class ShopController {
 
 		return service.selectLikeCount(shopNo);
 	}
-	
+
 }

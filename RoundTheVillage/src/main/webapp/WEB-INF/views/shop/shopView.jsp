@@ -163,15 +163,12 @@
 			</div>
 
 			<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
-				<a class="btn btn-success float-right" href="${contextPath}/shop/shopRegistrationUpdate" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
+				<a class="btn btn-success float-right" href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
 			</c:if>
 
 
 
-
 			<div id="tab-btn">
-
-
 				<div class="btnArea" style="width: 30%;">
 
 					<a id="infobtn" class="btns" href="#infoArea">정보</a>
