@@ -74,17 +74,15 @@
       <c:choose>
 				<%-- 로그인이 되어있지 않을 때 == session에 loginMember라는 값이 없을 때 --%>
 				<c:when test="${empty sessionScope.loginMember}">
-      <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
-      <script>
-						// 로그인이 안되있을 경우 마이페이지 클릭 시 경고창
-						var loginMemberId = "${loginMember.memberId}";
-						$("#nav-mypage").on("click", function() {
-								alert("로그인 후 이용해 주세요.");
-						});
-					</script>
+      <a class="dropdown-toggle myclick" id="menu" href="${contextPath}/member/login" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 				</c:when>
 				
-				<%-- 관리자일 때 --%>
+				<%-- 일반 / 공방 회원 --%>
+				<c:when test="${!empty loginMember && (loginMember.memberType == 'G') || (loginMember.memberType == 'C') }">
+					<a class="dropdown-toggl" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+				</c:when>
+				
+				<%-- 관리자 --%>
 				<c:when test="${!empty loginMember && (loginMember.memberType == 'A') }">
 					<a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관리페이지</a>
 				</c:when>
@@ -94,19 +92,23 @@
 					
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
         	
-        	<%-- 공방 회원만 보이기 --%>
+        	<%-- 공방 회원 --%>
         	<c:if test="${loginMember.memberType == 'C'}">
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
+          	<a class="dropdown-item" href="#">배너신청</a>
+          	<a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
+         		<a class="dropdown-item" href="#">나의활동</a>
+         		<a class="dropdown-item" href="#">나의내역</a>
           </c:if>
           
-          <%-- 일반/공방 회원 공통 서브 메뉴 --%>
-          <c:if test="${(loginMember.memberType == 'B') && (loginMember.memberType == 'C')}}">
+          <%-- 일반 회원 --%>
+          <c:if test="${(loginMember.memberType == 'G')}">
           <a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
           </c:if>
           
-          <%-- 관리자일 때 --%>
+          <%-- 관리자 --%>
 					<c:if test="${loginMember.memberType == 'A'}">
 						<a class="dropdown-item" href="#">회원조회</a>
         	  <a class="dropdown-item" href="#">공방관리</a>
@@ -134,6 +136,15 @@
     </div>
 
   </div>
+  
+  
+  <script>
+	// 로그인이 안되있을 경우 마이페이지 클릭 시 경고창
+	var loginMemberId = "${loginMember.memberId}";
+	$(".myclick").on("click", function() {
+		alert("로그인 후 이용해 주세요.");
+	});
+	</script>
 </body>
 
 </html>

@@ -139,11 +139,10 @@
 		</div>
 
 
-		<%-- 로그인이 되어있는 경우 --%>
 		<!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
-		<%-- <c:if test="${!empty loginMember && loginMember.memberType =='A' }">--%>
+		 <c:if test="${!empty loginMember && loginMember.memberType =='A' }">
 		<a class="btn btn-warning float-right" id="insertBtn" href="noticeInsert">글쓰기</a>
-		<%-- </c:if> --%>
+		</c:if>
 
 		<!--------------------------------- pagination  ---------------------------------->
 

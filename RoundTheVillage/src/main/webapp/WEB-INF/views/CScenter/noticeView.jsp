@@ -134,11 +134,11 @@
 
 						<a href="${sessionScope.returnListURL}" class="btn btn-warning float-right" id="back">목록으로</a>
 
-						<%-- 	<c:if test="${(loginMember != null) && (member.memberType == 'A')}"> --%>
+						<c:if test="${!empty loginMember && loginMember.memberType =='A' }">
 						<c:url var="updateUrl" value="${notice.noticeNo}/noticeUpdate" />
 						<a href="${updateUrl}" class="btn btn-warning ml-1 mr-1" id="updateBtn">수정</a>
 						<button id="deleteBtn" class="btn btn-warning">삭제</button>
-						<%-- 	</c:if>--%>
+						</c:if>
 					</div>
 				</div>
 			</div>
