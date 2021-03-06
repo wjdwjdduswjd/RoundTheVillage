@@ -113,7 +113,7 @@ public class NoticeController {
 		
 		//System.out.println("noticeTitle"+notice.getNoticeTitle());
 		
-		System.out.println("map:" + map);
+		//System.out.println("map:" + map);
 		
 		String savePath = null;
 		
@@ -159,7 +159,7 @@ public class NoticeController {
 		// Java -> js로 객체 전달 : JSON
 		return new Gson().toJson(at);
 	}
-
+/*
 	// 게시글 수정 화면 전환 ----------------------------------------------------------
 	@RequestMapping("{noticeNo}/update")
 	public String update(@PathVariable("noticeNo") int noticeNo, Model model) {
@@ -167,15 +167,11 @@ public class NoticeController {
 		Notice notice = service.selectNotice(noticeNo);
 
 		if (notice != null) {
-
 			List<NoticeAttachment> attachmentList = service.selectAttachmentList(noticeNo);
-
 			model.addAttribute("attachmentList", attachmentList);
-
 		}
 
 		model.addAttribute("notice", notice);
-
 		return "CScenter/noticeUpdate";
 	}
 		
@@ -215,7 +211,7 @@ public class NoticeController {
 	      
 	      return url;
 
-	}
+	}*/
 
 	
 	

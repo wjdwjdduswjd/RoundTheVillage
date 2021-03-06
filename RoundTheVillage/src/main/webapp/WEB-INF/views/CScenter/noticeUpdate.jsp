@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 수정</title>
+<title>공지사항 수정</title>
 <style>
 .insert-label {
 	display: inline-block;
