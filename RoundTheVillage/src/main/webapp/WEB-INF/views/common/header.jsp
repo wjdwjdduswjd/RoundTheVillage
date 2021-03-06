@@ -78,7 +78,7 @@
         	<c:if test="${loginMember.memberType == 'C'}">
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
           </c:if>
-          <a class="dropdown-item" href="${contextPath}/mypage/myInfoChange">내정보수정</a>
+          <a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
         </div>

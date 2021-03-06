@@ -52,7 +52,7 @@
  	
 	<!-- 로그인 -->
 	<select id="loginAction"  parameterType="Member"  resultMap="member_rm">
-		SELECT * FROM MEMBER
+		SELECT * FROM V_MYINFO
 		WHERE MEM_ID =  #{memberId}
 		<!-- AND MEMBER_PWD = #{memberPwd}  -->
 		AND MEM_SCSN_FL = 'N' 
@@ -85,8 +85,7 @@
 	
 	
 	
-	
-	
+	<!-- ************************************* 마이페이지 ************************************* -->
 	
 	
 	
