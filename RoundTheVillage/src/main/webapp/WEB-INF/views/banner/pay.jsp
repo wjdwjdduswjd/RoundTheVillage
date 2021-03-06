@@ -45,7 +45,7 @@
 	            </tr>
 	        </table>
 	
-	        <div class="text-muted text-right small" style="width: 320px;">배너는 선택한 날짜부터 10일동안 등록됩니다.</div>
+	        <div class="text-muted text-right small" style="width: 330px;">배너는 선택한 날짜부터 10일동안 등록됩니다.</div>
 	        <div class="text-right p-2" style="width: 320px;">
 	            <span class="color today mr-2">오늘</span>
 	            <span class="color select">선택</span>
@@ -142,10 +142,11 @@
     }
 
     function build() {
-        var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); // 현재달의 첫째 날
+        var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); // 현재 달의 첫째 날
         var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); // 현재 달의 마지막 날
         var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
-        var yearmonth = document.getElementById("yearmonth"); // 년도와 월 출력할곳
+        
+        var yearmonth = document.getElementById("yearmonth");
         yearmonth.innerHTML = today.getFullYear() + "." + (today.getMonth() + 1); // 년도와 월 출력 
          
         while (tbcal.rows.length > 2) { // 남은 테이블 줄 삭제
@@ -160,6 +161,29 @@
             cell = row.insertCell();
             cnt++;
         }
+        
+        var disabled;
+        
+    		jQuery.ajax({
+    		   url: "${contextPath}/banner/selectDate", 
+    		   method: "POST",
+    		   data: { 
+    			   year: today.getFullYear(),
+    			   month: today.getMonth() + 1,
+    			   date: today.getDate()
+    		   },
+    		   success: function(result) {
+    			   disabled = result;
+    			   
+    			   $("#calendar td").each(function(index, item){
+    				   if(disabled.indexOf(("00"+$(item).text()).slice(-2)) != -1) {
+    					   $(item).css("opacity", "0.3");
+		    			   $(item).css("cursor", "default");
+		    			   $(item).prop("disabled", true);
+    				   }
+    			   })
+    			 }
+    		});
         
         for (var i = 1; i <= lastDate.getDate(); i++) { // 달력 출력
 
@@ -182,30 +206,16 @@
             }
 
             if (startDate != undefined && today.getFullYear() == startDate.getFullYear() && today.getMonth() == startDate.getMonth() && i == startDate.getDate())
-                $(cell).addClass("selected");
+                $(cell).addClass("selected"); // 다른 달로 넘어갔다 왔을 때 선택 유지
 
-            if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i < date.getDate()) {
+            if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i < date.getDate()) { // 지날 날짜 선택 불가
                 $(cell).css("opacity", "0.3");
                 $(cell).css("cursor", "default");
                 $(cell).prop("disabled", true);
+                
             }
         }
-        //
     }
-    
-    // ajax
-		jQuery.ajax({
-		   url: "${contextPath}/banner/selectDate", 
-		   method: "POST",
-		   data: {
-		   	startStr: start,
-		   	endStr: end,
-		   	URL: $("#URL").val(),
-		   	img: banImg,
-		   	payAmt: rsp.paid_amount,
-		   	impUid: rsp.imp_uid
-		   }
-		})
 
     // 날짜 선택
     $(document).on("click", "td", function (event) {
@@ -216,7 +226,7 @@
         var startDateStr = startDate.getFullYear() + "." + (startDate.getMonth() + 1) + "." + startDate.getDate();
 
         endDate = new Date(today.getFullYear(), today.getMonth(), $(this).text());
-        endDate.setDate(endDate.getDate() + 7)
+        endDate.setDate(endDate.getDate() + 6)
         var endDateStr = endDate.getFullYear() + "." + (endDate.getMonth() + 1) + "." + endDate.getDate();
 
         $("#term").val(startDateStr + " ~ " + endDateStr);

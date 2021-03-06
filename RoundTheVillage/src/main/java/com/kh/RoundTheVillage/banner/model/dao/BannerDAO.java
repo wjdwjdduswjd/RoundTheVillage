@@ -1,5 +1,6 @@
 package com.kh.RoundTheVillage.banner.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -15,6 +16,10 @@ public class BannerDAO {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	public String selectDate(String string) {
+		return sqlSession.selectOne("bannerMapper.selectDate", string);
+	}
 	
 	public int insertBanner(Banner banner) {
 		return sqlSession.insert("bannerMapper.insertBanner", banner);

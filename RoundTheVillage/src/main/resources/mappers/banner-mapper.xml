@@ -17,6 +17,15 @@
 		<result property="memNo" column="MEM_NO"/>
 	</resultMap>
 	
+	<select id="selectDate" parameterType="string" resultType="string">
+			<![CDATA[
+				SELECT TO_DATE(UNABLE) FROM (
+					SELECT COUNT(*) CNT, #{item} UNABLE FROM BANNER
+					WHERE START_DT <= #{item} AND END_DT >= #{item})
+				WHERE CNT >= 10
+			]]>
+	</select>
+	
 	<insert id="insertBanner" parameterType="Banner">
 		INSERT INTO BANNER 
 		VALUES (SEQ_BANO.NEXTVAL, #{startDate}, #{endDate}, #{URL}, #{img}, DEFAULT, DEFAULT, #{payAmt}, #{memNo}, #{impUid}, DEFAULT)

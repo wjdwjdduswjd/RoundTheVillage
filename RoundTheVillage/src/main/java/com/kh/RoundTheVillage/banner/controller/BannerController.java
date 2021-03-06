@@ -2,6 +2,8 @@ package com.kh.RoundTheVillage.banner.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +25,6 @@ import com.kh.RoundTheVillage.banner.model.service.BannerService;
 import com.kh.RoundTheVillage.banner.model.vo.Banner;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.member.model.vo.Member;
-
-import oracle.net.aso.b;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -50,10 +50,10 @@ public class BannerController {
 	}
 	
 	@RequestMapping("selectDate")
-	//@ResponseBody
-	public String selectDate() {
-		List<Date> dList = service.selectDate();
-		
+	@ResponseBody
+	public String selectDate(@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("date") int date) {
+        
+        List<String> dList = service.selectDate(year, month, date);
 		return new Gson().toJson(dList);
 	}
 	
