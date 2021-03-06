@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
+import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 
 @Repository
@@ -55,7 +56,7 @@ public class NoticeDAO {
 	 * @param boardNo
 	 * @return attachmentList
 	 */
-	public List<Attachment> selectAttachmentList(int noticeNo) {
+	public List<NoticeAttachment> selectAttachmentList(int noticeNo) {
 		return sqlSession.selectList("noticeMapper.selectAttachmentList", noticeNo);
 	}
 	
@@ -81,8 +82,28 @@ public class NoticeDAO {
 	 * @param uploadImages
 	 * @return result (성공한 행의 개수)
 	 */
-	public int insertAttachmentList(List<Attachment> uploadImages) {
+	public int insertAttachmentList(List<NoticeAttachment> uploadImages) {
 		return sqlSession.insert("noticeMapper.insertAttachmentList", uploadImages);
+	}
+	
+	
+	/**
+	 * 게시글 수정 DAO
+	 * @param updateBoard
+	 * @return
+	 */
+	public int updateNotice(Notice updateNotice) {
+		return sqlSession.update("noticeMapper.updateNotice", updateNotice);
+	}
+
+	
+	/**
+	 * 파일 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return result
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("noticeMapper.deleteAttachmentList", deleteFileNoList);
 	}
 }	
 	

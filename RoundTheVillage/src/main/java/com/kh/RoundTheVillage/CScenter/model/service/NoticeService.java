@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
+import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 
@@ -39,7 +39,7 @@ public interface NoticeService {
 	 * @param boardNo
 	 * @return attachmentList
 	 */
-	public abstract List<Attachment> selectAttachmentList(int noticeNo);
+	public abstract List<NoticeAttachment> selectAttachmentList(int noticeNo);
 	
 	
 	/** 게시글 삽입 (+파일 업로드) Service
@@ -55,12 +55,12 @@ public interface NoticeService {
 	 * @param savePath
 	 * @return at
 	 */
-	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
+	public abstract NoticeAttachment insertImage(MultipartFile uploadFile, String savePath);
 
 
 	/** 게시글 수정 Service
 	 * @param updateNotice
 	 * @return result
 	 */
-	//public abstract int updateNotice(Notice updateNotice);
+	public abstract int updateNotice(Notice updateNotice);
 }
