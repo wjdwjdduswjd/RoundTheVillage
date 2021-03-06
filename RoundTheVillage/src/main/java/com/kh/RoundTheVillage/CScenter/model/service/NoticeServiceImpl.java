@@ -187,7 +187,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return at;
 	}
 
-
+/*
 	// 게시글 수정 Service 수정
 	// -------------------------------------------------------------------------
 	@Override
@@ -305,6 +305,6 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 
 		return result;
-	}
+	}*/
 
 }

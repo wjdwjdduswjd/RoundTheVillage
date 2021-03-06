@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
@@ -92,9 +91,9 @@ public class NoticeDAO {
 	 * @param updateBoard
 	 * @return
 	 */
-	public int updateNotice(Notice updateNotice) {
-		return sqlSession.update("noticeMapper.updateNotice", updateNotice);
-	}
+	//public int updateNotice(Notice updateNotice) {
+		//return sqlSession.update("noticeMapper.updateNotice", updateNotice);
+	//}
 
 	
 	/**
@@ -102,9 +101,9 @@ public class NoticeDAO {
 	 * @param deleteFileNoList
 	 * @return result
 	 */
-	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
-		return sqlSession.delete("noticeMapper.deleteAttachmentList", deleteFileNoList);
-	}
+	//public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		//return sqlSession.delete("noticeMapper.deleteAttachmentList", deleteFileNoList);
+	//}
 }	
 	
 	
