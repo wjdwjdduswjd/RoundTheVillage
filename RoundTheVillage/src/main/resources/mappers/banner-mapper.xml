@@ -57,5 +57,6 @@
 		<![CDATA[
 			WHERE START_DT < SYSDATE AND END_DT > SYSDATE
 		]]>
+		WHERE APRVL_FL = 'Y' AND BANNER_FL = 'N'
 	</select>
 </mapper>

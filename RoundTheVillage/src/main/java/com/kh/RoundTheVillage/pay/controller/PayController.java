@@ -63,14 +63,14 @@ public class PayController {
 	@RequestMapping("payAction")
 	public int payAction(
 			@ModelAttribute Pay pay,
-			@RequestParam("dateStr") String dateStr/*, @ModelAttribute("loginMember") Member loginMember */) throws ParseException {
+			@RequestParam("dateStr") String dateStr, @ModelAttribute("loginMember") Member loginMember) throws ParseException {
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = (Date) transFormat.parse(dateStr);
 		
 		pay.setResDate(new java.sql.Timestamp(date.getTime()));
-//		pay.setMemNo(loginMember.getMemberNo());
-		pay.setMemNo(1);
+		pay.setMemNo(loginMember.getMemberNo());
+//		pay.setMemNo(1);
 		
 		int result = service.insertPay(pay);
 		
@@ -93,12 +93,12 @@ public class PayController {
 	// 예약 목록
 	@RequestMapping("list")
 	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
-			Model model/* , @ModelAttribute("loginMember") Member loginMember */) {
+			Model model, @ModelAttribute("loginMember") Member loginMember) {
 		
-		PageInfo pInfo = service.getPageInfo(1, cp);
-//		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
-		List<Pay> pList = service.selectList(pInfo, 1);
-//		List<Pay> pList = service.selectList(pInfo, loginMember.getMemberNo());
+//		PageInfo pInfo = service.getPageInfo(1, cp);
+		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
+//		List<Pay> pList = service.selectList(pInfo, 1);
+		List<Pay> pList = service.selectList(pInfo, loginMember.getMemberNo());
 		
 		model.addAttribute("pList", pList);
 		model.addAttribute("pInfo", pInfo);
