@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
+import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
 @Repository
 public class ShopDAO {
@@ -69,14 +70,15 @@ public class ShopDAO {
 		return sqlSession.selectList("lessonMapper.selectThumbnailList",lesList);
 	}
 
-	/** 공방 번호 조회 DAO
-	 * @return
-	 */
-	public int selectshopNo() {
 
-		return sqlSession.selectOne("shopMapper.selectshopNo");
+
+	   /** 파일 정보 삽입 DAO
+	    * @param uploadImages
+	    * @return result (성공한 행의 개수)
+	    */
+	public int insertAttachmentList(List<ShopAttachment> uploadImages) {
+		return sqlSession.insert("shopMapper.insertAttachmentList", uploadImages);
 	}
-
 
 
 

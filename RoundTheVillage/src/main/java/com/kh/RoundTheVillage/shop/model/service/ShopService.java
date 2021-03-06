@@ -25,7 +25,7 @@ public interface ShopService {
 	 * @param savePath 
 	 * @return
 	 */
-	public abstract int registrateShop(Shop shop, MultipartFile image, String savePath);
+	public abstract int registrateShop(Shop shop, List<MultipartFile> images, String savePath);
 
 	
 	/** 공방 등록 여부 확인 Service

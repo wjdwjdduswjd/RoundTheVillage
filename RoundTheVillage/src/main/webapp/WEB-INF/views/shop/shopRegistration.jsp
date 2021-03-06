@@ -246,7 +246,7 @@
                 
        		<!-- 파일 업로드 하는 부분 -->
 				<div id="fileArea">
-					<input type="file" id="img0" name="image" onchange="LoadImg(this,0)"> 
+					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
 				</div>
                 <!-- 공방 썸네일 소개 글 -->
                 <div>
@@ -340,17 +340,22 @@ $(".phone").on("input", function() {
    
 
 // 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
-$(function(){
+	$(function(){
 			$("#fileArea").hide(); // #fileArea 요소를 숨김.		
 			
 			$(".boardImg").on("click", function(){ // 이미지 영역이 클릭 되었을 때
 				
-
-				$("#img").click();
+				// 클릭한 이미지 영역 인덱스 얻어오기
+				var index = $(".boardImg").index(this);
+						// -> 클릭된 요소가 .boardImg 중 몇번째 인덱스인지 반환
+						
+				//console.log(index);
+				
+				// 클릭된 영역 인덱스에 맞는 input file 태그 클릭
+				$("#img" + index).click();
 			});
 			
 		});
-		 
 		
 		
 	  // 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
