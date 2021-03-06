@@ -71,16 +71,51 @@
       <a id="menu" href="${contextPath}/board/list">후기게시판</a>
 
       <div class="dropdown">
+      <c:choose>
+				<%-- 로그인이 되어있지 않을 때 == session에 loginMember라는 값이 없을 때 --%>
+				<c:when test="${empty sessionScope.loginMember}">
       <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+      <script>
+						// 로그인이 안되있을 경우 마이페이지 클릭 시 경고창
+						var loginMemberId = "${loginMember.memberId}";
+						$("#nav-mypage").on("click", function() {
+								alert("로그인 후 이용해 주세요.");
+						});
+					</script>
+				</c:when>
+				
+				<%-- 관리자일 때 --%>
+				<c:when test="${!empty loginMember && (loginMember.memberType == 'A') }">
+					<a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관리페이지</a>
+				</c:when>
+				
+				
+			</c:choose>
+					
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
         	
         	<%-- 공방 회원만 보이기 --%>
         	<c:if test="${loginMember.memberType == 'C'}">
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
           </c:if>
+          
+          <%-- 일반/공방 회원 공통 서브 메뉴 --%>
+          <c:if test="${(loginMember.memberType == 'B') && (loginMember.memberType == 'C')}}">
           <a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
           <a class="dropdown-item" href="#">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
+          </c:if>
+          
+          <%-- 관리자일 때 --%>
+					<c:if test="${loginMember.memberType == 'A'}">
+						<a class="dropdown-item" href="#">회원조회</a>
+        	  <a class="dropdown-item" href="#">공방관리</a>
+        	  <a class="dropdown-item" href="#">배너관리</a>
+        	  <a class="dropdown-item" href="#">신고관리</a>
+        	  <!-- 고객센터 관련 메뉴는 아예 밑에 고객센터에 관리자 기준으로 넘기기 -->
+					</c:if>
+          
+          
         </div>
       </div>
      
