@@ -1,6 +1,6 @@
 package com.kh.RoundTheVillage.CScenter.model.vo;
 
-public class Attachment {
+public class NoticeAttachment {
 	
 	private int fileNo;
 	private String filePath;
@@ -8,17 +8,19 @@ public class Attachment {
 	private int fileLevel;
 	private int noticeNo;
 	
-	public Attachment() {
+	public NoticeAttachment() {
 	}
 	
-	public Attachment(String filePath, String fileName, int fileLevel, int noticeNo) {
+	
+
+	public NoticeAttachment(String filePath, String fileName, int fileLevel, int noticeNo) {
 		super();
 		this.filePath = filePath;
 		this.fileName = fileName;
 		this.fileLevel = fileLevel;
 		this.noticeNo = noticeNo;
 	}
-	
+
 
 	public int getFileNo() {
 		return fileNo;

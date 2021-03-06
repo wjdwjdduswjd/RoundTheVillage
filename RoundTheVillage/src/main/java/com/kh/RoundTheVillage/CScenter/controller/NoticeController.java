@@ -22,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.CScenter.model.service.NoticeService;
-import com.kh.RoundTheVillage.CScenter.model.vo.Attachment;
+import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Attachment;
+import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 
 @Controller // 컨트롤러 + 빈 등록
@@ -67,7 +69,7 @@ public class NoticeController {
 		
 		if (notice != null) { // 상세조회성공
 			
-			List<Attachment> attachmentList = service.selectAttachmentList(noticeNo);
+			List<NoticeAttachment> attachmentList = service.selectAttachmentList(noticeNo);
 
 			if (attachmentList != null && !attachmentList.isEmpty()) { // 조회된 이미지 목록이 있을 경우
 				model.addAttribute("attachmentList", attachmentList);
@@ -109,9 +111,9 @@ public class NoticeController {
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
 		
-		System.out.println("noticeTitle"+notice.getNoticeTitle());
+		//System.out.println("noticeTitle"+notice.getNoticeTitle());
 		
-		//System.out.println("map:" + map);
+		System.out.println("map:" + map);
 		
 		String savePath = null;
 		
@@ -144,50 +146,77 @@ public class NoticeController {
 	}
 	
 	
-	
 	// summernote에 업로드된 이미지 저장 Controller
-		@ResponseBody // 응답시 값 자체를 돌려보냄
-		@RequestMapping("insertImage")
-		public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
+	@ResponseBody // 응답시 값 자체를 돌려보냄
+	@RequestMapping("insertImage")
+	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
-			// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
-			String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
+		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
+		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 
-			Attachment at = service.insertImage(uploadFile, savePath);
+		NoticeAttachment at = service.insertImage(uploadFile, savePath);
 
-			// Java -> js로 객체 전달 : JSON
-			return new Gson().toJson(at);
+		// Java -> js로 객체 전달 : JSON
+		return new Gson().toJson(at);
+	}
+
+	// 게시글 수정 화면 전환 ----------------------------------------------------------
+	@RequestMapping("{noticeNo}/update")
+	public String update(@PathVariable("noticeNo") int noticeNo, Model model) {
+
+		Notice notice = service.selectNotice(noticeNo);
+
+		if (notice != null) {
+
+			List<NoticeAttachment> attachmentList = service.selectAttachmentList(noticeNo);
+
+			model.addAttribute("attachmentList", attachmentList);
+
 		}
-	
-	
-	
+
+		model.addAttribute("notice", notice);
+
+		return "CScenter/noticeUpdate";
+	}
+		
 	// 게시글 수정 -------------------------------------------------------------------
-	//@RequestMapping("{noticeNo}/updateAction")
-	//public String updateAction(@PathVariable ("noticeNo") int noticeNo,
-							   //@ModelAttribute Notice updateNotice,
-							  // Model model, RedirectAttributes ra,
-							   //HttpServletRequest request) {
-		/*
+	@RequestMapping("{noticeNo}/updateAction")
+	public String updateAction(@PathVariable ("noticeNo") int noticeNo,
+							   @ModelAttribute Notice updateNotice,
+							   Model model, RedirectAttributes ra,
+							   HttpServletRequest request) {
+		
 		// noticeNo를 updateNotice에 세팅
 		updateNotice.setNoticeNo(noticeNo);
 		
-		System.out.println(updateNotice);
+		//System.out.println(updateNotice);
 		
 		// 파일 저장 경로 얻어오기
 		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
 		
 		// 게시글 수정
-	    int result = service.updateNotice(updateNotice);
-	    
-	    String url = null;
-	    
-	    
-	    
-	    
-	     
-		return url;
-	}*/
-	
+	      int result = service.updateNotice(updateNotice);
+	      
+	      String url = null;
+	      
+	      if(result > 0) {
+	         swalIcon = "success";
+	         swalTitle = "게시글 수정 성공";
+	         url = "redirect:../" + noticeNo;
+	         
+	      }else {
+	         swalIcon = "error";
+	         swalTitle = "게시글 수정 실패";
+	         url = "redirect:" + request.getHeader("referer");
+	      }
+	      
+	      ra.addFlashAttribute("swalIcon", swalIcon);
+	      ra.addFlashAttribute("swalTitle", swalTitle);
+	      
+	      return url;
+
+	}
+
 	
 	
 	
