@@ -4,7 +4,7 @@ transform: skew(-0.001deg); }
 
 
 .container{
-	height: 1400px;
+	height: 1600px;
 }
 
 .mypageInfo{
@@ -36,7 +36,7 @@ h3{margin: 0 0 0 0}
 
 
 .myInfo{
-	height : 1080px;
+	height : 1170px;
 	background-color: #F8F8F8;
 }
 
@@ -60,12 +60,14 @@ h3{margin: 0 0 0 0}
 .output{
 	display: inline-block;
 }
-
-.input-area{
-	border:1px solid #dfdfdf;	 
-	height: 35px;
-	width: 35%;
+input{
+    width: 100%;
+    height: 40px;
+    border:1px solid #dfdfdf;	 
+    border-radius:5px;
 }
+
+
 
 .chagePwd{
 	  width: 130px;
@@ -76,7 +78,10 @@ h3{margin: 0 0 0 0}
 		color:rgb(255, 255, 255);
     border-radius:5px;
 }
-
+input::placeholder { 
+	font-size: 90%;
+	padding: 10px 10px; 
+}
 
 
 /* 관심분야 체크박스 버튼 관련 */
@@ -149,14 +154,13 @@ h3{margin: 0 0 0 0}
 /* 검색 버튼 */
 .search_button{
     width: 85px;
-    height: 35px;
+    height: 40px;
     margin-left: 10px;
     border:1px solid #dfdfdf;	 
 		background:#5B3929;
 		color:rgb(255, 255, 255);
     border-radius:5px;
     float: left;
-    margin-top: 4px;
 }
 
 
@@ -194,7 +198,26 @@ h3{margin: 0 0 0 0}
 }
 
 
+/* 유효성 검사 */
+.check{
+padding-top: 2px;
+padding-left: 3px;
+height: 10px; 
+text-align: left;
+font-size: 13px;
+}
 
+/* 이메일 인증 버튼 */
+.email_button{
+    width: 110px;
+    height: 41px;
+    margin-left: 10px;
+    border:1px solid #dfdfdf;	 
+		background:#5B3929;
+		color:rgb(255, 255, 255);
+    border-radius:5px;
+    float: right;
+}
 
 
 

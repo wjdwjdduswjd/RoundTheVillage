@@ -261,42 +261,41 @@
 		});
 
 		// 비밀번호 유효성 및 일치 검사
-		$("#pwd1, #pwd2")
-				.on("input",function() {
-							//영어 대,소문자 + 숫자, 총 6~12글자
-							var regExp = /^[A-Za-z0-9]{6,12}$/;
+		$("#pwd1, #pwd2").on("input",function() {
+			//영어 대,소문자 + 숫자, 총 6~12글자
+			var regExp = /^[A-Za-z0-9]{6,12}$/;
 
-							// 비밀번호1 유효성 검사
-							if (!regExp.test($("#pwd1").val())) {
-								$("#checkPwd1").text("비밀번호 형식이 유효하지 않습니다.")
-										.css("color", "red");
-								signUpCheck.pwd1 = false;
-							} else {
-								$("#checkPwd1").text("유효한 비밀번호 형식입니다.").css(
-										"color", "green");
-								signUpCheck.pwd1 = true;
-							}
+			// 비밀번호1 유효성 검사
+			if (!regExp.test($("#pwd1").val())) {
+				$("#checkPwd1").text("비밀번호 형식이 유효하지 않습니다.")
+						.css("color", "red");
+				signUpCheck.pwd1 = false;
+			} else {
+				$("#checkPwd1").text("유효한 비밀번호 형식입니다.").css(
+						"color", "green");
+				signUpCheck.pwd1 = true;
+			}
 
-							// 비밀번호1이 유효하지 않은 상태로 비밀번호 2를 작성하는 경우
-							if (!signUpCheck.pwd1 && $pwd2.val().length > 0) {
-								alert("유효한 비밀번호를 작성해 주세요.");
-								$pwd2.val("");
-								$pwd1.focus();
-							} else if (signUpCheck.pwd1
-									&& $pwd2.val().length > 0) {
-								if ($("#pwd1").val().trim() != $("#pwd2").val()
-										.trim()) {
-									$("#checkPwd2").text("비밀번호 불일치").css(
-											"color", "red");
-									signUpCheck.pwd2 = false;
-								} else {
-									$("#checkPwd2").text("비밀번호 일치").css(
-											"color", "green");
-									signUpCheck.pwd2 = true;
-								}
-							}
+			// 비밀번호1이 유효하지 않은 상태로 비밀번호 2를 작성하는 경우
+			if (!signUpCheck.pwd1 && $pwd2.val().length > 0) {
+				alert("유효한 비밀번호를 작성해 주세요.");
+				$pwd2.val("");
+				$pwd1.focus();
+			} else if (signUpCheck.pwd1
+					&& $pwd2.val().length > 0) {
+				if ($("#pwd1").val().trim() != $("#pwd2").val()
+						.trim()) {
+					$("#checkPwd2").text("비밀번호 불일치").css(
+							"color", "red");
+					signUpCheck.pwd2 = false;
+				} else {
+					$("#checkPwd2").text("비밀번호 일치").css(
+							"color", "green");
+					signUpCheck.pwd2 = true;
+				}
+			}
 
-						});
+		});
 
 		// 이메일 유효성 검사
 		$email.on("input",

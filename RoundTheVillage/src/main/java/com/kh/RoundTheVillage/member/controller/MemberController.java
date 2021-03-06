@@ -316,10 +316,32 @@ public class MemberController {
 			
 			updateMember.setMemberNo( loginMember.getMemberNo() );
 			
-			//int result = service.updateAction(updateMember); 
+			int result = service.updateAction(updateMember); 
+			//System.out.println(result);
 			
+			if(result > 0) {
+				swalIcon = "success";
+				swalTitle = "회원 정보 수정 성공";
+				
+				//변경된 정보를 loginMember 변수에 저장
+				loginMember.setMemberNickname(updateMember.getMemberNickname() );
+				loginMember.setMemberAddr(updateMember.getMemberAddr() );
+				loginMember.setMemberIntrs(updateMember.getMemberIntrs() );
+				
+				// 변경된 정보가 담긴 loginMember 변수를 다시  Session에 추가
+				model.addAttribute("loginMember", loginMember);
+				
+			// 실패 시 : error, 회원 정보 수정 실패
+			}else {  
+				swalIcon = "error";
+				swalTitle = "회원 정보 수정 실패";
+			}
 			
-			return null;
+			ra.addFlashAttribute("swalIcon", swalIcon);
+			ra.addFlashAttribute("swalTitle", swalTitle);
+			
+			return "member/myInfoChange";
+			
 		}
 		
 		

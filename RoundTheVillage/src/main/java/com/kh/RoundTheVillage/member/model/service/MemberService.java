@@ -61,10 +61,17 @@ public interface MemberService {
 	public abstract int updatePwd(Map<String, Object> map);
 
 
+
 	
 	//------------------------------------------------------------------------------------------------------
 	//마이페이지 관련
 	
+	/** 마이페이지 정보 수정
+	 * @param updateMember
+	 * @return result
+	 */
+	public abstract int updateAction(Member updateMember);
+
 
 	
 	
