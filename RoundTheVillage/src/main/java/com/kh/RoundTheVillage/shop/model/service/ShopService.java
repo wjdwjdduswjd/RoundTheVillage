@@ -97,6 +97,14 @@ public interface ShopService {
 	 */
 	public abstract int selectLikeCount(int shopNo);
 
+	/** 공방 수정 Service
+	 * @param shop
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	public abstract int updateShop(Shop shop, List<MultipartFile> images, String savePath);
+
 
 
 	

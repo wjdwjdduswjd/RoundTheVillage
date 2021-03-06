@@ -135,6 +135,47 @@ public class ShopDAO {
 	public int selectLikeCount(int shopNo) {
 		return sqlSession.selectOne("shopMapper.selectLikeCount", shopNo);
 	}
+
+	/** 공방 정보 수정 DAO
+	 * @param shop
+	 * @return result
+	 */
+	public int updateShop(Shop shop) {
+		return sqlSession.update("shopMapper.updateShop", shop);
+	}
+
+	
+	/** 이미지 목록 조회 DAO
+	 * @param shopNo
+	 * @return attachementList
+	 */
+	public List<ShopAttachment> selectShopAttachmentList(int shopNo) {
+		return sqlSession.selectList("shopMapper.selectShopAttachmentList", shopNo);
+	}
+
+	/** 이미지 정보 수정 DAO
+	 * @param at
+	 * @return result
+	 */
+	public int updateShopAttachment(ShopAttachment at) {
+		return sqlSession.update("shopMapper.updateShopAttachment", at);
+	}
+
+	/** 이미지 정보 삽입 DAO
+	 * @param at
+	 * @return result
+	 */
+	public int insertShopAttachment(ShopAttachment at) {
+		return sqlSession.insert("shopMapper.insertShopAttachment", at);
+	}
+ 
+	/** 이미지 정보 일괄 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return reulst
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("shopMapper.deleteAttachmentList", deleteFileNoList);
+	}
 	
 
 
