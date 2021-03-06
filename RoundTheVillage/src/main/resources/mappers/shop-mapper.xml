@@ -18,6 +18,8 @@
 	<resultMap type="ShopAttachment" id="shopAttachment_rm">
 
 		<id property="fileNo" column="FILE_NO" />
+		
+		<result property="fileLevel" column="FILE_LEVEL" />
 		<result property="filePath" column="FILE_PATH" />
 		<result property="fileName" column="FILE_NAME" />
 		<result property="shopNo" column="CRAFTSHOP_NO" />
@@ -25,25 +27,31 @@
 	</resultMap>
 
 	<!-- 공방 등록 여부 확인 -->
-	<select id="selectRegistrationFlag" parameterType="_int" resultType="_int">
-		SELECT DECODE((SELECT MAX(SHOP_REGI_FL) 
-			FROM CRAFTSHOP WHERE CRAFTSHOP_NO = #{memberNo}),'Y',1,'N',0,-1 ) RES
-		FROM DUAL
+	<select id="selectRegistrationFlag" parameterType="_int"
+		resultType="_int">
+		SELECT DECODE((SELECT MAX(SHOP_REGI_FL)
+		FROM CRAFTSHOP WHERE CRAFTSHOP_NO = #{memberNo}),'Y',1,'N',0,-1 ) RES
+		FROM
+		DUAL
 	</select>
 
 	<!-- 공방 정보 조회(+ 카테고리명) -->
 	<select id="selectShop" parameterType="_int" resultMap="shop_rm">
-		SELECT * FROM CRAFTSHOP
+		SELECT *
+		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING(CS_CATE_NO)
-		WHERE CRAFTSHOP_NO = #{memberNo}
+		WHERE CRAFTSHOP_NO =
+		#{memberNo}
 	</select>
 
 	<!-- 공방 좋아요 개수 조회 -->
-	<select id="selectCsGoodCount" parameterType="_int" resultType="_int">
+	<select id="selectCsGoodCount" parameterType="_int"
+		resultType="_int">
 		SELECT COUNT(*) FROM CS_GOOD
-		WHERE CRAFTSHOP_NO = #{memberNo}	
+		WHERE CRAFTSHOP_NO =
+		#{memberNo}
 	</select>
-	
+
 
 
 	<select id="selectShopList" resultMap="shop_rm">
@@ -60,16 +68,30 @@
 
 	<!-- 공방 등록 -->
 	<insert id="registrateShop" parameterType="Shop">
-		INSERT INTO CRAFTSHOP VALUES
+		INSERT INTO CRAFTSHOP
+		VALUES
 		(#{shopNo}, #{shopOwnerName},
-		#{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo})
+		#{shopName},#{shopAdress},#{shopInfo},#{shopContact},#{shopCategoryNo},#{thumbInfo},
+		DEFAULT)
 	</insert>
-	
-	<!--공방 번호 조회 -->
-	<select id = "selectshopNo" resultMap="shop_rm">
-	SELECT CRAFTSHOP_NO FROM CRAFTSHOP
-WHERE CRAFTSHOP_NO = #{shopNo};
-	</select>
+
+
+
+	<!--파일 정보 삽입 (List 이용) -->
+
+	<insert id="insertAttachmentList" parameterType="list">
+		INSERT INTO CS_FILE
+		SELECT SEQ_SFNO.NEXTVAL, A.* FROM (
+
+		<foreach collection="list" item="item" separator=" UNION ALL ">
+			SELECT #{item.filePath} FILE_PATH,
+			#{item.fileName} FILE_NAME,
+			#{item.shopNo} CRAFTSHOP_NO,
+			#{item.fileLevel} FILE_LEVEL
+			FROM DUAL
+		</foreach>
+		) A
+	</insert>
 
 
 

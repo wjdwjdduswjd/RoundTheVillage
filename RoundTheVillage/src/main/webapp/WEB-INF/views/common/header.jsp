@@ -75,7 +75,7 @@
         <div class="dropdown-menu mypage" aria-labelledby="dropdownMenuLink">
         	
         	<%-- 공방 회원만 보이기 --%>
-        	<c:if test="${loginMember.memberType == 'C' }">
+        	<c:if test="${loginMember.memberType == 'C'}">
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
           </c:if>
           <a class="dropdown-item" href="${contextPath}/mypage/myInfoChange">내정보수정</a>
