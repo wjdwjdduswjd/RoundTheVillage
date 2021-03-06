@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,7 +54,7 @@ public class BannerController {
 	@ResponseBody
 	public String selectDate(@RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("date") int date) {
         
-        List<String> dList = service.selectDate(year, month, date);
+        Set<String> dList = service.selectDate(year, month, date);
 		return new Gson().toJson(dList);
 	}
 	
@@ -104,6 +105,11 @@ public class BannerController {
 		model.addAttribute("banner", banner);
 		
 		return "banner/payView";
+	}
+	
+	@RequestMapping("list")
+	public String list() {
+		return "banner/list";
 	}
 	
 	@RequestMapping("reg")
