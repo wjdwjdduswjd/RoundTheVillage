@@ -14,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.RoundTheVillage.board.model.dao.BoardDAO;
+import com.kh.RoundTheVillage.board.model.exception.InsertAttachmentFailException;
 import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
-import com.kh.RoundTheVillage.board.model.exception.InsertAttachmentFailException;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 
 @Service // 서비스임을 알려줌 + bean 등록
 public class BoardServiceImpl implements BoardService {
@@ -28,17 +29,17 @@ public class BoardServiceImpl implements BoardService {
 
 	// 전체 게시글 수 조회
 	@Override
-	public PageInfo getPageInfo(int cp) {
+	public PageInfo getPageInfo(int cp, String ct) {
 
-		int listCount = dao.getListCount(cp);
+		int listCount = dao.getListCount(ct);
 
 		return new PageInfo(cp, listCount);
 	}
 
 	// 게시글 목록 조회
 	@Override
-	public List<Board> selectList(PageInfo pInfo) {
-		return dao.selectList(pInfo);
+	public List<Board> selectList(PageInfo pInfo, String ct) {
+		return dao.selectList(pInfo, ct);
 	}
 
 	// 썸네일 목록 조회
@@ -230,6 +231,29 @@ public class BoardServiceImpl implements BoardService {
 
 		return result;
 	}
+	
+	// 게시글 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateBoard(Board updateBoard, List<MultipartFile> images, String savePath, boolean[] deleteImages) {
+
+		updateBoard.setBoardTitle(replaceParameter(updateBoard.getBoardTitle()));
+		updateBoard.setBoardContent(replaceParameter(updateBoard.getBoardContent()));
+		
+		int result = dao.updateBoard(updateBoard);
+		
+		
+		
+		
+		return 0;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public Attachment insertImage(MultipartFile uploadFile, String savePath) {
@@ -289,8 +313,32 @@ public class BoardServiceImpl implements BoardService {
 	public int selectLikeCount(int boardNo) {
 		return dao.selectLikeCount(boardNo);
 	}
-	
-	
+	// 게시글 신고 중복검사 Service 구현
+	@Override
+	public int findReport(Map<String, Object> map) {
+		return dao.findReport(map);
+	}
+
+	// 게시글 신고 Service 구현
+	@Override
+	public int reportBoard(Map<String, Object> map) {
+		return dao.reportBoard(map);
+	}
+
+	// 검색어 포함 게시글 개수 조회 Service 구현
+	@Override
+	public PageInfo selectSearchListCount(Search search, int cp) {
+		int listCount =  dao.selectSearchListCount(search);
+		return new PageInfo(cp, listCount);
+	}
+
+	// 검색어 포함 게시글 목록 조회 Service
+	@Override
+	public List<Board> selectSearchList(PageInfo pInfo, Search search) {
+		return dao.selectSearchList(pInfo, search);
+	}
+
+
 	
 	
 	
