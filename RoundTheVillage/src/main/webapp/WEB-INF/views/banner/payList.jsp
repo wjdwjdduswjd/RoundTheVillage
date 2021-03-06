@@ -12,17 +12,17 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
 
-    <h5 class="mt-5 mb-4">결제 내역</h5>
+    <h4 class="mt-5 mb-4">결제 내역</h4>
     <div class="row p-3 pt-4 bg-light rounded mb-5">
     		<c:forEach var="banner" items="${bList}">
 		        <div class="col-md-12">
 		            <div class="d-flex justify-content-between bb">
 		                <span class="">${banner.payDate}</span>
-		                <a href="view/${banner.banNo}" class="ahover">내역 상세 보기 ></a>
+		                <a href="payView/${banner.banNo}" class="ahover">내역 상세 보기 ></a>
 		            </div>
 		            <div class="d-flex justify-content-left py-4 mb-5 bb">
 		                <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="rounded img-responsive w-50">
-		                <div class="p-4">
+		                <div class="p-3">
 		                    <div class="mb-3">
 		                        <strong class="col-md-2">기간</strong>
 		                        <span class="">${banner.startDate} ~ ${banner.endDate}</span>
@@ -30,6 +30,19 @@
 		                    <div>
 		                        <strong class="col-md-2">금액</strong>
 		                        <span class="">${banner.payAmt}원</span>
+		                    </div>
+		                    <div class=p-3>
+					                	<c:choose>
+						                	<c:when test="${banner.aprvlFl == 'Y'.charAt(0)}">
+						                		<span class="badge badge-around">승인 완료</span>
+						               		</c:when>
+						                	<c:otherwise>
+						                		<span class="badge badge-around">미승인</span>
+															</c:otherwise>
+					                	</c:choose>
+														<c:if test="${banner.bannerFl == 'Y'.charAt(0)}">
+																<span class="badge badge-around">취소됨</span>
+														</c:if>
 		                    </div>
 		                </div>
 		            </div>
@@ -40,7 +53,7 @@
  		<!--------------------------------- pagination  ---------------------------------->
 		<div class="my-4">
 			<ul class="pagination justify-content-center">
-				<c:url var="pageUrl" value="list?"/>
+				<c:url var="pageUrl" value="payList?"/>
 
 				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 				<c:set var="firstPage" value="${pageUrl}cp=1"/>
@@ -83,7 +96,7 @@
 		<!-- ---------------------------------------------------------------------------------- -->
 		
 		<%-- 목록으로 버튼에 사용할 URL 변수 선언 --%>
-		<c:set var="returnListURL" value="${contextPath}/pay/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
+		<c:set var="returnListURL" value="${contextPath}/banner/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 </div>
 <jsp:include page="../common/footer.jsp" />
 </body>
