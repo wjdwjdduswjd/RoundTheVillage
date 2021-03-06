@@ -96,9 +96,9 @@
 	
 	<!-- 수업 목록 조회  -->
 	<select id = "selectlesList" parameterType = "_int" resultMap = "lesson_rm">
-	SELECT LES_TITLE FROM LESSON
+	SELECT LES_NO, LES_TITLE FROM LESSON
 	JOIN CRAFTSHOP USING(CRAFTSHOP_NO)
-	WHERE CRAFTSHOP_NO = #{craftshopNo}
+	WHERE CRAFTSHOP_NO = #{shopNo}
 	</select>
 	
 		<!-- 수업 썸네일 조회  -->

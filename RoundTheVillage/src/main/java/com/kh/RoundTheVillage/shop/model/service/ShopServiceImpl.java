@@ -33,10 +33,19 @@ public class ShopServiceImpl implements ShopService {
 
 	// 수업 리스트 조회 Service 구현
 	@Override
-	public List<Lesson> selectlesList() {
+	public List<Lesson> selectlesList(int shopNo) {
 
-		return dao.selectlesList();
+		return dao.selectlesList(shopNo);
 	}
+	
+	
+	// 썸네일 가져오기 
+	@Override
+	public ShopAttachment selectThumb(int shop) {
+		
+		return dao.selectThumb(shop);
+	}
+
 
 	// 수업 썸네일 목록 조회 Service 구현
 	@Override
@@ -56,6 +65,18 @@ public class ShopServiceImpl implements ShopService {
 
 		return dao.selectRegistrationFlag(memberNo);
 	}
+	
+	
+	// 리뷰 목록 가져오기
+	@Override
+	public List<Lesson> selectReviewList(int shopNo) {
+		return dao.selectReviewList(shopNo);
+	}
+
+	
+
+	
+	
 
 	// 공방 등록 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -249,5 +270,8 @@ public class ShopServiceImpl implements ShopService {
 
 		return at;
 	}
+
+	
+
 
 }

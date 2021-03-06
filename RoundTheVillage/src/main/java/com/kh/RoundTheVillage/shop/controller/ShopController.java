@@ -43,30 +43,45 @@ public class ShopController {
 		// 공방 상세조회 Service 호출
 		Shop shop = service.selectShop(shopNo);
 
-		// 좋아요
-		int csGoodCount = service.selectCsGoodCount(shopNo);
+		if (shop != null) { // 상세조회 성공 시
 
-		model.addAttribute("shop", shop);
+			ShopAttachment thumb = service.selectThumb(shopNo);
 
-		model.addAttribute("csGoodCount", csGoodCount);
+			// 조회된 이미지 목록이 있을 경우
+			if (thumb != null) {
 
-		// 수업 리스트 가져오기
+				model.addAttribute("thumb", thumb);
 
-		List<Lesson> lesList = service.selectlesList();
-
-		if (lesList != null && !lesList.isEmpty()) { // 게시글 목록 조회 성공 시
-			List<LessonFile> thumbnailList = service.selectThumbnailList(lesList);
-
-			if (thumbnailList != null) {
-
-				model.addAttribute("thList", thumbnailList);
 			}
+
+			// 좋아요
+			int csGoodCount = service.selectCsGoodCount(shopNo);
+
+			model.addAttribute("shop", shop);
+
+			model.addAttribute("csGoodCount", csGoodCount);
+
+			// 수업 리스트
+			// 가져오기----------------------------------------------------------------------------------
+
+			List<Lesson> lesList = service.selectlesList(shopNo);
+
+			if (lesList != null && !lesList.isEmpty()) { // 게시글 목록 조회 성공 시
+				List<LessonFile> thumbnailList = service.selectThumbnailList(lesList);
+
+				if (thumbnailList != null) {
+
+					model.addAttribute("thList", thumbnailList);
+				}
+			}
+			model.addAttribute("lesList", lesList);
+
+			// 리뷰 목록 가져 오기----------------------------------------
 
 		}
 
-		model.addAttribute("lesList", lesList);
-
 		return "shop/shopView";
+
 	}
 
 	// 공방 등록 화면 전환용 Controller
