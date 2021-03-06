@@ -1,5 +1,7 @@
 package com.kh.RoundTheVillage.lesson.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,21 +26,34 @@ public class LessonDAO {
 		return session.selectOne("lessonMapper.selectNextNo");
 	}
 	
-	public List<Lesson> selectList() {
-		return session.selectList("lessonMapper.selectList");
+	public Map<String, List> selectList(Map<String, Object> searchMap) {
+		Map<String, List> map = new HashMap<String, List>();
+		List<Lesson> list = new ArrayList<Lesson>();
+		List<LessonFile> fileList = new ArrayList<LessonFile>();
+		List<Shop> shopList = new ArrayList<>();
+		List<Lesson> sumParti = new ArrayList<>();
+		list = session.selectList("lessonMapper.selectList", searchMap);
+		fileList = session.selectList("lessonMapper.selectFileList");
+		shopList = session.selectList("shopMapper.selectShopList");
+		sumParti = session.selectList("lessonMapper.selectSumParti");
+		map.put("list", list);
+		map.put("fileList", fileList);
+		map.put("shopList", shopList);
+		map.put("sumParti", sumParti);
+		return map;
 	}
 
-	public List<LessonFile> selectFileList() {
-		return session.selectList("lessonMapper.selectFileList");
-	}
-	
-	public List<Shop> selectShopList() {
-		return session.selectList("shopMapper.selectShopList");
-	}
-	
-	public List<Lesson> selectSumParti() {
-		return session.selectList("lessonMapper.selectSumParti");
-	}
+//	public List<LessonFile> selectFileList() {
+//		return session.selectList("lessonMapper.selectFileList");
+//	}
+//	
+//	public List<Shop> selectShopList() {
+//		return session.selectList("shopMapper.selectShopList");
+//	}
+//	
+//	public List<Lesson> selectSumParti() {
+//		return session.selectList("lessonMapper.selectSumParti");
+//	}
 	
 	public Lesson selectLesson(int lesNo) {
 		return session.selectOne("lessonMapper.selectLesson", lesNo);

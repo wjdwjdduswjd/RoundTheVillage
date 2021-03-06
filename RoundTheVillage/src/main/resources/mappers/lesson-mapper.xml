@@ -34,8 +34,28 @@
 		SELECT SEQ_LNO.NEXTVAL FROM DUAL
 	</select>
 	
-	<select id="selectList" resultMap="lesson_rm">
-		SELECT * FROM LESSON
+	<select id="selectList" parameterType="map" resultMap="lesson_rm">
+		SELECT * FROM LESSON JOIN CRAFTSHOP USING(CRAFTSHOP_NO)
+		WHERE LES_FL = 'N'
+			<if test="minPrice != null">
+				<![CDATA[AND LES_PRICE >= #{minPrice}]]>
+			</if>
+			<if test="maxPrice != null">
+				<![CDATA[AND LES_PRICE <= #{maxPrice}]]>
+			</if>
+ 			<if test="category != null">
+				AND LES_CATEGORY IN 
+				<foreach collection="category" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			 <if test="region != null">
+				AND CRAFTSHOP_ADDR LIKE '%' || #{region} || '%'
+			</if>
+			<if test="region2 != null">
+				AND CRAFTSHOP_ADDR LIKE '%' || #{region2} || '%'
+			</if> 
+		
 	</select>
 	
 	<select id="selectFileList" resultMap="lessonfile_rm">
@@ -73,7 +93,6 @@
 		SELECT * FROM LESSON_FILE 
 		WHERE LES_NO = #{lesNo}
 	</select>
-	
 	
 	<!-- 수업 목록 조회  -->
 	<select id = "selectlesList" parameterType = "_int" resultMap = "lesson_rm">

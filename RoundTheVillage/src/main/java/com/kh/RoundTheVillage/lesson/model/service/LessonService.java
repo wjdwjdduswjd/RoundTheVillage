@@ -45,25 +45,21 @@ public class LessonService {
 		return date + str + ext;
 	}
 	
-	public List<Lesson> selectList() {
-		return dao.selectList();
+	public Map<String, List> selectList(Map<String, Object> searchMap) {
+		return dao.selectList(searchMap);
 	}
 	
-	public List<LessonFile> selectFileList() {
-		return dao.selectFileList();
-	}
-	
-	public List<Shop> selectShopList() {
-		return dao.selectShopList();
-	}
-	
-	public Lesson selectLesson(int lesNo) {
-		return dao.selectLesson(lesNo);
-	}
-
-	public List<LessonDetail> selectDetailList(int lesNo) {
-		return dao.selectDetailList(lesNo);
-	}
+//	public List<LessonFile> selectFileList() {
+//		return dao.selectFileList();
+//	}
+//	
+//	public List<Shop> selectShopList() {
+//		return dao.selectShopList();
+//	}
+//	
+//	public List<Lesson> selectSumParti() {
+//		return dao.selectSumParti();
+//	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public int insertInfo(Lesson lesson) {
@@ -122,12 +118,12 @@ public class LessonService {
 		return result;
 	}
 
+	public Lesson selectLesson(int lesNo) {
+		return dao.selectLesson(lesNo);
+	}
+	
 	public int selectNextNo() {
 		return dao.selectNextNo();
-	}
-
-	public List<Lesson> selectSumParti() {
-		return dao.selectSumParti();
 	}
 
 	public LessonFile selectFile(int lesNo) {
@@ -136,6 +132,10 @@ public class LessonService {
 
 	public Shop selectShopInfo(int shopNo) {
 		return dao.selectShopInfo(shopNo);
+	}
+	
+	public List<LessonDetail> selectDetailList(int lesNo) {
+		return dao.selectDetailList(lesNo);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

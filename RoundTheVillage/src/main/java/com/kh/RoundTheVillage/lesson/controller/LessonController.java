@@ -36,20 +36,46 @@ public class LessonController {
 	LessonService service;
 	
 	@GetMapping("/lesson")
-	public String list(Model model) {
+	public String list(Model model,
+					   String region, String region2, String minPrice, String maxPrice,
+					   @RequestParam(value="category[]", required=false) String[] category) {
 		List<Lesson> list = new ArrayList<Lesson>();
 		List<LessonFile> fileList = new ArrayList<LessonFile>();
 		List<Shop> shopList = new ArrayList<>();
 		List<Lesson> sumParti = new ArrayList<>();
-		list = service.selectList();
-		fileList = service.selectFileList();
-		shopList = service.selectShopList();
-		sumParti = service.selectSumParti();
-		model.addAttribute("list", list);
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("shopList", shopList);
-		model.addAttribute("sumParti", sumParti);
+		Map<String, List> map = new HashMap<String, List>();
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("region", region);
+		searchMap.put("region2", region2);
+		searchMap.put("category", category);
+		searchMap.put("minPrice", minPrice);
+		searchMap.put("maxPrice", maxPrice);
+		map = service.selectList(searchMap);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("fileList", map.get("fileList"));
+		model.addAttribute("shopList", map.get("shopList"));
+		model.addAttribute("sumParti", map.get("sumParti"));
 		return "lesson/list";
+	}
+	
+	@ResponseBody
+	@GetMapping("/lesson/search")
+	public Map<String, List> searchList(Model model,
+			String region, String region2, String minPrice, String maxPrice,
+			@RequestParam(value="category[]", required=false) String[] category) {
+		List<Lesson> list = new ArrayList<Lesson>();
+		List<LessonFile> fileList = new ArrayList<LessonFile>();
+		List<Shop> shopList = new ArrayList<>();
+		List<Lesson> sumParti = new ArrayList<>();
+		Map<String, List> map = new HashMap<String, List>();
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("region", region);
+		searchMap.put("region2", region2);
+		searchMap.put("category", category);
+		searchMap.put("minPrice", minPrice);
+		searchMap.put("maxPrice", maxPrice);
+		map = service.selectList(searchMap);
+		return map;
 	}
 	
 	@GetMapping("/lesson/view/{lesNo}")
