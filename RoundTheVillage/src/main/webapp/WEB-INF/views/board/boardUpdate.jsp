@@ -145,7 +145,7 @@ body {
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>공방</b></span> 
-              		 잔산플라워
+              		  ${board.lessonTitle}
               </p>
             </div>
             <div class="col-md-5 px-3">
@@ -187,7 +187,7 @@ body {
     <!--   <div class="col-md-2">
       </div> -->
  
- 
+ 	<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

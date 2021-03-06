@@ -108,6 +108,16 @@ body {
 </style>
 
 <body>
+
+<c:if test="${!empty swalTitle}">
+      <script>
+         swal({icon  : "${swalIcon}",
+              title : "${swalTitle}",
+              text  : "${swalText}"});
+      </script>
+   </c:if>
+
+
 	<jsp:include page="../common/header.jsp" />
 	<div class="container">
 		<div class="row">
@@ -171,11 +181,22 @@ body {
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신고</button>
 					</div>
 					<div class="col-md-4 text-right px-0 btnArea">
-						<span class="btnBtn"> <c:url var="updateUrl" value="${board.boardNo}/update" /> <c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
+						<span class="btnBtn"> <c:url var="updateUrl" value="${board.boardNo}/update" /> 
+							<c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
 								<a href="${updateUrl}" type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">수정</a>
-								<button type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">삭제</button>
-							</c:if>
-							<button type="button" class="btnBtn1 btn btn-primary btn-sm px-2 ">목록</button>
+									<button type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">삭제</button>
+								</c:if>
+								
+								<c:if test="${empty sessionScope.returnListURL}">
+									<c:set var="returnListURL" value="../list/${board.boardCode}" scope="session"/>
+								</c:if>
+								<a class="btnBtn1 btn btn-primary btn-sm px-2" href="${sessionScope.returnListURL}">목록</a> 
+								
+								
+								
+								
+								
+						<!-- 	<button type="button" class="btnBtn1 btn btn-primary btn-sm px-2">목록</button> -->
 						</span>
 					</div>
 				</div>
@@ -197,7 +218,7 @@ body {
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="px-3">
+					<div class="px-3"> 
 						<p>
 							<span class="pr-4">제목</span> ${board.boardTitle}
 						</p>
@@ -209,38 +230,42 @@ body {
 						<p>
 							<span class="pr-4">신고사유</span>
 						</p>
-
+				<form class="form-signin" method="post" action="report">
+						<input type="hidden" name="boardNo" value="${board.boardNo}">
+						<input type="hidden" name="memberNo" value="${loginMember.memberNo}">
 						<div class="custom-control custom-radio">
-							<input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"> <label class="custom-control-label" for="customRadio1">홍보성</label>
+							<input type="radio" id="customRadio1" name="reportRadio" class="custom-control-input" value="10" required> <label class="custom-control-label" for="customRadio1">홍보성</label>
 						</div>
 						<br>
 
 						<div class="custom-control custom-radio">
-							<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"> <label class="custom-control-label" for="customRadio2">비방</label>
+							<input type="radio" id="customRadio2" name="reportRadio" class="custom-control-input" value="20" > <label class="custom-control-label" for="customRadio2">비방</label>
 						</div>
 						<br>
 						<div class="custom-control custom-radio">
-							<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"> <label class="custom-control-label" for="customRadio2">도배</label>
+							<input type="radio" id="customRadio3" name="reportRadio" class="custom-control-input" value="30" > <label class="custom-control-label" for="customRadio3">도배</label>
 						</div>
 						<br>
 						<div class="custom-control custom-radio">
-							<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"> <label class="custom-control-label" for="customRadio2">개인정보 노출</label>
+							<input type="radio" id="customRadio4" name="reportRadio" class="custom-control-input" value="40" > <label class="custom-control-label" for="customRadio4">개인정보 노출</label>
 						</div>
 						<br>
 						<div class="custom-control custom-radio">
-							<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"> <label class="custom-control-label" for="customRadio2">기타</label>
+							<input type="radio" id="customRadio5" name="reportRadio" class="custom-control-input" value="50"  > <label class="custom-control-label" for="customRadio5">기타</label>
 						</div>
 
 
 						<div class="pt-5">
 							<span class="pr-4">상세내용</span>
-							<textarea class="mt-2" rows="5" style="resize: none; width: 100%;"></textarea>
+							<textarea class="mt-2" name="reportContent" rows="5" style="resize: none; width: 100%;"></textarea>
 						</div>
 
 						<div class="modal-btn-area my-4">
 							<button class="btn btn-group">신고하기</button>
+							</form>
 						</div>
 					</div>
+					
 
 
 
@@ -250,6 +275,8 @@ body {
 			</div>
 		</div>
 	</div>
+	
+		<jsp:include page="../common/footer.jsp" />
 
 
 	<script>
