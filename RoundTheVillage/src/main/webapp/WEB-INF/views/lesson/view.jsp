@@ -272,7 +272,6 @@ li {list-style: none;}
 			 	</div>
 			 	<div class="lesson-participant">
 			 		<img src="${contextPath}/resources/images/user.png">
-			 		인원수 n 명
 			 	</div>
 			 	<div class="lesson-date">
 			 	
@@ -340,8 +339,10 @@ li {list-style: none;}
 	maxDate.setDate(maxDate.getDate() + 30);
 	
 	var enabledate = [];
+	var participant = 0;
 	<c:forEach var="item" items="${detailList}">
 		enabledate.push("${item.lesDate}");
+		participant += ${item.lesParticipant};
 	</c:forEach>
 	
 	$(function() {
@@ -357,7 +358,9 @@ li {list-style: none;}
 			//daysOfWeekDisabled : [0,2,4,6],
   	  //maxDate: maxDate,
       //minDate: minDate
-	  }); 
+	  });
+	  
+	  $(".lesson-participant").append($("<span>").html("인원수 " + participant + "명"));
 	});
 	
 </script>
