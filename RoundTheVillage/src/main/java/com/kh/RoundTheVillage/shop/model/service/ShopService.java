@@ -51,13 +51,27 @@ public interface ShopService {
 	 * @param shopNo
 	 * @return
 	 */
-	public abstract List<Lesson> selectlesList();
+	public abstract List<Lesson> selectlesList(int shopNo);
 
 	/** 수업 썸네일 목록 조회
 	 * @param lesList
 	 * @return
 	 */
 	public abstract List<LessonFile> selectThumbnailList(List<Lesson> lesList);
+
+	/** 썸네일 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	public abstract ShopAttachment selectThumb(int shopNo);
+
+	/** 리뷰 목록 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	public abstract List<Lesson> selectReviewList(int shopNo);
+
+	
 
 
 

@@ -68,4 +68,13 @@
 		WHERE QUE_NO = #{queNo}
 	</update>
 	
+	<!--리뷰 목록 가져오기-->
+	
+	<select id ="selectReviewList" parameterType="_int" resultMap="lessonreview_rm">
+	SELECT REV_NO, REV_CONTENT, REV_CREATE_DT, LES_NO, MEM_NICKNAME
+	FROM V_SHOPVIEW
+	WHERE CRAFTSHOP_NO = #{shopNo}
+	</select>
+	
+
 </mapper>

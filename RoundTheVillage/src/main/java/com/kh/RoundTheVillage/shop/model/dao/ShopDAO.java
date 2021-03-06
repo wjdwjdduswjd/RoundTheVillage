@@ -58,8 +58,8 @@ public class ShopDAO {
 	 * @param shopNo
 	 * @return
 	 */
-	public List<Lesson> selectlesList() {
-		return sqlSession.selectList("lessonMapper.selectlesList");
+	public List<Lesson> selectlesList(int shopNo) {
+		return sqlSession.selectList("lessonMapper.selectlesList", shopNo);
 	}
 
 	/** 수업 썸네일 목록조회
@@ -79,6 +79,28 @@ public class ShopDAO {
 	public int insertAttachmentList(List<ShopAttachment> uploadImages) {
 		return sqlSession.insert("shopMapper.insertAttachmentList", uploadImages);
 	}
+
+	/** 썸네일 가져오기 
+	 * @param shopNo
+	 * @return
+	 */
+	public ShopAttachment selectThumb(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectThumb",shopNo);
+	}
+
+	
+	
+	/** 리뷰 목록 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	public List<Lesson> selectReviewList(int shopNo) {
+		
+		return sqlSession.selectList("lessonMapper2,selectReviewList",shopNo);
+		
+	}
+
+	
 
 
 

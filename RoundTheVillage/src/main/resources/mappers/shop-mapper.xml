@@ -92,7 +92,12 @@
 		</foreach>
 		) A
 	</insert>
-
-
+	
+	<!--썸네일 가져오기 -->
+<select id = "selectThumb" parameterType = "_int" resultMap = "shopAttachment_rm" >
+SELECT * FROM CS_FILE
+WHERE CRAFTSHOP_NO = #{shopNo}
+AND FILE_LEVEL = 0
+</select>
 
 </mapper>

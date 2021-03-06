@@ -66,6 +66,30 @@
 #review {
 	padding: 20px 20px 20px 20px;
 }
+
+.boardImg {
+	width: 400px;
+	height: 280px;
+}
+
+.boardImg>img {
+	width: 100%;
+	height: 100%;
+}
+
+.lesson {
+	padding: 30px;
+	cursor: pointer;
+}
+
+.lesson>img {
+	height: 100%;
+	width: 100%;
+}
+
+.lesson>p {
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -82,7 +106,7 @@
 
 				<div class="top" id="shopname" style="width: auto">
 					<p>
-						<h1 style="font-weight: bold;">${shop.shopName }</h1>
+					<h1 style="font-weight: bold;">${shop.shopName}</h1>
 					</p>
 				</div>
 				<div class="top" id="category" style="width: auto; font-size: 15px;">
@@ -93,6 +117,9 @@
 
 			<div class="top">
 
+				<div>
+					<button>좋아요</button>
+				</div>
 				<div class="likeArea" id="like">
 					<p>${csGoodCount}</p>
 				</div>
@@ -119,12 +146,17 @@
 
 		</div>
 
-
+		<!-- 썸네일 -->
 		<div class="top">
-			<img id="shopImg" name="thumbnail" width="800" height="200">
+			<label>썸네일</label>
+			<div class="boardImg" id="titleImgArea">
+				<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
+			</div>
 		</div>
 
-    <a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
+		<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
+			<a class="btn btn-success float-right" href="${contextPath}/shop/shopRegistrationUpdate" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
+		</c:if>
 
 
 
@@ -167,39 +199,35 @@
 							<label for="infoshop">공방소개</label>
 						</div>
 						<div class="col-md-7" style="height: auto;">
-			<%
-						pageContext.setAttribute("newLine", "\n");
-					%>
+							<%
+								pageContext.setAttribute("newLine", "\n");
+							%>
 
-					${fn:replace(shop.shopInfo , newLine, "<br>" ) }
+							${fn:replace(shop.shopInfo , newLine, "<br>" ) }
 						</div>
-						
-						</div>
+
+					</div>
 
 					<div class="row mb-3 form-row">
 
 						<div class="col-md-3" id="infotitle">
 							<label for="contact">연락처</label>
 						</div>
-						<div class="col-md-7">
-						${shop.shopContact}
-						</div>
+						<div class="col-md-7">${shop.shopContact}</div>
 					</div>
-					
-					
+
+
 					<div class="row mb-3 form-row">
 
 						<div class="col-md-3" id="infotitle">
 							<label for="address">위치</label>
 						</div>
-						
-						<div class="col-md-7">
-						${shop.shopAdress}
-						</div>
-						
-					
-						<div></div>
-						<div id="map"  style="width:400px; height:400px;"></div>
+
+						<div class="col-md-7">${shop.shopAdress}</div>
+
+
+
+						<div id="map" style="width: 400px; height: 400px;"></div>
 
 					</div>
 
@@ -213,21 +241,26 @@
 
 				<div style="font-weight: bold;">
 					<h1>수업 목록</h1>
+					<%-- ${lesList}
+					${thList } --%>
 				</div>
 
 
+				<div class="row">
+					<c:forEach var="lesson" items="${lesList}">
 
-				<div id="classImg">
-				<div style="width: 260px; height: 260px;">
-				<c:forEach var="lesson" items="${lesList}">
-				
-				<c:forEach var="th" items="${thList}">
-				
-					<img src ="${contextPath}${th.filePath}/${th.fileName}">
-					
+						<c:forEach items="${thList}" var="th">
+							<c:if test="${th.lesNo == lesson.lesNo}">
+								<div class="col-md-3 lesson" id="${lesson.lesNo }">
+									<img src="${contextPath}${th.filePath}/${th.fileName}">
+									<p>${lesson.lesTitle }</p>
+								</div>
+							</c:if>
+						</c:forEach>
+
 					</c:forEach>
-					</c:forEach>
-</div>
+
+					<!-- </div> -->
 				</div>
 
 			</div>
@@ -276,7 +309,7 @@
 
 <script>
 	var addr = "${shop.shopAdress}";
-	addr = addr.substring(addr.indexOf(',')+1 , addr.lastIndexOf(','));
+	addr = addr.substring(addr.indexOf(',') + 1, addr.lastIndexOf(','));
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
@@ -290,35 +323,46 @@
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
 
-	
 	// 주소로 좌표를 검색합니다 // 상세 주소
-	geocoder.addressSearch(addr,function(result, status) {
+	geocoder.addressSearch(addr,	function(result, status) {
 
-		// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
+	// 정상적으로 검색이 완료됐으면 
+	if (status === kakao.maps.services.Status.OK) {
 
-			var coords = new kakao.maps.LatLng(result[0].y,
-					result[0].x);
+		var coords = new kakao.maps.LatLng(result[0].y,
+				result[0].x);
 
-			// 결과값으로 받은 위치를 마커로 표시합니다
-			var marker = new kakao.maps.Marker({
-				map : map,
-				position : coords
-			});
+		// 결과값으로 받은 위치를 마커로 표시합니다
+		var marker = new kakao.maps.Marker({
+			map : map,
+			position : coords
+		});
 
-			// 인포윈도우로 장소에 대한 설명을 표시합니다
-			var infowindow = new kakao.maps.InfoWindow(
-					{
-						content : '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${shop.shopName }</div>'
-					});
-			infowindow.open(map, marker);
+		// 인포윈도우로 장소에 대한 설명을 표시합니다
+		var infowindow = new kakao.maps.InfoWindow(
+				{
+					content : '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${shop.shopName }</div>'
+				});
+		infowindow.open(map, marker);
 
-			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			map.setCenter(coords);
-		} else {
-			console.log(result);
-		}
+		// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		map.setCenter(coords);
+	} else {
+		console.log(result);
+	}
+});
+	
+	
+	$(".lesson").on("click", function(){
+		var lesNo = $(this).attr("id");
+		location.href = "../lesson/view/"+lesNo;
 	});
+	   
+	
+	
+	
+	
+	
 </script>
 
 </html>

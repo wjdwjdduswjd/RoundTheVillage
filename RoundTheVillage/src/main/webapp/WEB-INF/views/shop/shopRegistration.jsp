@@ -237,8 +237,8 @@
                 <!-- 공방 썸네일 -->
                 <div class="form-inline mb-2">
 					<label>썸네일</label>
-					<div class="boardImg" id="titleImgArea">
-						<img id="titleImg" width="400" height="280">
+					<div class="boardImg" id="titleImgArea" width="400" height="280">
+						
 					</div>
                 </div>
 
