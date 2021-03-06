@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.service.ShopService;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
@@ -78,7 +79,17 @@ public class ShopController {
 
 			// 리뷰 목록 가져 오기----------------------------------------
 			
-			List<Lesson> reviewList = service.selectReviewList(shopNo);
+			List<LessonReview> reviewList = service.selectReviewList(shopNo);
+			
+			model.addAttribute("reviewList",reviewList);
+			
+			
+			// 별점 가져오기-----------------------------------------------
+			
+			
+			
+			
+			
 			
 
 		}

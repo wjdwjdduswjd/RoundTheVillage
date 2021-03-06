@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
@@ -69,7 +70,7 @@ public interface ShopService {
 	 * @param shopNo
 	 * @return
 	 */
-	public abstract List<Lesson> selectReviewList(int shopNo);
+	public abstract List<LessonReview> selectReviewList(int shopNo);
 
 	
 
