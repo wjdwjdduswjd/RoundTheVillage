@@ -125,6 +125,7 @@
 		)A
 	</insert>
 	
+	
 	<select id="selectClass" parameterType="_int" resultMap="board_rm">
     <!-- SELECT CLA_NO , CS_CATE_NM, LES_TITLE
      FROM V_BOARD
@@ -235,6 +236,40 @@
 		BOARD_MODIFY_DT = SYSDATE
 		WHERE BOARD_NO = #{boardNo}
 	</update>
+	
+		<!-- 파일 정보 수정 -->
+	<update id="updateAttachment" parameterType="Attachment">
+		UPDATE B_ATTACHMENT SET
+		B_FILE_NAME = #{fileName},
+		B_FILE_PATH = #{filePath}
+		WHERE ATTACHMENT_NO = #{fileNo}
+	</update>
+	
+	<!-- 파일 정보 삽입 -->
+	<insert id="insertAttachment" parameterType="Attachment">
+		INSERT INTO B_ATTACHMENT
+		VALUES (SEQ_FNO.NEXTVAL, #{fileName}, #{fileLevel}, #{filePath}, #{boardNo})
+	
+	</insert>
+	
+		<!-- 파일 정보 삭제 -->
+	<delete id="deleteAttachment" parameterType="_int">
+		DELETE FROM B_ATTACHMENT
+		WHERE ATTACHMENT_NO = #{fileNo}
+	</delete>
+	
+	
+	<!-- 파일 목록 삭제 DAO -->
+	<delete id="deleteAttachmentList" parameterType="list">
+		DELETE FROM B_ATTACHMENT
+		WHERE ATTACHMENT_NO IN
+		<foreach collection="list" item="no" open="(" close=")" separator=",">
+			#{no}
+		</foreach>
+	
+	
+	</delete>
+	
 	
 	
 </mapper>

@@ -115,8 +115,16 @@ body {
 
 	
 </style>
+	<!-- summernote 사용 시 필요한 css 파일 추가 -->
+	<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
+		
 <body>
 	<jsp:include page="../common/header.jsp"/>
+	
+		<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
+	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
+	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	
 	 <div class="container">
     <div class="row">
      <!--  <div class="col-md-2">
@@ -125,13 +133,13 @@ body {
         <br>
         <hr>
 
-				 <form action="#" method="GET" class="text-center" id="updateForm">
+				 <form action="updateAction" method="GET" class="text-center" id="updateForm">
         <div class="content-header">
           <div class="row">
             <div class="col-md-7 px-3">
               <p>
                 <span class="pr-4"><b>제목</b></span>
-                 <input type="text" class="titleInput" id="title" name="boardTitle" size="40">
+                 <input type="text" class="titleInput" id="title" name="boardTitle" size="40" value="${board.boardTitle }">
               </p>
             </div>
             <div class="col-md-5 px-3">
@@ -158,9 +166,27 @@ body {
         </div> <!-- .content-header end -->
 
         <!-- 썸머노트 공간 시작 -->
+        <!-- 썸머노트 공간 시작 -->
         <div class="row py-3">
+        
+				<div class="form-inline mb-2">
+					<label class="input-group-addon mr-3 insert-label pr-4"><b>썸네일</b></label>
+					<div class="boardImg" id="titleImgArea">
+						<img id="titleImg" width="200" height="200"> 
+						<span class="deleteImg">x</span>
+					</div>
+				</div>
+
+        
+        <div id="fileArea">
+					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+				</div>
+        
+        
+        
           <div class="col-md-12 summerNoteArea">
-            <!--<썸머노트 공간>  -->
+						<textarea class="form-control" id="summernote" name="boardContent"
+						rows="10" style="resize: none;">${board.boardContent }</textarea> 
           </div>
         </div>
         <!-- 썸머노트 공간 끝 -->

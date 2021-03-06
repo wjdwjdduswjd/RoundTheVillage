@@ -138,6 +138,33 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.updateBoard", updateBoard);
 	}
 
+	public int updateAttachment(Attachment at) {
+		return sqlSession.update("boardMapper.updateAttachment", at);
+	}
+
+	public int insertAttachment(Attachment at) {
+		return sqlSession.insert("boardMapper.insertAttachment", at);
+	}
+
+	
+	/** 파일 정보 삭제 DAO
+	 * @param fileNo
+	 * @return result
+	 */
+	public int deleteAttachment(int fileNo) {
+		return sqlSession.delete("boardMapper.deleteAttachment", fileNo);
+	}
+
+	
+	/** 파일목록 삭제 DAO
+	 * @param deleteFileNoList
+	 * @return
+	 */
+	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
+		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
+	}
+
+	
 
 
 

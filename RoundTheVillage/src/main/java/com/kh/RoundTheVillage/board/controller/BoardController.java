@@ -232,8 +232,10 @@ public class BoardController {
 		   
 		   
 		   
+		   
+		   
 		   // 파일 저장 경로 얻어오기
-		   String savePath = request.getSession().getServletContext().getRealPath("resources/uploadImages");
+		   String savePath = request.getSession().getServletContext().getRealPath("resources/boardImages");
 		   
 		   
 		   // 파일 수정 Service 호출

@@ -188,7 +188,7 @@ body {
 								</c:if>
 								
 								<c:if test="${empty sessionScope.returnListURL}">
-									<c:set var="returnListURL" value="../list/${board.boardCode}" scope="session"/>
+									<c:set var="returnListURL" value="../list" scope="session"/>
 								</c:if>
 								<a class="btnBtn1 btn btn-primary btn-sm px-2" href="${sessionScope.returnListURL}">목록</a> 
 								
