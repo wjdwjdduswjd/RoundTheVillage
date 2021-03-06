@@ -275,4 +275,69 @@ public class MemberController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//------------------------------------------------------------------------------------------------------------
+	// 마이페이지 관련 
+	
+	// 내 정보 수정 연결
+		@RequestMapping("myInfoChange")
+		public String myInfoChange(){
+			return "member/myInfoChange";
+		}
+		
+		//비밀번호 변경
+		@RequestMapping("changePwd")
+		public String changePwd() {
+			return "member/changePwd";
+		}
+		
+		// 회원 탈퇴
+		@RequestMapping("secession")
+		public String secession() {
+			return "member/secession";
+		}
+		
+		
+		// 내 정보 수정 
+		@RequestMapping("updateAction")
+		public String updateAction(@ModelAttribute Member updateMember,
+									Model model, RedirectAttributes ra,
+									@ModelAttribute(name="loginMember", binding = false) Member loginMember) {
+			
+			updateMember.setMemberNo( loginMember.getMemberNo() );
+			
+			//int result = service.updateAction(updateMember); 
+			
+			
+			return null;
+		}
+		
+		
+		 
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

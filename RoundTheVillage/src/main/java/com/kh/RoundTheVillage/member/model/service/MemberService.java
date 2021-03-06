@@ -61,5 +61,19 @@ public interface MemberService {
 	public abstract int updatePwd(Map<String, Object> map);
 
 
+	
+	//------------------------------------------------------------------------------------------------------
+	//마이페이지 관련
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

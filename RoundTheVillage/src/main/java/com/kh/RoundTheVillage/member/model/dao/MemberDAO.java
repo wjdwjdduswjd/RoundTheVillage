@@ -66,7 +66,14 @@ public class MemberDAO {
 	}
 
 
+	
+	
+	//------------------------------------------------------------------------------------------------------
+	//마이페이지 관련
 
-//	return sqlSession.update("memberMapper.updatePwd", updatePwd,memberPwdFind);
+	
+	
+	
+
 
 }
