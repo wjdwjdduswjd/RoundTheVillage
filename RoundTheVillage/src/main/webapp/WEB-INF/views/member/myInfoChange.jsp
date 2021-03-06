@@ -16,11 +16,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
+	<c:if test="${!empty swalTitle}">
+      <script>
+         swal({icon  : "${swalIcon}",
+              title : "${swalTitle}",
+              text  : "${swalText}"});
+      </script>
+   </c:if>
 	<%-- <jsp:include page="../common/header.jsp"/> --%>
 	<div class="container">
 
 		<div class="mypageInfo">
 
+			<c:set var="address" value="${fn:split(loginMember.memberAddr,',' ) }" />
 
 
 			<!-- 내 등급  -->
@@ -37,7 +45,6 @@
 			</div>
 
 
-			<c:set var="address" value="${fn:split(loginMember.memberAddr,',' ) }" />
 
 			<form method="POST" action="updateAction" name="updateForm" onsubmit="return updateValidate();" class="form-horizontal" role="form">
 
@@ -65,7 +72,13 @@
 						</div>
 
 						<div class="info-b">
-							<label class="label-area"><strong>닉네임</strong></label> <input class="output input-area" name="nickName" value="${loginMember.memberNickname}">
+							<label class="label-area"><strong>닉네임</strong></label> 
+							<input class="output input-area" id="nickName" name="memberNickname" value="${loginMember.memberNickname}" required>
+							
+							<div class="check">
+								<label class="label-area"></label> 					
+								<span id="checkNickName">&nbsp;</span>
+							</div>
 						</div>
 
 						<div class="info-b">
@@ -85,17 +98,17 @@
 
 							<label class="title"><strong>관심분야 </strong><label style="font-size: 12px; margin-bottom: 0.5;">(중복선택 가능)</label></label><br> 
 							<label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="art" value="미술"><span>미술</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="pic" value="사진/영상"><span>사진/영상</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="cook" value="요리/음료"><span>요리/음료</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="bty" value="뷰티"><span>뷰티</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="music" value="음악"><span>음악</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="pic" value="사진/영상"><span>사진/영상</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="cook" value="요리/음료"><span>요리/음료</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="bty" value="뷰티"><span>뷰티</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="music" value="음악"><span>음악</span>
 							</label> <br>
 							<!--  -->
 							<label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="exercise" value="운동"><span>운동</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="craft" value="공예"><span>공예</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="writing" value="글쓰기"><span>글쓰기</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="kids" value="키즈"><span>키즈</span>
-							</label> <label class="box-checkbox-input"> <input type="checkbox" name="intrs" id="flowers" value="플라워"><span>플라워</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="craft" value="공예"><span>공예</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="writing" value="글쓰기"><span>글쓰기</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="kids" value="키즈"><span>키즈</span>
+							</label> <label class="box-checkbox-input"> <input type="checkbox" name="memberIntrs" id="flowers" value="플라워"><span>플라워</span>
 							</label>
 						</div>
 
@@ -130,7 +143,7 @@
 								<label for="postcodify_search_button" class="addr text">우편번호</label>
 							</div>
 							<div class="col-md-3">
-								<input type="text" name="post" id="post" class="form-control postcodify_postcode5" required readonly>
+								<input type="text" name="post" id="post" class="form-control postcodify_postcode5" required readonly value="${address[0]}">
 							</div>
 							<div class="col-md-3">
 								<button type="button" class="search_button " id="postcodify_search_button">검색</button>
@@ -143,7 +156,7 @@
 								<label for="address1" class="addr text">도로명 주소</label>
 							</div>
 							<div class="col-md-9">
-								<input type="text" class="form-control postcodify_address" name="address1" id="address1" required readonly>
+								<input type="text" class="form-control postcodify_address" name="address1" id="address1" required readonly  value="${address[1]}">
 							</div>
 						</div>
 
@@ -152,7 +165,7 @@
 								<label for="address2" class="addr text">상세주소</label>
 							</div>
 							<div class="col-md-9">
-								<input type="text" class="form-control postcodify_details" name="address2" id="address2" required>
+								<input type="text" class="form-control postcodify_details" name="address2" id="address2" required  value="${address[2]}">
 							</div>
 						</div>
 					</div>
@@ -198,8 +211,72 @@
 		});
 	</script>
 	<script>
+	var updateCheck = {
+			"nickName" : true
+	}
+	
+	var $nickName = $("#nickName");
+	
+	var loginMember = 
+	
+	//닉네님 유효성 검사
+	$nickName.on("input", function(){
+		
+			if( $nickName.val() == "${loginMember.memberNickname}" ){
+				updateCheck.nickName = true;
+				$("#checkNickName").text(" ");
+			}else{
+				
+				$.ajax({
+					url : "nickNameDupCheck",
+					data : {"memberNickname" : $nickName.val()},
+					type : "post",
+					success : function(result){
+							
+							if(result == 0){
+								$("#checkNickName").text("사용 가능한 닉네임입니다.").css("color", "green");
+								updateCheck.nickName = true;
+							}else{
+								$("#checkNickName").text("이미 사용 중인 닉네임입니다.").css("color", "red");
+								updateCheck.nickName = false;
+							}
+						
+					},
+					error : function() {
+						console.log("ajax 통신 실패");
+					}
+		
+				});
+				
+			}
+		
+		
+			
+		
+		
+	}); 
+	
 	
 	function updateValidate() {
+		
+		for ( var key in updateCheck) {
+			if (!updateCheck[key]) {
+				var str;
+				switch (key) {
+				case "nickName" : str = "닉네임"; break;
+				}
+
+				swal({
+					icon : "warning",
+					title : str + " 형식이 유효하지 않습니다."
+				}).then(function() { //swal 창이 닫힘 후 동작을 지정
+					var id = "#" + key;
+					$(id).focus();
+				});
+
+				return false;
+			}
+		}
 		
 		$memberAddr = $("<input>", {
 			type : "hidden",
@@ -223,7 +300,7 @@
 	(function(){
 	
 		var interest = "${loginMember.memberIntrs}".split(",");
-	
+		
 		$("input[name='memberIntrs']").each(function(index, item){
 			
 			if(interest.indexOf( $(item).val()) != -1 ){

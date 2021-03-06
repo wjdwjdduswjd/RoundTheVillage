@@ -27,6 +27,11 @@
     box-shadow: 0 0 0 0.2rem rgba(236, 233, 233, 0.5);
 }
 
+.badge.badge-around {
+		color: #343a40;
+    background-color: #FBBC73;
+}
+
 .checks input[type="checkbox"] {
     display: none;
 }

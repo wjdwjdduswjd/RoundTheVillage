@@ -1,18 +1,25 @@
 package com.kh.RoundTheVillage.banner.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.RoundTheVillage.banner.model.vo.Banner;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
 @Repository
 public class BannerDAO {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	public String selectDate(String string) {
+		return sqlSession.selectOne("bannerMapper.selectDate", string);
+	}
 	
 	public int insertBanner(Banner banner) {
 		return sqlSession.insert("bannerMapper.insertBanner", banner);
@@ -26,7 +33,17 @@ public class BannerDAO {
 		return sqlSession.selectOne("bannerMapper.getListCount", memNo);
 	}
 
-	public List<Banner> selectList(int memNo) {
-		return sqlSession.selectList("bannerMapper.selectList", memNo);
+	public List<Banner> selectList(PageInfo pInfo, int memNo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("bannerMapper.selectList", memNo, rowBounds);
+	}
+
+	public Banner selectBanner(int banNo) {
+		return sqlSession.selectOne("bannerMapper.selectBanner", banNo);
+	}
+
+	public List<Banner> selectTodayBanner() {
+		return sqlSession.selectList("bannerMapper.selectTodayBanner");
 	}
 }

@@ -29,10 +29,10 @@
                   <div class="">
                       <h6 class="my-0">링크 URL</h6>
                   </div>
-                  <span class="">
+                  <span>
                   	<c:choose>
-	                  	<c:when test="${banner.URL} != ''">${banner.URL}공방 상세 페이지</c:when> 
-	                  	<c:otherwise>공방 상세 페이지</c:otherwise>
+	                  	<c:when test="${empty banner.URL}">공방 상세 페이지</c:when>
+	                  	<c:otherwise>${banner.URL}</c:otherwise>
                   	</c:choose>
                  	</span>
               </li>
