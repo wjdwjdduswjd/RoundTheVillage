@@ -66,12 +66,16 @@ public class MemberDAO {
 	}
 
 
+
 	
 	
 	//------------------------------------------------------------------------------------------------------
 	//마이페이지 관련
 
-	
+	// 내 정보 수정
+	public int updateAction(Member updateMember) {
+		return sqlSession.update("memberMapper.updateAction", updateMember);
+	}
 	
 	
 

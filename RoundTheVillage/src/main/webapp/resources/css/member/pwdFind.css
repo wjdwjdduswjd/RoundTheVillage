@@ -51,20 +51,6 @@ hr{
 .f{float: left;}
 .s{ float: left;}
 
-/* 입력 부분 */
-.input-text{
-    margin: auto;
-    width: 55%;
-}
-
-input{
-    width: 100%;
-    height: 40px;
-    border:1px solid #dfdfdf;	 
-    border-radius:5px;
-}
-
-  
 input::placeholder { 
 	font-size: 90%;
 	padding: 10px 10px; 
