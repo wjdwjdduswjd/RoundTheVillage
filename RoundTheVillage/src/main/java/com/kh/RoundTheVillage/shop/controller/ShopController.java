@@ -1,6 +1,8 @@
 package com.kh.RoundTheVillage.shop.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,28 +41,29 @@ public class ShopController {
 
 	// 공방 상세 조회Controller
 	@RequestMapping("{shopNo}")
-	public String shopView(@PathVariable("shopNo") int shopNo, Model model, @ModelAttribute Lesson lesson) {
+	public String shopView(@PathVariable("shopNo") int shopNo, Model model, @ModelAttribute Lesson lesson,
+			@ModelAttribute("loginMember") Member loginMember) {
 
 		// 공방 상세조회 Service 호출
 		Shop shop = service.selectShop(shopNo);
 
 		if (shop != null) { // 상세조회 성공 시
 
+			model.addAttribute("shop", shop);
+			
 			ShopAttachment thumb = service.selectThumb(shopNo);
 
 			// 조회된 이미지 목록이 있을 경우
 			if (thumb != null) {
-
 				model.addAttribute("thumb", thumb);
-
 			}
-
-			// 좋아요
-			int csGoodCount = service.selectCsGoodCount(shopNo);
-
-			model.addAttribute("shop", shop);
-
-			model.addAttribute("csGoodCount", csGoodCount);
+			
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("shopNo", shopNo);
+			map.put("memberNo", loginMember.getMemberNo());
+			int likeFl = service.selectLikeFl(map); // 0: 좋아요 X, 1:좋아요 누른적 있음
+			model.addAttribute("likeFl", likeFl);
+			
 
 			// 수업 리스트
 			// 가져오기----------------------------------------------------------------------------------
@@ -82,21 +85,14 @@ public class ShopController {
 			List<LessonReview> reviewList = service.selectReviewList(shopNo);
 			
 			model.addAttribute("reviewList",reviewList);
-			
-			
-			// 별점 가져오기-----------------------------------------------
-			
-			
-			
-			
-			
-			
 
 		}
 
 		return "shop/shopView";
 
 	}
+	
+
 
 	// 공방 등록 화면 전환용 Controller
 	@RequestMapping("registration")
@@ -183,4 +179,43 @@ public class ShopController {
 		return new Gson().toJson(at);
 	}
 
+	
+	// ---------------------- 좋 아 요 ---------------------------
+	
+	// 좋아요 추가 Contoller
+	@ResponseBody
+	@RequestMapping("insertLike")
+	public int insertLike(@RequestParam("shopNo") int shopNo, @ModelAttribute("loginMember") Member loginMember) {
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("shopNo", shopNo);
+		map.put("memberNo", loginMember.getMemberNo());
+
+		int result = service.insertLike(map);
+
+		return result;
+	}
+
+	// 좋아요 삭제 Contoller
+	@ResponseBody
+	@RequestMapping("deleteLike")
+	public int deleteLike(@RequestParam("shopNo") int shopNo, @ModelAttribute("loginMember") Member loginMember) {
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("shopNo", shopNo);
+		map.put("memberNo", loginMember.getMemberNo());
+
+		int result = service.deleteLike(map);
+
+		return result;
+	}
+
+	// 좋아요 카운트 Contoller
+	@ResponseBody
+	@RequestMapping("selectLikeCount")
+	public int selectLikeCount(@RequestParam("shopNo") int shopNo) {
+
+		return service.selectLikeCount(shopNo);
+	}
+	
 }

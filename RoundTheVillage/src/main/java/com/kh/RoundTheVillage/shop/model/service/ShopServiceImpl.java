@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,6 +74,15 @@ public class ShopServiceImpl implements ShopService {
 	public List<LessonReview> selectReviewList(int shopNo) {
 		return dao.selectReviewList(shopNo);
 	}
+	
+	// 좋아요 여부 조회
+	@Override
+	public int selectLikeFl(Map<String, Integer> map) {
+		return dao.selectLikeFl(map);
+	}
+	
+
+
 
 	
 
@@ -271,6 +281,28 @@ public class ShopServiceImpl implements ShopService {
 
 		return at;
 	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertLike(Map<String, Integer> map) {
+		return dao.insertLike(map);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteLike(Map<String, Integer> map) {
+		return dao.deleteLike(map);
+	}
+
+	@Override
+	public int selectLikeCount(int shopNo) {
+		return dao.selectLikeCount(shopNo);
+	}
+
+	
+	
+	
+
 
 	
 
