@@ -107,7 +107,7 @@
 	<div class="container" style="margin-top: 50px">
 
 
-		<div>
+		
 			<div class="top" style="width: 90%;">
 
 				<div class="top" id="shopname" style="width: auto">
@@ -300,7 +300,7 @@
 						</c:forEach>
 					</div>
 
-
+</div>
 				</div>
 			</div>
 </body>
