@@ -1,6 +1,7 @@
 package com.kh.RoundTheVillage.shop.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,6 +72,32 @@ public interface ShopService {
 	 * @return
 	 */
 	public abstract List<LessonReview> selectReviewList(int shopNo);
+
+	/** 좋아요 여부  조회 Service
+	 * @param map
+	 * @return
+	 */
+	public abstract int selectLikeFl(Map<String, Integer> map);
+
+	/** 좋아요 삽입 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int insertLike(Map<String, Integer> map);
+
+	/** 좋아요 삭제 Service
+	 * @param map
+	 * @return result
+	 */
+	public abstract int deleteLike(Map<String, Integer> map);
+
+	/** 좋아요 카운트 Service
+	 * @param boardNo
+	 * @return count
+	 */
+	public abstract int selectLikeCount(int shopNo);
+
+
 
 	
 

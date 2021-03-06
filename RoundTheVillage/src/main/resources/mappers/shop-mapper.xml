@@ -15,6 +15,7 @@
 		<result property="shopCategoryNo" column="CS_CATE_NO" />
 		<result property="avgRating" column="AVG_RATING" />
 		<result property="participantsCount" column="PRT_COUNT" />
+		<result property="likeCount" column="LIKE_COUNT" />
 	</resultMap>
 
 	<resultMap type="ShopAttachment" id="shopAttachment_rm">
@@ -27,6 +28,8 @@
 		<result property="shopNo" column="CRAFTSHOP_NO" />
 
 	</resultMap>
+	
+	
 
 	<!-- 공방 등록 여부 확인 -->
 	<select id="selectRegistrationFlag" parameterType="_int"
@@ -49,7 +52,8 @@
 		        LEFT JOIN LESSON C ON(B.LES_NO = C.LES_NO) WHERE A.CRAFTSHOP_NO = C.CRAFTSHOP_NO ), 0) AVG_RATING,
 		    NVL((SELECT COUNT(*) 
 		        FROM LESSON_REVIEW B 
-		        LEFT JOIN LESSON C ON(B.LES_NO = C.LES_NO) WHERE A.CRAFTSHOP_NO = C.CRAFTSHOP_NO ), 0) PRT_COUNT
+		        LEFT JOIN LESSON C ON(B.LES_NO = C.LES_NO) WHERE A.CRAFTSHOP_NO = C.CRAFTSHOP_NO ), 0) PRT_COUNT,
+		    (SELECT COUNT(*) FROM CS_GOOD S WHERE S.CRAFTSHOP_NO = A.CRAFTSHOP_NO) LIKE_COUNT    
 		FROM CRAFTSHOP A
 		WHERE A.CRAFTSHOP_NO = #{shopNo}
 	</select>
@@ -60,6 +64,14 @@
 		SELECT COUNT(*) FROM CS_GOOD
 		WHERE CRAFTSHOP_NO =
 		#{memberNo}
+	</select>
+
+
+	<!-- 좋아요 여부 확인 -->
+	<select id="selectLikeFl" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM CS_GOOD
+		WHERE MEMBER_NO = #{memberNo}
+		AND CRAFTSHOP_NO = #{shopNo}
 	</select>
 
 
@@ -104,10 +116,33 @@
 	</insert>
 	
 	<!--썸네일 가져오기 -->
-<select id = "selectThumb" parameterType = "_int" resultMap = "shopAttachment_rm" >
-SELECT * FROM CS_FILE
-WHERE CRAFTSHOP_NO = #{shopNo}
-AND FILE_LEVEL = 0
-</select>
+	<select id = "selectThumb" parameterType = "_int" resultMap = "shopAttachment_rm" >
+		SELECT * FROM CS_FILE
+		WHERE CRAFTSHOP_NO = #{shopNo}
+		AND FILE_LEVEL = 0
+	</select>
+
+
+		<!-- 좋아요 삽입 -->
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO CS_GOOD
+		VALUES(#{memberNo}, #{shopNo})
+	</insert>
+
+	<!-- 좋아요 삭제-->
+	<insert id="deleteLike" parameterType="map">
+		DELETE FROM CS_GOOD
+		WHERE MEMBER_NO = #{memberNo}
+		AND CRAFTSHOP_NO = #{shopNo}
+	</insert>
+
+
+	<!-- 좋아요 카운트 -->
+	<select id="selectLikeCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM CS_GOOD
+		WHERE CRAFTSHOP_NO = #{shopNo}
+	</select>
+
+
 
 </mapper>

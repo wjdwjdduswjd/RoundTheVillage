@@ -2,6 +2,7 @@
 package com.kh.RoundTheVillage.shop.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,39 @@ public class ShopDAO {
 		
 	}
 
+	/** 좋아요 여부 조회
+	 * @param map
+	 * @return
+	 */
+	public int selectLikeFl(Map<String, Integer> map) {
+		return sqlSession.selectOne("shopMapper.selectLikeFl", map);
+	};
+	
+
+	
+	/** 좋아요 삽입 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int insertLike(Map<String, Integer> map) {
+		return sqlSession.insert("shopMapper.insertLike", map);
+	}
+ 
+	/** 좋아용 삭제 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int deleteLike(Map<String, Integer> map) {
+		return sqlSession.delete("shopMapper.deleteLike", map);
+	}
+
+	/** 좋아요 카운트 DAO
+	 * @param shopNo
+	 * @return  result
+	 */
+	public int selectLikeCount(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectLikeCount", shopNo);
+	}
 	
 
 
