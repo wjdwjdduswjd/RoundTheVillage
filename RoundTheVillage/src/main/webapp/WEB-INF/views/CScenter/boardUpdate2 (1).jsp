@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정</title>
+<title>게시글 수정</title>
 <style>
     .insert-label {
       display: inline-block;
@@ -40,39 +40,67 @@
 		<!-- Summernoter 사용 시 필요한 JS 파일 추가 -->
 		<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 		<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
-		<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+		<script src="${contextPath}/resources/summernote/js/summernote.js"></script>
 	
 		<div class="container pb-5 mb-5" id="content-main">
 
 			<h3>게시글 수정</h3>
 			<hr>
 			<form action="updateAction" method="post" enctype="multipart/form-data" name="updateForm" role="form" onsubmit="return validate();">
+				<div class="mb-2">
+					<label class="input-group-addon mr-3 insert-label">카테고리</label> 
+					<select	class="custom-select" id="category" name="categoryName" style="width: 150px;">
+						<option value="10">운동</option>
+						<option value="20">영화</option>
+						<option value="30">음악</option>
+						<option value="40">요리</option>
+						<option value="50">게임</option>
+						<option value="60">기타</option>
+					</select>
+				</div>
 				
 				<div class="form-inline mb-2">
 					<label class="input-group-addon mr-3 insert-label">제목</label> 
-					<input type="text" class="form-control" id="title" name="noticeTitle" size="70"
-						value="${notice.noticeTitle }">
+					<input type="text" class="form-control" id="title" name="boardTitle" size="70"
+						value="${board.boardTitle }">
 				</div>
 
 				<div class="form-inline mb-2">
 					<label class="input-group-addon mr-3 insert-label">작성자</label>
-					<h5 class="my-0" id="writer">관리자</h5>
+					<h5 class="my-0" id="writer">${loginMember.memberId}</h5>
 				</div>
 
 
-<%-- 				<div class="form-inline mb-2">
+				<div class="form-inline mb-2">
 					<label class="input-group-addon mr-3 insert-label">작성일</label>
 					<h5 class="my-0" id="today">
 						<jsp:useBean id="now" class="java.util.Date" />
 						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/>
 					</h5>
-				</div> --%>
+				</div>
 
 				<hr>
 				
+				<!-- 썸네일 이미지 부분 -->
+				<div class="form-inline mb-2">
+					<label class="input-group-addon mr-3 insert-label">썸네일</label>
+					<div class="mx-2 boardImg" id="titleImgArea">
+						<img id="titleImg" width="200" height="200"> 
+						<span class="deleteImg">x</span>
+					</div>
+				</div>
+
+				
+				<div id="fileArea">
+					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)"> 
+				</div>
+
 				<div class="form-group">
+					<div>
+						<label for="content">내용</label>
+					</div>
 						<!---------------------------------- Summernote Textarea ------------------------------->
-					<textarea class="form-control" id="summernote" name="noticeContent">${notice.noticeContent}</textarea>
+					<textarea class="form-control" id="summernote" name="boardContent">${board.boardContent }</textarea>
 					
 				</div>
 
@@ -81,7 +109,7 @@
 
 				<div class="text-center">
 					<button type="submit" class="btn btn-success">수정</button>
-					<a class="btn btn-success float-right" href="${sessionScope.returnListURL}">목록으로</a>
+					<a class="btn btn-success float-right" href="${header.referer}">목록으로</a>
 				</div>
 
 			</form>

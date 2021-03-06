@@ -25,9 +25,6 @@ import com.kh.RoundTheVillage.CScenter.model.service.NoticeService;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
-import com.kh.RoundTheVillage.board.model.vo.Attachment;
-import com.kh.RoundTheVillage.board.model.vo.Board;
-import com.kh.RoundTheVillage.member.model.vo.Member;
 
 @Controller // 컨트롤러 + 빈 등록
 @SessionAttributes({ "loginMember" })
@@ -102,18 +99,12 @@ public class NoticeController {
 	
 	// 게시글 등록 Controller --------------------------------------------------------------------------------------------------------------
 	@RequestMapping("insertAction")
-	public String insertAction(@ModelAttribute Notice notice, 
-			HttpServletRequest request, RedirectAttributes ra) {
-		
+	public String insertAction(@ModelAttribute Notice notice, HttpServletRequest request, RedirectAttributes ra) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noticeNo", notice.getNoticeNo());
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
-		
-		//System.out.println("noticeTitle"+notice.getNoticeTitle());
-		
-		//System.out.println("map:" + map);
 		
 		String savePath = null;
 		
@@ -131,8 +122,8 @@ public class NoticeController {
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 
-			request.getSession().setAttribute("returnListURL", "/noticeList");
-
+			request.getSession().setAttribute("returnListURL", "/RoundTheVillage/CScenter/noticeList?cp=1");
+ 
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -159,11 +150,11 @@ public class NoticeController {
 		// Java -> js로 객체 전달 : JSON
 		return new Gson().toJson(at);
 	}
-/*
-	// 게시글 수정 화면 전환 ----------------------------------------------------------
-	@RequestMapping("{noticeNo}/update")
-	public String update(@PathVariable("noticeNo") int noticeNo, Model model) {
 
+	// 게시글 수정 화면 전환 ----------------------------------------------------------
+	@RequestMapping("{noticeNo}/noticeUpdate")
+	public String update(@PathVariable("noticeNo") int noticeNo, Model model) {
+	
 		Notice notice = service.selectNotice(noticeNo);
 
 		if (notice != null) {
@@ -172,8 +163,11 @@ public class NoticeController {
 		}
 
 		model.addAttribute("notice", notice);
+		
 		return "CScenter/noticeUpdate";
 	}
+	
+	
 		
 	// 게시글 수정 -------------------------------------------------------------------
 	@RequestMapping("{noticeNo}/updateAction")
@@ -211,7 +205,7 @@ public class NoticeController {
 	      
 	      return url;
 
-	}*/
+	}
 
 	
 	
