@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.RoundTheVillage.CScenter.model.exception.InsertAttachmentFailException;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.dao.ShopDAO;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
@@ -27,8 +28,8 @@ public class ShopServiceImpl implements ShopService {
 
 	// 공방 상세 조회 Service 구현
 	@Override
-	public Shop selectShop(int memberNo) {
-		return dao.selectShop(memberNo);
+	public Shop selectShop(int shopNo) {
+		return dao.selectShop(shopNo);
 	}
 
 	// 수업 리스트 조회 Service 구현
@@ -69,7 +70,7 @@ public class ShopServiceImpl implements ShopService {
 	
 	// 리뷰 목록 가져오기
 	@Override
-	public List<Lesson> selectReviewList(int shopNo) {
+	public List<LessonReview> selectReviewList(int shopNo) {
 		return dao.selectReviewList(shopNo);
 	}
 

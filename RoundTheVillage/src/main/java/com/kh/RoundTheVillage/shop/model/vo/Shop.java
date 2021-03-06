@@ -1,5 +1,9 @@
 package com.kh.RoundTheVillage.shop.model.vo;
 
+/**
+ * @author Baek Dong Hyeon
+ *
+ */
 public class Shop {
 	
 	private int shopNo; // 공방 번호
@@ -11,6 +15,8 @@ public class Shop {
 	private String thumbInfo; // 썸네일 소개글
 	private String shopCategoryName; // 공방 카테고리 이름
 	private int shopCategoryNo; // 공방 카테고리 번호
+	private double avgRating;
+	private int participantsCount;
 	
 
 	public Shop() {}
@@ -160,20 +166,33 @@ public class Shop {
 	}
 
 
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
+	}
+
+
+	public int getParticipantsCount() {
+		return participantsCount;
+	}
+
+
+	public void setParticipantsCount(int participantsCount) {
+		this.participantsCount = participantsCount;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Shop [shopNo=" + shopNo + ", shopOwnerName=" + shopOwnerName + ", shopName=" + shopName
 				+ ", shopAdress=" + shopAdress + ", shopInfo=" + shopInfo + ", shopContact=" + shopContact
 				+ ", thumbInfo=" + thumbInfo + ", shopCategoryName=" + shopCategoryName + ", shopCategoryNo="
-				+ shopCategoryNo + "]";
+				+ shopCategoryNo + ", avgRating=" + avgRating + ", participantsCount=" + participantsCount + "]";
 	}
-
-
-
-
-
-
-
 
 
 

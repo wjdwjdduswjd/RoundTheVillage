@@ -13,6 +13,8 @@
 		<result property="thumbInfo" column="THUMBNAIL_INFO" />
 		<result property="shopCategoryName" column="CS_CATE_NM" />
 		<result property="shopCategoryNo" column="CS_CATE_NO" />
+		<result property="avgRating" column="AVG_RATING" />
+		<result property="participantsCount" column="PRT_COUNT" />
 	</resultMap>
 
 	<resultMap type="ShopAttachment" id="shopAttachment_rm">
@@ -37,11 +39,19 @@
 
 	<!-- 공방 정보 조회(+ 카테고리명) -->
 	<select id="selectShop" parameterType="_int" resultMap="shop_rm">
-		SELECT *
+		<!-- SELECT *
 		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING(CS_CATE_NO)
-		WHERE CRAFTSHOP_NO =
-		#{memberNo}
+		WHERE CRAFTSHOP_NO = #{shopNo} -->
+		SELECT A.* , 
+		    NVL((SELECT AVG(REV_RATING) 
+		        FROM LESSON_REVIEW B 
+		        LEFT JOIN LESSON C ON(B.LES_NO = C.LES_NO) WHERE A.CRAFTSHOP_NO = C.CRAFTSHOP_NO ), 0) AVG_RATING,
+		    NVL((SELECT COUNT(*) 
+		        FROM LESSON_REVIEW B 
+		        LEFT JOIN LESSON C ON(B.LES_NO = C.LES_NO) WHERE A.CRAFTSHOP_NO = C.CRAFTSHOP_NO ), 0) PRT_COUNT
+		FROM CRAFTSHOP A
+		WHERE A.CRAFTSHOP_NO = #{shopNo}
 	</select>
 
 	<!-- 공방 좋아요 개수 조회 -->

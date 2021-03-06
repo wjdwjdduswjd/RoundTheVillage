@@ -11,6 +11,7 @@
 		<result property="revRating" column="REV_RATING"/>
 		<result property="lesNo" column="LES_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="reviewWriter" column="MEM_NICKNAME"/>
 	</resultMap>
 	
 	<resultMap type="LessonQuestion" id="lessonquestion_rm">

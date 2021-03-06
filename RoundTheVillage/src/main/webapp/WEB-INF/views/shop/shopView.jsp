@@ -135,12 +135,11 @@
 
 			</div>
 			<div class="top" style="width: auto;">
-
-				<p>점수</p>
+				<p>${shop.avgRating}</p>
 			</div>
 			|
 			<div class="top" style="width: auto;">
-				<p>별점 참여자수</p>
+				<p>별점 참여자수 : ${shop.participantsCount }</p>
 			</div>
 
 
@@ -276,26 +275,22 @@
 				</div>
 
 				<div id="review" style="width: 80%; height: auto;">
-					<div>
-
-						<div class="top" style="width: 70%;">
-							<div class="top" style="width: auto">
-								<h5>닉네임</h5>
+				<c:forEach items="${reviewList}" var="rl">
+						<div>
+							<div class="top" style="width: 70%;">
+								<div class="top" style="width: auto">
+									<h5>${rl.reviewWriter}</h5>
+								</div>
+								<div class="top" style="width: auto">별점</div>
 							</div>
-							<div class="top" style="width: auto">별점</div>
+							<div class="top">
+								<div>${rl.revCreateDt}</div>
+							</div>
 						</div>
-
-
-						<div class="top">
-
-							<div>날짜</div>
-						</div>
+						<div>
+						${rl.revContent}
 					</div>
-
-					<div>마카롱 클래스가 처음이라 잔뜩 기대하고 갔어요. 근데 수업이 기대 이상으로 너무 재밌었어요👍🏻 선생님의 유머감각ㅋㅋ과 부족한 부분이 있으면 친절하게 설명해주시는 것도 너무 좋았구요. 마카롱이 디저트 중 만드는게 고난도라 어렵겠다 생각하고 갔는데 선생님이 어려운 부분은 잘 알려주셔서 전혀 어렵지 않고 즐기면서 할 수 있었어요 ◡̈ 완성된 마카롱은 수강생분들과 교환할 수 있어서 여러가지 맛으로 가져갈 수 있구용~! 다른 클래스와 비교했을 때 가격도 저렴한 편이라 마카롱 15개 + 추억생각하시면 완전 가성비 굿이라고 생각합니당! ☺️ (리뷰 잘 안남기는데 너무 만족해서 남겨요 ㅎㅎ)</div>
-				</div>
-
-
+				</c:forEach>
 			</div>
 
 

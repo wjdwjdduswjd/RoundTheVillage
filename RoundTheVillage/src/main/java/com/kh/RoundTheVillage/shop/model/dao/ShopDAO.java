@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
@@ -21,11 +22,11 @@ public class ShopDAO {
 
 
 	/** 공방 상세 조회 DAO
-	 * @param memberNo
+	 * @param shopNo
 	 * @return shop
 	 */
-	public Shop selectShop(int memberNo) {
-		return sqlSession.selectOne("shopMapper.selectShop",memberNo);
+	public Shop selectShop(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectShop",shopNo);
 	}
 	
 	/** 공방 좋아요 개수 조회 DAO
@@ -94,9 +95,9 @@ public class ShopDAO {
 	 * @param shopNo
 	 * @return
 	 */
-	public List<Lesson> selectReviewList(int shopNo) {
+	public List<LessonReview> selectReviewList(int shopNo) {
 		
-		return sqlSession.selectList("lessonMapper2,selectReviewList",shopNo);
+		return sqlSession.selectList("lessonMapper2.selectReviewList",shopNo);
 		
 	}
 
