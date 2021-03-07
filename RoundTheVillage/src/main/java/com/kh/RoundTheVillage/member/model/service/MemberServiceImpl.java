@@ -114,6 +114,51 @@ public class MemberServiceImpl implements MemberService{
 	public int updateAction(Member updateMember) {
 		return dao.updateAction(updateMember);
 	}
+
+	// 내 정보 수정 비밀번호 변경 Service
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int myInfoUpdatePwd(Map<String, Object> map) {
+		
+		String savePwd = dao.selectPwd((int)map.get("memberNo"));
+		
+		int result = 0;
+		
+		if(savePwd != null) {
+			
+			if(enc.matches( (String)map.get("memberPwd"), savePwd )) {
+				
+				// 새 비밀번호 암호화
+				String encPwd = enc.encode( (String)map.get("newPwd") );
+				
+				// 암호화된 비밀번호를 다시 map에 세팅
+				map.put("newPwd", encPwd);
+				
+				// 비밀번호 수정 DAO 호출
+				result = dao.myInfoUpdatePwd(map);
+				 
+			}
+		}
+		
+		return result;
+	}
+
+	// 회원 탈퇴
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteMember(Member loginMember) {
+		int result = 0; 
+		String savePwd = dao.selectPwd(loginMember.getMemberNo());
+		
+		if(savePwd != null) {  
+			if(enc.matches(loginMember.getMemberPwd(), savePwd)) {
+				
+				result = dao.deleteMember(loginMember.getMemberNo());
+			}
+		}
+		
+		return result;
+	}
 	
 	
 	

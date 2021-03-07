@@ -281,8 +281,7 @@
 				alert("유효한 비밀번호를 작성해 주세요.");
 				$pwd2.val("");
 				$pwd1.focus();
-			} else if (signUpCheck.pwd1
-					&& $pwd2.val().length > 0) {
+			} else if (signUpCheck.pwd1 && $pwd2.val().length > 0) {
 				if ($("#pwd1").val().trim() != $("#pwd2").val()
 						.trim()) {
 					$("#checkPwd2").text("비밀번호 불일치").css(

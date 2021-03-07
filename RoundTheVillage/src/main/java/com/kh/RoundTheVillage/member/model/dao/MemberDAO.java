@@ -76,7 +76,23 @@ public class MemberDAO {
 	public int updateAction(Member updateMember) {
 		return sqlSession.update("memberMapper.updateAction", updateMember);
 	}
-	
+
+	// 내 정보 수정 - 현재 비밀번호 확인
+	public String selectPwd(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectPwd", memberNo);
+	}
+
+	// 내 정보 수정 -  새 비밀번호 
+	public int myInfoUpdatePwd(Map<String, Object> map) {
+		return sqlSession.update("memberMapper.myInfoUpdatePwd", map);
+	}
+
+	// 회원 탈퇴 DAO
+	public int deleteMember(int memberNo) {
+		return sqlSession.update("memberMapper.deleteMember", memberNo);
+	}
+
+
 	
 
 

@@ -87,7 +87,7 @@
 	
 	<!-- ************************************* 마이페이지 ************************************* -->
 
-
+	<!-- 내 정보 수정 -->
 	<update id="updateAction" parameterType="Member" >
 		UPDATE MEMBER SET
 			MEM_NICKNAME = #{memberNickname},
@@ -96,11 +96,25 @@
 		WHERE MEM_NO = #{memberNo}
 	</update>
 
+	<!-- 내 정보 수정 비밀번호 수정  - 비밀번호 확인 -->
+	<select id="selectPwd" parameterType="Member"  resultType="string">
+		SELECT MEM_PWD FROM MEMBER
+		WHERE MEM_NO = #{memberNo}
+	</select>
 
+	<!-- 내 정보 수정 비밀번호 수정 - 비밀번호 변경-->
+	<update id="myInfoUpdatePwd" parameterType="map" >
+		UPDATE MEMBER SET
+		MEM_PWD = #{newPwd}
+		WHERE MEM_NO = #{memberNo}
+	</update>
 
-
-
-
+	<!-- 내 정보 수정  - 회원탈퇴 -->
+	<update id="deleteMember" parameterType="_int">
+		UPDATE MEMBER SET
+		MEM_SCSN_FL = 'Y'
+		WHERE MEM_NO = #{memberNo}
+	</update>
 
 
 

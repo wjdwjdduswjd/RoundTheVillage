@@ -1,6 +1,8 @@
 @charset "UTF-8";
 *{font-family: 'NanumSquare', sans-serif !important;}
-
+input[type='password'] {
+	font-family: sans-serif !important;
+}
 .container{
 	height: 1100px;
 }
