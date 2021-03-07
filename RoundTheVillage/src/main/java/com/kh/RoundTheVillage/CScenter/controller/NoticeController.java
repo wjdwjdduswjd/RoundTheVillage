@@ -50,11 +50,12 @@ public class NoticeController {
 
 		model.addAttribute("nList", nList);
 		model.addAttribute("pInfo", pInfo);
-		
+
 		return "CScenter/noticeList";
 	}
 
-	// 게시글 상세 조회 Controller ------------------------------------------------------------------------------------
+	// 게시글 상세 조회 Controller
+	// ------------------------------------------------------------------------------------
 	@RequestMapping("{noticeNo}")
 	public String noticeView(@PathVariable("noticeNo") int noticeNo, Model model,
 			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
@@ -62,10 +63,9 @@ public class NoticeController {
 		String url = null;
 
 		Notice notice = service.selectNotice(noticeNo);
-		
-		
+
 		if (notice != null) { // 상세조회성공
-			
+
 			List<NoticeAttachment> attachmentList = service.selectAttachmentList(noticeNo);
 
 			if (attachmentList != null && !attachmentList.isEmpty()) { // 조회된 이미지 목록이 있을 경우
@@ -74,8 +74,7 @@ public class NoticeController {
 
 			model.addAttribute("notice", notice);
 			url = "CScenter/noticeView";
-			
-			
+
 		} else { // 이전 요청 주소가 없는 경우
 			if (referer == null) {
 				url = "redirect:../noticeList";
@@ -89,41 +88,41 @@ public class NoticeController {
 		return "CScenter/noticeView";
 	}
 
-	
-	// 게시글 등록 화면 전환용 Controller ---------------------------------------------------------------------------------------------------
+	// 게시글 등록 화면 전환용 Controller
+	// ---------------------------------------------------------------------------------------------------
 	@RequestMapping("noticeInsert")
 	public String insertView() {
 		return "CScenter/noticeInsert";
 	}
 
-	
-	// 게시글 등록 Controller --------------------------------------------------------------------------------------------------------------
+	// 게시글 등록 Controller
+	// --------------------------------------------------------------------------------------------------------------
 	@RequestMapping("insertAction")
 	public String insertAction(@ModelAttribute Notice notice, HttpServletRequest request, RedirectAttributes ra) {
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("noticeNo", notice.getNoticeNo());
 		map.put("noticeTitle", notice.getNoticeTitle());
 		map.put("noticeContent", notice.getNoticeContent());
-		
+
 		String savePath = null;
-		
-		// summernote 추가시 수정 부분 -------------------------------------------------------------------
+
+		// summernote 추가시 수정 부분
+		// -------------------------------------------------------------------
 		savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
-		
+
 		// 게시글 삽입 Service 호출
 		int result = service.insertNotice(map, savePath);
 
 		String url = null;
-		
-		
+
 		if (result > 0) {
 			swalIcon = "success";
 			swalTitle = "게시글 등록 성공";
 			url = "redirect:" + result;
 
 			request.getSession().setAttribute("returnListURL", "/RoundTheVillage/CScenter/noticeList?cp=1");
- 
+
 		} else {
 			swalIcon = "error";
 			swalTitle = "게시글 삽입 실패";
@@ -132,11 +131,10 @@ public class NoticeController {
 
 		ra.addFlashAttribute("swalIcon", swalIcon);
 		ra.addFlashAttribute("swalTitle", swalTitle);
-		
+
 		return url;
 	}
-	
-	
+
 	// summernote에 업로드된 이미지 저장 Controller
 	@ResponseBody // 응답시 값 자체를 돌려보냄
 	@RequestMapping("insertImage")
@@ -154,7 +152,7 @@ public class NoticeController {
 	// 게시글 수정 화면 전환 ----------------------------------------------------------
 	@RequestMapping("{noticeNo}/noticeUpdate")
 	public String update(@PathVariable("noticeNo") int noticeNo, Model model) {
-	
+
 		Notice notice = service.selectNotice(noticeNo);
 
 		if (notice != null) {
@@ -163,55 +161,92 @@ public class NoticeController {
 		}
 
 		model.addAttribute("notice", notice);
-		
+
 		return "CScenter/noticeUpdate";
 	}
-	
-	
-		
+
 	// 게시글 수정 -------------------------------------------------------------------
 	@RequestMapping("{noticeNo}/updateAction")
-	public String updateAction(@PathVariable ("noticeNo") int noticeNo,
-							   @ModelAttribute Notice updateNotice,
-							   Model model, RedirectAttributes ra,
-							   HttpServletRequest request) {
-		
+	public String updateAction(@PathVariable("noticeNo") int noticeNo, @ModelAttribute Notice updateNotice, Model model,
+			RedirectAttributes ra, HttpServletRequest request) {
+
 		// noticeNo를 updateNotice에 세팅
 		updateNotice.setNoticeNo(noticeNo);
-		
-		//System.out.println(updateNotice);
-		
+
+		// System.out.println(updateNotice);
+
 		// 파일 저장 경로 얻어오기
 		String savePath = request.getSession().getServletContext().getRealPath("resources/infoImages/notice");
-		
+
 		// 게시글 수정
-	      int result = service.updateNotice(updateNotice);
-	      
-	      String url = null;
-	      
-	      if(result > 0) {
-	         swalIcon = "success";
-	         swalTitle = "게시글 수정 성공";
-	         url = "redirect:../" + noticeNo;
-	         
-	      }else {
-	         swalIcon = "error";
-	         swalTitle = "게시글 수정 실패";
-	         url = "redirect:" + request.getHeader("referer");
-	      }
-	      
-	      ra.addFlashAttribute("swalIcon", swalIcon);
-	      ra.addFlashAttribute("swalTitle", swalTitle);
-	      
-	      return url;
+		int result = service.updateNotice(updateNotice);
+
+		String url = null;
+
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 수정 성공";
+			url = "redirect:../" + noticeNo;
+
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 수정 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+		return url;
 
 	}
 
-	
-	
-	
-	
-	
-	
+	// 게시글 삭제
+	// ----------------------------------------------------------------------------------------------------
+	@RequestMapping("{noticeNo}/delete")
+	public String delete(@PathVariable("noticeNo") int noticeNo, Model model, RedirectAttributes ra,
+			HttpServletRequest request) {
+
+		//System.out.println("notice delete() called");
+		int result = service.deleteNotice(noticeNo);
+
+		String url = null;
+		
+		System.out.println("result:"+result);
+		
+		if (result > 0) {
+			swalIcon = "success";
+			swalTitle = "게시글 삭제 성공";
+			String rawString = (String)request.getSession().getAttribute("returnListURL");
+			String pageNum = rawString.split("CScenter/")[1];
+
+			url = "redirect:../"+pageNum;
+			//System.out.println("url:"+url);
+			
+		} else {
+			swalIcon = "error";
+			swalTitle = "게시글 삭제 실패";
+			url = "redirect:" + request.getHeader("referer");
+		}
+
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+
+		return url;
+
+	}
+
+	/*
+	 * 
+	 * 
+	 * // 게시글 검색
+	 * -----------------------------------------------------------------------------
+	 * ---------------------------- public String searchAction() {
+	 * 
+	 * String searchKey = request.getParameter("sk"); String searchValue =
+	 * request.getParameter("sv"); String cp = request.getParameter("cp");
+	 * 
+	 * return null; }
+	 */
 
 }

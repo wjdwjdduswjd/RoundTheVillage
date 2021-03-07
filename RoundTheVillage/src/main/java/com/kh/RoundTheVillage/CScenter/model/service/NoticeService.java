@@ -63,4 +63,11 @@ public interface NoticeService {
 	 * @return result
 	 */
 	public abstract int updateNotice(Notice updateNotice);
+
+ 
+	/** 게시글 삭제 Service
+	 * @param noticeNo
+	 * @return result
+	 */
+	public abstract int deleteNotice(int noticeNo);
 }

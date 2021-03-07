@@ -294,6 +294,33 @@ public class NoticeServiceImpl implements NoticeService {
 	      return result;
 	   }
 
+	   
+	   
+	   
+	   
+	// 게시글 삭제 Service 구현   
+	@Override
+	public int deleteNotice(int noticeNo) {
+		
+		int result = dao.deleteNotice(noticeNo);
+		
+		return result;
+	}
+
 	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

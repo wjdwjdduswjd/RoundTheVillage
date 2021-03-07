@@ -105,6 +105,15 @@ public class NoticeDAO {
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
 		return sqlSession.delete("noticeMapper.deleteAttachmentList", deleteFileNoList);
 	}
+
+
+	/** 게시글 삭제 DAO
+	 * @param noticeNo
+	 * @return
+	 */
+	public int deleteNotice(int noticeNo) {
+		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
+	}
 }	
 	
 	
