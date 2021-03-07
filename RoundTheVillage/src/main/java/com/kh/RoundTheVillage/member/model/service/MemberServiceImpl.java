@@ -103,9 +103,21 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+
 	
 	//------------------------------------------------------------------------------------------------------
 	//마이페이지 관련
+	
+	//회원 정보 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateAction(Member updateMember) {
+		return dao.updateAction(updateMember);
+	}
+	
+	
+	
+	
 	
 
 

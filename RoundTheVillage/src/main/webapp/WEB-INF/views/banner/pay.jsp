@@ -46,7 +46,7 @@
 	        </table>
 	
 	        <div class="text-muted text-right small" style="width: 330px;">배너는 선택한 날짜부터 10일동안 등록됩니다.</div>
-	        <div class="text-right p-2" style="width: 320px;">
+	        <div class="text-right p-2" style="width: 330px;">
 	            <span class="color today mr-2">오늘</span>
 	            <span class="color select">선택</span>
 	        </div>
@@ -209,7 +209,7 @@
                 $(cell).addClass("selected"); // 다른 달로 넘어갔다 왔을 때 선택 유지
 
             if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i < date.getDate()) { // 지날 날짜 선택 불가
-                $(cell).css("opacity", "0.3");
+                $(cell).css("opacity", "0.7");
                 $(cell).css("cursor", "default");
                 $(cell).prop("disabled", true);
                 

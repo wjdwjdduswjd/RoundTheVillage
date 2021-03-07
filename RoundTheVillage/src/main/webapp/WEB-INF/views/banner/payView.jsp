@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 상세 내역</title>
-<link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css" type="text/css">
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
@@ -86,5 +86,20 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" />
+<script>
+  function cancelPay() {
+    jQuery.ajax({
+      "url": "http://www.myservice.com/payments/cancel",
+      "type": "POST",
+      "contentType": "application/json",
+      "data": JSON.stringify({
+        "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
+        "cancel_request_amount": 2000, // 환불금액
+        "reason": "테스트 결제 환불" // 환불사유
+      }),
+      "dataType": "json"
+    });
+  }
+</script>
 </body>
 </html>

@@ -17,6 +17,7 @@ import com.kh.RoundTheVillage.CScenter.model.exception.InsertAttachmentFailExcep
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
+import com.kh.RoundTheVillage.shop.exception.updateAttachmentFailException;
 import com.kh.RoundTheVillage.shop.model.dao.ShopDAO;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
@@ -39,15 +40,13 @@ public class ShopServiceImpl implements ShopService {
 
 		return dao.selectlesList(shopNo);
 	}
-	
-	
-	// 썸네일 가져오기 
+
+	// 썸네일 가져오기
 	@Override
 	public ShopAttachment selectThumb(int shop) {
-		
+
 		return dao.selectThumb(shop);
 	}
-
 
 	// 수업 썸네일 목록 조회 Service 구현
 	@Override
@@ -67,27 +66,18 @@ public class ShopServiceImpl implements ShopService {
 
 		return dao.selectRegistrationFlag(memberNo);
 	}
-	
-	
+
 	// 리뷰 목록 가져오기
 	@Override
 	public List<LessonReview> selectReviewList(int shopNo) {
 		return dao.selectReviewList(shopNo);
 	}
-	
+
 	// 좋아요 여부 조회
 	@Override
 	public int selectLikeFl(Map<String, Integer> map) {
 		return dao.selectLikeFl(map);
 	}
-	
-
-
-
-	
-
-	
-	
 
 	// 공방 등록 Service 구현
 	@Transactional(rollbackFor = Exception.class)
@@ -282,6 +272,222 @@ public class ShopServiceImpl implements ShopService {
 		return at;
 	}
 
+	// 공방 수정 Service 구현
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateShop(Shop shop, List<MultipartFile> images, String savePath) {
+		
+		// 썸내일 설명 크로스사이크스트립트 처리
+		shop.setThumbInfo( replaceParameter(shop.getThumbInfo()) );
+		
+		// 공방 수정 
+		int result = dao.updateShop(shop);
+		
+		// 2) 이미지 수정 (난이도 * 100)
+		if( result > 0 ) {
+			
+			// 수정 전 업로드 되어있던 파일 정보를 얻어옴.
+			// -> 새롭게 삽입 또는 수정되는 파일과 비교하기 위함.
+			List<ShopAttachment> oldFiles = dao.selectShopAttachmentList(shop.getShopNo());
+			
+			// 새로 업로드된 파일 정보를 담을 리스트
+			List<ShopAttachment> uploadImages = new ArrayList<ShopAttachment>();
+			
+			// 삭제 되어야할 파일 정보를 담을 리스트
+			List<ShopAttachment> removeFileList = new ArrayList<ShopAttachment>();
+			
+			
+			// DB에 저장할 웹상 이미지 접근 경로
+			String filePath = "/resources/images/shop";
+			
+			// 새롭게 업로드된 파일 정보를 가지고 있는 images에 반복 접근
+			for(int i=0 ; i<images.size() ; i++) {
+				
+				// 업로드된 이미지가 있을 경우
+				if( !images.get(i).getOriginalFilename().equals("") ) {
+					
+					// 파일명 변경
+					String fileName = rename(images.get(i).getOriginalFilename());
+					
+					// Attachment 객체 생성
+					ShopAttachment at = new ShopAttachment(i, filePath, fileName, shop.getShopNo());   
+					
+					uploadImages.add(at); // 업로드 이미지 리스트에 추가
+					
+					// true : update 진행
+					// false : insert 진행
+					boolean flag = false; 
+					
+					// 새로운 파일 정보와 이전 파일 정보를 비교하는 반복문
+					for(ShopAttachment old : oldFiles) { 	
+						if(old.getFileLevel() == i) {
+							// 현재 접근한 이전 파일의 레벨이 
+							// 새롭게 업로드한 파일의 레벨과 같은 경우
+							// == 같은 레벨에 새로운 이미지 업로드 --> update 진행
+							flag = true;
+							
+							// DB에서 파일 번호가 일치 하는 행의 내용을 수정하기 위해 파일번호를 얻어옴.
+							at.setFileNo( old.getFileNo() );
+							removeFileList.add(old); // 삭제할 파일 목록에 이전 파일 정보 추가
+							break;
+						}
+					}
+					
+					// flag 값에 따른 insert / update 제어
+					if(flag) { // true : update 진행
+						result = dao.updateShopAttachment(at);
+					
+					}else { // false : insert 진행
+						result = dao.insertShopAttachment(at);
+					}	
+					
+					// insert 또는 update 실패 시 rollback 수행
+					// -> 예외를 발생 시켜서 @Transactional을 이용해 수행
+					if(result <= 0) {
+						throw new updateAttachmentFailException("파일 정보 수정 실패");
+					}
+				} 
+				
+			} // images 반복 접근 for문 종료
+			
+			// uploadImages == 업로드된 파일 정보 --> 서버에 파일 저장
+			// removeFileList == 제거해야될 파일 정보 --> 서버에서 파일 삭제
+			// 수정되거나 새롭게 삽입된 이미지를 서버에 저장하기 위해 transferTo() 수행
+			if(result > 0) {
+				for(int i=0 ; i<uploadImages.size(); i++) {
+					
+					
+					
+					try {
+						images.get(uploadImages.get(i).getFileLevel())
+							.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()) );                                             
+					}catch (Exception e) {
+						e.printStackTrace();
+						throw new updateAttachmentFailException("파일 정보 수정 실패");
+					}
+				}
+			}
+			
+			
+			// ------------------------------------------
+			// 이전 파일 서버에서 삭제하는 코드 
+			for(ShopAttachment removeFile : removeFileList) {
+				File tmp = new File(savePath + "/" + removeFile.getFileName());
+				tmp.delete();
+			}
+			// ------------------------------------------
+			
+			
+			
+			// 1) summernote로 작성된 게시글 부분 수정
+			// 2) 썸네일 이미지 수정
+			// 3) summernote로 작성된 게시글에 있는 이미지 정보 수정
+			//   -> 게시글 내부 <img> 태그의 src 속성을 얻어와 파일명을 얻어옴.
+			//   -> 수정 전 게시글의 이미지와    수정 후 게시글 이미지 파일명을 비교
+			//   --> 새롭게 추가된 이미지, 기존 이미지에서 삭제된 것도 존재
+			//   --> Attachment 테이블에 반영
+			
+			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); //img 태그 src 추출 정규표현식
+			
+			// 공방 정보에 작성된 <img> 태그의 src속성을 이용해서 파일명을 얻어오기
+			Matcher matcher = pattern.matcher(shop.getShopInfo());
+			
+			// 정규식을 통해 공방 정보에 작성된 이미지 파일명만 얻어와 모아둘 List 선언
+			List<String> fileNameList = new ArrayList<String>();
+			
+			String src = null; // matcher에 저장된 src를 꺼내서 임시 저장할 변수
+			String fileName = null; // src에서 파일명을 추출해서 임시 저장할 변수
+			
+			while(matcher.find()) {
+				src = matcher.group(1);  // /spring/board/resources/infoImages/abc.jpg
+				fileName = src.substring(src.lastIndexOf("/") + 1); // abc.jpg
+				fileNameList.add(fileName);
+			}
+			
+			
+			// DB에 새로 추가할 이미지파일 정보를 모아둘 List 생성
+			List<ShopAttachment> newAttachmentList = new ArrayList<ShopAttachment>();
+			
+			// DB에서 삭제할 이미지 파일 번호를 모아둘 List 생성
+			List<Integer> deleteFileNoList = new ArrayList<Integer>();
+			
+			// 수정된 게시글 파일명 목록(fileNameList)과  
+			// 수정 전 파일 정보 목록(oldFiles)를 비교해서
+			// 수정된 게시글 파일명 하나를 기준으로 하여  수정 전 파일명과 순차적 비교를 진행
+			// --> 수정된 게시글 파일명과 일치하는 수정 전 파일명이 없다면
+			//    == 새로 삽입된 이미지임을 의미함.
+			for(String fName : fileNameList) {
+				
+				boolean flag = true;
+				
+				for(ShopAttachment oldAt : oldFiles) {
+					if(fName.equals(oldAt.getFileName())) { // 수정 후  / 수정 전 같은 파일이 있다 == 수정되지 않았다.
+						flag = false;
+						break;
+					}
+				}
+				
+				// flag == true == 수정 후  파일명과 수정 전 파일명이 일치하는게 없을 경우
+				// == 새로운 이미지 --> newAttachmentList 추가
+				if(flag) {
+					ShopAttachment at = new ShopAttachment(1, filePath, fName, shop.getShopNo());
+					newAttachmentList.add(at);
+				}
+			}
+			
+			
+			
+			// 수정 전 파일 정보 목록(oldFiles)과
+			// 수정된 게시글 파일명 목록(fileNameList)을 비교
+			// 수정 전 파일명 하나를 기준으로 하여  수정 후 파일명과 순차적 비교를 진행
+			// --> 수정 전 게시글 파일명과 일치하는 수정 후 파일명이 없다면
+			//    == 기존 수정 전 이미지가 삭제됨을 의미
+			for(ShopAttachment oldAt : oldFiles) {
+				boolean flag = true;
+				
+				for(String fName : fileNameList) {
+					if(oldAt.getFileName().equals(fName)) {
+						flag = false;
+						break;
+					}
+				}
+				
+				// flag == true == 수정 전 파일명과 수정 후 파일명이 일치하는게 없을 경우
+				// == 삭제된 이미지 --> deleteFileNoList 추가
+				if(flag) {
+					if(oldAt.getFileLevel() == 0) continue;
+					
+					deleteFileNoList.add(oldAt.getFileNo());
+				}
+			} // newAttachmentList / deleteFileNoList 완성됨
+			
+			
+			
+			if(!newAttachmentList.isEmpty()) { // 새로 삽입된 이미지가 있다면
+				result = dao.insertAttachmentList(newAttachmentList);
+				
+				if(result != newAttachmentList.size()) { // 삽입된 결과행의 수와 삽입을 수행한 리스트 수가 맞지 않을 경우 == 실패
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삽입 중 오류 발생)");
+				}
+			}
+			
+			
+			if(!deleteFileNoList.isEmpty()) { // 삭제할 이미지가 있다면
+				result = dao.deleteAttachmentList(deleteFileNoList);
+				
+				
+				if(result != deleteFileNoList.size()){	
+					throw new InsertAttachmentFailException("파일 수정 실패(파일 정보 삭제 중 오류 발생)");
+				}
+				
+			}
+		}
+		
+		return result;
+	}
+
+	// --------------------- 좋 아 요 ----------------------------
+
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertLike(Map<String, Integer> map) {
@@ -299,12 +505,17 @@ public class ShopServiceImpl implements ShopService {
 		return dao.selectLikeCount(shopNo);
 	}
 
-	
-	
-	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+	private String replaceParameter(String param) {
+		String result = param;
+		if (param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
 
-
-	
-
+		return result;
+	}
 
 }

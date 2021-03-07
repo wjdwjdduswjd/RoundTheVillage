@@ -62,5 +62,5 @@ public interface NoticeService {
 	 * @param updateNotice
 	 * @return result
 	 */
-	//public abstract int updateNotice(Notice updateNotice);
+	public abstract int updateNotice(Notice updateNotice);
 }

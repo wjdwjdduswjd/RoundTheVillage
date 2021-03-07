@@ -142,6 +142,57 @@
 		SELECT COUNT(*) FROM CS_GOOD
 		WHERE CRAFTSHOP_NO = #{shopNo}
 	</select>
+	
+	
+	<!-- 공방 정보 수정 -->
+	<update id="updateShop" parameterType="Shop">
+		UPDATE CRAFTSHOP SET
+		NAME = #{shopOwnerName},
+		CRAFTSHOP_NAME = #{shopName},
+		CRAFTSHOP_ADDR = #{shopAdress}, 
+		INTRODUCE = #{shopInfo}, 
+		CRAFTSHOP_CONTACT = #{shopContact}, 
+		CS_CATE_NO = #{shopCategoryNo}, 
+		THUMBNAIL_INFO = #{thumbInfo}
+		WHERE	CRAFTSHOP_NO = #{shopNo}
+	</update>
+	
+	<!-- 이미지 목록 조회 -->
+	<select id="selectShopAttachmentList" parameterType="_int" resultMap="shopAttachment_rm">
+		SELECT * FROM CS_FILE
+		WHERE CRAFTSHOP_NO = #{shopNo}
+		ORDER BY FILE_LEVEL
+	</select>
+	
+	
+	<!-- 이미지 정보 수정 -->
+	<update id="updateShopAttachment" parameterType="ShopAttachment">
+		UPDATE CS_FILE SET
+		FILE_PATH = #{filePath},
+		FILE_NAME = #{fileName}
+		WHERE FILE_NO = #{fileNo}
+	</update>
+	
+	<!-- 파일 정보 삽입 -->
+	<insert id="insertShopAttachment" parameterType="ShopAttachment">
+		INSERT INTO CS_FILE
+		VALUES(SEQ_FNO.NEXTVAL, #{filePath}, #{fileName}, #{shopNo}, #{fileLevel} )
+	</insert>
+	
+	
+	<!-- 파일 정보 일괄 삭제 -->
+	<delete id="deleteAttachmentList" parameterType="list">
+		DELETE FROM CS_FILE
+		WHERE FILE_NO IN
+		<foreach collection="list" item="fileNo" open="(" close=")" separator=",">
+			#{fileNo}
+		</foreach>
+	
+	</delete>
+	
+	
+	
+	
 
 
 

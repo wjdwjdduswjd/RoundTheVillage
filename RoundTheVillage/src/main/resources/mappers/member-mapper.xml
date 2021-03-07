@@ -86,6 +86,24 @@
 	
 	
 	<!-- ************************************* 마이페이지 ************************************* -->
+
+
+	<update id="updateAction" parameterType="Member" >
+		UPDATE MEMBER SET
+			MEM_NICKNAME = #{memberNickname},
+			MEM_INTRS = #{memberIntrs},
+			MEM_ADDR = #{memberAddr}
+		WHERE MEM_NO = #{memberNo}
+	</update>
+
+
+
+
+
+
+
+
+
 	
 	
 	
