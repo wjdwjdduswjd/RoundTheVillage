@@ -241,6 +241,7 @@
 					<div class="text-center">
 						<button type="submit" class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73;">등록</button>
 						<a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">취소</a>
+		
 					</div>
 
 
@@ -380,7 +381,7 @@
 					return false;
 				}
 			}
-
+   
 			$shopContact = $("<input>", {
 				type : "hidden",
 				name : "shopContact",

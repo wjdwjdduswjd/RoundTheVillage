@@ -116,6 +116,16 @@
 		WHERE MEM_NO = #{memberNo}
 	</update>
 
+	
+	<!-- 카카오 회원 정보 조회 -->
+	<select id="selectKakoMember" resultMap="member_rm">
+		SELECT * FROM V_MYINFO
+		WHERE MEM_ID =  #{id}
+		AND MEM_SCSN_FL = 'N'  
+	</select>
+
+
+
 
 
 	

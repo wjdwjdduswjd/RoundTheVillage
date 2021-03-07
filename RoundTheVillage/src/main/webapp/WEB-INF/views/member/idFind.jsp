@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,11 @@
 </head>
 <body>
 	<div class="container">
-
+		<c:if test="${!empty swalTitle }">
+			<script>
+				alert("${swalTitle}");
+			</script>
+		</c:if>
 
 		<!-- 메인 이동 로고 -->
 		<div class="login-logo-area">

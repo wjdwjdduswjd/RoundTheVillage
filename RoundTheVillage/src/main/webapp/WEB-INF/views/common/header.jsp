@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
 	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-   
+  	
 <body>
 	<c:if test="${!empty swalTitle}">
 		<script>
@@ -110,7 +110,7 @@
           
           <%-- 관리자 --%>
 					<c:if test="${loginMember.memberType == 'A'}">
-						<a class="dropdown-item" href="#">회원조회</a>
+						<a class="dropdown-item" href="${contextPath}/manager/normalList">회원조회</a>
         	  <a class="dropdown-item" href="#">공방관리</a>
         	  <a class="dropdown-item" href="#">배너관리</a>
         	  <a class="dropdown-item" href="${contextPath}/manager/reportList}">신고관리</a>

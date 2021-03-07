@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -45,49 +46,56 @@
 				</div>
 
 				<!-- 닉네임 -->
-				<label class="title">* 닉네임</label><br> <input type="text" name="memberNickname" id="nickName" placeholder="닉네임 연결" required>
+				<label class="title">* 닉네임</label><br> <input type="text" name="memberNickname" id="nickName" placeholder="닉네임 연결" value="${kakaoNickName}" required>
 				<div class="check">
 					<span id="checkNickName">&nbsp;</span>
 				</div>
 
 
 				<!-- 아이디 입력 -->
-				<label class="title">* 아이디</label><br> <input type="text" name="memberId" id="id" placeholder="아이디 조건" required>
-				<div class="check">
-					<span id="checkId">&nbsp;</span>
-				</div>
-
-				<!-- 비밀번호 -->
-				<label class="title" for="pswd1">* 비밀번호</label><br> <input type="password" name="memberPwd" id="pwd1" maxlength="12">
-				<div class="check">
-					<span id="checkPwd1">&nbsp;</span>
-				</div>
-
-
-				<!-- 비밀번호 확인 -->
-				<label class="title" for="pswd2">비밀번호 확인</label><br> <input type="password" name="memberPwd2" id="pwd2" maxlength="12" placeholder="비밀번호를 한번 더 입력해주세요." required>
-				<div class="check">
-					<span id="checkPwd2">&nbsp;</span>
-				</div>
-
+				<c:if test="${!empty kakaoId}">
+					<input type="hidden" name="memberId" id="id" placeholder="아이디 조건" value="${kakaoId}" required>
+					<input type="hidden" name="memberPwd" id="pwd1" maxlength="12" value="kakao_login">
+					<input type="hidden" name="memberPwd2" id="pwd2" maxlength="12" placeholder="비밀번호를 한번 더 입력해주세요." value="kakao_login" required>
+				</c:if>
+				
+				<c:if test="${empty kakaoId}">
+					<label class="title">* 아이디</label><br> <input type="text" name="memberId" id="id" placeholder="아이디 조건" required>
+					<div class="check">
+						<span id="checkId">&nbsp;</span>
+					</div>
+			
+					<!-- 비밀번호 -->
+					<label class="title" for="pswd1">* 비밀번호</label><br> <input type="password" name="memberPwd" id="pwd1" maxlength="12">
+					<div class="check">
+						<span id="checkPwd1">&nbsp;</span>
+					</div>
+	
+					<!-- 비밀번호 확인 -->
+					<label class="title" for="pswd2">비밀번호 확인</label><br> <input type="password" name="memberPwd2" id="pwd2" maxlength="12" placeholder="비밀번호를 한번 더 입력해주세요." required>
+					<div class="check">
+						<span id="checkPwd2">&nbsp;</span>
+					</div>
+				</c:if>
 
 
 				<!-- 이메일 -->
-				<label class="title">* 이메일</label><br>
-				<div class="email">
-					<input type="email" name="memberEmail" id="email" placeholder="example@naver.com" required>
-					<button class="email_button" id="email_button">이메일 인증</button>
+				<div class="email_area">
+					<label class="title">* 이메일</label><br>
+					<div class="email">
+						<input type="email" name="memberEmail" id="email" placeholder="example@naver.com" value="${kakaoEmail}" required>
+						<button class="email_button" type="button" id="email_button">이메일 인증</button>
+					</div>
+					<div class="check">
+						<span id="checkEmail">&nbsp;</span>
+					</div>
+					<label class="title">
+						<input type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요.">
+					</label>
+					<div class="check">
+						<span id="checkNumEmail">&nbsp;</span>
+					</div>
 				</div>
-				<div class="check">
-					<span id="checkEmail">&nbsp;</span>
-				</div>
-				<label class="title"><input type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요." required></label>
-				<div class="check">
-					<span id="checkNumEmail">&nbsp;</span>
-				</div>
-
-
-
 
 				<!-- 주소 -->
 				<label class="title">* 거주지 주소</label>
@@ -171,6 +179,8 @@
 			"email" : false,
 			"nickName" : false
 		};
+		
+		
 
 		var $id = $("#id");
 		var $pwd1 = $("#pwd1");
@@ -178,7 +188,71 @@
 		var $name = $("#name");
 		var $email = $("#email");
 		var $nickName = $("#nickName");
+		
+		
+		
+		//----------------- 카카오 로그인 -----------------
+		if("${kakaoId}" != ""){
+			signUpCheck.id = true;
+			signUpCheck.pwd1 = true;
+			signUpCheck.pwd2 = true;
+		}
+		
+		if("${kakaoNickName}" != ""){
+			$.ajax({
+				url : "nickNameDupCheck",
+				data : {"memberNickname" : "${kakaoNickName}"},
+				type : "post",
+				success : function(result){
+					if(result == 0){
+						$("#checkNickName").text("사용 가능한 닉네임입니다.").css("color", "green");
+						signUpCheck.nickName = true;
+					}else{
+						$("#checkNickName").text("이미 사용 중인 닉네임입니다.").css("color", "red");
+						signUpCheck.nickName = false;
+					}
+				},
+				error : function() {
+					console.log("ajax 통신 실패");
+				}
 
+			});
+		}
+		
+		if("${kakaoEmail}" != ""){
+			$.ajax({
+				url : "emailDupCheck",
+				data : {"memberEmail" : "${kakaoEmail}"},
+				type : "post",
+				success : function(result) {
+					if (result == 0) { // 중복되지 않은 경우
+						$("#checkEmail").text("사용가능한 올바른 이메일입니다.")
+								.css("color", "green");
+						signUpCheck.email = true;
+						eCheck = true;
+						
+						isCertification = true;
+						$(".email_area").hide();
+						
+					} else {
+						$("#checkEmail").text("이미 사용 중인 이메일입니다.")
+								.css("color", "red");
+						signUpCheck.email = false;
+						eCheck = false;
+					}
+				},
+				error : function() {
+					console.log("이메일 중복 검사 실패");
+				}
+			});
+			
+			
+		}
+		//----------------- 카카오 로그인 -----------------
+			
+			
+		
+		
 		// 아이디 유효성 검사
 		$id.on("input", function() {
 			// 첫글자는 영어 소문자, 나머지 글자는 영어 대,소문자 + 숫자, 총 6~12글자
