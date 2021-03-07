@@ -258,15 +258,23 @@ function selectReview() {
 				
 				var reviewcontent = $("<div>").addClass("review-content");
 				reviewcontent.html(item.revContent);
+				review.append(reviewnamestar).append(reviewtime).append(reviewcontent);
+
 				
 				var reviewupdatedeletebutton = $("<div>").addClass("review-update-delete-button");
-				var updateButton = $("<button>", {onclick:"updateReviewForm(" + item.revNo + ")", id:"updateButton"+item.revNo}).html("수정").addClass("updateButton");
-				var deleteButton = $("<button>", {onclick:"deleteReview(" + item.revNo + ")"}).html("삭제");
-				reviewupdatedeletebutton.append(updateButton).append(deleteButton);
 				
-				review.append(reviewnamestar).append(reviewtime).append(reviewcontent);
 				
-				if(${!empty loginMember} && "${loginMember.memberNo}" == item.memberNo){
+				if(${!empty loginMember}){
+					if("${loginMember.memberNo}" == item.memberNo) {
+						var updateButton = $("<button>", {onclick:"updateReviewForm(" + item.revNo + ")", id:"updateButton"+item.revNo}).html("수정").addClass("updateButton");
+						var deleteButton = $("<button>", {onclick:"deleteReview(" + item.revNo + ")"}).html("삭제");
+						reviewupdatedeletebutton.append(updateButton).append(deleteButton);
+					}
+					else {
+						var reportButton = $("<button>", {onclick:"reportReview(" + item.revNo + ")"}).html("신고");
+						reviewupdatedeletebutton.append(reportButton);
+						
+					}
 					review.append(reviewupdatedeletebutton);
 				}
 				
@@ -300,7 +308,6 @@ function updateReviewForm(i) {
 	$(".review-update-text").focus();
 	
 }
-
 
 function updateReview(i) {
 	
@@ -340,6 +347,10 @@ function deleteReview(i) {
 			}
 		})
 	}
+}
+
+function reportReview(i) {
+   window.open("${contextPath}/lesson/reportForm/" + i, "popup", "width=820, height=430, toolbars=no, scrollbars=no, menubar=no left=1000 top=200");
 }
 
 $(".review-submit").click(function() {

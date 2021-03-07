@@ -27,6 +27,7 @@ import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Controller
@@ -231,4 +232,18 @@ public class LessonController {
 		return result;
 	}
 	
+	@GetMapping("/lesson/reportForm/{revNo}")
+	public String reportForm(@PathVariable int revNo, Model model) {
+		model.addAttribute(revNo);
+		return "lesson/report";
+	}
+	
+	@GetMapping("/lesson/report/{revNo}")
+	public String report(@PathVariable int revNo,
+						 @ModelAttribute LessonReviewReport report,
+						 Model model) {
+		int result = service.report(report);
+		model.addAttribute("result", result);
+		return "lesson/close";
+	}
 }

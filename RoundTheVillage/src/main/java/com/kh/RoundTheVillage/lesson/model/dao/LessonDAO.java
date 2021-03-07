@@ -14,6 +14,7 @@ import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Repository
@@ -117,6 +118,10 @@ public class LessonDAO {
 
 	public int updateQuestion(LessonQuestion question) {
 		return session.update("lessonMapper2.updateQuestion", question);
+	}
+
+	public int report(LessonReviewReport report) {
+		return session.insert("lessonMapper2.insertReport", report);
 	}
 	
 }

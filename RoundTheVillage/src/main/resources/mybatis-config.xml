@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonDetail" alias="LessonDetail"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonFile" alias="LessonFile"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonReview" alias="LessonReview"/>
+		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport" alias="LessonReviewReport"/>
 		<typeAlias type="com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion" alias="LessonQuestion"/>
 		
 		<typeAlias type="com.kh.RoundTheVillage.board.model.vo.Board" alias="Board"/>
