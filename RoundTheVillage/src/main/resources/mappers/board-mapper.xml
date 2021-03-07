@@ -131,10 +131,18 @@
      FROM V_BOARD
      JOIN PAY ON(MEMBER_NO = MEM_NO)
      WHERE MEMBER_NO = 46 -->
+     
+		<!-- SELECT LES_NO CLA_NO, LES_TITLE FROM LESSON
+		JOIN PAY USING(LES_NO)
+		WHERE MEM_NO = #{memberNo}
+		AND PAY_FL = 'N' -->
+		
 		SELECT LES_NO CLA_NO, LES_TITLE FROM LESSON
 		JOIN PAY USING(LES_NO)
 		WHERE MEM_NO = #{memberNo}
 		AND PAY_FL = 'N'
+    AND LES_NO NOT IN (SELECT DISTINCT CLA_NO FROM BOARD
+                    WHERE MEMBER_NO = #{memberNo})
 	</select>
 
 
@@ -233,11 +241,11 @@
 		UPDATE BOARD SET
 		BOARD_TITLE = #{boardTitle},
 		BOARD_CONTENT = #{boardContent},
-		BOARD_MODIFY_DT = SYSDATE
+		BOARD_M_DT = SYSDATE
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
-		<!-- 파일 정보 수정 -->
+	<!-- 파일 정보 수정 -->
 	<update id="updateAttachment" parameterType="Attachment">
 		UPDATE B_ATTACHMENT SET
 		B_FILE_NAME = #{fileName},

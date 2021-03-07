@@ -116,16 +116,22 @@ public class BoardController {
 
 	// 게시글 등록 화면 전환
 	@RequestMapping("insert")
-	public String insertView(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String insertView(@ModelAttribute("loginMember") Member loginMember, Model model, RedirectAttributes ra) {
 
 		int memberNo = loginMember.getMemberNo();
 		List<Board> selectClass = service.selectClass(memberNo);
 
-		model.addAttribute("selectClass", selectClass);
-
-		System.out.println(selectClass);
-
-		return "board/boardInsert";
+		// 후기를 쓸 수업이 없을 경우
+		if(selectClass.isEmpty()) {
+			ra.addFlashAttribute("swalIcon", "info");
+			ra.addFlashAttribute("swalTitle", "후기를 작성할 수 있는 수업 목록이 없습니다.");
+			
+			return "redirect:list";
+		}else {
+			model.addAttribute("selectClass", selectClass);
+			return "board/boardInsert";
+		}
+		
 
 	}
 
@@ -176,7 +182,7 @@ public class BoardController {
 
 	// summernote에 업로드 된 이미지 저장 Controller
 	@ResponseBody // 응답 시 값 자체를 돌려보냄
-	@RequestMapping("insertImage")
+	@RequestMapping(value={"insertImage", "{boardNo}/insertImage"})
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		// 서버에 파일(이미지)을 저장할 폴더 경로 얻어오기
@@ -219,19 +225,10 @@ public class BoardController {
 			   					  @ModelAttribute Board updateBoard,
 			   					  Model model, RedirectAttributes ra,
 			   					  HttpServletRequest request,
-			   @RequestParam("deleteImages") boolean[] deleteImages,
 			   @RequestParam(value="images", required=false) List<MultipartFile> images) {
-		   
-			/*
-			 * System.out.println(Arrays.toString(deleteImages)); for(MultipartFile m :
-			 * images) { System.out.println(m.getOriginalFilename()); }
-			 */
 		   
 		   // boardNo를 updateBoard에 세팅
 		   updateBoard.setBoardNo(boardNo);
-		   
-		   
-		   
 		   
 		   
 		   // 파일 저장 경로 얻어오기
@@ -239,7 +236,7 @@ public class BoardController {
 		   
 		   
 		   // 파일 수정 Service 호출
-		   int result = service.updateBoard(updateBoard, images, savePath, deleteImages);
+		   int result = service.updateBoard(updateBoard, images, savePath);
 		   
 		   String url = null;
 		   
