@@ -55,10 +55,6 @@
 					</a> 
 				</div>
 
-					<a href="https://kauth.kakao.com/oauth/logout?client_id=3c56b25609c3861587b904b7f8db4860&logout_redirect_uri=http://localhost:8080/RoundTheVillage/kakaoLogout"> 
-					로그아웃
-					</a> 
-
 				<!-- 네이버계정 로그인 -->
 				<div>
 					<img src="${contextPath}/resources/images/member/naverLogin.png" class="sns-btn">
