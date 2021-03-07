@@ -26,6 +26,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.Shop" alias="Shop"/>
 		<typeAlias type="com.kh.RoundTheVillage.shop.model.vo.ShopAttachment" alias="ShopAttachment"/>
 		<typeAlias type="com.kh.RoundTheVillage.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.RoundTheVillage.manager.model.vo.ManagerReport" alias="ManagerReport"/>
 	</typeAliases>  
 
   <mappers>
@@ -37,6 +38,7 @@
 	  <mapper resource="/mappers/notice-mapper.xml"/>
 	  <mapper resource="/mappers/shop-mapper.xml"/>
 	  <mapper resource="/mappers/member-mapper.xml"/>
+	  <mapper resource="/mappers/managerReport-mapper.xml"/>
   </mappers>
 
 

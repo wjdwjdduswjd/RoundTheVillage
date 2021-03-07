@@ -47,8 +47,13 @@ public interface BoardService {
 	
 	public abstract int insertBoard(Map<String, Object> map, List<MultipartFile> images, String savePath);
 
-	public abstract int updateBoard(Board updateBoard, List<MultipartFile> images, String savePath,
-			boolean[] deleteImages);
+	/** 게시글 수정 Service
+	 * @param updateBoard
+	 * @param images
+	 * @param savePath
+	 * @return result
+	 */
+	public abstract int updateBoard(Board updateBoard, List<MultipartFile> images, String savePath);
 	
 	public abstract Attachment insertImage(MultipartFile uploadFile, String savePath);
 
