@@ -381,7 +381,7 @@
 					return false;
 				}
 			}
-
+   
 			$shopContact = $("<input>", {
 				type : "hidden",
 				name : "shopContact",
