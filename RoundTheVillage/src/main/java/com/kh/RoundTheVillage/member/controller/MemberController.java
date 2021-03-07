@@ -346,10 +346,82 @@ public class MemberController {
 		
 		
 		 
-		
+		// 내 정보 수정 -> 비밀번호 변경
+		@RequestMapping("myInfoUpdatePwd")
+		public String updatePwd(@RequestParam("memberPwd") String memberPwd,
+								@RequestParam("newPwd1") String newPwd,
+								@ModelAttribute(name="loginMember", binding = false) Member loginMember,
+								RedirectAttributes ra){
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberPwd", memberPwd);
+			map.put("newPwd", newPwd);
+			map.put("memberNo", loginMember.getMemberNo());
+			
+			int result = service.myInfoUpdatePwd(map); 
+			
+			String returnUrl = null;
+			
+			if(result > 0 ) {
+				swalIcon = "success";
+				swalTitle = "비밀번호 변경 성공";
+				
+				returnUrl = "myInfoChange";
+			}
+			
+			else {
+				swalIcon = "error";
+				swalTitle = "비밀번호 변경 실패";
+				
+				returnUrl = "changePwd";
+			}
+			
+			ra.addFlashAttribute("swalIcon", swalIcon);
+			ra.addFlashAttribute("swalTitle", swalTitle);
+			
+			return "redirect:" + returnUrl;
+			
+		}
 	
 	
-	
+		// 회원 탈퇴 Controller
+		@RequestMapping(value="deleteMember", method = RequestMethod.POST)
+		public String deleteMember(@ModelAttribute("loginMember") Member loginMember,
+									RedirectAttributes ra, SessionStatus status) {
+			
+			//회원 번호가 필요 == Session에 있는 loginMember에 저장되어 있음
+			// --> @ModelAttribute("loginMember") 를 통해서 얻어옴
+			
+			// 입력받은 현재 비밀번호 필요 == parameter로 전달받음(memberPwd)
+			// --> @ModelAttributefmf 를 통해 Member 객체에 자동으로 세팅됨.
+			
+			// 회원번호, 현재 비밀번호를 하나의 VO에 담아서 Service로 전달할 예정
+			// --> 이 작업을 별도로 진행하지 않고 @ModelAttribute를 이용하여 진행
+			
+			// 회원 탈퇴 Service 호출
+			int result = service.deleteMember(loginMember);
+			 
+			String returnURL = null;
+			
+			if(result > 0) {
+				swalIcon = "success";
+				swalTitle = "탈퇴되었습니다.";
+				returnURL = "redirect:/"; // 메인페이지
+				
+				// 회원 탈퇴 성공 시 로그아웃
+				status.setComplete();
+				
+			}else {
+				swalIcon = "error";
+				swalTitle = "탈퇴 실패.";
+				returnURL = "member/secession"; // 회원 탈퇴 페이지		
+			}
+
+			ra.addFlashAttribute("swalIcon", swalIcon);
+			ra.addFlashAttribute("swalTitle", swalTitle);
+			
+			return returnURL;
+		}
 	
 	
 	

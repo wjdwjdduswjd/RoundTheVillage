@@ -27,8 +27,10 @@
 					<h3>회원 탈퇴</h3>
 				</div>
 
+				<form method="POST" action="deleteMember" onsubmit="return validate();" class="form-horizontal" role="form">
+
 				<div class="info-b">
-					<label class="label-area">비밀번호</label> <input class="output input-area" name="pwd">
+					<label class="label-area">비밀번호</label> <input type="password" class="output input-area" name="memberPwd" id="memberPwd">
 				</div>
 
 				<br><br><br>
@@ -43,7 +45,7 @@
 							<div class="col-xs-12">
 								<textarea class=" textarea-conrol" readonly rows="10" cols="100">
 제 1 조 (목적)
-본 약관은 서비스(이하 “서비스”)를 제공하는 요거프레소(이하 “회사”)와 위 서비스를 이용하는 고객 (이하 “고객”)간에 서비스 이용에 관한 권리와 의무 및 책임 기타 제반사항을 규정함을 목적으로 합니다.
+본 약관은 서비스(이하 “서비스”)를 제공하는 동네한바퀴(이하 “회사”)와 위 서비스를 이용하는 고객 (이하 “고객”)간에 서비스 이용에 관한 권리와 의무 및 책임 기타 제반사항을 규정함을 목적으로 합니다.
 
 
 제 2 조 (용어의 정의)
@@ -77,7 +79,7 @@
 				<div class="secession-area">
 					<button type="submit" id="secessionBtn" class="btn">탈퇴하기</button>
 				</div>
-
+			</form>
 
 
 
@@ -89,5 +91,27 @@
 	</div>
 
 	<%-- <jsp:include page="../common/footer.jsp"/> --%>
+	
+	
+	
+	<script>
+		// submit 동작
+		function validate() {
+
+			if($("#memberPwd").val().trim().length == 0 ){
+				alert("비밀번호를 입력해주세요");
+				$("#currentPwd").focus();
+				return false;
+			}
+			
+			if(!$("#agree").prop("checked")){
+				alert("약관에 동의해 주세요.");
+				return false;
+			}else{
+				return confirm("정말로 탈퇴하시겠습니까?");
+			}
+			
+		}
+	</script>
 </body>
 </html>

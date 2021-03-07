@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +16,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
+	<c:if test="${!empty swalTitle}">
+      <script>
+         swal({icon  : "${swalIcon}",
+              title : "${swalTitle}",
+              text  : "${swalText}"});
+      </script>
+   </c:if>
 	<%-- <jsp:include page="../common/header.jsp"/> --%>
 
 	<div class="container">
@@ -27,28 +36,12 @@
 				</div>
 
 
-				<form method="POST" action="updatePwd" onsubmit="return validate();" class="form-horizontal" role="form">
+				<form method="POST" action="myInfoUpdatePwd" onsubmit="return validate();" class="form-horizontal" role="form">
 
 					<div class="info-b">
 						<label class="label-area">현재 비밀번호</label> <input class="output input-area" type="password" name="memberPwd" id="memberPwd" maxlength="12">
 					</div>
 
-					<div class="info-b">
-						<label class="label-area">이메일 주소</label><input class="b input-area" type="text" name="memberEmail" id="email" placeholder="가입시 사용한 이메일을 입력해주세요." required>
-						<button id="email_button" class="email_button">인증번호 받기</button>
-						<div class="check">
-							<label class="text"></label><span id="checkEmail">&nbsp;</span>
-						</div>
-					</div>
-					
-					<!-- 이메일인증번호 입력부분 -->
-					<div class="info-b">
-						<label class="label-area"></label><input class="b input-area" type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요." required>
-						<div class="check">
-							<label class="text"></label><span id="checkNumEmail">&nbsp;</span>
-						</div>
-					</div>
-					
 					
 
 					<br>
@@ -59,6 +52,7 @@
 					<div class="info-b">
 						<label class="label-area">새 비밀번호</label> <input class="output input-area" type="password" id="newPwd1" name="newPwd1">
 						<div class="check">
+							<label class="label-area"></label>
 							<span id="checkPwd1">&nbsp;</span>
 						</div>
 					</div>
@@ -66,6 +60,7 @@
 					<div class="info-b">
 						<label class="label-area">새 비밀번호 확인</label> <input class="output input-area" type="password" id="newPwd2" name="newPwd2">
 						<div class="check">
+							<label class="label-area"></label>
 							<span id="checkPwd2">&nbsp;</span>
 						</div>
 					</div>
@@ -93,7 +88,7 @@
 
 	<script>
 	
-		var signUpCheck = {
+		var updatePwdCheck = {
 			"newPwd1" : false,
 			"newPwd2" : false,
 		};
@@ -110,29 +105,29 @@
 			if (!regExp.test($("#newPwd1").val())) {
 				$("#checkPwd1").text("비밀번호 형식이 유효하지 않습니다.")
 						.css("color", "red");
-				signUpCheck.pwd1 = false;
+				updatePwdCheck.newPwd1 = false;
 			} else {
 				$("#checkPwd1").text("유효한 비밀번호 형식입니다.").css(
 						"color", "green");
-				signUpCheck.pwd1 = true;
+				updatePwdCheck.newPwd1 = true;
 			}
 
 			// 비밀번호1이 유효하지 않은 상태로 비밀번호 2를 작성하는 경우
-			if (!signUpCheck.pwd1 && $pwd2.val().length > 0) {
+			if ( !updatePwdCheck.newPwd1 && $newPwd2.val().length > 0 ) {
 				alert("유효한 비밀번호를 작성해 주세요.");
-				$pwd2.val("");
-				$pwd1.focus();
-			} else if (signUpCheck.pwd1
-					&& $pwd2.val().length > 0) {
+				$newPwd2.val("");
+				$newPwd1.focus();
+			} 
+			else if (updatePwdCheck.newPwd1 && $newPwd2.val().length > 0) {
 				if ($("#newPwd1").val().trim() != $("#newPwd2").val()
 						.trim()) {
-					$("#checkPwd2").text("비밀번호 불일치").css(
+					$("#checkPwd2").text("비밀번호 불일치").css( 
 							"color", "red");
-					signUpCheck.pwd2 = false;
+					updatePwdCheck.newPwd2 = false;
 				} else {
 					$("#checkPwd2").text("비밀번호 일치").css(
 							"color", "green");
-					signUpCheck.pwd2 = true;
+					updatePwdCheck.newPwd2 = true;
 				}
 			}
 

@@ -72,6 +72,18 @@ public interface MemberService {
 	 */
 	public abstract int updateAction(Member updateMember);
 
+	/** 내 정보 수정 비밀번호 수정
+	 * @param map
+	 * @return result
+	 */
+	public abstract int myInfoUpdatePwd(Map<String, Object> map);
+
+	/** 회원 탈퇴
+	 * @param loginMember
+	 * @return result
+	 */
+	public abstract int deleteMember(Member loginMember);
+
 
 	
 	
