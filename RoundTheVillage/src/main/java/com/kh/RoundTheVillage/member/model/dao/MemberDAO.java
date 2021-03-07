@@ -92,6 +92,14 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.deleteMember", memberNo);
 	}
 
+	/** 카카오 회원 좋회 DAO
+	 * @param id
+	 * @return member
+	 */
+	public Member selectKakaoMember(String id) {
+		return sqlSession.selectOne("memberMapper.selectKakoMember", id);
+	}
+
 
 	
 

@@ -1,5 +1,7 @@
 package com.kh.RoundTheVillage.member.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -8,15 +10,19 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +31,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.RoundTheVillage.member.model.service.MemberService;
 import com.kh.RoundTheVillage.member.model.vo.Member;
-
-import javafx.scene.control.Alert;
 
 
 @Controller
@@ -197,10 +203,18 @@ public class MemberController {
 	
 	// 로그아웃
 	@RequestMapping("logout")
-	public String logout(SessionStatus status) {
+	public String logout(SessionStatus status, HttpSession session) {
+		
+		//String accessToken = (String)session.getAttribute("accessToken");
 		status.setComplete();// 세션에서 지움
 		
-		return "redirect:/"; //메인화면 재요청
+		if(session.getAttribute("accessToken") != null) {
+			//return "redirect:/kakaoLogout"; // 카카오 로그아웃
+			return "redirect:https://kauth.kakao.com/oauth/logout?client_id=3c56b25609c3861587b904b7f8db4860&logout_redirect_uri=http://localhost:8080/RoundTheVillage/kakaoLogout"; // 카카오 로그아웃
+		}else {
+			return "redirect:/"; //메인화면 재요청
+		}
+		
 	}
 	
 	
@@ -220,17 +234,26 @@ public class MemberController {
 	
 	// 아이디 찾기 성공 페이지
 	@RequestMapping("idFindComplete")
-	public String idFindComplete(@ModelAttribute Member findMember, Model model) {
+	public String idFindComplete(@ModelAttribute Member findMember, Model model, RedirectAttributes ra) {
 		
 		String memberIdFind =  service.idFind(findMember);
 		//System.out.println(memberIdFind);
 		String url = null;
 		
 		if(memberIdFind != null) {
-			model.addAttribute("memberIdFind", memberIdFind);
-			url = "member/idFindComplete";
+			
+			if(memberIdFind.substring(0, 2).equals("k@")) {
+				
+				ra.addFlashAttribute("swalTitle", "카카오로 가입된 계정은 아이디 찾기를 할 수 없습니다.");
+				url = "redirect:idFind";
+				
+			}else {
+				model.addAttribute("memberIdFind", memberIdFind);
+				url = "member/idFindComplete";
+			}
+			
 		}else {  
-			url = "member/idFind";
+			url = "redirect:idFind";
 		}
 		return url;
 	}

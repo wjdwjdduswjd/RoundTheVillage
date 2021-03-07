@@ -84,6 +84,12 @@ public interface MemberService {
 	 */
 	public abstract int deleteMember(Member loginMember);
 
+	/** 카카오 회원 조회 Service
+	 * @param id
+	 * @return member
+	 */
+	public abstract Member selectKakaoMember(String id);
+
 
 	
 	
