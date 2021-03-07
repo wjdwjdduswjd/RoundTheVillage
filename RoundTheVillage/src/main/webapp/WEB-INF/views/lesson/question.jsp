@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,7 +122,9 @@
 <div class="question-top">
 	<div class="title" id="question-count" style="margin: 0">총 0개의 문의
 	</div>
-	<button class="question-write">문의 작성 하기</button>
+	<c:if test="${!empty loginMember}">
+		<button class="question-write">문의 작성 하기</button>
+	</c:if>
 </div>
 
 <div class="question-bottom">
@@ -211,32 +213,51 @@ function selectQuestion() {
 			if(item.queType == 'Q'){
 				count++;
 				var questionQ = $("<div>").addClass("question-Q");
-				var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/profile.jpg" style="width:54px; height:54px;">');
+				var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/profile3.jpg" style="width:60px; height:60px;">');
 				var questiontext = $("<div>").addClass("question-text")
 				var questiontime = $("<div>").addClass("question-time").html(moment(item.queDt).format('YYYY-MM-DD'));
-				var questionname = $("<div>").addClass("question-name").html("이름");
-				var questioncontent = $("<div>").addClass("question-content").html(item.queContent);;
-				var questionbuttons = $("<div>").addClass("question-buttons");
-				var answerButton = $("<button>", {onclick: "insertAnswerForm(" + item.queNo + ", this)"}).addClass("question-button").html("답글달기"); // 번호붙이기
-				var updateButton = $("<button>", {onclick: "updateQuestionForm(" + item.queNo + ", this)"}).addClass("question-button").html("수정"); // 번호붙이기
-				var deleteButton = $("<button>", {onclick: "deleteQuestion(" + item.queNo + ")"}).addClass("question-button").html("삭제"); // 번호붙이기
-				questionbuttons.append(answerButton).append(updateButton).append(deleteButton);
-				questiontext.append(questiontime).append(questionname).append(questioncontent).append(questionbuttons);
+				var questionname = $("<div>").addClass("question-name").html(item.queWriter);
+				var questioncontent = $("<div>").addClass("question-content").html(item.queContent);
+				questiontext.append(questiontime).append(questionname).append(questioncontent);
+				
+				if(${!empty loginMember}) {
+					var questionbuttons = $("<div>").addClass("question-buttons");
+					
+					if("${loginMember.memberNo}" == ${shopInfo.shopNo}) {
+						var answerButton = $("<button>", {onclick: "insertAnswerForm(" + item.queNo + ", this)"}).addClass("question-button").html("답글달기");
+						questionbuttons.append(answerButton);
+					}
+					if("${loginMember.memberNo}" == item.memberNo) {
+						var updateButton = $("<button>", {onclick: "updateQuestionForm(" + item.queNo + ", this)"}).addClass("question-button").html("수정");
+						var deleteButton = $("<button>", {onclick: "deleteQuestion(" + item.queNo + ")"}).addClass("question-button").html("삭제");
+						questionbuttons.append(updateButton).append(deleteButton);
+					}
+					questiontext.append(questionbuttons);
+				}
+				
 				questionQ.append(questionphoto).append(questiontext);
 				$(".question-bottom").append(questionQ);
 			}
 			else if(item.queType == 'A') {
 				var questionA = $("<div>").addClass("question-A");
+				
+				var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/profile2.jpg" style="width:60px; height:60px;">');
+				
 				var questiontext = $("<div>").addClass("question-text");
 				var questiontime = $("<div>").addClass("question-time").html(moment(item.queDt).format('YYYY-MM-DD'));
 				var questionname = $("<div>").addClass("question-name").html('<img src="${contextPath}/resources/images/right-arrow.png" style="width:15px; height:15px;">' + '${shopInfo.shopName}' +'</div>');
 				var questioncontent = $("<div>").addClass("question-content").html(item.queContent);
-				var questionbuttons = $("<div>").addClass("question-buttons");
-				var updateButton = $("<button>", {onclick: "updateQuestionForm(" + item.queNo + ", this)"}).addClass("question-button").html("수정");
-				var deleteButton = $("<button>", {onclick: "deleteQuestion(" + item.queNo + ")"}).addClass("question-button").html("삭제");
-				questionbuttons.append(updateButton).append(deleteButton);
-				questiontext.append(questiontime).append(questionname).append(questioncontent).append(questionbuttons);
-				questionA.append(questiontext);
+				questiontext.append(questiontime).append(questionname).append(questioncontent)
+				
+				if("${loginMember.memberNo}" == ${shopInfo.shopNo}) {
+					var questionbuttons = $("<div>").addClass("question-buttons");
+					var updateButton = $("<button>", {onclick: "updateQuestionForm(" + item.queNo + ", this)"}).addClass("question-button").html("수정");
+					var deleteButton = $("<button>", {onclick: "deleteQuestion(" + item.queNo + ")"}).addClass("question-button").html("삭제");
+					questionbuttons.append(updateButton).append(deleteButton);
+					questiontext.append(questionbuttons);
+				}
+				
+				questionA.append(questionphoto).append(questiontext);
 				$(".question-bottom").append(questionA);
 			}
 		})
@@ -262,7 +283,7 @@ function updateQuestionForm(i, clickedButton) {
 	var bgColor = $(clickedButton).parent().parent().parent().css("background-color");
 	var questionupdate = $("<div>").addClass("question-update");
 	var questionupdatetext = $("<div>").addClass("question-update-text");
-	var updatetext = $("<textarea>", {onkeydown: "resize(this)", onkeyup:"resize(this)"}).addClass("update-text").css("background-color", bgColor);
+	var updatetext = $("<textarea>", {onkeydown: "resize(this)", onkeyup:"resize(this)"}).addClass("update-text").css("background-color", bgColor).val($(clickedButton).parent().prev().text());
 	questionupdatetext.append(updatetext);
 	var questionupdatebuttons = $("<div>").addClass("question-update-buttons");
 	var cancelButton = $("<button>", {onclick: "updateCancel()"}).html("취소");
@@ -338,11 +359,11 @@ $(".question-write").click(function() {
 
 function insertQuestion() {
 	var queContent = $(".question-insert-text").val();
-	console.log(queContent);
 	$.ajax({
 		url: "${contextPath}/lesson/insertQuestion/" + lesNo,
 		type: "post",
-		data: {"queContent": queContent},
+		data: {"queContent": queContent,
+					 "memberNo": '${loginMember.memberNo}'},
 		success: function(result) {
 			if(result > 0) {
 				$(".question-popup").remove();
@@ -376,7 +397,8 @@ function insertAnswer(i) {
 		url: "${contextPath}/lesson/insertAnswer/" + i,
 		type: "post",
 		data: {"queContent": queContent,
-					 "lesNo": lesNo},
+					 "lesNo": lesNo,
+					 "memberNo": '${loginMember.memberNo}'},
 		success: function(result) {
 			if(result > 0) {
 				$(".question-update").remove();

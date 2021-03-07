@@ -43,18 +43,6 @@ public class LessonDAO {
 		return map;
 	}
 
-//	public List<LessonFile> selectFileList() {
-//		return session.selectList("lessonMapper.selectFileList");
-//	}
-//	
-//	public List<Shop> selectShopList() {
-//		return session.selectList("shopMapper.selectShopList");
-//	}
-//	
-//	public List<Lesson> selectSumParti() {
-//		return session.selectList("lessonMapper.selectSumParti");
-//	}
-	
 	public Lesson selectLesson(int lesNo) {
 		return session.selectOne("lessonMapper.selectLesson", lesNo);
 	}
@@ -73,6 +61,18 @@ public class LessonDAO {
 
 	public int insertImageFile(Map<String, String> map) {
 		return session.insert("lessonMapper.insertImageFile", map);
+	}
+	
+	public int updateInfo(Lesson lesson) {
+		return session.update("lessonMapper.updateInfo", lesson);
+	}
+	
+	public int updateDate(Map<String, String> map) {
+		return session.update("lessonMapper.updateDate", map);
+	}
+	
+	public int updateImageFile(Map<String, String> map) {
+		return session.update("lessonMapper.updateImageFile", map);
 	}
 
 	public LessonFile selectFile(int lesNo) {

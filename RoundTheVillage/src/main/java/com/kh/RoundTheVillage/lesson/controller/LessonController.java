@@ -60,9 +60,8 @@ public class LessonController {
 	
 	@ResponseBody
 	@GetMapping("/lesson/search")
-	public Map<String, List> searchList(Model model,
-			String region, String region2, String minPrice, String maxPrice,
-			@RequestParam(value="category[]", required=false) String[] category) {
+	public Map<String, List> searchList(Model model, String region, String region2, String minPrice, String maxPrice,
+										@RequestParam(value="category[]", required=false) String[] category) {
 		List<Lesson> list = new ArrayList<Lesson>();
 		List<LessonFile> fileList = new ArrayList<LessonFile>();
 		List<Shop> shopList = new ArrayList<>();
@@ -81,9 +80,9 @@ public class LessonController {
 	@GetMapping("/lesson/view/{lesNo}")
 	public String view(@PathVariable("lesNo") int lesNo,
 					   Model model) {
-		Lesson lesson = service.selectLesson(lesNo); // 제목이나 내용
+		Lesson lesson = service.selectLesson(lesNo); 
 		List<LessonDetail> detailList = new ArrayList<>();
-		detailList = service.selectDetailList(lesNo); // 정원, 참가자 , 날짜 등등
+		detailList = service.selectDetailList(lesNo);
 		LessonFile file = service.selectFile(lesNo);
 		Shop shopInfo = service.selectShopInfo(lesson.getCraftshopNo());
 		model.addAttribute("lesson", lesson);
@@ -115,8 +114,42 @@ public class LessonController {
 		return "lesson/list";
 	}
 	
+	@GetMapping("/lesson/updateForm/{lesNo}")
+	public String updateForm(@PathVariable("lesNo") int lesNo,
+							 Model model) {
+		Lesson lesson = service.selectLesson(lesNo); 
+		List<LessonDetail> detailList = new ArrayList<>();
+		detailList = service.selectDetailList(lesNo);
+		LessonFile file = service.selectFile(lesNo);
+		Shop shopInfo = service.selectShopInfo(lesson.getCraftshopNo());
+		model.addAttribute("lesson", lesson);
+		model.addAttribute("detailList", detailList);
+		model.addAttribute("file", file);
+		model.addAttribute("shopInfo", shopInfo);
+		return "lesson/updateForm";
+	}
+	
+	@PostMapping("/lesson/update/{lesNo}")
+	public String update(@ModelAttribute Lesson lesson,
+						 @RequestParam("date") String[] date,
+						 @RequestParam("start-time") String[] startTime, 
+						 @RequestParam("end-time") String[] endTime,
+						 @RequestParam("lesLimit") String lesLimit,
+						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
+						 @PathVariable("lesNo") int lesNo,
+						 HttpServletRequest request) {
+		lesson.setLesNo(lesNo);
+		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
+		int result1 = service.updateInfo(lesson); // 기본정보 저장
+		int result2 = service.updateDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
+		if(!mainimageFile.getOriginalFilename().equals("")) {
+			int result3 = service.updateImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
+		}
+		return "common/main";
+	}
+	
 	@ResponseBody
-	@PostMapping("/lesson/insertImage")
+	@PostMapping("/lesson/updateForm/insertImage")
 	public String insertImage(HttpServletRequest request,
 							  MultipartFile uploadFile) {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
@@ -133,7 +166,7 @@ public class LessonController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/lesson/reviewInsert")
+	@PostMapping("/lesson/insertReview")
 	public int insertReview(@ModelAttribute LessonReview review) {
 		System.out.println(review);
 		int result = service.insertReview(review);

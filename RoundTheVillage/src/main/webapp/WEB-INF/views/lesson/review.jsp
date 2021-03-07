@@ -228,6 +228,7 @@ function resize(obj) {
 }
 
 function selectReview() {
+	
 	$.ajax({
 		url: "${contextPath}/lesson/selectReview/" + lesNo,
 		type: "post",
@@ -240,7 +241,7 @@ function selectReview() {
 				
 				var review = $("<div>",{id:"review"+item.revNo}).addClass("review");
 				var reviewnamestar = $("<div>").addClass("review-name-star");
-				var reviewname = $("<div>").addClass("review-name").html("이름");
+				var reviewname = $("<div>").addClass("review-name").html(item.reviewWriter);
 				
 				var stars = "";
 				for(var i=0; i<item.revRating; i++){
@@ -263,7 +264,12 @@ function selectReview() {
 				var deleteButton = $("<button>", {onclick:"deleteReview(" + item.revNo + ")"}).html("삭제");
 				reviewupdatedeletebutton.append(updateButton).append(deleteButton);
 				
-				review.append(reviewnamestar).append(reviewtime).append(reviewcontent).append(reviewupdatedeletebutton);
+				review.append(reviewnamestar).append(reviewtime).append(reviewcontent);
+				
+				if(${!empty loginMember} && "${loginMember.memberNo}" == item.memberNo){
+					review.append(reviewupdatedeletebutton);
+				}
+				
 
 				reviewArea.append(review);
 				
@@ -319,6 +325,7 @@ function deleteUpdateForm(i) {
 }
 
 function deleteReview(i) {
+	
 	if(window.confirm("정말 삭제하시겠습니까?")){
 		$.ajax({
 			url: "${contextPath}/lesson/deleteReview/" + i,
@@ -336,30 +343,40 @@ function deleteReview(i) {
 }
 
 $(".review-submit").click(function() {
-	var revRating = 0;
-	var revContent = $("#revContentText").val();
-	for(var i=1; i<=5; i++) {
-		if($(".stars .star:nth-child(" + i + ")").hasClass("on")) {
-			revRating++;
-		}
+	
+	if(${loginMember == null}) {
+		window.alert("로그인 후 이용해주세요");
 	}
-		$.ajax({
-		url: "${contextPath}/lesson/reviewInsert",
-		type: "post",
-		data: {"revContent": revContent,
-					 "revRating": revRating,
-					 "lesNo": lesNo
-		},
-		success: function(result){
-			if(result>0){
-				$("#revContentText").val("");
-				selectReview();
+	else if($("#revContentText").val().trim() == "") {
+		window.alert("내용을 입력해주세요");
+	}
+	else {
+		var revRating = 0;
+		var revContent = $("#revContentText").val();
+		for(var i=1; i<=5; i++) {
+			if($(".stars .star:nth-child(" + i + ")").hasClass("on")) {
+				revRating++;
 			}
-		},
-		error: function(){
-			console.log("댓글 삽입 실패");
 		}
-	})
+			$.ajax({
+			url: "${contextPath}/lesson/insertReview",
+			type: "post",
+			data: {"revContent": revContent,
+						 "revRating": revRating,
+						 "lesNo": lesNo,
+						 "memberNo": '${loginMember.memberNo}'
+			},
+			success: function(result){
+				if(result>0){
+					$("#revContentText").val("");
+					selectReview();
+				}
+			},
+			error: function(){
+				console.log("댓글 삽입 실패");
+			}
+		})
+	}
 })
 
 

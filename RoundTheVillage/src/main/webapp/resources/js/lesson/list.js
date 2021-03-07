@@ -1,5 +1,4 @@
 $(function(){
-    alert("111");
     areaSelectMaker("#addressRegion");
 });
 
@@ -50,8 +49,8 @@ var areaSelectMaker = function(target){
 
             //변경 이벤트
             $(a1).on("change", function(){
+            		//$(this).prop('selected', true);
                 init($(this), false);
-                console.log($(this).prop(selected));
                 var Region = $(this).val();
                 searchLocation(Region);
                 var keys = Object.keys(area[Region]);
