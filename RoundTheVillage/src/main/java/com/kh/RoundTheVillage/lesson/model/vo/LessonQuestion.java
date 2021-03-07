@@ -11,13 +11,14 @@ public class LessonQuestion {
 	private int memberNo;
 	private String queType;
 	private int queParentNo;
+	private String queWriter;
 	
 	public LessonQuestion() {
 		super();
 	}
 
 	public LessonQuestion(int queNo, Timestamp queDt, String queContent, int lesNo, int memberNo, String queType,
-			int queParentNo) {
+			int queParentNo, String queWriter) {
 		super();
 		this.queNo = queNo;
 		this.queDt = queDt;
@@ -26,6 +27,7 @@ public class LessonQuestion {
 		this.memberNo = memberNo;
 		this.queType = queType;
 		this.queParentNo = queParentNo;
+		this.queWriter = queWriter;
 	}
 
 	public int getQueNo() {
@@ -84,9 +86,18 @@ public class LessonQuestion {
 		this.queParentNo = queParentNo;
 	}
 
+	public String getQueWriter() {
+		return queWriter;
+	}
+
+	public void setQueWriter(String queWriter) {
+		this.queWriter = queWriter;
+	}
+
 	@Override
 	public String toString() {
 		return "LessonQuestion [queNo=" + queNo + ", queDt=" + queDt + ", queContent=" + queContent + ", lesNo=" + lesNo
-				+ ", memberNo=" + memberNo + ", queType=" + queType + ", queParentNo=" + queParentNo + "]";
+				+ ", memberNo=" + memberNo + ", queType=" + queType + ", queParentNo=" + queParentNo + ", queWriter="
+				+ queWriter + "]";
 	}
 }

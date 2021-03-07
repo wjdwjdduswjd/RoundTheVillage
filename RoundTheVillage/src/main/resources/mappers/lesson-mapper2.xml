@@ -22,17 +22,20 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="queType" column="QUE_TYPE"/>
 		<result property="queParentNo" column="QUE_PARENT_NO"/>
+		<result property="queWriter" column="MEM_NICKNAME"/>
 	</resultMap>
 	
 	<insert id="insertReview" parameterType="LessonReview">
 		INSERT INTO LESSON_REVIEW 
-		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, 1)
+		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, #{memberNo})
 	</insert>
 
 	<select id="selectReview" parameterType="_int" resultMap="lessonreview_rm">
-		SELECT * FROM LESSON_REVIEW 
+		SELECT REV_NO, REV_CONTENT, REV_CREATE_DT, REV_RATING, LES_NO, MEMBER_NO, MEM_NICKNAME 
+		FROM LESSON_REVIEW
+		JOIN MEMBER ON(MEMBER_NO = MEM_NO)
 		WHERE LES_NO = #{lesNo}
-		ORDER BY REV_NO DESC 
+		ORDER BY REV_NO DESC
 	</select>
 	
 	<update id="updateReview" parameterType="LessonReview">
@@ -46,17 +49,19 @@
 	</delete>
 	
 	<select id="selectQuestion" parameterType="_int" resultMap="lessonquestion_rm">
-		SELECT * FROM LESSON_QUESTION
+		SELECT QUE_NO, QUE_DT, QUE_CONTENT, LES_NO, MEMBER_NO, QUE_TYPE, QUE_PARENT_NO, MEM_NICKNAME 
+		FROM LESSON_QUESTION
+		JOIN MEMBER ON(MEMBER_NO = MEM_NO)
 		WHERE LES_NO = #{lesNo}
 		ORDER BY QUE_PARENT_NO DESC, QUE_TYPE DESC
 	</select>
 	
 	<insert id="insertQuestion" parameterType="LessonQuestion">
-		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, 1, 'Q', SEQ_LQUNO.CURRVAL)
+		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, #{memberNo}, 'Q', SEQ_LQUNO.CURRVAL)
 	</insert>
 	
 	<insert id="insertAnswer" parameterType="LessonQuestion">
-		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, 1, 'A', #{queParentNo})
+		INSERT INTO LESSON_QUESTION VALUES(SEQ_LQUNO.NEXTVAL, DEFAULT, #{queContent}, #{lesNo}, #{memberNo}, 'A', #{queParentNo})
 	</insert>
 
 	<delete id="deleteQuestion" parameterType="_int">
