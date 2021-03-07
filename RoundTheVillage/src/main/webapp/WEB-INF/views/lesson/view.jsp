@@ -258,7 +258,6 @@ li {list-style: none;}
 			 		$(function(){
 			 			var address = "${shopInfo.shopAdress}";
 			 			address = address.substring(address.indexOf(',')+1, address.indexOf(" "));
-				 		console.log(address);
 				 		$(".lesson-loc").append("<span>" + address + "<span>");
 			 		});
 			 	</script>

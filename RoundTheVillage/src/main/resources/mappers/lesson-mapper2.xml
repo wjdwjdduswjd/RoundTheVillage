@@ -25,6 +25,16 @@
 		<result property="queWriter" column="MEM_NICKNAME"/>
 	</resultMap>
 	
+	<resultMap type="LessonReviewReport" id="lessonreviewreport_rm">
+		<id property="repNo" column="REP_NO"/>
+		<result property="repContent" column="REP_CONTENT"/>
+		<result property="repDt" column="REP_DT"/>
+		<result property="repYn" column="REP_YN"/>
+		<result property="revNo" column="REV_NO"/>
+		<result property="catCode" column="CAT_CODE"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
 	<insert id="insertReview" parameterType="LessonReview">
 		INSERT INTO LESSON_REVIEW 
 		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, #{memberNo})
@@ -73,6 +83,10 @@
 		UPDATE LESSON_QUESTION SET QUE_CONTENT = #{queContent}
 		WHERE QUE_NO = #{queNo}
 	</update>
+	
+	<insert id="insertReport" parameterType="LessonReviewReport">
+		INSERT INTO REVIEW_REPORT VALUES(SEQ_LRRNO.NEXTVAL, #{repContent}, DEFAULT, DEFAULT, #{revNo}, #{catCode}, #{memberNo})
+	</insert>
 	
 	<!--리뷰 목록 가져오기-->
 	

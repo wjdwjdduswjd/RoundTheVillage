@@ -17,6 +17,7 @@ import com.kh.RoundTheVillage.lesson.model.vo.LessonDetail;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
+import com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Service
@@ -219,6 +220,14 @@ public class LessonService {
 		question.setQueContent(replaceParameter(question.getQueContent()));
 		question.setQueContent(question.getQueContent().replaceAll("\n", "<br>"));	
 		return dao.updateQuestion(question);
+	}
+
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int report(LessonReviewReport report) {
+		report.setRepContent(replaceParameter(report.getRepContent()));
+		report.setRepContent(report.getRepContent().replaceAll("\n", "<br>"));
+		return dao.report(report);
 	}
 
 }
