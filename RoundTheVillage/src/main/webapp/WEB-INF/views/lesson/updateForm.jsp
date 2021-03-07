@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 
-<title>lessonInsertForm</title>
+<title>lessonUpdateForm</title>
 <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
-<link rel="stylesheet" href="../resources/timepicker/tempusdominus-bootstrap.css"/>
-<link rel="stylesheet" href="${contextPath}/resources/timepicker/jquery.timepicker.min.css">
+<link rel="stylesheet" href="../../resources/timepicker/tempusdominus-bootstrap.css"/>
+<link rel="stylesheet" href="../../resources/timepicker/jquery.timepicker.min.css">
 <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -21,22 +21,13 @@
 .insert-main {
 	width: 800px;
 }
-form {
-	margin-left: 120px;
-}
+
 .insert-main > div :not{.insert-time}{
 	height: 100px;
 } 
 
-.date-buttons {
-}
-.date-button {
-	width: 90px;
-	height: 52px;
-	margin: 0 7px 0;
-	border: 1px solid #ced4da;
-	border-radius: 10px;
-	background-color: #FFFFFF;
+form{
+	margin-left: 120px;
 }
 .time-button {
 	width: 90px;
@@ -114,7 +105,7 @@ textarea:focus{
 <jsp:include page="../common/header.jsp"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
-<script src="../resources/timepicker/tempusdominus-bootstrap.js"></script>
+<script src="../../resources/timepicker/tempusdominus-bootstrap.js"></script>
 <script src="${contextPath}/resources/timepicker/jquery.timepicker.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
@@ -122,17 +113,17 @@ textarea:focus{
 <script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 
 	<div class="container">
-	<form action="${contextPath}/lesson/insert" method="post" enctype="multipart/form-data" onsubmit="return validate();" onreset="return validate2();">
+	<form action="${contextPath}/lesson/update/${lesson.lesNo}" method="post" enctype="multipart/form-data" onsubmit="return validate();" onreset="return validate2();">
 
 		<div class="insert-main">
 			
 			<div class="insert-title">
 				<p class="insert-p">수업명</p>
-				<input class="form-control" name="lesTitle" id="title" placeholder="수업명">
+				<input class="form-control" name="lesTitle" id="title" placeholder="수업명" value="${lesson.lesTitle}">
 			</div>
 		<div class="insert-category">
 				<p class="insert-p">카테고리</p>
-				<div class="date-buttons">
+				<div class="category-buttons">
 			 		<button class="button-category" type="button" name="lesCategory" value="미술">미술</button>
 					<button class="button-category" type="button" name="lesCategory" value="사진/영상">사진/영상</button>
 					<button class="button-category" type="button" name="lesCategory" value="요리/음료">요리/음료</button>
@@ -152,7 +143,7 @@ textarea:focus{
 		</div>
 			
 			<div class="form-group insert-time">
-				<p class="insert-p">수업시간</p>
+				<p class="insert-p">수업추가</p>
 				
        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="date" name="date"/>
@@ -165,27 +156,25 @@ textarea:focus{
 				<input class="form-control timepicker t2" id="end-time1" name="end-time" placeholder="종료시간">
 				<button type="button" class="time-button" id="add-timeinput">추가</button>
 				<button type="button" class="time-button" id="delete-timeinput">삭제</button>
-
+				
 			</div>
 			
 			<div class="form-group insert-limit">
 				<p class="insert-p">정원</p>
-				<input type="number" class="form-control" name="lesLimit" id="limit" placeholder="정원">
+				<input type="number" class="form-control" name="lesLimit" id="limit" placeholder="정원" value="${detailList[0].lesLimit}" readonly>
 			</div>
 			<div class="form-group insert-price">
 				<p class="insert-p">가격</p>
-				<input type="number" class="form-control" name="lesPrice" id="price" placeholder="가격">
+				<input type="number" class="form-control" name="lesPrice" id="price" placeholder="가격" value="${lesson.lesPrice}">
 			</div>
-			
 			<div class="form-group insert-cover">
 				<p class="insert-p">대표이미지</p>
-				<img id="mainimage">
+				<img id="mainimage" src="${contextPath}${file.filePath}/${file.fileName}">
 				<input type="file" id="mainimage-file" name="mainimageFile" onchange="LoadImg(this)">
 			</div>
-			
 			<div class="form-group insert-price">
 				<p class="insert-p">커리큘럼</p>
-				<textarea rows="10" cols="20" placeholder="커리큘럼" id="curri" name="lesCurri"></textarea>
+				<textarea rows="10" cols="20" placeholder="커리큘럼" id="curri" name="lesCurri">${lesson.lesCurri}</textarea>
 			</div>
 			
 		</div>
@@ -193,7 +182,7 @@ textarea:focus{
 			<div>
 				<label for="content">내용</label>
 			</div>
-				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;"></textarea>
+				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;">${lesson.lesContent}</textarea>
 		</div>
 
 		<br>
@@ -201,18 +190,27 @@ textarea:focus{
 			<button type="reset">초기화</button>
 			<button type="submit" id="submit">수업 등록</button>
 		</div>
-		</form>
+		</form>	
 	</div>
-		<jsp:include page="../common/footer.jsp"/>
-
+<jsp:include page="../common/footer.jsp"/>
 <script type="text/javascript">
 
-$(function () {
+$(function() {
     $('#datetimepicker1').datetimepicker({
         format: 'L',
         dayViewHeaderFormat: 'YYYY년 MMMM'
     });
 });
+
+$(function() {
+	var category = $(".button-category");
+	for(var i=0; i<category.length; i++){
+		if(category[i].value == "${lesson.lesCategory}") {
+			$("[value='${lesson.lesCategory}']").addClass("active");
+			$(".active").css("background-color", "#FBBC73");
+		}
+	}
+})
 
 var time = "";
 $('.timepicker.t1').timepicker({
@@ -263,22 +261,7 @@ $("#length").focusout(function(){
 	}
 })
 
-var dateBtn = $(".date-button");
-dateBtn.click(function() {
-	if($(this).hasClass("active")){
-		$(this).removeClass("active");
-		$(this).css("background-color", "#FFFFFF");
-	}
-	else {
-		$(this).addClass("active");
-		$(this).css("background-color", "#FBBC73");
-	}
-});
-
 function validate() {
-	
-	console.log($("#start-time1").value);
-	console.log($("#title").val());
 	
 	var $category = $(".active").val();
 	if($category == null){
@@ -382,7 +365,6 @@ $(".button-category").click(function() {
 		$(".button-category").css("background-color", "#F0F0F0");
 		$(this).addClass("active");
 		$(this).css("background-color", "#FBBC73");
-	
 });
 
 $(function() {
@@ -401,7 +383,6 @@ function LoadImg(value) {
     }
 	}
 }
-
 
 </script>
 	

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<title>공지사항</title>
+<title>회원조회</title>
 <style>
 #title {
 	font-family: 'NanumSquare', sans-serif !important;
@@ -55,7 +55,7 @@
 	margin-top: -5px;
 }
 
-#insertBtn {
+#insertBtn, .customer {
 	color: #FFF;
 	background-color: #FBBC73;
 	border: 1px solid #FBBC73;
@@ -88,6 +88,24 @@
     background-color: #FBBC73;
     border-color: #FBBC73;
 }
+
+#normalBtn, #companyBtn  {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom:30px;
+    background-color : #fff ;
+    color: #5B3929;
+    border: 1px solid #FBBC73;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-family: 'NanumSquare', sans-serif !important;
+    font-size: 17px;
+        }
+        
+#normalBtn:hover, #companyBtn:hover {
+ 	  background-color: #FBBC73;
+}
 </style>
 
 </head>
@@ -95,41 +113,39 @@
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="container notice-list">
-		<h3 id="title">공지사항</h3>
+	
+		<div id="btnDiv">
+                    <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">일반 회원 조회</button></a>
+                    <a href="${contextPath}/manager/craftList"><button type="menu" id="companyBtn">공방 회원 조회</button></a>
+                </div>
+	
 		<div>
 			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
 					<tr>
-						<th id="noticeN">글번호</th>
-						<th>제목</th>
-						<th>작성일</th>
+						<th id="noticeN">회원번호</th>
+						<th>아이디</th>
+						<th>닉네임</th>
+						<th>이메일</th>
+						<th>등급</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty nList}">
+					<c:if test="${empty nlList}">
 						<tr>
-							<td colspan="6">존재하는 게시글이 없습니다.</td>
+							<td colspan="6">존재하는 회원이 없습니다.</td>
 						</tr>
 					</c:if>
 
-					<c:if test="${!empty nList}">
-						<c:forEach var="notice" items="${nList}" varStatus="vs">
+					<c:if test="${!empty nlList}">
+						<c:forEach var="normal" items="${nlList}" varStatus="vs">
 
 							<tr>
-								<td>${notice.noticeNo}</td>
-
-								<td class="noticeTitle">${notice.noticeTitle}</td>
-
-								<td>
-									<%-- 날짜 출력 모양 지정 --%> <fmt:formatDate var="createDate" value="${notice.noticeCreateDate}" pattern="yyyy-MM-dd" /> <fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" /> <c:choose>
-										<c:when test="${createDate != now}">
-											${createDate }
-										</c:when>
-										<c:otherwise>
-											<fmt:formatDate value="${notice.noticeCreateDate}" pattern="HH:mm" />
-										</c:otherwise>
-									</c:choose>
-								</td>
+								<td>${member.memberNo}</td>
+								<td>${member.memberId}</td>
+								<td>${member.memberNickname}</td>
+								<td>${member.memberEmail}</td>
+								<td>${member.memberGrade}</td>
 
 							</tr>
 						</c:forEach>
@@ -139,22 +155,17 @@
 		</div>
 
 
-		<!-- 관리자일 경우에만 공지사항 글쓰기 버튼 활성화 ------------------ -->
-		 <c:if test="${!empty loginMember && loginMember.memberType =='A' }">
-		<a class="btn btn-warning float-right" id="insertBtn" href="noticeInsert">글쓰기</a>
-		</c:if>
-
 		<!--------------------------------- pagination  ---------------------------------->
 
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/CScenter/noticeList" />
+				<c:url var="pageUrl" value="/manager/normalList" />
 
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/CScenter/noticeList" />
+				<c:url var="pageUrl" value="/manager/normalList" />
 			</c:otherwise>
 		</c:choose>
 
@@ -169,7 +180,7 @@
 					<%-- 쿼리 스트링으로 사용할 내용을 변수에 저장 --%>
 					<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/></c:when>
 				
-				<c:otherwise><c:url var="pageUrl" value="/CScenter/noticeList"/></c:otherwise>
+				<c:otherwise><c:url var="pageUrl" value="/manager/normalList"/></c:otherwise>
 			</c:choose>
 			
 			<c:set var="firstPage" value="?cp=1${searchStr}" />
@@ -225,54 +236,21 @@
 		</div>
 
 
-		<div>
-			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-			<form action="searchAction" method="post" class="text-center" id="searchForm">
-				<select name="sk" class="form-control" name="searchType" id="searchType" style="width: 100px; display: inline-block;">
-					<option value="tit">글제목</option>
-					<option value="con">내용</option>
-					<option value="titcont">제목+내용</option>
-				</select> 
-				<!-- <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;"> -->
-				<input type="text" name="keyword" id="keyword" class="form-control" style="width: 25%; display: inline-block;">
-				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
-				</form>
-			</div>
-		</div>
-
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 
-	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
-	<c:set var="returnListURL" value="${pageUrl}?cp=${pInfo.currentPage}" scope="session" />
 	
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$("#list-table td").on("click", function(){
-			var noticeNo = $(this).parent().children().eq(0).text();
+			var memberNo = $(this).parent().children().eq(0).text();
 											
-			var noticeViewURL = noticeNo;
+			var normalViewURL = memberNo;
 			
-			location.href = noticeViewURL;
+			location.href = normalViewURL;
 		});
 		
-		// 게시글 검색
-		$(document).on('click', '#searchBtnh', function(e){
-
-		e.preventDefault();
-
-		var url = "${noticeList}";
-
-		url = url + "?searchType=" + $('#searchType').val();
-
-		url = url + "&keyword=" + $('#keyword').val();
-
-		location.href = url;
-
-		console.log(url);
-
-	});	
 
 		
 	</script>

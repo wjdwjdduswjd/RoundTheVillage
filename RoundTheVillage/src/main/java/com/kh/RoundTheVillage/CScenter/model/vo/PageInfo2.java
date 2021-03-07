@@ -13,7 +13,11 @@ public class PageInfo2 {
 	private int startPage;	 	// 페이징바 시작 페이지 번호
 	private int endPage; 	 	// 페이징바 끝 페이지 번호
 	
-	private int noticeNo; 		// 게시글 타입
+	private int noticeNo; 		// 공지사항번호
+	
+	private int normalMemNo; 	// 일반
+	private int craftMemNo;		// 공방
+	
 	
 	public PageInfo2() {}
 	
@@ -25,15 +29,6 @@ public class PageInfo2 {
 		makePageInfo();
 	}
 	
-
-	public int getNoticeNo() {
-		return	noticeNo;
-	}
-
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
-	}
-
 	public PageInfo2(int currentPage, int listCount, int limit, int pagingBarSize, int noticeNo) {
 		super();
 		this.currentPage = currentPage;
@@ -45,6 +40,30 @@ public class PageInfo2 {
 		makePageInfo();
 	}
 	
+	
+	public PageInfo2(int currentPage, int listCount, int limit, int pageSize, int maxPage, int startPage, int endPage,
+			int normalMemNo, int craftMemNo) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.pageSize = pageSize;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.normalMemNo = normalMemNo;
+		this.craftMemNo = craftMemNo;
+	}
+
+	public int getNoticeNo() {
+		return	noticeNo;
+	}
+	
+
+	public void setNoticeNo(int noticeNo) {
+		this.noticeNo = noticeNo;
+	}
+
 
 	public int getListCount() {
 		return listCount;
@@ -96,12 +115,11 @@ public class PageInfo2 {
 	}
 
 	
-	
 	@Override
 	public String toString() {
-		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
-				+ ", pageSize=" + pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage
-				+ ", endPage=" + endPage + ", noticeNo=" + noticeNo + "]";
+		return "PageInfo2 [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", pageSize="
+				+ pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage
+				+ ", noticeNo=" + noticeNo + ", normalMemNo=" + normalMemNo + ", craftMemNo=" + craftMemNo + "]";
 	}
 
 	// 페이징 처리에 필요한 값을 계산하는 메소드.
@@ -133,5 +151,22 @@ public class PageInfo2 {
 			endPage = maxPage;
 		}
 	}
+
+	public int getNormalMemNo() {
+		return normalMemNo;
+	}
+
+	public void setNormalMemNo(int normalMemNo) {
+		this.normalMemNo = normalMemNo;
+	}
+
+	public int getCraftMemNo() {
+		return craftMemNo;
+	}
+
+	public void setCraftMemNo(int craftMemNo) {
+		this.craftMemNo = craftMemNo;
+	}
+
 	
 }

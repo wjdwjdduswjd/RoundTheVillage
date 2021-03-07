@@ -41,6 +41,7 @@ public class LessonService {
 		String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
 		int ranNum = (int)(Math.random()*100000);
 		String str = "_" + String.format("%05d", ranNum);
+		System.out.println(originFileName);
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		return date + str + ext;
 	}
@@ -49,18 +50,6 @@ public class LessonService {
 		return dao.selectList(searchMap);
 	}
 	
-//	public List<LessonFile> selectFileList() {
-//		return dao.selectFileList();
-//	}
-//	
-//	public List<Shop> selectShopList() {
-//		return dao.selectShopList();
-//	}
-//	
-//	public List<Lesson> selectSumParti() {
-//		return dao.selectSumParti();
-//	}
-
 	@Transactional(rollbackFor = Exception.class)
 	public int insertInfo(Lesson lesson) {
 		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
@@ -84,6 +73,25 @@ public class LessonService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
+	public int insertImageFile(String savePath, MultipartFile mainimageFile, int lesNo) {
+		String filePath = "/resources/images/lesson";
+		String fileName = rename(mainimageFile.getOriginalFilename());
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("filePath", filePath);
+		map.put("fileName", fileName);
+		map.put("lesNo", ""+lesNo);
+		int result = dao.insertImageFile(map);
+		LessonFile file = new LessonFile();
+		file.setFilePath(filePath);
+		file.setFileName(fileName);
+		try {
+			mainimageFile.transferTo(new File(savePath + "/" + fileName));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	@Transactional(rollbackFor = Exception.class)
 	public LessonFile insertImage(MultipartFile uploadFile, String savePath) {
 		String filePath = "/resources/images/lesson";
 		String fileName = rename(uploadFile.getOriginalFilename());
@@ -97,16 +105,38 @@ public class LessonService {
 		}
 		return file;
 	}
-
+	
 	@Transactional(rollbackFor = Exception.class)
-	public int insertImageFile(String savePath, MultipartFile mainimageFile, int lesNo) {
+	public int updateInfo(Lesson lesson) {
+		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
+		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
+		return dao.updateInfo(lesson);
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int updateDate(String[] date, String[] startTime, String[] endTime, String lesLimit, int lesNo) {
+		int result = 0;
+		for(int i=0; i<date.length; i++) {
+			Map<String, String> map = new HashMap<String, String>();
+			String lesTime = startTime[i] + "," + endTime[i];
+			map.put("date", date[i]);
+			map.put("lesTime", lesTime);
+			map.put("lesLimit", lesLimit);
+			map.put("lesNo", ""+lesNo);
+			result = dao.updateDate(map);
+		}
+		return result;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int updateImageFile(String savePath, MultipartFile mainimageFile, int lesNo) {
 		String filePath = "/resources/images/lesson";
 		String fileName = rename(mainimageFile.getOriginalFilename());
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("filePath", filePath);
 		map.put("fileName", fileName);
 		map.put("lesNo", ""+lesNo);
-		int result = dao.insertImageFile(map);
+		int result = dao.updateImageFile(map);
 		LessonFile file = new LessonFile();
 		file.setFilePath(filePath);
 		file.setFileName(fileName);

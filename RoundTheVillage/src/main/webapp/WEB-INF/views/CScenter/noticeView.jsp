@@ -104,7 +104,9 @@
 				<div id="board-content">
 
 					<%-- JSTL을 이용한 개행문자 처리 --%>
-					<% pageContext.setAttribute("newLine", "\n"); %>
+					<%
+						pageContext.setAttribute("newLine", "\n");
+					%>
 					${fn:replace(notice.noticeContent, newLine, "<br>")}
 					<%-- ${fn:replace(board.boardContent, "\n", "<br>")}  EL은 이스케이프 문자를 인식하지 못한다. --%>
 
@@ -135,9 +137,9 @@
 						<a href="${sessionScope.returnListURL}" class="btn btn-warning float-right" id="back">목록으로</a>
 
 						<c:if test="${!empty loginMember && loginMember.memberType =='A' }">
-						<c:url var="updateUrl" value="${notice.noticeNo}/noticeUpdate" />
-						<a href="${updateUrl}" class="btn btn-warning ml-1 mr-1" id="updateBtn">수정</a>
-						<button id="deleteBtn" class="btn btn-warning">삭제</button>
+							<c:url var="updateUrl" value="${notice.noticeNo}/noticeUpdate" />
+							<a href="${updateUrl}" class="btn btn-warning ml-1 mr-1" id="updateBtn">수정</a>
+							<button id="deleteBtn" class="btn btn-warning" onclick="location.href = ${notice.noticeNo}/delete" >삭제</button>
 						</c:if>
 					</div>
 				</div>
@@ -149,10 +151,15 @@
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 
-	<script>	
-	
+	<script>
 		// 게시글 삭제
-		
+		$("#deleteBtn").on("click", function() {
+
+			if (window.confirm("정말 삭제하시겠습니까?")) {
+				location.href = "${notice.noticeNo}/delete";
+				
+			}
+		});
 		
 	</script>
 </body>
