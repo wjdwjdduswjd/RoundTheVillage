@@ -110,10 +110,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-2">
-            </div>
+         <!--    <div class="col-md-2">
+            </div> -->
 
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div id="resultDiv">
                     <table class="table table-hover table-striped text-center" id="result-table">
                         <thead>
@@ -236,8 +236,8 @@
                                 </div>
                 </div>
             </div>
-            <div class="col-md-2">
-            </div>
+           <!--  <div class="col-md-2">
+            </div> -->
 
                 <script>
                     $("#result-table td").on("click", function () {
