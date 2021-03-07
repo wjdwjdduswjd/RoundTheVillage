@@ -102,6 +102,18 @@
    </delete>
 	
 	
+	<!-- 게시글 삭제 -->
+	<update id="deleteNotice" parameterType="Notice">
+		UPDATE NOTICE SET
+		NOTICE_STATUS = 'N'
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
 	
+	
+	<!-- 게시글 검색 -->
+	
+
+
+
 	
 </mapper>

@@ -159,9 +159,23 @@
 		</c:choose>
 
 		<div class="padding">
-
+		
+		<!-- 검색할 경우 -->
+			<c:choose>
+				<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
+				<c:when test="${!empty param.sk && !empty param.sv}">
+					<c:url var="pageUrl" value="searchNotice"/>
+					
+					<%-- 쿼리 스트링으로 사용할 내용을 변수에 저장 --%>
+					<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/></c:when>
+				
+				<c:otherwise><c:url var="pageUrl" value="/CScenter/noticeList"/></c:otherwise>
+			</c:choose>
+			
 			<c:set var="firstPage" value="?cp=1${searchStr}" />
 			<c:set var="lastPage" value="?cp=${pInfo.maxPage}${searchStr}" />
+			
+			
 
 			<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
@@ -213,12 +227,16 @@
 
 		<div>
 			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
+			<form action="searchAction" method="post" class="text-center" id="searchForm">
+				<select name="sk" class="form-control" name="searchType" id="searchType" style="width: 100px; display: inline-block;">
 					<option value="tit">글제목</option>
 					<option value="con">내용</option>
 					<option value="titcont">제목+내용</option>
-				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+				</select> 
+				<!-- <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;"> -->
+				<input type="text" name="keyword" id="keyword" class="form-control" style="width: 25%; display: inline-block;">
 				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+				</form>
 			</div>
 		</div>
 
@@ -238,6 +256,24 @@
 			
 			location.href = noticeViewURL;
 		});
+		
+		// 게시글 검색
+		$(document).on('click', '#searchBtnh', function(e){
+
+		e.preventDefault();
+
+		var url = "${noticeList}";
+
+		url = url + "?searchType=" + $('#searchType').val();
+
+		url = url + "&keyword=" + $('#keyword').val();
+
+		location.href = url;
+
+		console.log(url);
+
+	});	
+
 		
 	</script>
 </body>
