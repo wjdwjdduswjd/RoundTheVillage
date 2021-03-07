@@ -51,7 +51,9 @@
 				<div class="m-h3">
 					<h3>My Page</h3>
 				</div>
-
+				
+				<c:set var="id" value="${fn: substring(loginMember.memberId,0,2) }" />
+				
 				<!--  내 정보 -->
 				<div class="myInfo">
 
@@ -60,11 +62,21 @@
 						<div class="info-a">
 							<h3>내 정보</h3>
 						</div>
+						
+						
+						<c:if test="${id != 'k@' }">
+							<div class="info-b">
+								<label class="label-area"><strong>아이디</strong> </label>
+								<div class="output">${loginMember.memberId}</div>
+							</div>
+						</c:if>
+						<c:if test="${id == 'k@' }">
+							<div class="info-b">
+								<label class="label-area"><strong>카카오톡 로그인 중</strong> </label>
+							</div>
+						</c:if>
 
-						<div class="info-b">
-							<label class="label-area"><strong>아이디</strong> </label>
-							<div class="output">${loginMember.memberId}</div>
-						</div>
+
 
 						<div class="info-b">
 							<label class="label-area"><strong>이름</strong></label>
@@ -86,12 +98,14 @@
 							<div class="output">${loginMember.memberEmail}</div>
 						</div>
 
+						
 
-						<div class="info-b">
-							<label class="label-area"><strong>비밀번호 변경</strong></label>
-							<button type="button" id="chagePwd" class="chagePwd" onclick="location.href='${contextPath}/member/changePwd'">비밀번호 변경</button>
-						</div>
-
+						<c:if test="${id != 'k@' }">
+							<div class="info-b">
+								<label class="label-area"><strong>비밀번호 변경</strong></label>
+								<button type="button" id="chagePwd" class="chagePwd" onclick="location.href='${contextPath}/member/changePwd'">비밀번호 변경</button>
+							</div>
+						</c:if>
 
 						<!-- 관심분야 -->
 						<div class="info-b">
