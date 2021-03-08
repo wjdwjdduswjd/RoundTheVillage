@@ -34,7 +34,7 @@
 		<typeAlias type="com.kh.RoundTheVillage.member.model.vo.Member" alias="Member"/>
 		
 		<typeAlias type="com.kh.RoundTheVillage.manager.model.vo.ManagerReport" alias="ManagerReport"/>
-		<typeAlias type="com.kh.RoundTheVillage.manager.model.vo.ManagerShop" alias="ManagerShop"/>
+
 		
 	</typeAliases>  
 
