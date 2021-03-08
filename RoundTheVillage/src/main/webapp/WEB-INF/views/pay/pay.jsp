@@ -64,72 +64,6 @@
 			</div>
     </div>
 
-    <!-- <div class="mx-auto d-block rounded p-5 bg-light" style="width: 95%;">
-        <p>전자금융거래 기본약관</p>
-
-        <p>제1조 (목적)</p>
-
-        <p>이 약관은 주식회사 진선지니어스 (이하 '회사'라 합니다)가 제공하는 전자 지급 결제 대행 서비스 및 결제대금예치서비스를 이용자가 이용함에 있어 회사와 이용자 사이의 전자 금융 거래에 관한
-            기본적인 사항을 정함을 목적으로 합니다.</p>
-
-        <p>제2조 (용어의 정의)</p>
-
-        <p>이 약관에서 정하는 용어의 정의는 다음과 같습니다.</p>
-
-        <p>1. '전자 금융 거래'라 함은 회사가 전자적 장치를 통하여 전자 지급 결제 대행 서비스 및 결제 대금 예치 서비스(이하 '전자 금융 거래 서비스'라고 합니다)를 제공하고, 이용자가 회사의
-            종사자와 직접 대면하거나 의사소통을 하지 아니하고 자동화된 방식으로 이를 이용하는 거래를 말합니다.</p>
-
-        <p>2. '전자 지급 결제 대행 서비스'라 함은 전자적 방법으로 재화의 구입 또는 용역의 이용에 있어서 지급결제정보를 송신하거나 수신하는 것 또는 그 대가의 정산을 대행하거나 매개하는 서비스를
-            말합니다.</p>
-
-        <p>3. '결제 대금 예치 서비스'라 함은 이용자가 재화의 구입 또는 용역의 이용에 있어서 그 대가(이하 '결제 대금이라 한다)의 전부 또는 일부를 재화 또는 용역(이하 '재화 등이라
-            합니다)을
-            공급받기 전에 미리 지급하는 경우,
-            회사가 이용자의 물품 수령 또는 서비스 이용 확인 시점까지 결제 대금을 예치하는 서비스를 말합니다.</p>
-
-        <p> 4. '이용자'라 함은 이 약관에 동의하고 회사가 제공하는 전자 금융 거래 서비스를 이용하는 자를 말합니다.
-    </div>
-
-    <div class="mx-auto d-block p-4 checks bb">
-        <input type="checkbox" id="check">
-        <label for="check"> 위 상품의 구매조건 확인 및 결제진행 동의</label>
-    </div> -->
-    
-    <div class="myinfobox p-5">
-        <h6 class="font-weight-bold mb-4">주문고객 정보</h6>
-        <div class="form-group row">
-            <label for="name" class="col-md-3 col-form-label">이름</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" id="name" value="">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="phone1" class="col-md-3 col-form-label">전화번호</label>
-            <div class="col-md-3">
-                <select class="custom-select" id="phone1" name="phone1" required>
-                    <option>010</option>
-                    <option>011</option>
-                    <option>016</option>
-                    <option>017</option>
-                    <option>019</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input type="number" class="form-control phone" id="phone2" maxlength="4" name="phone2" required>
-            </div>
-            <div class="col-md-3">
-                <input type="number" class="form-control phone" id="phone3" maxlength="4" name="phone3" required>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="name" class="col-md-3 col-form-label">Email</label>
-            <div class="col-md-9">
-                <input type="email" class="form-control" id="email" value="">
-            </div>
-        </div>
-    </div>
-
     <div class="text-center p-5">
         <button class="btn btn-around" onclick="requestPay()">결제하기</button>
         <button class="btn btn-around-2" onclick="history.back()">취소</button>
@@ -139,8 +73,7 @@
 
 <script>
     var price = "${lesson.lesPrice}";
-    var grade = 1;
-//    var grade = "${member.grade}";
+    var grade = "${loginMember.grade}";
     var coupon = 0;
     var couponCnt = "${cList.size()}";
     var couponDis = 0;
