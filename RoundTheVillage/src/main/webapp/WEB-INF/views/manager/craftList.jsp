@@ -101,15 +101,11 @@
     height: 40px;
     font-family: 'NanumSquare', sans-serif !important;
     font-size: 17px;
-}
-
-#normalBtn {
+        }
+        
+#craftBtn {
 	background-color : #FBBC73;
 }
-        
-
-
-
 
 </style>
 
@@ -120,39 +116,39 @@
 	<div class="container notice-list">
 	
 		<div id="btnDiv">
-                    <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">일반 회원 조회</button></a>
-                    <a href="${contextPath}/manager/craftList"><button type="menu" id="craftBtn">공방 회원 조회</button></a>
-                </div>
+           <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">일반 회원 조회</button></a>
+           <a href="${contextPath}/manager/craftList"><button type="menu" id="craftBtn">공방 회원 조회</button></a>
+    </div>
 	
 		<div>
 			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
 					<tr>
-						<th id="noticeN">회원번호</th>
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>이메일</th>
-						<th>등급</th>
+						<th id="noticeN">공방번호</th>
+						<th>대표</th>
+						<th>공방명</th>
+						<th>전화번호</th>
+						<th>카테고리</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty nlList}">
+					<c:if test="${empty cList}">
 						<tr>
 							<td colspan="6">존재하는 회원이 없습니다.</td>
 						</tr>
 					</c:if>
 
-					<c:if test="${!empty nlList}">
-						<c:forEach var="normal" items="${nlList}" varStatus="vs">
+					<c:if test="${!empty cList}">
+						<c:forEach var="craft" items="${cList}" varStatus="vs">
 
 							<tr>
-								<td>${normal.memberNo}</td>
-								<td>${normal.memberId}</td>
-								<td>${normal.memberNickname}</td>
-								<td>${normal.memberEmail}</td>
-								<td>${normal.memberGrade}</td>
-
+								<td>${craft.shopNo}</td>
+								<td>${craft.shopOwnerName}</td>
+								<td>${craft.shopName}</td>
+								<td>${craft.shopContact}</td>
+								<td>${craft.shopCategoryName}</td>
 							</tr>
+							
 						</c:forEach>
 					</c:if>
 				</tbody>
@@ -164,13 +160,13 @@
 
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/manager/normalList" />
+				<c:url var="pageUrl" value="/manager/craftlList" />
 
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/manager/normalList" />
+				<c:url var="pageUrl" value="/manager/craftList" />
 			</c:otherwise>
 		</c:choose>
 
@@ -257,6 +253,7 @@
 		}); --%>
 		
 
+		
 	</script>
 </body>
 </html>
