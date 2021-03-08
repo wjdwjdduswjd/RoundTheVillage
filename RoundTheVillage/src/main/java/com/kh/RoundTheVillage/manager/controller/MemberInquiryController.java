@@ -35,8 +35,7 @@ public class MemberInquiryController {
 	private MemberInquiryService service;
 
 
-	// 일반회원 목록 조회 컨트롤러
-	// ---------------------------------------------------------------------------------------------
+	// 일반회원 목록 조회 컨트롤러 ---------------------------------------------------------------------------------------------
 	@RequestMapping("normalList")
 	public String selectNormalList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 

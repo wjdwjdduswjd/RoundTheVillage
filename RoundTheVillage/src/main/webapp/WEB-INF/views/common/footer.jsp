@@ -8,7 +8,7 @@
 </head>
 <style>
 #footerHR {
-	margin-top: 150px;
+	margin-top: 350px;
 }
 #footer {
     width: 1200px;

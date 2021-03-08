@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <!-- css 연결  -->
-<link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common/header2.css">
 	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   	
@@ -45,23 +45,53 @@
 		        <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
 		     </div>
 	    		</c:when>
+	    		
 	    		<%--  로그인 되어있는 경우--%>  
 	    		<c:otherwise>
 		    <div class="header-right-items">
+		    
+		    		<!-- 회원 등급별 bread icon -->
+		    		<c:choose>
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 1) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_1.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 2) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_2.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 3) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_3.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 4) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_4.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 5) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_5.png" id="pImg"></span>
+		    				</c:when>
+		    		</c:choose>
+		    		
+		    		<span id="userGrade" class="header-item">Lv.${loginMember.memberGrade}</span>
+		    		
+		    		
+		    		<span id="userNickname" class="header-item">${loginMember.memberNickname} 님</span>
 	    			<a href="${contextPath}/member/logout" class="header-item" id="header-logout">로그아웃</a> <br>
 		     </div>
 	    		</c:otherwise>
-    		
-    		
-    		
-      
     	</c:choose>
+    	
+    	
+    	
       
     </div>
 
     <div class="logoDiv">
       <div id="logo">
-        <a href="${contextPath}" id="logo"><img src="${contextPath}/resources/images/logo/zero.png" id="zero" size="500px"></a>
+        <a href="${contextPath}">
+        <img src="${contextPath}/resources/images/logo/main_logo_zero.png" id="zero">
+        </a>
       </div>
     </div>
 

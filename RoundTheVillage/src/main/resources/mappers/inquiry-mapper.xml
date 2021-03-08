@@ -20,7 +20,7 @@
 	
 	
 	<!-- 전체 일반 회원 수 조회 -->
-	<select id="getListCount" parameterType="_int" resultType="_int">
+	<select id="getNormalListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEM_SCSN_FL = 'Y'
 		AND MEM_TYPE = 'G'
