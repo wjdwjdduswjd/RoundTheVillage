@@ -382,5 +382,33 @@ System.out.println(search);
 		return url;
 
 	}
+	
+	@RequestMapping("delete")
+	public String deleteBoard(@RequestParam("boardNo") int boardNo, RedirectAttributes ra,
+					HttpServletRequest request, @RequestParam(value = "referer", required = false) String referer) {
+		
+		int result = service.deleteBoard(boardNo);
+		
+		String url = null;
+		
+		 if(result > 0) {
+    		 swalIcon = "success";
+     		 swalTitle = "게시글이 삭제되었습니다.";
+     		 url = "redirect:list";
+     		
+    	 }else {
+
+    		 swalIcon = "error";
+      		 swalTitle = "게시글 삭제 실패하였습니다.";
+      		 url = "redirect:" + request.getHeader("referer");
+      		
+     	}
+		 
+		 ra.addFlashAttribute("swalIcon", swalIcon);
+		 ra.addFlashAttribute("swalTitle", swalTitle);
+		
+
+			return url;
+	}
 
 }

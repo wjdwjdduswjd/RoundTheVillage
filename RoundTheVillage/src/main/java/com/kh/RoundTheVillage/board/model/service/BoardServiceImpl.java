@@ -505,4 +505,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectSearchList(pInfo, search);
 	}
 
+	@Override
+	public int deleteBoard(int boardNo) {
+		return dao.deleteBoard(boardNo);
+	}
+
 }
