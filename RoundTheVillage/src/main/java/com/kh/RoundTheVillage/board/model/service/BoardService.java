@@ -110,6 +110,8 @@ public interface BoardService {
 	 */
 	public abstract List<Board> selectSearchList(PageInfo pInfo, Search search);
 
+	public abstract int deleteBoard(int boardNo);
+
 
 	
 

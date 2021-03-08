@@ -164,6 +164,12 @@ public class BoardDAO {
 		return sqlSession.delete("boardMapper.deleteAttachmentList", deleteFileNoList);
 	}
 
+	public int deleteBoard(int boardNo) {
+		return sqlSession.update("boardMapper.deleteBoard", boardNo);
+	}
+
+	
+	
 	
 
 

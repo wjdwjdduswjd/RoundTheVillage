@@ -130,34 +130,67 @@
                         </thead>
 
                         <tbody>
+													  <c:choose>
 
+                 							 <c:when test="${empty rList}">
+													
                             <tr>
                                 <td colspan="8">존재하는 게시글이 없습니다.</td>
                             </tr>
+                            </c:when>
                            
-
-                                <!-- 1~10  -->
-                             <%--    <c:forEach var="board" items="${fList}"> --%>
+                           
+                           
+														 <c:otherwise>
+					                     <%-- 조회된 게시글 목록이 있을 때 --%>
+					                     <!-- 1~10  -->
+                             <c:forEach var="report" items="${rList}"> 
                                     <tr>
                                         <td><input type="checkbox" id="reportBox" value="reportBox" name="reportBox"> <br></td>
-                                        <td>1</td>
+                                        <td>${report.boardReportNo}</td>
 
-                                        <td>제목</td>
+                                        <td>${report.boardTitle}</td>
 
                                         <td>
-                                           	홍보성
+                                           	${report.categoryName}
                                         </td>
 
-                                        <td>홍보해서 신고함</td>
-                                        <td>user01</td>
-                                        <td>2021-02-17</td>
-
+                                        <td> 	${report.boardReportReason}</td>
+                                        <td>${report.memberNickname }</td>
+                                        
+                                  
+                                        
+                                        <td>
+                                        
+                                        <fmt:formatDate var="createDate" value="${report.boardReportDate}" pattern="yyyy-MM-dd" /> 
+                                        
+                                        
+                             						 <fmt:formatDate var="today" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" />
+                             						 
+                             						  <c:choose>
+                             						  
+                             						     <c:when test="${createDate != today}">${createDate}</c:when>
+                             						  
+                             						    <%-- 글 작성일이 오늘일 경우 --%>
+					                                 <c:otherwise>
+					                                    <fmt:formatDate value="${report.boardReportDate}" pattern="HH:mm"/>
+					                                    <!-- 오늘 작성한거면 시간이 나온다. -->
+					                                 </c:otherwise>
+					                              </c:choose>
+               
+                                        </td>
                                     </tr>
+                    </c:forEach>
+
+   									 </c:otherwise>
+
+               </c:choose>
+
 
 
                         </tbody>
-
                     </table>
+                    
 
             
                     <!-- 화살표에 들어갈 주소를 변수로 생성 -->
@@ -220,20 +253,24 @@
 
                                     </ul>
                                 </div>
+                                
+                                
+                                		<div class="col-md-3" style="height : 200px;">
 
 
-                                <div class="search">
-                                    <form action="${contextPath}/fSearch.do" method="GET" class="text-center"
-                                        id="searchForm">
-                                        <select name="sk" class="form-control"
-                                            style="width: 100px; display: inline-block;">
-                                            <option value="title">글 제목</option>
-                                            <option value="content">내용</option>
-                                        </select> <input type="text" name="sv" class="form-control"
-                                            style="width: 25%; display: inline-block;">
-                                        <button id="searchBtn" style="width: 100px; display: inline-block;">검색</button>
-                                    </form>
-                                </div>
+																		<c:if test="${!empty loginMember }">
+																			<span class="btnBtn">
+																				<button type="button" class="btn btn-warning btn-sm px-2 btnBtn3" onclick="deleteReport()">글 삭제</button>
+																				<button class="btn btn-warning btn-sm px-2 btnBtn3">회원정지</button>
+																			</span>
+																		</c:if>
+															
+																	</div>
+															
+																</div>
+                                
+
+
                 </div>
             </div>
            <!--  <div class="col-md-2">
@@ -249,6 +286,30 @@
                         location.href = url;
 
                     });
+                    
+                    
+                    
+                    function checkboxArr() {
+                        var checkArr = [];     // 배열 초기화
+                        $("input[name='reportBox']:checked").each(function(i)) {
+                            checkArr.push($(this).val());     
+                        }
+                     
+                        $.ajax({
+                            url: 'reportBox'
+                            , type: 'post'
+                            , dataType: 'text'
+                            , data: {
+                                valueArrTest: checkArr
+                            }
+                        });
+                    }
+
+
+
+                    
+                    
+                    
 
                 </script>
     
