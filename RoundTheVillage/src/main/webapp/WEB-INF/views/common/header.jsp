@@ -104,7 +104,7 @@
       <c:choose>
 				<%-- 로그인이 되어있지 않을 때 == session에 loginMember라는 값이 없을 때 --%>
 				<c:when test="${empty sessionScope.loginMember}">
-      <a class="dropdown-toggle myclick" id="menu" href="${contextPath}/member/login" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+      <a class="dropdown-toggle myclick" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 				</c:when>
 				
 				<%-- 일반 / 공방 회원 --%>
@@ -173,6 +173,7 @@
 	var loginMemberId = "${loginMember.memberId}";
 	$(".myclick").on("click", function() {
 		alert("로그인 후 이용해 주세요.");
+		location.href="${contextPath}/member/login";
 	});
 	</script>
 </body>
