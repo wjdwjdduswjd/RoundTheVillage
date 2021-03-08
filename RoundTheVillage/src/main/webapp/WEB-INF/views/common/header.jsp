@@ -141,9 +141,9 @@
           <%-- 관리자 --%>
 					<c:if test="${loginMember.memberType == 'A'}">
 						<a class="dropdown-item" href="${contextPath}/manager/normalList">회원조회</a>
-        	  <a class="dropdown-item" href="#">공방관리</a>
+        	  <a class="dropdown-item" href="${contextPath}/manager/shopList">공방관리</a>
         	  <a class="dropdown-item" href="#">배너관리</a>
-        	  <a class="dropdown-item" href="${contextPath}/manager/reportList}">신고관리</a>
+        	  <a class="dropdown-item" href="${contextPath}/manager/reportList">신고관리</a>
         	  <!-- 고객센터 관련 메뉴는 아예 밑에 고객센터에 관리자 기준으로 넘기기 -->
 					</c:if>
           
