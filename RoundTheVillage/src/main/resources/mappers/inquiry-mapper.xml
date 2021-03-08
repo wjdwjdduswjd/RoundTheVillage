@@ -71,6 +71,103 @@
 	</select>
 	
 	
+	
+	
+	<!-- 검색어 포함 일반 회원수 조회 -->
+	<select id="selectSearchListCount" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultType="_int">
+			SELECT COUNT(*) FROM MEMBER
+			WHERE MEM_SCSN_FL = 'N'
+			AND MEM_TYPE = 'G'
+			
+			<if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND MEM_ID LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND MEM_NICKNAME LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	
+	<!-- 일반 회원 검색 -->
+	<select id="selectSearchList" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultMap="member_rm">
+	   SELECT MEM_NO, MEM_ID, MEM_NICKNAME, MEM_EMAIL, MEM_GRADE
+	   FROM MEMBER
+	   WHERE MEM_SCSN_FL = 'N'
+	   AND MEM_TYPE = 'G'
+	   
+	   <if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND MEM_ID LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND MEM_NICKNAME LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+			
+			 ORDER BY MEM_NO DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 검색어 포함 공방 회원수 조회 -->
+	<select id="selectSearchCraftCount" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultType="_int">
+			SELECT COUNT(*) FROM MEMBER
+			WHERE MEM_SCSN_FL = 'N'
+			JOIN CRAFTSHOP ON (MEM_NO = CRAFTSHOP_NO)
+			JOIN CS_CATEGORY USING (CS_CATE_NO)
+			AND MEM_TYPE = 'C'
+			
+			<if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND NAME LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND CRAFTSHOP_NAME LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'category'">
+						AND CS_CATE_NM LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	
+	<!-- 공방 회원 검색 -->
+	<select id="selectSearchCraft" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultMap="member_rm">
+	   SELECT CRAFTSHOP_NO, NAME, CRAFTSHOP_NAME, CRAFTSHOP_CONTACT, CS_CATE_NM
+	   FROM CRAFTSHOP
+	 	 JOIN MEMBER ON (MEM_NO = CRAFTSHOP_NO)
+		 JOIN CS_CATEGORY USING (CS_CATE_NO)
+		 WHERE MEM_TYPE = 'C'
+		 AND MEM_SCSN_FL = 'N'
+	   
+	   <if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND NAME LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND CRAFTSHOP_NAME LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'category'">
+						AND CS_CATE_NM LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+			
+			 ORDER BY CRAFTSHOP_NO
+	</select>
 
 
 

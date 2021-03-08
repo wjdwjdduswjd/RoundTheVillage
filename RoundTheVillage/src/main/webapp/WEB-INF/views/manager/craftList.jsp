@@ -235,7 +235,26 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		<div class="row search-area">
+				<div class="col-md-12">
+					<div class="search">
+						<form action="craftSearch" method="GET" class="text-center" id="searchForm">
+							<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 
+								<option value="title">대표</option>
+								<option value="content">공방명</option>
+								<option value="category">카테고리</option>
+							</select> 
+							<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+							<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		
 
 
 	</div>
