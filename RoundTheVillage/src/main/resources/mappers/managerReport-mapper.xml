@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="managerReport-mapper.xmlMapper">
+<mapper namespace="Reportmapper">
+
+<resultMap type="ManagerReport" id="managerReport_rm">
+<id property="boardReportNo" column="BOARD_REPORT_NO"/>
+
+<result property="boardReportDate" column="BOARD_REPORT_DT"/>
+<result property="boardReportFl" column="BOARD_REPORT_FL"/>
+<result property="boardReportContent" column="BOARD_REPORT_CT"/>
+<result property="boardNo" column="BOARD_NO"/>
+<result property="memberNo" column="MEM_NO"/>
+<result property="boardReportReason" column="B_REPORT_REASON"/>
+<result property="categoryCode" column="CATE_CD"/>
+<result property="categoryName" column="CATE_NM"/>
+<result property="boardTitle" column="BOARD_TITLE"/>
+<result property="memberNickname" column="MEM_NICKNAME"/>
+<result property="reportType" column="REPORT_TYPE"/>
+
+</resultMap>
+
+
+<!-- 전체 게시글 수 조회 -->
+<select id="getListCount" parameterType="string" resultType="_int">
+	SELECT COUNT(*) FROM V_REPORT
+</select>
+
+
+<!-- 게시글 목록 조회 -->
+<select id="selectList" parameterType="string" resultMap="managerReport_rm">
+    SELECT BOARD_REPORT_NO, BOARD_TITLE, CATE_NM, B_REPORT_REASON, MEM_NICKNAME,
+                BOARD_REPORT_DT
+   FROM V_REPORT
+<!--    JOIN B_REPORT_CATE ON (BOARD_REPORT_CT = CATE_CD)
+   JOIN BOARD ON (MEM_NO = MEMBER_NO)
+   JOIN MEMBER USING (MEM_NO); -->
+<!--    WHERE BOARD_REPORT_FL = 'N'; -->
+</select>
+
+
+
+
+
 
 
 </mapper>

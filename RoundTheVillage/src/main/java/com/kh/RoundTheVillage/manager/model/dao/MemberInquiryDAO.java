@@ -24,12 +24,12 @@ public class MemberInquiryDAO {
 	 * @param cp
 	 * @return listCount
 	 */
-	public int getListCount(int cp) {
-		return sqlSession.selectOne("inquiryMapper.getListCount", cp);
+	public int getNormalListCount(int cp) {
+		return sqlSession.selectOne("inquiryMapper.getNormalListCount", cp);
 	}
 
 
-	/** 회원 목록 조회 DAO
+	/** 일반 회원 목록 조회 DAO
 	 * @param pInfo
 	 * @return bList
 	 */
@@ -39,7 +39,7 @@ public class MemberInquiryDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		
-		return sqlSession.selectList("noticeMapper.selectNormalList", pInfo.getNoticeNo(), rowBounds);
+		return sqlSession.selectList("inquiryMapper.selectNormalList", pInfo.getNoticeNo(), rowBounds);
 	}
 	
 	

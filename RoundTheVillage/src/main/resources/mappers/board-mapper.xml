@@ -274,9 +274,13 @@
 		<foreach collection="list" item="no" open="(" close=")" separator=",">
 			#{no}
 		</foreach>
-	
-	
 	</delete>
+	
+	<update id="deleteBoard" parameterType="_int">
+		UPDATE BOARD SET
+		BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 	
 	

@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <!-- css 연결  -->
-<link rel="stylesheet" href="${contextPath}/resources/css/common/header.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common/header2.css">
 	<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   	
@@ -45,23 +45,53 @@
 		        <a href="${contextPath}/member/signUp" class="header-item" id="header-signUp">회원가입</a>
 		     </div>
 	    		</c:when>
+	    		
 	    		<%--  로그인 되어있는 경우--%>  
 	    		<c:otherwise>
 		    <div class="header-right-items">
+		    
+		    		<!-- 회원 등급별 bread icon -->
+		    		<c:choose>
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 1) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_1.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 2) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_2.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 3) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_3.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 4) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_4.png" id="pImg"></span>
+		    				</c:when>
+		    				
+		    				<c:when test="${!empty loginMember && (loginMember.memberGrade == 5) }">
+		    					<span class="header-item"><img src="${contextPath}/resources/images/Level/Lv_5.png" id="pImg"></span>
+		    				</c:when>
+		    		</c:choose>
+		    		
+		    		<span id="userGrade" class="header-item">Lv.${loginMember.memberGrade}</span>
+		    		
+		    		
+		    		<span id="userNickname" class="header-item">${loginMember.memberNickname} 님</span>
 	    			<a href="${contextPath}/member/logout" class="header-item" id="header-logout">로그아웃</a> <br>
 		     </div>
 	    		</c:otherwise>
-    		
-    		
-    		
-      
     	</c:choose>
+    	
+    	
+    	
       
     </div>
 
     <div class="logoDiv">
       <div id="logo">
-        <a href="${contextPath}" id="logo"><img src="${contextPath}/resources/images/logo/zero.png" id="zero" size="500px"></a>
+        <a href="${contextPath}">
+        <img src="${contextPath}/resources/images/logo/main_logo_zero.png" id="zero">
+        </a>
       </div>
     </div>
 
@@ -74,7 +104,7 @@
       <c:choose>
 				<%-- 로그인이 되어있지 않을 때 == session에 loginMember라는 값이 없을 때 --%>
 				<c:when test="${empty sessionScope.loginMember}">
-      <a class="dropdown-toggle myclick" id="menu" href="${contextPath}/member/login" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+      <a class="dropdown-toggle myclick" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 				</c:when>
 				
 				<%-- 일반 / 공방 회원 --%>
@@ -111,9 +141,9 @@
           <%-- 관리자 --%>
 					<c:if test="${loginMember.memberType == 'A'}">
 						<a class="dropdown-item" href="${contextPath}/manager/normalList">회원조회</a>
-        	  <a class="dropdown-item" href="#">공방관리</a>
+        	  <a class="dropdown-item" href="${contextPath}/manager/shopList">공방관리</a>
         	  <a class="dropdown-item" href="#">배너관리</a>
-        	  <a class="dropdown-item" href="${contextPath}/manager/reportList}">신고관리</a>
+        	  <a class="dropdown-item" href="${contextPath}/manager/reportList">신고관리</a>
         	  <!-- 고객센터 관련 메뉴는 아예 밑에 고객센터에 관리자 기준으로 넘기기 -->
 					</c:if>
           
@@ -143,6 +173,7 @@
 	var loginMemberId = "${loginMember.memberId}";
 	$(".myclick").on("click", function() {
 		alert("로그인 후 이용해 주세요.");
+		location.href="${contextPath}/member/login";
 	});
 	</script>
 </body>

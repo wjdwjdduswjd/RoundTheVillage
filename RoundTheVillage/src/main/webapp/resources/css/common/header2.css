@@ -23,17 +23,17 @@ a {
 
 #logo {
   margin: 0px auto;
-  width:300px;
-  height:300px;
+  width:400px;
+  height:400px;
   text-align: center;
 }
 
 #zero {
-   width: 300px;
-   height:300px;
+   width: 400px;
+   height:400px;
 }
 
-/* 로그인, 로그아웃 ---------------------------------------------- */
+/* 로그인, 로그아웃, 닉네임 ---------------------------------------------- */
 #header-group {
   height: 56px;
   display: flex;
@@ -60,6 +60,16 @@ a {
   font-weight: 700;
 } 
 
+#userNickname {
+	color: #ffc107;
+}
+
+#pImg {
+	width:25px;
+}
+
+
+
 /* nav ----------------------------------------------------------- */
 .dropdown {
   margin-top: 50px;
@@ -67,6 +77,7 @@ a {
 
 .nav {
   width: 1200px;
+  margin-top:50px;
   text-align: center;
 }
 
@@ -101,6 +112,7 @@ hr {
 }
 
 .dropdown-menu.show {
+	width: 240px;
   margin: 0px;
   margin-top: 16px;
 }
