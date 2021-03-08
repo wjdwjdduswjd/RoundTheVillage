@@ -25,6 +25,10 @@ import com.kh.RoundTheVillage.CScenter.model.service.NoticeService;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Attachment;
+import com.kh.RoundTheVillage.board.model.vo.Board;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 
 @Controller // 컨트롤러 + 빈 등록
 @SessionAttributes({ "loginMember" })
@@ -236,17 +240,18 @@ public class NoticeController {
 
 	}
 
-	/*
-	 * 
-	 * 
-	 * // 게시글 검색
-	 * -----------------------------------------------------------------------------
-	 * ---------------------------- public String searchAction() {
-	 * 
-	 * String searchKey = request.getParameter("sk"); String searchValue =
-	 * request.getParameter("sv"); String cp = request.getParameter("cp");
-	 * 
-	 * return null; }
-	 */
+	// 게시글 검색 Controller
+	// -------------------------------------------------------------------------------------------
+	@RequestMapping("search")
+	public String searchBoard(@ModelAttribute Search search, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		//System.out.println(search);
+		
+		PageInfo2 pInfo = service.selectSearchListCount(search, cp);
+		List<Notice> nList = service.selectSearchList(pInfo, search);
 
+		model.addAttribute("nList", nList);
+		model.addAttribute("pInfo", pInfo);
+
+		return "CScenter/noticeList";
+	}
 }

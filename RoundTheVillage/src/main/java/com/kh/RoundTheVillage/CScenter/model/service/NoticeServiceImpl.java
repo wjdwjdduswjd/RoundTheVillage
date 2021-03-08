@@ -18,6 +18,9 @@ import com.kh.RoundTheVillage.CScenter.model.exception.InsertAttachmentFailExcep
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Board;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -297,8 +300,7 @@ public class NoticeServiceImpl implements NoticeService {
 	   
 	   
 	   
-	   
-	// 게시글 삭제 Service 구현   
+	// 게시글 삭제 Service 구현 --------------------------------------------------------------  
 	@Override
 	public int deleteNotice(int noticeNo) {
 		
@@ -307,8 +309,22 @@ public class NoticeServiceImpl implements NoticeService {
 		return result;
 	}
 
-	 
 	
+	
+	// 검색어 포함 게시글 개수 조회 Service 구현 ----------------------------------------------------
+	@Override
+	public PageInfo2 selectSearchListCount(Search search, int cp) {
+		int listCount = dao.selectSearchListCount(search);
+		return new PageInfo2(cp, listCount);
+	}
+
+	
+	
+	// 검색어 포함 게시글 목록 조회 Service ----------------------------------------------------
+	@Override
+	public List<Notice> selectSearchList(PageInfo2 pInfo, Search search) {
+		return dao.selectSearchList(pInfo, search);
+	}
 	
 	
 	

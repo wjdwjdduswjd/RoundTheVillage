@@ -98,7 +98,6 @@
          <foreach collection="list" item="fileNo" open="(" close=")" separator=",">
             #{fileNo}
          </foreach>
-         
    </delete>
 	
 	
@@ -110,7 +109,45 @@
 	</update>
 	
 	
+	<!-- 검색어 포함 게시글 개수 조회 -->
+	<select id="selectSearchListCount" parameterType="com.kh.RoundTheVillage.CScenter.model.vo.Search" resultType="_int">
+			SELECT COUNT(*) FROM NOTICE
+			WHERE NOTICE_STATUS = 'Y'
+			
+			<if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND NOTICE_TITLE LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND NOTICE_CONTENT LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	
 	<!-- 게시글 검색 -->
+	<select id="selectSearchList" parameterType="com.kh.RoundTheVillage.CScenter.model.vo.Search" resultMap="notice_rm">
+	   SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CREATE_DT
+	   FROM NOTICE
+	   WHERE NOTICE_STATUS = 'Y'
+	   <if test="sv != ''">
+				<choose>
+					<when test="sk == 'title'">
+						AND NOTICE_TITLE LIKE '%' || #{sv} || '%'
+					</when>
+					<when test="sk == 'content'">
+						AND NOTICE_CONTENT LIKE '%' || #{sv} || '%'
+					</when>
+				</choose>
+			</if>
+			
+			 ORDER BY NOTICE_NO DESC
+	</select>
+	
+	
+	
 	
 
 
