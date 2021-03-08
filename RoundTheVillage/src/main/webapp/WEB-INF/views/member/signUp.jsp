@@ -25,7 +25,7 @@
 
 			<!-- 메인 이동 로고 -->
 			<div class="login-logo-area">
-				<a href="${contextPath}"><img src="${contextPath}/resources/images/member/zero.png" class="login-logo"></a>
+				<a href="${contextPath}"><img src="${contextPath}/resources/images/logo/main_logo_zero.png" class="login-logo"></a>
 			</div>
 
 			<form method="POST" action="signUpAction" class="needs-validation" name="signUpForm" onsubmit="return validate();">

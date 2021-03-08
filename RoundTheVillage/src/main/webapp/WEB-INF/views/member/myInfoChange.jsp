@@ -23,10 +23,10 @@
               text  : "${swalText}"});
       </script>
    </c:if>
-	<%-- <jsp:include page="../common/header.jsp"/> --%>
+	<jsp:include page="../common/header.jsp"/>
 	<div class="container">
-
-		<div class="mypageInfo">
+	
+			<div class="mypageInfo">
 
 			<c:set var="address" value="${fn:split(loginMember.memberAddr,',' ) }" />
 
@@ -41,7 +41,7 @@
 
 				--><div class="grade">
 				<!-- 등급 계산 필요   누적 금액으로 계산하기!!!  -->
-				<div class="my-grade">LV.${loginMember.memberGrade}</div>
+				<div class="my-grade">LV.<strong>${loginMember.memberGrade}</strong></div>
 			</div>
 
 
@@ -72,7 +72,7 @@
 						</c:if>
 						<c:if test="${id == 'k@' }">
 							<div class="info-b">
-								<label class="label-area"><strong>카카오톡 로그인 중</strong> </label>
+								<label ><strong>[ 카카오톡 로그인 중 ]</strong> </label>
 							</div>
 						</c:if>
 
@@ -126,28 +126,6 @@
 							</label>
 						</div>
 
-						<!-- 주소 -->
-						<%-- 					<div class="info-b">
-	          <label class="title">거주지 주소</label>
-	
-	          <div>
-	              <label class="addr text">우편번호</label>
-	              <input class="a" type="text" name="address1" id="address1" value="${address[0]}"> 
-	              <button type="button" id="search_button" class="search_button">검색</button>
-	          </div>
-	          <br><br>
-	
-	          <div>
-	              <label class="addr text">도로명 주소</label> 
-	              <input class="b" type="text" name="address2" id="address2" value="${address[1]}">
-	          </div>
-	          <br><br>
-	          
-	          <div>
-	              <label class="addr text">상세 주소</label>
-	              <input class="b" type="text" name="address3" id="address3" value="${address[2]}">
-	          </div>
-	         </div> --%>
  					<div class="info-b">
 	          <label class="title"><strong>거주지 주소</strong></label>
 	          
@@ -196,11 +174,12 @@
 
 			</form>
 
-				<!-- 탈퇴하기 -->
-				<div class="secession">
-					<a onclick="location.href='${contextPath}/member/secession'" class="a-text">탈퇴하기</a>
-				</div>
-
+				<c:if test="${id != 'k@' }">
+					<!-- 탈퇴하기 -->
+					<div class="secession">
+						<a onclick="location.href='${contextPath}/member/secession'" class="a-text">탈퇴하기</a>
+					</div>
+				</c:if>
 
 
 
@@ -211,7 +190,7 @@
 
 
 
-	<%-- <jsp:include page="../common/footer.jsp"/> --%>
+	<jsp:include page="../common/footer.jsp"/> 
 
 
 
