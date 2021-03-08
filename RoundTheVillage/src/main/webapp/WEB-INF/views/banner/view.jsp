@@ -25,7 +25,7 @@
     </div>
 
     <div class="text-right">
-        <a href="../reg/${banner.banNo}" class="btn btn-around <c:if test="${banner.aprvlFl == 'Y'.charAt(0)}">disabled</c:if>">등록</a>
+        <a href="../reg/${banner.banNo}" class="btn btn-around <c:if test="${banner.aprvlFl == 'Y'.charAt(0)}">disabled</c:if>">승인</a>
         <a href="${returnListURL}" class="btn btn-around-2">목록으로</a>
     </div>
 </div>
