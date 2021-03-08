@@ -78,7 +78,7 @@
 								<button class="btn btn-around" disabled>취소됨</button>
 						</c:when>
 						<c:when test="${startDate > now}">
-		        		<button class="btn btn-around" onclick="cancelPay()">결제 취소</button>
+		        		<button class="btn btn-around" onclick="location.href='../cancelBanner/${banner.banNo}'">결제 취소</button>
 						</c:when>
 				</c:choose>
 				

@@ -56,4 +56,8 @@ public class BannerDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		return sqlSession.selectList("bannerMapper.selectListAprvl", rowBounds);
 	}
+
+	public int cancelBanner(int banNo) {
+		return sqlSession.update("bannerMapper.cancelBanner", banNo);
+	}
 }

@@ -14,6 +14,10 @@
 
     <h4 class="mt-5 mb-4">결제 내역</h4>
     <div class="row p-3 pt-4 bg-light rounded mb-5">
+    	<c:if test="${empty bList}">
+					<div>결제 내역이 없습니다.</div>
+			</c:if>
+    	
     		<c:forEach var="banner" items="${bList}">
 		        <div class="col-md-12">
 		            <div class="d-flex justify-content-between bb">
