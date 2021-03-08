@@ -240,7 +240,24 @@
 			</div>
 		</div>
 
+		
+		<div class="row search-area">
+				<div class="col-md-12">
+					<div class="search">
+						<form action="search" method="GET" class="text-center" id="searchForm">
+							<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 
+								<option value="title">아이디</option>
+								<option value="content">닉네임</option>
+							</select> 
+							<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+							<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		
+		
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
@@ -34,6 +35,40 @@ public interface MemberInquiryService {
 	 * @return 
 	 */
 	public abstract List<Shop> selectCraftList(PageInfo2 pInfo);
+	
+	
+	/** 검색어 포함 일반 회원수 조회 Service
+	 * @param search
+	 * @param cp
+	 * @return listCount
+	 */
+	public abstract PageInfo2 selectSearchListCount(Search search, int cp);
 
+	
+	/** 검색어 포함 일반 회원 목록 조회 Service
+	 * @param pInfo
+	 * @param search
+	 * @return bList
+	 */
+	public abstract List<Member> selectSearchList(PageInfo2 pInfo, Search search);
+	
+	
+	
+	
+	/** 검색어 포함 공방 회원수 조회 Service
+	 * @param search
+	 * @param cp
+	 * @return listCount
+	 */
+	public abstract PageInfo2 selectSearchCraftCount(Search search, int cp);
+
+	
+	/** 검색어 포함 공방 회원 목록 조회 Service
+	 * @param pInfo
+	 * @param search
+	 * @return bList
+	 */
+	public abstract List<Shop> selectSearchCraft(PageInfo2 pInfo, Search search);
+	
 
 }
