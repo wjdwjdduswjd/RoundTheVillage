@@ -15,7 +15,7 @@
 
 </head>
 <body>
-	<%-- <jsp:include page="../common/header.jsp"/> --%>
+	<jsp:include page="../common/header.jsp"/> 
 
 	<div class="container">
 		<!--  내 정보 -->
@@ -90,7 +90,7 @@
 		</div>
 	</div>
 
-	<%-- <jsp:include page="../common/footer.jsp"/> --%>
+	<jsp:include page="../common/footer.jsp"/> 
 	
 	
 	
