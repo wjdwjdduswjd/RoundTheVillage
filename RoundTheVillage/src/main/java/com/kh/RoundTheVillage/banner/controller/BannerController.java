@@ -120,7 +120,7 @@ public class BannerController {
 	}
 	
 	@RequestMapping("view/{banNo}")
-	public String view(@RequestParam("banNo") int banNo, Model model) {
+	public String view(@PathVariable("banNo") int banNo, Model model) {
 		
 		Banner banner = service.selectBanner(banNo);
 		model.addAttribute("banner", banner);
@@ -129,9 +129,9 @@ public class BannerController {
 	}
 	
 	@RequestMapping("reg/{banNo}")
-	public String reg(@RequestParam("banNo") int banNo) {
+	public String reg(@PathVariable("banNo") int banNo) {
 		
 		int result = service.updateBanFl(banNo);
-		return "banner/reg";
+		return "redirect:../view/" + banNo;
 	}
 }

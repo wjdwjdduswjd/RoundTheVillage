@@ -140,6 +140,7 @@
 <script>
     var price = "${lesson.lesPrice}";
     var grade = 1;
+//    var grade = "${member.grade}";
     var coupon = 0;
     var couponCnt = "${cList.size()}";
     var couponDis = 0;

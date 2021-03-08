@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <title>공지사항</title>
+<link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
 <style>
 #title {
 	font-family: 'NanumSquare', sans-serif !important;
@@ -105,6 +106,7 @@
 						<th>공방명</th>
 						<th>전화번호</th>
 						<th>이메일</th>
+						<th>승인 여부</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -122,6 +124,16 @@
 								<td class="noticeTitle">${banner.craftshopName}</td>
 								<td>${banner.craftshopContact}</td>
 								<td>${banner.memEmail}</td>
+								<td>
+									<c:choose>
+										<c:when test="${banner.aprvlFl == 'Y'.charAt(0)}">
+											<span class="badge badge-pri ml-3">승인 완료</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-not ml-3">미승인</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -132,13 +144,12 @@
 		<!--------------------------------- pagination  ---------------------------------->
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/CScenter/noticeList" />
-
+				<c:url var="pageUrl" value="/banner/list" />
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/CScenter/noticeList" />
+				<c:url var="pageUrl" value="/banner/list" />
 			</c:otherwise>
 		</c:choose>
 
@@ -183,9 +194,9 @@
 							<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 							<c:if test="${next <= pInfo.maxPage}">
 								<!-- 다음 페이지로 이동 (>) -->
-								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true">&gt;</a></li>
 								<!-- 마지막 페이지로 이동(>>) -->
-								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&gt;&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true">&gt;&gt;</a></li>
 							</c:if>
 						</ul>
 					</nav>
@@ -195,7 +206,7 @@
 		</div>
 
 
-		<div>
+		<!-- <div>
 			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
 				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 					<option value="tit">글제목</option>
@@ -204,7 +215,7 @@
 				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
 				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
 			</div>
-		</div>
+		</div> -->
 
 
 	</div>
@@ -216,11 +227,8 @@
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$("#list-table td").on("click", function(){
-			var noticeNo = $(this).parent().children().eq(0).text();
-											
-			var noticeViewURL = noticeNo;
-			
-			location.href = noticeViewURL;
+			var bannerNo = $(this).parent().children().eq(0).text();
+			location.href = "view/" + bannerNo;
 		});
 	</script>
 </body>
