@@ -46,31 +46,21 @@
 <div id="banner">
   <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
     <div class="carousel-inner">
-
-      <div class="carousel-item active">
-        <img src="${contextPath}/resources/images/banner/banner-001.jpg" class="d-block w-100" alt="...">
-      </div>
-
-      <div class="carousel-item">
-        <img src="${contextPath}/resources/images/banner/banner-002.jpg" alt="...">
-      </div>
-
-      <div class="carousel-item">
-        <img src="${contextPath}/resources/images/banner/banner-003.jpg" alt="...">
-      </div>
-
-      <div class="carousel-item">
-        <img src="${contextPath}/resources/images/banner/banner-004.jpg" alt="...">
-      </div>
-
-      <div class="carousel-item">
-        <img src="${contextPath}/resources/images/banner/banner-005.jpg" alt="...">
-      </div>
-
-      <div class="carousel-item">
-        <img src="${contextPath}/resources/images/banner/banner-006.jpg" alt="...">
-      </div>
-
+    
+	    <c:choose>
+	    	<c:when test="${empty bList}">
+					<div class="carousel-item active">
+		       <img src="${contextPath}/resources/images/banner/banner_default.jpg" class="d-block w-100" alt="...">
+		      </div>
+				</c:when>
+	    	<c:otherwise>
+		    	<c:forEach var="banner" items="${bList}" varStatus="vs">
+			      <div class="carousel-item <c:if test="${vs.first}">active</c:if>">
+			       <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="d-block w-100" alt="...">
+			      </div>
+		    	</c:forEach>
+	    	</c:otherwise>
+	    </c:choose>
     </div>
 
 		<!-- 이전,다음 버튼 -->

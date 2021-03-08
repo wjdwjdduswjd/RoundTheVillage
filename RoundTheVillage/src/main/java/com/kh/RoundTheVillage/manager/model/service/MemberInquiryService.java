@@ -9,6 +9,7 @@ import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 
 public interface MemberInquiryService {
@@ -21,11 +22,18 @@ public interface MemberInquiryService {
 	public abstract PageInfo2 getPageInfo(int cp);
 	
 	
-	/** 게시글 목록 조회 Service
+	/** 일반 목록 조회 Service
 	 * @param pInfo
 	 * @return bList
 	 */
 	public abstract List<Member> selectNormalList(PageInfo2 pInfo);
+
+
+	/** 공방 목록 조회 Service
+	 * @param pInfo
+	 * @return 
+	 */
+	public abstract List<Shop> selectCraftList(PageInfo2 pInfo);
 
 
 }

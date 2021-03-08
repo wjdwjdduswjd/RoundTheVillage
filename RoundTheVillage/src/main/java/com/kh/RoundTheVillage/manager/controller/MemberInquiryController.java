@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 import com.kh.RoundTheVillage.manager.model.service.MemberInquiryService;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Controller // 컨트롤러 + 빈 등록
 @SessionAttributes({ "loginMember" })
@@ -48,6 +49,22 @@ public class MemberInquiryController {
 
 		return "manager/normalList";
 	}
+	
+	
+	// 공방회원 목록 조회 컨트롤러 ---------------------------------------------------------------------------------------------
+		@RequestMapping("craftList")
+		public String selectCraftList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+			PageInfo2 pInfo = service.getPageInfo(cp);
+
+			List<Shop> cList = service.selectCraftList(pInfo);
+
+			model.addAttribute("cList", cList);
+			model.addAttribute("pInfo", pInfo);
+
+			return "manager/craftList";
+		}
+	
 
 
 }
