@@ -112,6 +112,8 @@ public interface BoardService {
 
 	public abstract int deleteBoard(int boardNo);
 
+	public abstract PageInfo getPageInfo(int cp);
+
 
 	
 

@@ -127,14 +127,14 @@
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
           	<a class="dropdown-item" href="#">배너신청</a>
           	<a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
-         		<a class="dropdown-item" href="#">나의활동</a>
+         		<a class="dropdown-item" href="${contextPath}/board/myBoardList">나의활동</a>
          		<a class="dropdown-item" href="#">나의내역</a>
           </c:if>
           
           <%-- 일반 회원 --%>
           <c:if test="${(loginMember.memberType == 'G')}">
           <a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
-          <a class="dropdown-item" href="#">나의활동</a>
+          <a class="dropdown-item" href="${contextPath}/board/myBoardList">나의활동</a>
           <a class="dropdown-item" href="#">나의내역</a>
           </c:if>
           

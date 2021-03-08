@@ -168,6 +168,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
 
+	public int reportCount(Map<String, Object> map) {
+		return sqlSession.selectOne("boardMapper.reportCount", map);
+	}
+
+	public int deleteReport(Map<String, Object> map) {
+		return sqlSession.update("boardMapper.deleteReport", map);
+	}
+
 	
 	
 	
