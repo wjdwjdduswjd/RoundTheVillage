@@ -29,11 +29,12 @@ public class MemberInquiryServiceImpl implements MemberInquiryService {
 	public PageInfo2 getPageInfo(int cp) {
 
 		// 전체 회원 수 조회
-		int listCount = dao.getListCount(cp);
+		int listCount = dao.getNormalListCount(cp);
 
 		return new PageInfo2(cp, listCount);
 	}
-
+	
+	// 일반 회원 조회 Service 구현
 	@Override
 	public List<Member> selectNormalList(PageInfo2 pInfo) {
 		return dao.selectNormalList(pInfo);
