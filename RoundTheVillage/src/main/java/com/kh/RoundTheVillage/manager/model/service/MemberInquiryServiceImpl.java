@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 import com.kh.RoundTheVillage.manager.model.dao.MemberInquiryDAO;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Service
 public class MemberInquiryServiceImpl implements MemberInquiryService {
@@ -38,6 +39,13 @@ public class MemberInquiryServiceImpl implements MemberInquiryService {
 	@Override
 	public List<Member> selectNormalList(PageInfo2 pInfo) {
 		return dao.selectNormalList(pInfo);
+	}
+	
+	
+	// 공방 회원 조회 Service 구현
+	@Override
+	public List<Shop> selectCraftList(PageInfo2 pInfo) {
+		return dao.selectCraftList(pInfo);
 	}
 
 

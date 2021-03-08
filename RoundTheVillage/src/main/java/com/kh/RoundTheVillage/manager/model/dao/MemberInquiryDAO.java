@@ -12,6 +12,7 @@ import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Repository
 public class MemberInquiryDAO {
@@ -40,6 +41,18 @@ public class MemberInquiryDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		
 		return sqlSession.selectList("inquiryMapper.selectNormalList", pInfo.getNoticeNo(), rowBounds);
+	}
+
+	
+	
+	/** 공방 회원 목록 조회 DAO
+	 * @param pInfo
+	 * @return
+	 */
+	public List<Shop> selectCraftList(PageInfo2 pInfo) {
+		int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("inquiryMapper.selectCraftList", pInfo.getNoticeNo(), rowBounds);
 	}
 	
 	
