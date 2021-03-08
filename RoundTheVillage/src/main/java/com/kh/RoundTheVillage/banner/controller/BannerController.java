@@ -108,12 +108,30 @@ public class BannerController {
 	}
 	
 	@RequestMapping("list")
-	public String list() {
+	public String list(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		PageInfo pInfo = service.getPageInfo(0, cp);
+		List<Banner> bList = service.selectList(pInfo, 0);
+		
+		model.addAttribute("pInfo", pInfo);
+		model.addAttribute("bList", bList);
+		
 		return "banner/list";
 	}
 	
-	@RequestMapping("reg")
-	public String reg() {
+	@RequestMapping("view/{banNo}")
+	public String view(@RequestParam("banNo") int banNo, Model model) {
+		
+		Banner banner = service.selectBanner(banNo);
+		model.addAttribute("banner", banner);
+		
+		return "banner/view";
+	}
+	
+	@RequestMapping("reg/{banNo}")
+	public String reg(@RequestParam("banNo") int banNo) {
+		
+		int result = service.updateBanFl(banNo);
 		return "banner/reg";
 	}
 }

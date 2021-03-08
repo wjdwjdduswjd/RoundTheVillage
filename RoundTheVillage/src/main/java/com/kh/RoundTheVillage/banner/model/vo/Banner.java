@@ -14,6 +14,10 @@ public class Banner {
 	private char bannerFl;
 	private char aprvlFl;
 	private int memNo;
+	private String memName;
+	private String memEmail;
+	private String craftshopName;
+	private String craftshopContact;
 	
 	public Banner() {}
 
@@ -105,10 +109,43 @@ public class Banner {
 		this.memNo = memNo;
 	}
 
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	public String getMemEmail() {
+		return memEmail;
+	}
+
+	public void setMemEmail(String memEmail) {
+		this.memEmail = memEmail;
+	}
+
+	public String getCraftshopName() {
+		return craftshopName;
+	}
+
+	public void setCraftshopName(String craftshopName) {
+		this.craftshopName = craftshopName;
+	}
+
+	public String getCraftshopContact() {
+		return craftshopContact;
+	}
+
+	public void setCraftshopContact(String craftshopContact) {
+		this.craftshopContact = craftshopContact;
+	}
+
 	@Override
 	public String toString() {
 		return "Banner [banNo=" + banNo + ", startDate=" + startDate + ", endDate=" + endDate + ", URL=" + URL
 				+ ", img=" + img + ", payDate=" + payDate + ", payAmt=" + payAmt + ", impUid=" + impUid + ", bannerFl="
-				+ bannerFl + ", aprvlFl=" + aprvlFl + ", memNo=" + memNo + "]";
+				+ bannerFl + ", aprvlFl=" + aprvlFl + ", memNo=" + memNo + ", memName=" + memName + ", memEmail=" + memEmail
+				+ ", craftshopName=" + craftshopName + ", craftshopContact=" + craftshopContact + "]";
 	}
 }

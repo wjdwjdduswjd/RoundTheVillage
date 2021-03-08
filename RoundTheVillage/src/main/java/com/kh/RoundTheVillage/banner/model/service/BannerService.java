@@ -19,6 +19,8 @@ import com.kh.RoundTheVillage.banner.model.exception.InsertBannerFailException;
 import com.kh.RoundTheVillage.banner.model.vo.Banner;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 
+import oracle.net.aso.b;
+
 @Service
 public class BannerService {
 
@@ -110,5 +112,13 @@ public class BannerService {
 	
 	public List<Banner> selectTodayBanner() {
 		return dao.selectTodayBanner();
+	}
+
+	public int updateBanFl(int banNo) {
+		return dao.updateBanFl(banNo);
+	}
+
+	public List<Banner> selectListAprvl(PageInfo pInfo) {
+		return dao.selectListAprvl(pInfo);
 	}
 }

@@ -15,6 +15,10 @@
 		<result property="bannerFl" column="BANNER_FL"/>
 		<result property="aprvlFl" column="APRVL_FL"/>
 		<result property="memNo" column="MEM_NO"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="memEmail" column="MEM_EMAIL"/>
+		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
+		<result property="craftshopContact" column="CRAFTSHOP_CONTACT"/>
 	</resultMap>
 	
 	<select id="selectDate" parameterType="string" resultType="string">
@@ -32,31 +36,43 @@
 	</insert>
 	
 	<select id="selectBannerByUid" parameterType="string" resultMap="banner_rm">
-		SELECT * FROM BANNER
+		SELECT * FROM V_BANNER
 		WHERE IMP_UID = #{impUid}
 	</select>
 	
 	<select id="getListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM BANNER
-		WHERE MEM_NO = #{memNo}
+		SELECT COUNT(*) FROM V_BANNER
+		
+		<if test="memNo != 0">
+			WHERE MEM_NO = #{memNo}
+		</if>
 	</select>
 	
 	<select id="selectList" parameterType="_int" resultMap="banner_rm">
-		SELECT * FROM BANNER
-		WHERE MEM_NO = #{memNo}
+		SELECT * FROM V_BANNER
+		
+		<if test="memNo != 0">
+			WHERE MEM_NO = #{memNo}
+		</if>
 		ORDER BY BAN_NO DESC
 	</select>
 	
 	<select id="selectBanner" parameterType="_int" resultMap="banner_rm">
-		SELECT * FROM BANNER
+		SELECT * FROM V_BANNER
 		WHERE BAN_NO = #{banNo}
 	</select>
 	
 	<select id="selectTodayBanner" resultMap="banner_rm">
-		SELECT * FROM BANNER
+		SELECT * FROM V_BANNER
 		<![CDATA[
 			WHERE START_DT < SYSDATE AND END_DT > SYSDATE
 		]]>
 		WHERE APRVL_FL = 'Y' AND BANNER_FL = 'N'
 	</select>
+	
+	<update id="updateBanFl" parameterType="_int">
+			UPDATE BANNER
+			SET APRVL_FL = 'Y'
+			WHERE BAN_NO = #{banNo}
+	</update>
 </mapper>
