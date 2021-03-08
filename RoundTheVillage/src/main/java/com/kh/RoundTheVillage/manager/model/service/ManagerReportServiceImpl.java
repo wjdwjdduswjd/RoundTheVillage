@@ -27,5 +27,10 @@ public class ManagerReportServiceImpl implements ManagerReportService{
 	public List<ManagerReport> selectList(ManagerPageInfo pInfo) {
 		return dao.selectList(pInfo);
 	}
+
+	@Override
+	public int deleteReport(int boardNo) {
+		return dao.deleteReport(boardNo);
+	}
 	
 }

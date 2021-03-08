@@ -8,12 +8,15 @@ import com.kh.RoundTheVillage.manager.model.vo.ManagerReport;
 public interface ManagerReportService {
 
 
-	ManagerPageInfo getManagerPageInfo(int cp);
+	public abstract ManagerPageInfo getManagerPageInfo(int cp);
 
 	/** 신고 목록 조회
 	 * @param pInfo
 	 * @return rList
 	 */
-	List<ManagerReport> selectList(ManagerPageInfo pInfo);
+	public abstract List<ManagerReport> selectList(ManagerPageInfo pInfo);
+
+	
+	public abstract int deleteReport(int boardNo);
 
 }

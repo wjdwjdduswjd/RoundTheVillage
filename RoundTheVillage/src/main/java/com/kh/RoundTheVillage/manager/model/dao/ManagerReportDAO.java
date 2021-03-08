@@ -27,4 +27,8 @@ public class ManagerReportDAO {
 
 		return sqlSession.selectList("Reportmapper.selectList", rowBounds);
 	}
+
+	public int deleteReport(int boardNo) {
+		return sqlSession.update("Reportmapper.deleteReport", boardNo);
+	}
 }
