@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<title>공지사항</title>
+<title>배너 승인 목록</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
 <style>
 #title {
@@ -111,9 +111,7 @@
 				</thead>
 				<tbody>
 					<c:if test="${empty bList}">
-						<tr>
-							<td colspan="6">존재하는 게시글이 없습니다.</td>
-						</tr>
+						<tr><td colspan="6">존재하는 게시글이 없습니다.</td></tr>
 					</c:if>
 
 					<c:if test="${!empty bList}">
@@ -205,7 +203,6 @@
 			</div>
 		</div>
 
-
 		<!-- <div>
 			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
 				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
@@ -216,7 +213,6 @@
 				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
 			</div>
 		</div> -->
-
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />
