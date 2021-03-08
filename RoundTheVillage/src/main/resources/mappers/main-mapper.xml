@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="noticeMapper">
+
+	<resultMap type="Shop" id="shop_rm">
+		<id property="shopNo" column="CRAFTSHOP_NO" />
+		<result property="shopOwnerName" column="NAME" />
+		<result property="shopName" column="CRAFTSHOP_NAME" />
+		<result property="shopAdress" column="CRAFTSHOP_ADDR" />
+		<result property="shopInfo" column="INTRODUCE" />
+		<result property="shopContact" column="CRAFTSHOP_CONTACT" />
+		<result property="thumbInfo" column="THUMBNAIL_INFO" />
+		<result property="shopCategoryName" column="CS_CATE_NM" />
+		<result property="shopCategoryNo" column="CS_CATE_NO" />
+		<result property="avgRating" column="AVG_RATING" />
+		<result property="participantsCount" column="PRT_COUNT" />
+		<result property="likeCount" column="LIKE_COUNT" />
+	</resultMap>
+	
+	<resultMap type="ShopAttachment" id="shopAttachment_rm">
+		<id property="fileNo" column="FILE_NO" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileName" column="FILE_NAME" />
+		<result property="shopNo" column="CRAFTSHOP_NO" />
+	</resultMap>
+	
+	
+
+
+
+	
+</mapper>
