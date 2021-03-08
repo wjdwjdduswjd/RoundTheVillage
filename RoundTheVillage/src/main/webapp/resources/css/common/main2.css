@@ -139,25 +139,12 @@
   height: 400px;
   border-radius: 5px;
 }
+
 /* 수정 ---------------------------------------------*/
-@media (min-width: 1200px)
-.container, .container-lg, .container-md, .container-sm, .container-xl {
-    max-width: 1200px;
+.Amain {
+    width: 1200px;
+    padding-right: auto; 
+    padding-left: auto;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

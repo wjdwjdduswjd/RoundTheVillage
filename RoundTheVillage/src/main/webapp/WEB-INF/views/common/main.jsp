@@ -28,12 +28,13 @@
 <!-- 나눔스퀘어 --> 
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <!-- css 연결  -->
-<link rel="stylesheet" href="${contextPath}/resources/css/common/main.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common/main2.css">
 <style>
 #banner {
   width: 1200px;
   height: 300px;
-  margin-top: 80px;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 </style> 
   
@@ -86,7 +87,7 @@
 
 
 <!-------------------------------------------- main -------------------------------------------->
-    <div class="container">
+    <div class="container Amain">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="bigTitle">
@@ -96,15 +97,15 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-6 hidden-xs">
+            <div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
                 <div class="controls pull-right">
                     <a class="left fa fa-chevron-left btn btn-light" href="#carousel-example" data-slide="prev"></a>
                     <a class="right fa fa-chevron-right btn btn-light" href="#carousel-example" data-slide="next"></a>
                 </div>
             </div>
         </div>
+        
         <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
-
             <div class="carousel-inner">
                 <div class="item active">
                     <div class="row">
