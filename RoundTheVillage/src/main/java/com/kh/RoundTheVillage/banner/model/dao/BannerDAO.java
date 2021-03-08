@@ -46,4 +46,14 @@ public class BannerDAO {
 	public List<Banner> selectTodayBanner() {
 		return sqlSession.selectList("bannerMapper.selectTodayBanner");
 	}
+
+	public int updateBanFl(int banNo) {
+		return sqlSession.update("bannerMapper.updateBanFl", banNo);
+	}
+
+	public List<Banner> selectListAprvl(PageInfo pInfo) {
+		int offset = (pInfo.getCurrentPage() -1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("bannerMapper.selectListAprvl", rowBounds);
+	}
 }
