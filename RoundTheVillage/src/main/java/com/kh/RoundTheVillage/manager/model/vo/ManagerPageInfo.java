@@ -19,6 +19,19 @@ public class ManagerPageInfo {
 
 	
 	
+	
+	
+
+	public ManagerPageInfo(int currentPage, int listCount) {
+		super();
+		this.currentPage = currentPage;
+		this.listCount = listCount;
+	}
+
+
+
+
+
 
 	public ManagerPageInfo(int listCount) {
 		super();
