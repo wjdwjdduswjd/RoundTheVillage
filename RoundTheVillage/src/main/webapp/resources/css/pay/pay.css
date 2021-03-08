@@ -32,6 +32,16 @@
     background-color: #FBBC73;
 }
 
+.badge.badge-pri {
+		color: #f8f9fa;
+    background-color: #0062cc;
+}
+
+.badge.badge-not {
+		color: #f8f9fa;
+    background-color: #dc3545;
+}
+
 .checks input[type="checkbox"] {
     display: none;
 }
