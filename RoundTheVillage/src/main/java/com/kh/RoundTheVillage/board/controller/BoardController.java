@@ -395,7 +395,7 @@ System.out.println(search);
 		int result = service.deleteBoard(boardNo);
 		
 		String url = null;
-		
+	
 		 if(result > 0) {
     		 swalIcon = "success";
      		 swalTitle = "게시글이 삭제되었습니다.";
@@ -417,13 +417,22 @@ System.out.println(search);
 	}
 	
 	@RequestMapping("myBoardList")
-	public String myBoardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	public String myBoardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+							@ModelAttribute("loginMember") Member loginMember) {
 		
-		PageInfo pInfo = service.getPageInfo(cp);
+		PageInfo mpInfo = service.getMyPageInfo(cp, loginMember);
 		
+		List<Board> mList = service.selectmyList(mpInfo, loginMember);
+		
+		System.out.println(mList);
+		
+		model.addAttribute("mList", mList);
 		
 		
 		  return "board/myBoardList";
+		  
+		  
+		 
 	}
 					
 					

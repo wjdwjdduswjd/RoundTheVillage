@@ -12,6 +12,7 @@
 		<result property="lesNo" column="LES_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="reviewWriter" column="MEM_NICKNAME"/>
+		<result property="reviewStatus" column="REVIEW_STATUS"/>
 	</resultMap>
 	
 	<resultMap type="LessonQuestion" id="lessonquestion_rm">
@@ -33,11 +34,12 @@
 		<result property="revNo" column="REV_NO"/>
 		<result property="catCode" column="CAT_CODE"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="reviewStatus" column="REVIEW_STATUS"/>
 	</resultMap>
 	
 	<insert id="insertReview" parameterType="LessonReview">
 		INSERT INTO LESSON_REVIEW 
-		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, #{memberNo})
+		VALUES (SEQ_LRVNO.NEXTVAL, #{revContent}, DEFAULT, #{revRating}, #{lesNo}, #{memberNo}, DEFAULT)
 	</insert>
 
 	<select id="selectReview" parameterType="_int" resultMap="lessonreview_rm">
@@ -45,6 +47,7 @@
 		FROM LESSON_REVIEW
 		JOIN MEMBER ON(MEMBER_NO = MEM_NO)
 		WHERE LES_NO = #{lesNo}
+		AND REVIEW_STATUS = 'Y'
 		ORDER BY REV_NO DESC
 	</select>
 	
@@ -54,7 +57,10 @@
 	</update>
 	
 	<delete id="deleteReview" parameterType="_int">
-		DELETE LESSON_REVIEW
+		<!-- DELETE LESSON_REVIEW
+		WHERE REV_NO = #{revNo} -->
+		UPDATE LESSON_REVIEW SET
+		REVIEW_STATUS = 'N'
 		WHERE REV_NO = #{revNo}
 	</delete>
 	

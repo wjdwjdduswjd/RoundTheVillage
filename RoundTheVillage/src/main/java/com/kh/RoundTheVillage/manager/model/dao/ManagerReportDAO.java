@@ -31,4 +31,8 @@ public class ManagerReportDAO {
 	public int deleteReport(int boardNo) {
 		return sqlSession.update("Reportmapper.deleteReport", boardNo);
 	}
+
+	public int deleteMember(int memberNo) {
+		return sqlSession.update("Reportmapper.deletemanager", memberNo);
+	}
 }

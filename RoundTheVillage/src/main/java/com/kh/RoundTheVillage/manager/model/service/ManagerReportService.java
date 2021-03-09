@@ -19,4 +19,6 @@ public interface ManagerReportService {
 	
 	public abstract int deleteReport(int boardNo);
 
+	public abstract int deleteMember(int memberNo);
+
 }
