@@ -281,7 +281,6 @@ li {list-style: none;}
 			 	<div class="lesson-date">
 			 	
 			 	
-			 	
 			 		<div class="input-group date" id="datetimepicker14" data-target-input="nearest">
 	          <div class="input-group-append" data-target="#datetimepicker14" data-toggle="datetimepicker">
 	          	<div class="input-group date" id="datetimepicker14" data-target-input="nearest">
@@ -308,7 +307,7 @@ li {list-style: none;}
 					<div class="lesson-price">${lesson.lesPrice}<span>원</span> </div>
 			 	</div>
 			 	<div class="lesson-order">
-			 		<a href="${contextPath}/pay/${lesson.lesNo}">결제하기</a>
+			 		<a href="#">결제하기</a>
 			 	</div>
 			 </div>
 		</div>
@@ -391,7 +390,7 @@ var plus = $(".lesson-plus");
 var minus = $(".lesson-minus");
 var amount = $(".lesson-amount-num");
 plus.click(function() {
-	var participant = $("#schedule-participant").text();
+	var participant = $(".active2 > #schedule-participant").text();
 	if(Number(participant.substring(participant.indexOf("/")+2, 5)) - Number(participant.substring(0, participant.indexOf("/")-1)) > Number(amount.text())){
 		amount.text(Number(amount.text())+1);
 		$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>"); // 가격 적기
@@ -431,6 +430,7 @@ $(".lesson-time > div > span").click(function(){
 	var endTime = [];
 	var limit = [];
 	var participant = [];
+	var detNo = [];
 	if(!$date=="") {
 		<c:forEach var="item" items="${detailList}">
 			if($date=="${item.lesDate}") {
@@ -438,11 +438,12 @@ $(".lesson-time > div > span").click(function(){
 				endTime.push("${item.lesTime}".split(',')[1]);
 				limit.push("${item.lesLimit}");
 				participant.push("${item.lesParticipant}");
+				detNo.push("${item.detNo}");
 			}
 		</c:forEach>
 		var timelistarea = $("<div>").addClass("time-list-area");
 		for(var i in startTime){
-			var $schedule = $("<div>", {id: "schedule"+i, onclick:"func(" + i + ")"});
+			var $schedule = $("<div>", {id: "schedule"+i, onclick:"func(" + i + ")"}).val(detNo[i]);
 			var $b;
 			if(participant[i] < limit[i]) {
 				$b = $("<div>", {id: "schedule-time"}).text("[모집중]" + startTime[i] + " ~ " + endTime[i]);
@@ -463,7 +464,10 @@ $(".lesson-time > div > span").click(function(){
 });
 
 function func(i) {
+
 	if(!$("#schedule" + i).hasClass("closed")){
+		$(".lesson-amount-num").html("1");
+		$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>");
 		$(".time-list").removeClass("active2");
 		$("#schedule" + i).addClass("active2");
 	}
@@ -473,6 +477,13 @@ $("#review").click(function(){
 	selectReview();
 });
 
+
+$(".lesson-order").click(function() {
+	var lesDate = $(".datetimepicker-input").val();
+	var lesAmount = $(".lesson-amount-num").html();
+	var lesTime = $(".active2 > .schedule-time").html().substring(5, 10); + "," + $(".active2 > .schedule-time").html().substring(13);
+	location.href = "${contextPath}/pay/" + lesNo + "?lesAmount=" + lesAmount + "&lesTime=" + lesDate+ "." + lesTime;
+})
 
 </script>
 </body>
