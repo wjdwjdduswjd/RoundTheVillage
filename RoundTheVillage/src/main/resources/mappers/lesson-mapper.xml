@@ -21,6 +21,7 @@
 		<result property="lesLimit" column="LES_LIMIT"/>
 		<result property="lesParticipant" column="LES_PARTICIPANT"/>
 		<result property="lesNo" column="LES_NO"/>
+		<result property="detNo" column="DET_NO"/>
 	</resultMap>
 	
 	<resultMap type="LessonFile" id="lessonfile_rm">
