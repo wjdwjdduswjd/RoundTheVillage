@@ -47,6 +47,13 @@
    WHERE BOARD_NO = #{board_no}
 </update>
 
+<update id="deleteMember" parameterType="string">
+	UPDATE MEMBER SET
+	MEMBER_STATUS = 'Y'
+	WHERE MEMBER_NO = #{memberNo}
+</update>
+
+
 
 
 

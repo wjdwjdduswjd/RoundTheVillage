@@ -19,6 +19,7 @@ import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.board.model.vo.Search;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.exception.updateAttachmentFailException;
 import com.kh.RoundTheVillage.board.model.exception.UpdateAttachmentFailException;
 
@@ -526,9 +527,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public PageInfo getPageInfo(int cp) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageInfo getMyPageInfo(int cp, Member loginMember) {
+		int listCount = dao.getMyListCount(loginMember);
+		
+		return new PageInfo(cp, listCount);
+	}
+
+	@Override
+	public List<Board> selectmyList(PageInfo mpInfo, Member loginMember) {
+		return dao.selectMyList(mpInfo, loginMember);
 	}
 
 }

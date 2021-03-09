@@ -11,13 +11,17 @@ public class LessonReview {
 	private int lesNo;
 	private int memberNo;
 	private String  reviewWriter;
+	private String  reviewStatus;
+	
 	
 	public LessonReview() {
 		super();
 	}
 
+	
+
 	public LessonReview(int revNo, String revContent, Timestamp revCreateDt, int revRating, int lesNo, int memberNo,
-			String reviewWriter) {
+			String reviewWriter, String reviewStatus) {
 		super();
 		this.revNo = revNo;
 		this.revContent = revContent;
@@ -26,7 +30,10 @@ public class LessonReview {
 		this.lesNo = lesNo;
 		this.memberNo = memberNo;
 		this.reviewWriter = reviewWriter;
+		this.reviewStatus = reviewStatus;
 	}
+
+
 
 	public int getRevNo() {
 		return revNo;
@@ -84,12 +91,27 @@ public class LessonReview {
 		this.reviewWriter = reviewWriter;
 	}
 
+
+
+	public String getReviewStatus() {
+		return reviewStatus;
+	}
+
+
+
+	public void setReviewStatus(String reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "LessonReview [revNo=" + revNo + ", revContent=" + revContent + ", revCreateDt=" + revCreateDt
 				+ ", revRating=" + revRating + ", lesNo=" + lesNo + ", memberNo=" + memberNo + ", reviewWriter="
-				+ reviewWriter + "]";
+				+ reviewWriter + ", reviewStatus=" + reviewStatus + "]";
 	}
 
+	
 	
 }

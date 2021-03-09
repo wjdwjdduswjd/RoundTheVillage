@@ -32,5 +32,10 @@ public class ManagerReportServiceImpl implements ManagerReportService{
 	public int deleteReport(int boardNo) {
 		return dao.deleteReport(boardNo);
 	}
+
+	@Override
+	public int deleteMember(int memberNo) {
+		return dao.deleteMember(memberNo);
+	}
 	
 }

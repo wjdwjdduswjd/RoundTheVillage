@@ -9,13 +9,14 @@ import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.board.model.vo.Search;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 
 
 public interface BoardService {
 
 	/** 페이징 처리 객체 생성 
 	 * @param cp
-	 * @param ct 
+	 * @param loginMember 
 	 * @return pInfo
 	 */
 	public abstract PageInfo getPageInfo(int cp, String ct);
@@ -112,7 +113,9 @@ public interface BoardService {
 
 	public abstract int deleteBoard(int boardNo);
 
-	public abstract PageInfo getPageInfo(int cp);
+	public abstract PageInfo getMyPageInfo(int cp, Member loginMember);
+
+	public abstract List<Board> selectmyList(PageInfo mpInfo, Member loginMember);
 
 
 	

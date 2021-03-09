@@ -81,6 +81,39 @@ public class ManagerReportController {
 		return url;
 		
 	}
+	
+	public String deleteMember(@RequestParam("memberNo") int memberNo,  RedirectAttributes ra,
+			HttpServletRequest request, @RequestParam(value = "referer", required = false) String referer) {
+		
+		int result = service.deleteMember(memberNo);
+		
+		String url = null;
+		
+		 if(result > 0) {
+    		 swalIcon = "success";
+     		 swalTitle = "회원정지 되었습니다.";
+     		 url = "redirect:list";
+     		
+    	 }else {
+
+    		 swalIcon = "error";
+      		 swalTitle = "회원정지에 실패하였습니다.";
+      		 url = "redirect:" + request.getHeader("referer");
+      		
+     	}
+		
+		 ra.addFlashAttribute("swalIcon", swalIcon);
+		 ra.addFlashAttribute("swalTitle", swalTitle);
+		
+
+			return url;
+		
+		
+		
+		
+		
+		
+	}
 			
 	
 	

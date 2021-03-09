@@ -12,6 +12,7 @@ import com.kh.RoundTheVillage.board.model.vo.Attachment;
 import com.kh.RoundTheVillage.board.model.vo.Board;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
 import com.kh.RoundTheVillage.board.model.vo.Search;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 
 @Repository // 저장소(DB) 연결 객체임을 알려줌 + bean 등록
 public class BoardDAO {
@@ -174,6 +175,18 @@ public class BoardDAO {
 
 	public int deleteReport(Map<String, Object> map) {
 		return sqlSession.update("boardMapper.deleteReport", map);
+	}
+
+	public int getMyListCount(Member loginMember) {
+		return sqlSession.selectOne("boardMapper.getMyListCount", loginMember);
+	}
+
+	public List<Board> selectMyList(PageInfo mpInfo, Member loginMember) {
+		int offset = (mpInfo.getCurrentPage() - 1) * mpInfo.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, mpInfo.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selectMyList", loginMember, rowBounds);
 	}
 
 	

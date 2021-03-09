@@ -261,7 +261,7 @@
 																		<c:if test="${!empty loginMember }">
 																			<span class="btnBtn">
 																				<button type="button" class="btn btn-warning btn-sm px-2 btnBtn3" onclick="deleteReport()">글 삭제</button>
-																				<button class="btn btn-warning btn-sm px-2 btnBtn3">회원정지</button>
+																				<button class="btn btn-warning btn-sm px-2 btnBtn3" onclick="deleteMember()">회원정지</button>
 																			</span>
 																		</c:if>
 															
@@ -335,11 +335,11 @@
                     
                     
                     
-                	function deleteBoard() {
+                	function deleteMember() {
                 		
             			if(confirm("정말로 삭제하시겠습니까?")){
             				
-            				location.href= "deleteReport?boardNo=${board.boardNo}";
+            				location.href= "deleteMember?memberNo=${member.memberNo}";
             				
             			}
             		}
