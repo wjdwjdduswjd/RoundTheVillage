@@ -53,8 +53,6 @@ public class LessonService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int insertInfo(Lesson lesson) {
-		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
-		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
 		return dao.insertInfo(lesson);
 	}
 
@@ -109,8 +107,6 @@ public class LessonService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int updateInfo(Lesson lesson) {
-		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
-		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
 		return dao.updateInfo(lesson);
 	}
 	
@@ -147,6 +143,11 @@ public class LessonService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteLesson(int lesNo) {
+		return dao.deleteLesson(lesNo);
 	}
 
 	public Lesson selectLesson(int lesNo) {

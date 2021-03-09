@@ -79,6 +79,10 @@ public class LessonDAO {
 	public LessonFile selectFile(int lesNo) {
 		return session.selectOne("lessonMapper.selectFile", lesNo);
 	}
+	
+	public int deleteLesson(int lesNo) {
+		return session.update("lessonMapper.deleteLesson", lesNo);
+	}
 
 	public Shop selectShopInfo(int shopNo) {
 		return session.selectOne("shopMapper.selectShopInfo", shopNo);
@@ -123,5 +127,4 @@ public class LessonDAO {
 	public int report(LessonReviewReport report) {
 		return session.insert("lessonMapper2.insertReport", report);
 	}
-	
 }
