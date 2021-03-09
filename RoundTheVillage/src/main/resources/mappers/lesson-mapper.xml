@@ -94,6 +94,11 @@
 		WHERE LES_NO = #{lesNo}
 	</select>
 	
+	<update id="deleteLesson" parameterType="_int">
+		UPDATE LESSON SET LES_FL = 'Y'
+		WHERE LES_NO = #{lesNo}
+	</update>
+	
 	<!-- 수업 목록 조회  -->
 	<select id = "selectlesList" parameterType = "_int" resultMap = "lesson_rm">
 	SELECT LES_NO, LES_TITLE FROM LESSON

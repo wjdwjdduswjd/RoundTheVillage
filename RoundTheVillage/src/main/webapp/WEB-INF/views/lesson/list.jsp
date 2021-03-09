@@ -118,8 +118,8 @@ img {
 
 <div class="container">
 <a href="${contextPath}/lesson/insertForm">--------수업등록 제작중-------</a>
-<a href="${contextPath}/lesson/updateForm/41">--------수업수정 제작중-------</a>
-	
+<a href="${contextPath}/lesson/updateForm/25">--------수업수정 제작중-------</a>
+	<form action="${contextPath}/lesson/updateForm" method="post" > <input type="hidden" name="lesNo" value="25"><button>수정/삭제</button></form>
 	<form action="#" id="filter-form">
 	<div class="filter">
 		<div class="filter-select">
