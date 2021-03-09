@@ -16,7 +16,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/service/NoticeService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="156" y="544"/>    
+    <position height="-1" width="-1" x="638" y="164"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,7 +27,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/service/NoticeServiceImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="458" y="560"/>    
+    <position height="-1" width="-1" x="995" y="271"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -37,7 +37,7 @@
   <class id="4" language="java" name="com.kh.RoundTheVillage.CScenter.model.dao.NoticeDAO" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/dao/NoticeDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="771" y="578"/>    
+    <position height="-1" width="-1" x="643" y="477"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -47,7 +47,7 @@
   <class id="5" language="java" name="com.kh.RoundTheVillage.CScenter.model.vo.Notice" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/vo/Notice.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1169" y="594"/>    
+    <position height="-1" width="-1" x="1297" y="230"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/vo/NoticeAttachment.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1403" y="601"/>    
+    <position height="-1" width="-1" x="1568" y="238"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -68,7 +68,7 @@
   <class id="7" language="java" name="com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/vo/PageInfo2.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1629" y="735"/>    
+    <position height="-1" width="-1" x="1297" y="763"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -78,7 +78,7 @@
   <class id="8" language="java" name="com.kh.RoundTheVillage.CScenter.model.vo.Search" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/vo/Search.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1851" y="535"/>    
+    <position height="-1" width="-1" x="1569" y="578"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -89,7 +89,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/exception/InsertAttachmentFailException.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="146" y="826"/>    
+    <position height="-1" width="-1" x="142" y="458"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -100,7 +100,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/CScenter/model/exception/updateAttachmentFailException.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="146" y="942"/>    
+    <position height="-1" width="-1" x="142" y="580"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -108,25 +108,33 @@
     </display>  
   </class>  
   <association id="11">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="service"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="14">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <association id="15">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="16" name="dao"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+      <attribute id="12" name="dao">        
+        <position height="0" width="0" x="-128" y="-101"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-128" y="-101"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="14">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="15" name="service">        
+        <position height="0" width="0" x="482" y="-380"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="482" y="-380"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="17">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
