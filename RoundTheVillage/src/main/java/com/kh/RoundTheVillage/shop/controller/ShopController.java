@@ -41,8 +41,7 @@ public class ShopController {
 
 	// 공방 상세 조회Controller
 	@RequestMapping("{shopNo}")
-	public String shopView(@PathVariable("shopNo") int shopNo, Model model, @ModelAttribute Lesson lesson,
-			@ModelAttribute("loginMember") Member loginMember) {
+	public String shopView(@PathVariable("shopNo") int shopNo, Model model, @ModelAttribute Lesson lesson) {
 
 		// 공방 상세조회 Service 호출
 		Shop shop = service.selectShop(shopNo);
@@ -58,11 +57,6 @@ public class ShopController {
 				model.addAttribute("thumb", thumb);
 			}
 
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("shopNo", shopNo);
-			map.put("memberNo", loginMember.getMemberNo());
-			int likeFl = service.selectLikeFl(map); // 0: 좋아요 X, 1:좋아요 누른적 있음
-			model.addAttribute("likeFl", likeFl);
 
 			// 수업 리스트
 			// 가져오기----------------------------------------------------------------------------------
@@ -282,5 +276,14 @@ public class ShopController {
 
 		return service.selectLikeCount(shopNo);
 	}
+	
+	@ResponseBody
+	@RequestMapping("selectLikeFl")
+	public int selectLikeFl(@RequestParam("shopNo") int shopNo, @ModelAttribute("loginMember") Member loginMember) {
 
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("shopNo", shopNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		return service.selectLikeFl(map);
+	}
 }

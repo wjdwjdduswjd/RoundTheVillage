@@ -82,7 +82,7 @@ public class ManagerShopController {
 
 
 
-		return "redirect:manager/shopListView" + shopNo;
+		return "redirect:../shopListView/" + shopNo;
 
 	}
 

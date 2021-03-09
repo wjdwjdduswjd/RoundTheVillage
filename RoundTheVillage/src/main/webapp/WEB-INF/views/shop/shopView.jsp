@@ -121,10 +121,10 @@
 				</div>
 			</div>
 
-			<div class="top">
 
+			<div class="top">
 				<c:choose>
-					<c:when test="${likeFl == 0 }">
+					<c:when test="${empty likeFl}">
 						<img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">
 					</c:when>
 
@@ -364,7 +364,7 @@
 	// ----------------------- 좋 아 요 -------------------------------
 	
 	
-	var likeFl = ${likeFl}; // 좋아요 여부 0/1
+	var likeFl = "${likeFl}"; // 좋아요 여부 0/1
 	var shopNo = ${shop.shopNo}; // 게시글 번호
 
 	$(".like").click(function() {
@@ -425,7 +425,23 @@
 		});
 	}
 	
-	
+	$.ajax({
+		url : "selectLikeFl",
+		data : {"shopNo" : shopNo},
+		success : function(likeCount){
+			console.log("likeCount" + likeCount)
+				likeFl = likeCount;
+				if(likeCount == 0){
+					$(".like").attr("src", "${contextPath}/resources/images/boardListImages/heart.png");
+				}
+				else{
+					console.log(likeCount)
+					$(".like").attr("src", "${contextPath}/resources/images/boardListImages/fill-heart.png");
+				}
+		},error : function(){
+			console.log("좋아요 카운트 실패")
+		}
+	});
 	
 </script>
 
