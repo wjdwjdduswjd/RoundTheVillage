@@ -1,7 +1,5 @@
 package com.kh.RoundTheVillage.member.controller;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.RoundTheVillage.member.model.service.MemberService;
 import com.kh.RoundTheVillage.member.model.vo.Member;
+import com.kh.RoundTheVillage.pay.model.service.PayService;
 
 
 @Controller
@@ -35,6 +34,9 @@ import com.kh.RoundTheVillage.member.model.vo.Member;
 @SessionAttributes({"loginMember"})
 
 public class MemberController {
+	
+	@Autowired
+	private PayService payService;
 	
 	@Autowired
 	private MemberService service;
@@ -47,6 +49,8 @@ public class MemberController {
 	private String swalIcon;
 	private String swalTitle;
 	private String swalText;
+	
+
 	
 	
 	//회원가입 연결
@@ -148,6 +152,7 @@ public class MemberController {
 		int result = service.signUp(signUpMember);
 		
 		if(result > 0) {        //추후 얼러트 창으로 바꿀 예정
+			payService.insertWelcomeCoupon(signUpMember.getMemberNo());
 			returnUrl = "/";
 		}else {
 			returnUrl = "member/signUp";
