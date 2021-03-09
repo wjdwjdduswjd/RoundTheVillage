@@ -16,6 +16,8 @@ public class ManagerReport {
 	private String boardTitle;
 	private String memberNickname;
 	private int reportType;
+	private String boardStatus;
+	
 	
 	
 	
@@ -28,7 +30,7 @@ public class ManagerReport {
 
 	public ManagerReport(int boardReportNo, Timestamp boardReportDate, String boardReportFl, String boardReportContent,
 			int boardNo, int memberNo, String boardReportReason, int categoryCode, String categoryName,
-			String boardTitle, String memberNickname, int reportType) {
+			String boardTitle, String memberNickname, int reportType, String boardStatus) {
 		super();
 		this.boardReportNo = boardReportNo;
 		this.boardReportDate = boardReportDate;
@@ -42,6 +44,7 @@ public class ManagerReport {
 		this.boardTitle = boardTitle;
 		this.memberNickname = memberNickname;
 		this.reportType = reportType;
+		this.boardStatus = boardStatus;
 	}
 
 
@@ -215,18 +218,31 @@ public class ManagerReport {
 
 
 
+	public String getBoardStatus() {
+		return boardStatus;
+	}
+
+
+
+
+	public void setBoardStatus(String boardStatus) {
+		this.boardStatus = boardStatus;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "ManagerReport [boardReportNo=" + boardReportNo + ", boardReportDate=" + boardReportDate
 				+ ", boardReportFl=" + boardReportFl + ", boardReportContent=" + boardReportContent + ", boardNo="
 				+ boardNo + ", memberNo=" + memberNo + ", boardReportReason=" + boardReportReason + ", categoryCode="
 				+ categoryCode + ", categoryName=" + categoryName + ", boardTitle=" + boardTitle + ", memberNickname="
-				+ memberNickname + ", reportType=" + reportType + "]";
+				+ memberNickname + ", reportType=" + reportType + ", boardStatus=" + boardStatus + "]";
 	}
 
 
-	
-	
+
 	
 
 }

@@ -1,6 +1,8 @@
 package com.kh.RoundTheVillage.manager.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.RoundTheVillage.board.model.vo.Attachment;
@@ -38,10 +41,8 @@ public class ManagerReportController {
 		
 		if (rList != null && !rList.isEmpty()) { 
 		
-			
 			model.addAttribute("rList", rList);
 			model.addAttribute("pInfo", pInfo);
-
 		}
 
 		return "manager/reportList";
@@ -109,11 +110,26 @@ public class ManagerReportController {
 			return url;
 		
 		
-		
-		
-		
-		
 	}
+	
+	
+	// 후기 게시글 또는 리뷰 상태 변경 Controller
+	@ResponseBody
+	@RequestMapping("updateStatus")
+	public int updateStatus(int no, String status, int type) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", no);
+		map.put("status", status);
+		map.put("type", type);
+		
+		return service.updateStatus(map);
+	}
+	
+	
+	
+	
+	
+	
 			
 	
 	
