@@ -32,34 +32,41 @@ public class MainServiceImpl implements MainService {
 	@Autowired
 	private MainDAO dao;
 
-	// 페이징 처리 Service 구현
-	@Override
-	public mainPageInfo getPageInfo(int cp) {
 
-		// 전체 게시글 수 조회
-		int listCount = dao.getListCount(cp);
-
-		return new mainPageInfo(cp, listCount);
-	}
-
-	// 게시글 목록 조회 Service 구현
+	// 좋아요순 인기 공방 12개 Service 구현
 	@Override
 	public List<Shop> likeCraftList() {
 		return dao.likeCraftList();
 	}
 	
 	
-	/**
-	 * @param bList
-	 * @return
-	 */
+	// 인기 공방 썸네일 이미지 조회
 	@Override
 	public List<ShopAttachment> selectThumbnailList(List<Shop> likeList) {
 		return dao.selectThumbnailList(likeList);
 	}
 
+
+	// -----------------------------------------------------------------------
 	
 	
+	// 동네 주변 공방 12개 Service 구현
+	@Override
+	public List<Shop> aroundList(String addr) {
+		return dao.aroundList(addr);
+	}
+
+
+	@Override
+	public List<Shop> searchShopList(String interest) {
+		return dao.searchShopList(interest);
+	}
+
+
+	@Override
+	public List<Shop> newList() {
+		return dao.newList();
+	}
 	
 	
 	

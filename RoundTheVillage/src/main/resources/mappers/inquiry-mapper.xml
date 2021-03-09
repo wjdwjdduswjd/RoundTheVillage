@@ -144,7 +144,7 @@
 	
 	
 	<!-- 공방 회원 검색 -->
-	<select id="selectSearchCraft" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultMap="member_rm">
+	<select id="selectSearchCraft" parameterType="com.kh.RoundTheVillage.manager.model.vo.Search" resultMap="shop_rm">
 	   SELECT CRAFTSHOP_NO, NAME, CRAFTSHOP_NAME, CRAFTSHOP_CONTACT, CS_CATE_NM
 	   FROM CRAFTSHOP
 	 	 JOIN MEMBER ON (MEM_NO = CRAFTSHOP_NO)

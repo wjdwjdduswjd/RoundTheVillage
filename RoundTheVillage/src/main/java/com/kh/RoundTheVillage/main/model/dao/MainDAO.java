@@ -34,7 +34,7 @@ public class MainDAO {
 	}
 
 
-	/** 게시글 목록 조회 DAO
+	/** 좋아요순 인기 공방 12개 목록 조회 DAO
 	 * @return bList
 	 */
 	public List<Shop> likeCraftList() {
@@ -45,13 +45,39 @@ public class MainDAO {
 	}
 
 
-	/**
+	/** 인기 공방 썸네일 조회 DAO
 	 * @param likeList
 	 * @return
 	 */
 	public List<ShopAttachment> selectThumbnailList(List<Shop> likeList) {
 		return sqlSession.selectList("mainMapper.selectThumbnailList", likeList);
 	}
+
+
+	// --------------------------------------------------------------------------------
+	
+	/** 동네 주변 공방 조회 DAO
+	 * @param addrArr 
+	 * @return
+	 */
+	public List<Shop> aroundList(String addr) {
+		RowBounds rowBounds = new RowBounds(0, 12);
+		return sqlSession.selectList("mainMapper.aroundList", addr, rowBounds);
+	}
+
+
+	public List<Shop> searchShopList(String interest) {
+		RowBounds rowBounds = new RowBounds(0, 12);
+		return sqlSession.selectList("mainMapper.searchShopList", interest, rowBounds);
+	}
+
+
+	public List<Shop> newList() {
+		RowBounds rowBounds = new RowBounds(0, 12);
+		return sqlSession.selectList("mainMapper.newList", null, rowBounds);
+	}
+	
+	
 	
 	
 }	

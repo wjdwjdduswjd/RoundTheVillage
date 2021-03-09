@@ -95,7 +95,7 @@ public class MemberInquiryController {
 
 			PageInfo2 pInfo = service.selectSearchCraftCount(search, cp);
 			List<Shop> cList = service.selectSearchCraft(pInfo, search);
-
+			System.out.println(search);
 			model.addAttribute("cList", cList);
 			model.addAttribute("pInfo", pInfo);
 
