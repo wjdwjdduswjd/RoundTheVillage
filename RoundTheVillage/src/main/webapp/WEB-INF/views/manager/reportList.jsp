@@ -140,7 +140,7 @@ h6 {
 									<!-- 1~10  -->
 									<c:forEach var="report" items="${rList}">
 										<tr>
-											<td><input type="checkbox" id="selectedReportBox" value="reportBox" name="reportBox" value="${report.boardReportNo}"> <br></td>
+											<%-- <td><input type="checkbox" id="selectedReportBox" value="reportBox" name="reportBox" value="${report.boardReportNo}"> <br></td>--%>
 											<td><c:choose>
 													<c:when test="${report.reportType == 1}">
 														후기게시글
