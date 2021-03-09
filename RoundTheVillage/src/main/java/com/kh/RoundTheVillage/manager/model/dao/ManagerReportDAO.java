@@ -26,7 +26,7 @@ public class ManagerReportDAO {
 
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 
-		return sqlSession.selectList("Reportmapper.selectList", rowBounds);
+		return sqlSession.selectList("Reportmapper.selectList", null, rowBounds);
 	}
 
 	public int deleteReport(int boardNo) {

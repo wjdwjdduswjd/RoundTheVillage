@@ -115,7 +115,7 @@
 	<div class="container notice-list">
 
 		<div id="btnDiv">
-			<a href="${contextPath}/board/myBoardList"><button type="menu" id="normalBtn">내가 쓴 글 조회</button></a> <a href="${contextPath}/manager/craftList"><button type="menu" id="companyBtn">공방 회원 조회</button></a>
+			<a href="${contextPath}/board/myBoardList"><button type="menu" id="normalBtn">내가 쓴 글 조회</button></a> <%-- <a href="${contextPath}/manager/craftList"><button type="menu" id="companyBtn">공방 회원 조회</button></a> --%>
 		</div>
 
 		<div>
@@ -123,10 +123,10 @@
 				<thead>
 					<tr>
 						<th id="memberNo">게시글번호</th>
-						<th>아이디</th>
-						<th>닉네임</th>
-						<th>이메일</th>
-						<th>등급</th>
+						<th>제목</th>
+						<th>카테고리</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
