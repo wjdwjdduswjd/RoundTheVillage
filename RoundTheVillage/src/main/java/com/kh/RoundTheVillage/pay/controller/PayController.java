@@ -29,7 +29,7 @@ import com.kh.RoundTheVillage.pay.model.vo.PayLes;
 import oracle.net.aso.i;
 
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
-import com.kh.RoundTheVillage.lesson.model.service.LessonService;
+import com.kh.RoundTheVillage.lesson.model.service.LessonServiceImpl;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 

@@ -140,7 +140,7 @@
 						<c:when test="${!empty mList}">
 							<c:forEach var="board" items="${mList}" varStatus="vs">
 
-								<tr>
+								<tr onclick="selectBoard(${board.boardNo})">
 									<td>${board.boardNo}</td>
 									<td>
 										<c:set var="title" value="${board.boardTitle}" /> 
@@ -270,6 +270,9 @@
 			location.href = normalViewURL;
 		}); --%>
 		
+	function selectBoard(i) {
+		location.href = "${contextPath}/board/" + i;
+	}
 		
 		
 		

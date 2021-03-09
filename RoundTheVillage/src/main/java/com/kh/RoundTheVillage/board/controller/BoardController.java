@@ -95,6 +95,7 @@ public class BoardController {
 			model.addAttribute("likeFl", likeFl);
 
 			url = "board/boardView";
+			System.out.println(board);
 
 		} else {
 			// 이전 요청 주소가 없는 경우
@@ -422,6 +423,7 @@ System.out.println(search);
 		
 		PageInfo mpInfo = service.getMyPageInfo(cp, loginMember);
 		
+		System.out.println(mpInfo);
 		List<Board> mList = service.selectmyList(mpInfo, loginMember);
 		
 		System.out.println(mList);
