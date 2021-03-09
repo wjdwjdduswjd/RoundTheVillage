@@ -57,4 +57,8 @@ public class PayDAO {
 	public int cancelPay(int payNo) {
 		return sqlSession.update("payMapper.cancelPay", payNo);
 	}
+
+	public int insertWelcomeCoupon(int memNo) {
+		return sqlSession.insert("payMapper.insertWelcomeCoupon", memNo);
+	}
 }

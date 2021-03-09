@@ -20,6 +20,7 @@
 		<result property="craftshopName" column="CRAFTSHOP_NAME"/>
 		<result property="fileName" column="FILE_NAME"/>
 		<result property="payFl" column="PAY_FL"/>
+		<result property="prtcpAmt" column="PRTCP_AMT"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="coupon_rm">
@@ -100,4 +101,9 @@
 		SET PAY_FL = 'Y'
 		WHERE PAY_NO = #{payNo}
 	</update>
+	
+	<insert id="insertWelcomeCoupon" parameterType="_int">
+		INSERT INTO COUPON 
+		VALUES (SEQ_CNO.nextval, '회원가입 쿠폰', 0.1, SYSDATE, SYSDATE + 30, null, 'N', #{memNo})
+	</insert>
 </mapper>

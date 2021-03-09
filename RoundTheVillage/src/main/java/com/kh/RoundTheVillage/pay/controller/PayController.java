@@ -47,13 +47,19 @@ public class PayController {
 	
 	// 결제 화면
 	@RequestMapping("{lesNo}")
-	public String pay(@PathVariable("lesNo") int lesNo, @ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String pay(@PathVariable("lesNo") int lesNo, @RequestParam(value = "lesTime") int lesTime, @RequestParam(value = "lesAmount") int lesAmount,
+			@ModelAttribute("loginMember") Member loginMember, Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lesTime", lesTime);
+		map.put("lesAmount", lesAmount);
 		
 		List<Coupon> cList = service.selectCupon(loginMember.getMemberNo());
 		PayLes lesson = service.selectLesson(lesNo);
 		
 		model.addAttribute("cList", cList);
 		model.addAttribute("lesson", lesson);
+		model.addAttribute("map", map);
 		
 		return "pay/pay";
 	}
