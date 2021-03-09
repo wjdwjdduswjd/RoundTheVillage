@@ -205,9 +205,18 @@
 	
 	<!-- 공방 내용 가져오기 -->
 		<select id="selectShopManager" parameterType="_int" resultMap="shop_rm">
-		SELECT * FROM CRAFTSHOP
+		SELECT * FROM V_REGIVIEW
 		WHERE CRAFTSHOP_NO = #{shopNo}
 	</select>
+	
+	
+	<!-- 공방 신청 상태 변경-->
+		<update id="updateShopFl" parameterType="_int">
+		UPDATE CRAFTSHOP
+		SET SHOP_REGI_FL = 'Y'
+		WHERE CRAFTSHOP_NO = #{shopNo}
+	</update>
+	
 	
 	
 	

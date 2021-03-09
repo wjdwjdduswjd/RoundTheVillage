@@ -43,9 +43,9 @@ public class ShopServiceImpl implements ShopService {
 
 	// 썸네일 가져오기
 	@Override
-	public ShopAttachment selectThumb(int shop) {
+	public ShopAttachment selectThumb(int shopNo) {
 
-		return dao.selectThumb(shop);
+		return dao.selectThumb(shopNo);
 	}
 
 	// 수업 썸네일 목록 조회 Service 구현
