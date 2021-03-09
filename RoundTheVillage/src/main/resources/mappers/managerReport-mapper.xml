@@ -38,6 +38,14 @@
 <!--    WHERE BOARD_REPORT_FL = 'N'; -->
 </select>
 
+<update id="deleteReport" parameterType="_int">
+  UPDATE BOARD SET
+   BOARDF_STATUS = 'N' 
+   WHERE (
+   SELECT COUNT(*) AS REPORT_COUNT FROM B_REPORT
+   WHERE BOARD_NO = #{board_no}) >= 10 
+   WHERE BOARD_NO = #{board_no}
+</update>
 
 
 

@@ -35,6 +35,7 @@ public class BannerController {
 	@Autowired
 	private BannerService service;
 	
+	// 배너 등록
 	@RequestMapping("pay")
 	public String pay() {
 		return "banner/pay";
@@ -61,7 +62,7 @@ public class BannerController {
 	@ResponseBody
 	@RequestMapping("payAction")
 	public int payAction(@ModelAttribute Banner banner, @RequestParam("startStr") String startStr,
-			@RequestParam("endStr") String endStr/* , @ModelAttribute("loginMember") Member loginMember */) throws ParseException {
+			@RequestParam("endStr") String endStr, @ModelAttribute("loginMember") Member loginMember) throws ParseException {
 		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date startDate = (Date) transFormat.parse(startStr);
@@ -69,8 +70,7 @@ public class BannerController {
 		
 		banner.setStartDate(new java.sql.Date(startDate.getTime()));
 		banner.setEndDate(new java.sql.Date(endDate.getTime()));
-//		banner.setMemNo(loginMember.getMemberNo());
-		banner.setMemNo(1);
+		banner.setMemNo(loginMember.getMemberNo());
 		
 		return service.insertBanner(banner);
 	}
@@ -84,13 +84,13 @@ public class BannerController {
 		return "banner/payComplete";
 	}
 	
+	// 배너 결제 내역
 	@RequestMapping("payList")
 	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, 
-			/*@ModelAttribute("loginMember") Member loginMember, */Model model) {
+							@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
 		PageInfo pInfo = service.getPageInfo(1, cp);
-		List<Banner> bList = service.selectList(pInfo, 1);
-//		List<Banner> bList = service.selectList(pInfo, loginMember.getMemberNo());
+		List<Banner> bList = service.selectList(pInfo, loginMember.getMemberNo());
 		
 		model.addAttribute("pInfo", pInfo);
 		model.addAttribute("bList", bList);
@@ -107,6 +107,16 @@ public class BannerController {
 		return "banner/payView";
 	}
 	
+	// 배너 결제 취소
+	@RequestMapping("cancelBanner/{banNo}")
+	public String cancelBanner(@PathVariable("banNo") int banNo, Model model) {
+		
+		int result = service.cancelBanner(banNo);
+		
+		return "redirect:../payView/" + banNo;
+	}
+	
+	// 관리자
 	@RequestMapping("list")
 	public String list(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
 		
@@ -120,7 +130,7 @@ public class BannerController {
 	}
 	
 	@RequestMapping("view/{banNo}")
-	public String view(@RequestParam("banNo") int banNo, Model model) {
+	public String view(@PathVariable("banNo") int banNo, Model model) {
 		
 		Banner banner = service.selectBanner(banNo);
 		model.addAttribute("banner", banner);
@@ -129,9 +139,9 @@ public class BannerController {
 	}
 	
 	@RequestMapping("reg/{banNo}")
-	public String reg(@RequestParam("banNo") int banNo) {
+	public String reg(@PathVariable("banNo") int banNo) {
 		
 		int result = service.updateBanFl(banNo);
-		return "banner/reg";
+		return "redirect:../view/" + banNo;
 	}
 }

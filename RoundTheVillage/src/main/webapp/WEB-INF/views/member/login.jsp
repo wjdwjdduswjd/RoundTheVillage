@@ -21,7 +21,7 @@
 
 			<!-- 메인 이동 로고 -->
 			<div class="login-logo-area">
-				<a href="${contextPath}"><img src="${contextPath}/resources/images/member/zero.png" class="login-logo"></a>
+				<a href="${contextPath}"><img src="${contextPath}/resources/images/logo/main_logo_zero.png" class="login-logo"></a>
 			</div>
 
 			<form action="loginAction" method="post">
@@ -56,9 +56,9 @@
 				</div>
 
 				<!-- 네이버계정 로그인 -->
-				<div>
+				<%-- <div>
 					<img src="${contextPath}/resources/images/member/naverLogin.png" class="sns-btn">
-				</div>
+				</div> --%>
 
 
 			</form>

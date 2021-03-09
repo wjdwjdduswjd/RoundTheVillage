@@ -190,6 +190,22 @@
 	
 	</delete>
 	
+	<!-- 공방 신청 수 List-->
+	<select id="getListCount" resultType="_int">
+  	SELECT COUNT(*) FROM CRAFTSHOP
+	WHERE SHOP_REGI_FL = 'N'
+	</select>
+	
+	
+	<!--신청된 공방 리스트  -->
+	<select id ="selectList" parameterType = "_int" resultMap ="shop_rm">
+		SELECT * FROM CRAFTSHOP
+		WHERE SHOP_REGI_FL = 'N'
+	</select>
+	
+	
+	
+	
 	
 	
 	

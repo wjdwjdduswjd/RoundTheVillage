@@ -487,9 +487,24 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 게시글 신고 Service 구현
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int reportBoard(Map<String, Object> map) {
-		return dao.reportBoard(map);
+		
+		int result = dao.reportBoard(map); // 신고 삽입
+		
+		int reportCount = dao.reportCount(map); // 신고 개수 카운트 
+			
+		if(reportCount >= 10) {
+			
+			result = dao.deleteReport(map);
+			
+			if(result > 0) {
+				result = -1;
+			}
+		}
+		
+		return result;
 	}
 
 	// 검색어 포함 게시글 개수 조회 Service 구현
@@ -508,6 +523,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int deleteBoard(int boardNo) {
 		return dao.deleteBoard(boardNo);
+	}
+
+	@Override
+	public PageInfo getPageInfo(int cp) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

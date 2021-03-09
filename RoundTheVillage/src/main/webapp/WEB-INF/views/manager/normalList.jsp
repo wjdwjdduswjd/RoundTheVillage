@@ -89,7 +89,7 @@
     border-color: #FBBC73;
 }
 
-#normalBtn, #companyBtn  {
+#normalBtn, #craftBtn  {
     margin-top: 15px;
     margin-left: 15px;
     margin-bottom:30px;
@@ -101,11 +101,16 @@
     height: 40px;
     font-family: 'NanumSquare', sans-serif !important;
     font-size: 17px;
-        }
-        
-#normalBtn:hover, #companyBtn:hover {
- 	  background-color: #FBBC73;
 }
+
+#normalBtn {
+	background-color : #FBBC73;
+}
+        
+
+
+
+
 </style>
 
 </head>
@@ -116,7 +121,7 @@
 	
 		<div id="btnDiv">
                     <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">일반 회원 조회</button></a>
-                    <a href="${contextPath}/manager/craftList"><button type="menu" id="companyBtn">공방 회원 조회</button></a>
+                    <a href="${contextPath}/manager/craftList"><button type="menu" id="craftBtn">공방 회원 조회</button></a>
                 </div>
 	
 		<div>
@@ -141,11 +146,11 @@
 						<c:forEach var="normal" items="${nlList}" varStatus="vs">
 
 							<tr>
-								<td>${member.memberNo}</td>
-								<td>${member.memberId}</td>
-								<td>${member.memberNickname}</td>
-								<td>${member.memberEmail}</td>
-								<td>${member.memberGrade}</td>
+								<td>${normal.memberNo}</td>
+								<td>${normal.memberId}</td>
+								<td>${normal.memberNickname}</td>
+								<td>${normal.memberEmail}</td>
+								<td>${normal.memberGrade}</td>
 
 							</tr>
 						</c:forEach>
@@ -235,7 +240,24 @@
 			</div>
 		</div>
 
+		
+		<div class="row search-area">
+				<div class="col-md-12">
+					<div class="search">
+						<form action="search" method="GET" class="text-center" id="searchForm">
+							<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 
+								<option value="title">아이디</option>
+								<option value="content">닉네임</option>
+							</select> 
+							<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+							<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		
+		
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />
@@ -252,7 +274,6 @@
 		}); --%>
 		
 
-		
 	</script>
 </body>
 </html>

@@ -125,24 +125,24 @@
         	<%-- 공방 회원 --%>
         	<c:if test="${loginMember.memberType == 'C'}">
           	<a class="dropdown-item" href="${contextPath}/shop/registration">나의 공방</a>
-          	<a class="dropdown-item" href="#">배너신청</a>
+          	<a class="dropdown-item" href="${contextPath}/banner/pay">배너신청</a>
           	<a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
-         		<a class="dropdown-item" href="#">나의활동</a>
-         		<a class="dropdown-item" href="#">나의내역</a>
+         		<a class="dropdown-item" href="${contextPath}/board/myBoardList">나의활동</a>
+         		<a class="dropdown-item" href="${contextPath}/banner/payList">나의내역</a>
           </c:if>
           
           <%-- 일반 회원 --%>
           <c:if test="${(loginMember.memberType == 'G')}">
           <a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
-          <a class="dropdown-item" href="#">나의활동</a>
-          <a class="dropdown-item" href="#">나의내역</a>
+          <a class="dropdown-item" href="${contextPath}/board/myBoardList">나의활동</a>
+          <a class="dropdown-item" href="${contextPath}/pay/list">나의내역</a>
           </c:if>
           
           <%-- 관리자 --%>
 					<c:if test="${loginMember.memberType == 'A'}">
 						<a class="dropdown-item" href="${contextPath}/manager/normalList">회원조회</a>
         	  <a class="dropdown-item" href="${contextPath}/manager/shopList">공방관리</a>
-        	  <a class="dropdown-item" href="#">배너관리</a>
+        	  <a class="dropdown-item" href="${contextPath}/banner/list">배너관리</a>
         	  <a class="dropdown-item" href="${contextPath}/manager/reportList">신고관리</a>
         	  <!-- 고객센터 관련 메뉴는 아예 밑에 고객센터에 관리자 기준으로 넘기기 -->
 					</c:if>
@@ -151,14 +151,7 @@
         </div>
       </div>
      
-      <div class="dropdown">
-        <a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">고객센터</a>
-        <div class="dropdown-menu cs" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="${contextPath}/CScenter/noticeList">공지사항</a>
-          <a class="dropdown-item" href="${contextPath}/CScenter/inquiyList">1:1문의</a>
-        </div>
-      </div>
-
+          <a id="menu" href="${contextPath}/CScenter/noticeList">공지사항</a>
     </div>
 
     <div>

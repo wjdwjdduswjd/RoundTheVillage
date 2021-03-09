@@ -1,13 +1,12 @@
 @charset "UTF-8";
 *{font-family: 'NanumSquare', sans-serif !important;}
 .login-logo-area{
-	padding-top: 64px; 
-	padding-bottom: 50px; 
+	padding-top: 56px; 
 	text-align: center;
 }
 
 .login-logo{
-	width: 150px;
+	width: 400px;
 }
 
 .s_radio{

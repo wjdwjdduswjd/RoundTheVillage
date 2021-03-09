@@ -62,17 +62,23 @@
 		WHERE BAN_NO = #{banNo}
 	</select>
 	
+	<update id="cancelBanner" parameterType="_int">
+		UPDATE BANNER
+		SET BANNER_FL = 'Y'
+		WHERE BAN_NO = #{banNo}
+	</update>
+	
+	<update id="updateBanFl" parameterType="_int">
+		UPDATE BANNER
+		SET APRVL_FL = 'Y'
+		WHERE BAN_NO = #{banNo}
+	</update>
+	
 	<select id="selectTodayBanner" resultMap="banner_rm">
 		SELECT * FROM V_BANNER
 		<![CDATA[
 			WHERE START_DT < SYSDATE AND END_DT > SYSDATE
 		]]>
-		WHERE APRVL_FL = 'Y' AND BANNER_FL = 'N'
+		AND APRVL_FL = 'Y' AND BANNER_FL = 'N'
 	</select>
-	
-	<update id="updateBanFl" parameterType="_int">
-			UPDATE BANNER
-			SET APRVL_FL = 'Y'
-			WHERE BAN_NO = #{banNo}
-	</update>
 </mapper>

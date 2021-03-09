@@ -282,6 +282,15 @@
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
+	<select id="reportCount" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM B_REPORT
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 	
+		<update id="deleteReport" parameterType="map">
+		UPDATE BOARD SET
+		BOARD_STATUS = 'N'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
 </mapper>

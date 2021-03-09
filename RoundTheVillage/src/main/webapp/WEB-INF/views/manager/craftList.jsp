@@ -7,8 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<title>배너 승인 목록</title>
-<link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
+<title>회원조회</title>
 <style>
 #title {
 	font-family: 'NanumSquare', sans-serif !important;
@@ -56,7 +55,7 @@
 	margin-top: -5px;
 }
 
-#insertBtn {
+#insertBtn, .customer {
 	color: #FFF;
 	background-color: #FBBC73;
 	border: 1px solid #FBBC73;
@@ -89,6 +88,25 @@
     background-color: #FBBC73;
     border-color: #FBBC73;
 }
+
+#normalBtn, #craftBtn  {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom:30px;
+    background-color : #fff ;
+    color: #5B3929;
+    border: 1px solid #FBBC73;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    font-family: 'NanumSquare', sans-serif !important;
+    font-size: 17px;
+        }
+        
+#craftBtn {
+	background-color : #FBBC73;
+}
+
 </style>
 
 </head>
@@ -96,65 +114,80 @@
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="container notice-list">
-		<h3 id="title">배너 승인 목록</h3>
+	
+		<div id="btnDiv">
+           <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">일반 회원 조회</button></a>
+           <a href="${contextPath}/manager/craftList"><button type="menu" id="craftBtn">공방 회원 조회</button></a>
+    </div>
+	
 		<div>
 			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
 					<tr>
-						<th id="noticeN">배너 번호</th>
-						<th>이름</th>
+						<th id="noticeN">공방번호</th>
+						<th>대표</th>
 						<th>공방명</th>
 						<th>전화번호</th>
-						<th>이메일</th>
-						<th>승인 여부</th>
+						<th>카테고리</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty bList}">
-						<tr><td colspan="6">존재하는 게시글이 없습니다.</td></tr>
+					<c:if test="${empty cList}">
+						<tr>
+							<td colspan="6">존재하는 회원이 없습니다.</td>
+						</tr>
 					</c:if>
 
-					<c:if test="${!empty bList}">
-						<c:forEach var="banner" items="${bList}" varStatus="vs">
+					<c:if test="${!empty cList}">
+						<c:forEach var="craft" items="${cList}" varStatus="vs">
+
 							<tr>
-								<td>${banner.banNo}</td>
-								<td>${banner.memName}</td>
-								<td class="noticeTitle">${banner.craftshopName}</td>
-								<td>${banner.craftshopContact}</td>
-								<td>${banner.memEmail}</td>
-								<td>
-									<c:choose>
-										<c:when test="${banner.aprvlFl == 'Y'.charAt(0)}">
-											<span class="badge badge-pri ml-3">승인 완료</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge badge-not ml-3">미승인</span>
-										</c:otherwise>
-									</c:choose>
-								</td>
+								<td>${craft.shopNo}</td>
+								<td>${craft.shopOwnerName}</td>
+								<td>${craft.shopName}</td>
+								<td>${craft.shopContact}</td>
+								<td>${craft.shopCategoryName}</td>
 							</tr>
+							
 						</c:forEach>
 					</c:if>
 				</tbody>
 			</table>
 		</div>
 
+
 		<!--------------------------------- pagination  ---------------------------------->
+
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/banner/list" />
+				<c:url var="pageUrl" value="/manager/craftlList" />
+
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/banner/list" />
+				<c:url var="pageUrl" value="/manager/craftList" />
 			</c:otherwise>
 		</c:choose>
 
 		<div class="padding">
-
+		
+		<!-- 검색할 경우 -->
+			<c:choose>
+				<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
+				<c:when test="${!empty param.sk && !empty param.sv}">
+					<c:url var="pageUrl" value="searchNotice"/>
+					
+					<%-- 쿼리 스트링으로 사용할 내용을 변수에 저장 --%>
+					<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/></c:when>
+				
+				<c:otherwise><c:url var="pageUrl" value="/manager/normalList"/></c:otherwise>
+			</c:choose>
+			
 			<c:set var="firstPage" value="?cp=1${searchStr}" />
 			<c:set var="lastPage" value="?cp=${pInfo.maxPage}${searchStr}" />
+			
+			
 
 			<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
@@ -192,9 +225,9 @@
 							<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 							<c:if test="${next <= pInfo.maxPage}">
 								<!-- 다음 페이지로 이동 (>) -->
-								<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true">&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
 								<!-- 마지막 페이지로 이동(>>) -->
-								<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true">&gt;&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&gt;&gt;</a></li>
 							</c:if>
 						</ul>
 					</nav>
@@ -202,30 +235,44 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		<div class="row search-area">
+				<div class="col-md-12">
+					<div class="search">
+						<form action="craftSearch" method="GET" class="text-center" id="searchForm">
+							<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 
-		<!-- <div>
-			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
-				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
-					<option value="tit">글제목</option>
-					<option value="con">내용</option>
-					<option value="titcont">제목+내용</option>
-				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
-				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+								<option value="title">대표</option>
+								<option value="content">공방명</option>
+								<option value="category">카테고리</option>
+							</select> 
+							<input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
+							<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
+						</form>
+					</div>
+				</div>
 			</div>
-		</div> -->
+		
+
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 
-	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
-	<c:set var="returnListURL" value="${pageUrl}?cp=${pInfo.currentPage}" scope="session" />
 	
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
-		$("#list-table td").on("click", function(){
-			var bannerNo = $(this).parent().children().eq(0).text();
-			location.href = "view/" + bannerNo;
-		});
+<%--		$("#list-table td").on("click", function(){
+			var memberNo = $(this).parent().children().eq(0).text();
+											
+			var normalViewURL = memberNo;
+			
+			location.href = normalViewURL;
+		}); --%>
+		
+
+		
 	</script>
 </body>
 </html>

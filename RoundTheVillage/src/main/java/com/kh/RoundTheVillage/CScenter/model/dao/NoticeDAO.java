@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Board;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 
 @Repository
 public class NoticeDAO {
@@ -113,6 +116,27 @@ public class NoticeDAO {
 	 */
 	public int deleteNotice(int noticeNo) {
 		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
+	}
+
+	
+	/** 검색어 포함 게시글 개수 조회 Service DAO
+	 * @param search
+	 * @return
+	 */
+	public int selectSearchListCount(Search search) {
+		return sqlSession.selectOne("noticeMapper.selectSearchListCount", search);
+	}
+
+	
+	/** 검색어 포함 게시글 목록 조회 DAO
+	 * @param pInfo
+	 * @param search
+	 * @return bList
+	 */
+	public List<Notice> selectSearchList(PageInfo2 pInfo, Search search) {
+		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
+		return sqlSession.selectList("noticeMapper.selectSearchList", search, rowBounds);
 	}
 }	
 	

@@ -110,15 +110,21 @@ public class BannerService {
 		return dao.selectBanner(banNo);
 	}
 	
-	public List<Banner> selectTodayBanner() {
-		return dao.selectTodayBanner();
+	@Transactional(rollbackFor = Exception.class)
+	public int cancelBanner(int banNo) {
+		return dao.cancelBanner(banNo);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public int updateBanFl(int banNo) {
 		return dao.updateBanFl(banNo);
 	}
 
 	public List<Banner> selectListAprvl(PageInfo pInfo) {
 		return dao.selectListAprvl(pInfo);
+	}
+	
+	public List<Banner> selectTodayBanner() {
+		return dao.selectTodayBanner();
 	}
 }

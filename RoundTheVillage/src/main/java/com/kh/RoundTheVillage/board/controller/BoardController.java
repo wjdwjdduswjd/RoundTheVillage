@@ -337,9 +337,9 @@ System.out.println(search);
 
 	@RequestMapping("report")
 	public String reportBoard(@ModelAttribute("loginMember") Member loginMember, @RequestParam("boardNo") int boardNo,
-			@RequestHeader(value = "referer", required = false) String referer,
-			@RequestParam(value = "reportRadio") int reportCategory,
-			@RequestParam(value = "reportContent") String reportContent, RedirectAttributes ra) {
+								@RequestHeader(value = "referer", required = false) String referer,
+								@RequestParam(value = "reportRadio") int reportCategory,
+								@RequestParam(value = "reportContent") String reportContent, RedirectAttributes ra) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -352,6 +352,8 @@ System.out.println(search);
 
 		int findReport = service.findReport(map);
 
+		String url = "redirect:" + boardNo;
+		
 		if (findReport > 0) {
 
 			swalIcon = "error";
@@ -366,7 +368,12 @@ System.out.println(search);
 				swalIcon = "success";
 				swalTitle = "게시글이 신고되었습니다.";
 
-			} else {
+			} else if(result == -1) { // 신고가 10개 되서 삭제된 경우
+				swalIcon = "success";
+				swalTitle = "게시글이 신고되었습니다.";
+				url = "redirect:list";
+				
+			}else {
 
 				swalIcon = "error";
 				swalTitle = "게시글 신고에 실패하였습니다.";
@@ -376,8 +383,6 @@ System.out.println(search);
 
 		ra.addFlashAttribute("swalIcon", swalIcon);
 		ra.addFlashAttribute("swalTitle", swalTitle);
-
-		String url = "redirect:" + boardNo;
 
 		return url;
 
@@ -410,5 +415,22 @@ System.out.println(search);
 
 			return url;
 	}
+	
+	@RequestMapping("myBoardList")
+	public String myBoardList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+		
+		PageInfo pInfo = service.getPageInfo(cp);
+		
+		
+		
+		  return "board/myBoardList";
+	}
+					
+					
+					
+					
+	
+	
+	
 
 }

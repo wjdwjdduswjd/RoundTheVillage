@@ -8,27 +8,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.RoundTheVillage.manager.model.vo.ManagerPageInfo;
-import com.kh.RoundTheVillage.manager.model.vo.ManagerReport;
+import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Repository
-public class ManagerReportDAO {
+public class ManagerShopDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
+	/**  N 상태인 공방 카운트
+	 * @param cp
+	 * @return
+	 */
 	public int getListCount() {
-		return sqlSession.selectOne("Reportmapper.getListCount");
+		
+		
+		return sqlSession.selectOne("shopMapper.getListCount");
 	}
 
-	public List<ManagerReport> selectList(ManagerPageInfo pInfo) {
+	
+	/** 신청된 공방 리스트 가져오기
+	 * @param pInfo
+	 * @param shopNo 
+	 * @return
+	 */
+	public List<Shop> selectList(ManagerPageInfo pInfo) {
+		
 		int offset = (pInfo.getCurrentPage() - 1) * pInfo.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
-
-		return sqlSession.selectList("Reportmapper.selectList", rowBounds);
+		
+		return sqlSession.selectList("shopMapper.selectList",rowBounds);
 	}
 
-	public int deleteReport(int boardNo) {
-		return sqlSession.update("Reportmapper.deleteReport", boardNo);
-	}
+
+	
+
 }
