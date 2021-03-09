@@ -72,7 +72,7 @@
 	<update id="updateCoupon" parameterType="_int">
 		UPDATE COUPON
 		SET USE_FL = 'Y'
-		WHERE COUPON_NO = #{couponNo};
+		WHERE COUPON_NO = #{couponNo}
 	</update>
 	
 	<select id="selectPayByUid" parameterType="string" resultMap="pay_rm">
