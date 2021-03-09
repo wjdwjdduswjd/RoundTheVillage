@@ -73,7 +73,7 @@
 
 <script>
     var price = "${lesson.lesPrice}";
-    var grade = "${loginMember.grade}";
+		var grade = "${loginMember.memberGrade}";
     var coupon = 0;
     var couponCnt = "${cList.size()}";
     var couponDis = 0;
@@ -117,7 +117,6 @@
   function requestPay() {
 			var amt = Number($("#totalPrice").text().slice(0, -1));
 			var phone = $("#phone1").val() + "-" + $("#phone2").val() + "-" + $("#phone3").val();
-			console.log(phone)
 			
       // IMP.request_pay(param, callback) 호출
        IMP.request_pay({ // param
