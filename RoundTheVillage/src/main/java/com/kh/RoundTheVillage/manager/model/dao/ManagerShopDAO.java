@@ -42,6 +42,16 @@ public class ManagerShopDAO {
 	}
 
 
+	/** 공방 내용 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	public Shop selectShop(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectShopManager",shopNo);
+		
+	}
+
+
 	
 
 }

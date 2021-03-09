@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<title></title>
+<title>배너 승인 목록</title>
+<link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
 <style>
 #title {
 	font-family: 'NanumSquare', sans-serif !important;
@@ -95,23 +96,22 @@
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="container notice-list">
-		<h3 id="title">공방 신청 목록</h3>
+		<h3 id="title">배너 승인 목록</h3>
 		<div>
 			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
 					<tr>
 						<th id="noticeN">공방 번호</th>
-						<th>이름</th>
+						<th>대표</th>
 						<th>공방명</th>
 						<th>전화번호</th>
 						<th>위치</th>
+						<th>승인 여부</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:if test="${empty sList}">
-						<tr>
-							<td colspan="6">존재하는 게시글이 없습니다.</td>
-						</tr>
+						<tr><td colspan="6">존재하는 게시글이 없습니다.</td></tr>
 					</c:if>
 
 					<c:if test="${!empty sList}">
@@ -122,6 +122,16 @@
 								<td class="noticeTitle">${shop.shopName}</td>
 								<td>${shop.shopContact}</td>
 								<td>${shop.shopAdress}</td>
+								<td>
+									<c:choose>
+										<c:when test="${shop.shopRegiFL == 'Y'.charAt(0)}">
+											<span class="badge badge-pri ml-3">승인 완료</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-not ml-3">미승인</span>
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -132,13 +142,12 @@
 		<!--------------------------------- pagination  ---------------------------------->
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/manager/shopList" />
-
+				<c:url var="pageUrl" value="/shop/shopList" />
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/manager/shopList" />
+				<c:url var="pageUrl" value="/shop/shopList" />
 			</c:otherwise>
 		</c:choose>
 
@@ -183,9 +192,9 @@
 							<%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
 							<c:if test="${next <= pInfo.maxPage}">
 								<!-- 다음 페이지로 이동 (>) -->
-								<li class="page-item"><a class="page-link" href="${nextPage }" data-abc="true">&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${nextPage}" data-abc="true">&gt;</a></li>
 								<!-- 마지막 페이지로 이동(>>) -->
-								<li class="page-item"><a class="page-link" href="${lastPage }" data-abc="true">&gt;&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${lastPage}" data-abc="true">&gt;&gt;</a></li>
 							</c:if>
 						</ul>
 					</nav>
@@ -194,8 +203,7 @@
 			</div>
 		</div>
 
-
-		<div>
+		<!-- <div>
 			<div class="text-center" id="searchForm" style="margin-bottom: 100px;">
 				<select name="sk" class="form-control" style="width: 100px; display: inline-block;">
 					<option value="tit">글제목</option>
@@ -204,8 +212,7 @@
 				</select> <input type="text" name="sv" class="form-control" style="width: 25%; display: inline-block;">
 				<button class="form-control btn btn-warning" id="searchBtn" type="button" style="width: 100px; display: inline-block;">검색</button>
 			</div>
-		</div>
-
+		</div> -->
 
 	</div>
 	<jsp:include page="../common/footer.jsp" />
@@ -215,9 +222,9 @@
 	
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
-$("#list-table td").on("click", function(){
+		$("#list-table td").on("click", function(){
 			var bannerNo = $(this).parent().children().eq(0).text();
-			location.href = "view/" + shopNo;
+			location.href = "shopListView/" + shopNo;
 		});
 	</script>
 </body>
