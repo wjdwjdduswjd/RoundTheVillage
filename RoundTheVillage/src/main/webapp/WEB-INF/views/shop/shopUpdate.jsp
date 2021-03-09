@@ -207,7 +207,7 @@
 
 					<div class="form-group">
 						<div>
-							<label for="content">내용</label>
+							<label for="content">공방소개</label>
 						</div>
 						<textarea class="form-control" id="summernote" name="shopInfo" rows="10" style="resize: none;">${shop.shopInfo }</textarea>
 					</div>

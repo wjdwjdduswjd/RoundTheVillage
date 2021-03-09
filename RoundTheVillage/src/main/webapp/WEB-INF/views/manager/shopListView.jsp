@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <!DOCTYPE html>
@@ -54,8 +55,6 @@
 }
 </style>
 
-<!--summernote 사용 시  필요한 css 파일 추가  -->
-<link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -83,7 +82,7 @@
 							<label for="storeUserName">대표자</label>
 						</div>
 						<div class="col-md-6">
-							
+						${shop.shopOwnerName }
 						</div>
 
 					
@@ -96,7 +95,7 @@
 							<label for="shopName">공방명</label>
 						</div>
 						<div class="col-md-6">
-							
+								${shop.shopName}
 						</div>
 					</div>
 
@@ -107,11 +106,10 @@
 						<div class="col-md-3">
 							<label for="postcodify_search_button">위치</label>
 						</div>
-
-
+					</div>
 
 						<div class="col-md-3">
-						
+					${shop.shopAdress}
 					</div>
 
 					<br>
@@ -121,7 +119,7 @@
 							<label for="shopName">연락처</label>
 						</div>
 						<div class="col-md-6">
-							
+							${shop.shopContact}
 						</div>
 					</div>
 					
@@ -133,7 +131,7 @@
 							<label for="shopName">카테고리</label>
 						</div>
 						<div class="col-md-6">
-							
+							${shop.shopCategoryName}
 						</div>
 					</div>
 					
@@ -147,7 +145,7 @@
 					<div class="form-inline mb-2">
 						<label>썸네일</label>
 						<div class="boardImg" id="titleImgArea">
-							<img id="titleImg" width="200" height="200">
+							<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
 						</div>
 					</div>
 
@@ -161,6 +159,7 @@
 						<div>
 							
 						</div>
+						${shop.thumbInfo}
 					</div>
 
 
@@ -169,14 +168,21 @@
 
 					<div class="form-group">
 						<div>
-							<label for="content">내용</label>
+							<label for="content">공방소개</label>
+						</div>
+						<div>
+								<%
+								pageContext.setAttribute("newLine", "\n");
+								%>
+
+								${fn:replace(shop.shopInfo , newLine, "<br>" ) }
 						</div>
 					
 					</div>
 
 
 					<div class="text-center">
-						<button type="submit" class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73;">등록</button>
+					  <a href="../shop/${shop.shopNo}" class="btn btn-around <c:if test="${shop.shopRegiFL == 'Y'.charAt(0)}">disabled</c:if>">등록</a>
 						<a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">취소</a>
 		
 					</div>

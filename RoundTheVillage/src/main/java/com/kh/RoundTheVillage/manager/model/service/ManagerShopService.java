@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.RoundTheVillage.manager.model.vo.ManagerPageInfo;
 
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
+import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
 public interface ManagerShopService {
 
@@ -26,5 +27,17 @@ public interface ManagerShopService {
 	 * @return
 	 */
 	Shop selectShop(int shopNo);
+
+	/** 공방 등록 상태 변경 
+	 * @param shopNo
+	 * @return
+	 */
+	int updateShopFl(int shopNo);
+
+	/** 썸네일 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	ShopAttachment selectThumb(int shopNo);
 
 }

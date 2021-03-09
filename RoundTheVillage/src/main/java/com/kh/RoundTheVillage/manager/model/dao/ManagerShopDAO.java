@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.RoundTheVillage.manager.model.vo.ManagerPageInfo;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
+import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
 @Repository
 public class ManagerShopDAO {
@@ -49,6 +50,17 @@ public class ManagerShopDAO {
 	public Shop selectShop(int shopNo) {
 		return sqlSession.selectOne("shopMapper.selectShopManager",shopNo);
 		
+	}
+
+
+	public int updateShopFl(int shopNo) {
+		return sqlSession.update("shopMapper.updateShopFl",shopNo);
+	}
+
+
+	public ShopAttachment selectThumb(int shopNo) {
+		
+		return sqlSession.selectOne("shopMapper.selectThumb",shopNo);
 	}
 
 

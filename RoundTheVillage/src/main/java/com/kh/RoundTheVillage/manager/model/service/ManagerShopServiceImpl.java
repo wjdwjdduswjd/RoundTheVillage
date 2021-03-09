@@ -9,6 +9,7 @@ import com.kh.RoundTheVillage.manager.model.dao.ManagerShopDAO;
 import com.kh.RoundTheVillage.manager.model.vo.ManagerPageInfo;
 
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
+import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
 @Service
 public class ManagerShopServiceImpl implements ManagerShopService {
@@ -40,9 +41,24 @@ public class ManagerShopServiceImpl implements ManagerShopService {
 	}
 
 
+	// 상세 조회에 보여줄 내용
 	@Override
 	public Shop selectShop(int shopNo) {
 		return dao.selectShop(shopNo);
+	}
+
+	// 공방 상태 변경 하기
+	@Override
+	public int updateShopFl(int shopNo) {
+		return dao.updateShopFl(shopNo);
+	}
+
+
+	@Override
+	public ShopAttachment selectThumb(int shopNo) {
+
+
+		return dao.selectThumb(shopNo);
 	}
 	
 }
