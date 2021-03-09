@@ -481,9 +481,9 @@ $("#review").click(function(){
 $(".lesson-order").click(function() {
 	var lesDate = $(".datetimepicker-input").val();
 	var lesAmount = $(".lesson-amount-num").html();
-	var lesTime = $(".active2 > .schedule-time").html().substring(5, 10); + "," + $(".active2 > .schedule-time").html().substring(13);
+	var lesTime = $(".active2 > .schedule-time").html().substring(5, 10) + "," + $(".active2 > .schedule-time").html().substring(13);
 	location.href = "${contextPath}/pay/" + lesNo + "?lesAmount=" + lesAmount + "&lesTime=" + lesDate+ "." + lesTime;
-})
+});
 
 </script>
 </body>
