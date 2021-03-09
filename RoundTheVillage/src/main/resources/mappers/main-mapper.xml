@@ -33,7 +33,7 @@
 		WHERE SHOP_STATUS = 'Y'
 	</select>
 	
-	<!-- 게시글 목록 조회 -->
+	<!-- 좋아요순 공방 목록  조회 -->
 	<select id="likeCraftList" parameterType="_int" resultMap="shop_rm">
 		SELECT A.* , S.CS_CATE_NM,
 		    NVL((SELECT AVG(REV_RATING) 
@@ -49,7 +49,6 @@
 	</select>
 
 	
-	
 	<!-- 썸네일 목록 조회  -->
 	<select id="selectThumbnailList" parameterType="list" resultMap="shopAttachment_rm">
 		SELECT * FROM CS_FILE
@@ -61,7 +60,29 @@
 	</select>
 	
 	
-	
-	
+	<!-- 동네 주변 공방 목록 조회 -->
+	<select id="aroundList" parameterType="string" resultMap="shop_rm">
+		SELECT *
+		FROM CRAFTSHOP
+		JOIN CS_CATEGORY USING (CS_CATE_NO)
+		WHERE CRAFTSHOP_ADDR LIKE '%' || #{addr} || '%'
+	</select>
 		
+		
+	<!-- 관심 분야 기준 -->	
+	<select id="searchShopList" parameterType="string" resultMap="shop_rm">
+		SELECT *
+		FROM CRAFTSHOP
+		JOIN CS_CATEGORY USING (CS_CATE_NO)
+		WHERE CS_CATE_NM = #{interest}
+	</select>
+	
+	
+	<!-- 신규 공방 -->
+	<select id="newList" parameterType="string" resultMap="shop_rm">
+		SELECT * FROM CRAFTSHOP
+		JOIN CS_CATEGORY USING (CS_CATE_NO)
+		ORDER BY CRAFTSHOP_NO DESC
+	</select>
+	
 </mapper>

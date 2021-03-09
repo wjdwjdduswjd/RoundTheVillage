@@ -18,15 +18,8 @@ import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
 
 public interface MainService {
 	
-	/** 페이징 처리 객체 생성 Service
-	 * @param type
-	 * @param cp
-	 * @return pInfo
-	 */
-	public abstract mainPageInfo getPageInfo(int cp);
 	
-	
-	/** 게시글 목록 조회 Service
+	/** 좋아요순 인기 공방 12개 Service
 	 * @return bList
 	 */
 	public abstract List<Shop> likeCraftList();
@@ -37,6 +30,19 @@ public interface MainService {
 	 * @return
 	 */
 	public abstract List<ShopAttachment> selectThumbnailList(List<Shop> likeList);
+
+
+	/** 동네 주변 공방 12개 Service
+	 * @param addrArr 
+	 * @return
+	 */
+	public abstract List<Shop> aroundList(String addr);
+
+
+	public abstract List<Shop> searchShopList(String interest);
+
+
+	public abstract List<Shop> newList();
 
 
 	
