@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 import com.kh.RoundTheVillage.manager.model.service.MemberInquiryService;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
@@ -51,20 +53,53 @@ public class MemberInquiryController {
 	}
 	
 	
-	// 공방회원 목록 조회 컨트롤러 ---------------------------------------------------------------------------------------------
-		@RequestMapping("craftList")
-		public String selectCraftList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+	// 공방회원 목록 조회 컨트롤러
+	// ---------------------------------------------------------------------------------------------
+	@RequestMapping("craftList")
+	public String selectCraftList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			Model model) {
 
-			PageInfo2 pInfo = service.getPageInfo(cp);
+		PageInfo2 pInfo = service.getPageInfo(cp);
 
-			List<Shop> cList = service.selectCraftList(pInfo);
+		List<Shop> cList = service.selectCraftList(pInfo);
+
+		model.addAttribute("cList", cList);
+		model.addAttribute("pInfo", pInfo);
+
+		return "manager/craftList";
+	}
+
+	
+	
+	
+	// 일반 회원 검색 Controller -------------------------------------------------------------------------------------------
+	@RequestMapping("search")
+	public String searchBoard(@ModelAttribute Search search,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+		PageInfo2 pInfo = service.selectSearchListCount(search, cp);
+		List<Member> nlList = service.selectSearchList(pInfo, search);
+
+		model.addAttribute("nlList", nlList);
+		model.addAttribute("pInfo", pInfo);
+
+		return "manager/normalList";
+	}
+	
+	
+	
+	// 공방 회원 검색 Controller -------------------------------------------------------------------------------------------
+		@RequestMapping("craftSearch")
+		public String searchCraft(@ModelAttribute Search search,
+				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model) {
+
+			PageInfo2 pInfo = service.selectSearchCraftCount(search, cp);
+			List<Shop> cList = service.selectSearchCraft(pInfo, search);
 
 			model.addAttribute("cList", cList);
 			model.addAttribute("pInfo", pInfo);
 
 			return "manager/craftList";
 		}
-	
-
 
 }

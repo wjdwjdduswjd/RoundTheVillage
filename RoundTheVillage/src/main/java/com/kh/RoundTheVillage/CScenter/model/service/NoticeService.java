@@ -8,6 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.RoundTheVillage.CScenter.model.vo.NoticeAttachment;
 import com.kh.RoundTheVillage.CScenter.model.vo.Notice;
 import com.kh.RoundTheVillage.CScenter.model.vo.PageInfo2;
+import com.kh.RoundTheVillage.board.model.vo.Board;
+import com.kh.RoundTheVillage.board.model.vo.PageInfo;
+import com.kh.RoundTheVillage.board.model.vo.Search;
 
 
 public interface NoticeService {
@@ -70,4 +73,21 @@ public interface NoticeService {
 	 * @return result
 	 */
 	public abstract int deleteNotice(int noticeNo);
+	
+	
+	/** 검색어 포함 게시글 개수 조회 Service
+	 * @param search
+	 * @param cp
+	 * @return listCount
+	 */
+	public abstract PageInfo2 selectSearchListCount(Search search, int cp);
+
+	
+	/** 검색어 포함 게시글 목록 조회 Service
+	 * @param pInfo
+	 * @param search
+	 * @return bList
+	 */
+	public abstract List<Notice> selectSearchList(PageInfo2 pInfo, Search search);
+	
 }
