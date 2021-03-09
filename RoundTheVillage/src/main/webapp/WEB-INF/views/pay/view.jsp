@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -28,11 +29,12 @@
                     
                     <div class="row pt-4 d-block">
 	                    <span class="font-weight-bold col-md-6">예약 날짜</span>
-	                    <span class="font-weight-bold col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
+	                    <span class="font-weight-bold col-md-6">${pay.resDate}</span>
                     </div>
                     
                     <div class="text-right mt-3">
-	                    <fmt:formatDate var="resDate" value="${pay.resDate}" pattern="yyyy-MM-dd"/>
+                    
+	                    <fmt:parseDate  var="resDate" value="${fn:substring(pay.resDate,0,10)}" pattern="yyyy-MM-dd"/>
 											<fmt:formatDate var="now" value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/> 
 											<c:choose>
 												<c:when test="${pay.payFl == 'Y'.charAt(0)}">
