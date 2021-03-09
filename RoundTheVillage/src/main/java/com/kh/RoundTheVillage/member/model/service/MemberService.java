@@ -90,6 +90,8 @@ public interface MemberService {
 	 */
 	public abstract Member selectKakaoMember(String id);
 
+	public abstract int selectMemberNo();
+
 
 	
 	

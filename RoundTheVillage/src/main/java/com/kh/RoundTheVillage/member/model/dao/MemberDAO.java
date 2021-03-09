@@ -100,6 +100,10 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectKakoMember", id);
 	}
 
+	public int selectMemberNo() {
+		return sqlSession.selectOne("memberMapper.selectMemberNo");
+	}
+
 
 	
 

@@ -44,7 +44,7 @@
 	<!-- 회원가입 -->
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES(SEQ_MNO.NEXTVAL, #{memberName}, #{memberId}, #{memberPwd}, #{memberNickname},
+		VALUES(#{memberNo}, #{memberName}, #{memberId}, #{memberPwd}, #{memberNickname},
 												#{memberEmail}, DEFAULT, #{memberIntrs}, #{memberAddr}, 
 												DEFAULT, #{memberType}, DEFAULT)
 	</insert>
@@ -124,7 +124,9 @@
 		AND MEM_SCSN_FL = 'N'  
 	</select>
 
-
+	<select id="selectMemberNo" resultType="_int">
+		SELECT SEQ_MNO.NEXTVAL FROM DUAL
+	</select>
 
 
 
