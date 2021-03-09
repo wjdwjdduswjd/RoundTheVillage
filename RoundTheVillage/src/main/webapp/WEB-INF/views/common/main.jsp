@@ -56,7 +56,14 @@
 	    	<c:otherwise>
 		    	<c:forEach var="banner" items="${bList}" varStatus="vs">
 			      <div class="carousel-item <c:if test="${vs.first}">active</c:if>">
-			       <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="d-block w-100" alt="...">
+			       	<c:choose>
+				       	<c:when test="${!empty banner.URL}">
+					       	<a href="${banner.URL}"><img src="${contextPath}/resources/bannerImages/${banner.img}" class="d-block w-100" alt="..."></a>
+				       	</c:when>
+				       	<c:otherwise>
+					       	<a href="${contextPath}/shop/${banner.memNo}"><img src="${contextPath}/resources/bannerImages/${banner.img}" class="d-block w-100" alt="..."></a>
+				       	</c:otherwise>
+			       	</c:choose>
 			      </div>
 		    	</c:forEach>
 	    	</c:otherwise>
