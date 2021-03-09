@@ -227,8 +227,7 @@
 				type : "post",
 				success : function(result) {
 					if (result == 0) { // 중복되지 않은 경우
-						$("#checkEmail").text("사용가능한 올바른 이메일입니다.")
-								.css("color", "green");
+						$("#checkEmail").text("사용가능한 올바른 이메일입니다.").css("color", "green");
 						signUpCheck.email = true;
 						eCheck = true;
 						
@@ -372,12 +371,10 @@
 		});
 
 		// 이메일 유효성 검사
-		$email.on("input",
-				function() {
+		$email.on("input", function() {
 					var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/; // 4글자 아무단어 @ 아무단어 . * 3
 					if (!regExp.test($(this).val())) { // 이메일이 정규식을 만족하지 않을경우
-						$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css(
-								"color", "red");
+						$("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color", "red");
 						signUpCheck.email = false;
 					} else {// 이메일 형식이 올바른 경우
 
@@ -456,8 +453,8 @@
         $("#email_button").click(function() {// 메일 입력 유효성 검사
          var mail = $("#email").val(); //사용자의 이메일 입력값. 
          
-         if (mail == "") {
-            alert("메일 주소가 입력되지 않았습니다.");
+         if (mail == "" ||  signUpCheck.email == false) { 
+            alert("메일 주소가 입력되지 않았거나 유효하지 않습니다.");
          } else {
             $.ajax({
                url : 'normalSignUpMail',
