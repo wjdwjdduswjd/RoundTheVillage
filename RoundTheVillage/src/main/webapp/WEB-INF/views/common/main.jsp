@@ -83,225 +83,65 @@
                 <div id="bigTitle">
                     <img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
                     <p class="p1">인기 폭발!</p>
-                    <p class="p2">실시간 TOP8 공방</p>
+                    <p class="p2">좋아요 TOP12 공방</p>
                 </div>
             </div>
-
             <div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
                 <div class="controls pull-right">
-                    <a class="left fa fa-chevron-left btn btn-light" href="#carousel-example" data-slide="prev"></a>
-                    <a class="right fa fa-chevron-right btn btn-light" href="#carousel-example" data-slide="next"></a>
+                    <a class="left fa fa-chevron-left btn btn-light" id="leftBtn" href="#carousel-example" data-slide="prev"></a>
+                    <a class="right fa fa-chevron-right btn btn-light" id="rightBtn" href="#carousel-example" data-slide="next"></a>
                 </div>
             </div>
         </div>
-        
+       <%--  ${thList } <br>
+        ${likeList } --%>
         <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
             <div class="carousel-inner">
-                <div class="item active">
-                    <div class="row">
+            	<c:forEach items="${likeList}" var="craft" varStatus="vs">
+            		<c:if test="${vs.index % 4 == 0 }">
+            		<div class="item  <c:if test="${vs.first}"> active </c:if>">
+            			<div class="row">
+            		</c:if>
+            		
+            		<div class="col-md-3 col-sm-3 col-xs-12">
+                       <div class="slider-item shop-item" id="${craft.shopNo}">
+                           <div class="slider-image">
+                               <%-- <img src="${contextPath}/resources/images/main/img_1.jpg" class="img-responsive" alt="a" /> --%>
+							<%-- <img src="${contextPath}/resources/images/main/img_1.jpg" class="img-responsive" alt="a" /> --%>
+	                          <c:forEach items="${thList}" var="th">
+								<c:if test="${th.shopNo == craft.shopNo}">
+									<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-responsive" alt="a">
+								</c:if>
+									
+							  </c:forEach>
+	                             
+                           </div>
 
-                        <!-- 1 ------------------------------------------------------------------------------------->
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="${contextPath}/resources/images/main/img_1.jpg" class="img-responsive" alt="a" />
-                                </div>
-
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h6 class="card-category">#요리/음료</h6>
-                                            <h5 class="card-title">[jeongmin Attic]</h5>
-                                            <p class="card-text">coffee & Tea 그리고 감성 한 스푼.</p>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 like">
-                                                <p id="like">♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="${contextPath}/resources/images/main/img_3.jpg" class="img-responsive" alt="a" />
-                                </div>
-
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h6 class="card-category">#뷰티</h6>
-                                            <h5 class="card-title">[Sunny Beauty]</h5>
-                                            <p class="card-text">이진선과 함께하는 메이크업.</p>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="${contextPath}/resources/images/main/img_9.jpg" class="img-responsive" alt="a" />
-                                </div>
-
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h6 class="card-category">#미술</h6>
-                                            <h5 class="card-title">[flower Academy]</h5>
-                                            <p class="card-text">요즘 유행하는 웹툰 그림체 그려보기.</p>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="${contextPath}/resources/images/main/img_7.jpg" class="img-responsive" alt="a" />
-                                </div>
-
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h6 class="card-category">#요리/음료</h6>
-                                            <h5 class="card-title">[모카 베이커리 공방]</h5>
-                                            <p class="card-text">마카롱도 쉽게 만들 수 있어요!</p>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <!-- 2 ------------------------------------------------------------------------------------------------->
-                <div class="item">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="https://dummyimage.com/250x200/#cccccc/1f1b1f.png" class="img-responsive"
-                                        alt="a" />
-                                </div>
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h5>Product Name</h5>
-                                            <h5 class="detail-price">$187.87</h5>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="https://dummyimage.com/250x200/#cccccc/1f1b1f.png" class="img-responsive"
-                                        alt="a" />
-                                </div>
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h5>Product Name</h5>
-                                            <h5 class="detail-price">$187.87</h5>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="https://dummyimage.com/250x200/#cccccc/1f1b1f.png" class="img-responsive"
-                                        alt="a" />
-                                </div>
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h5>Product Name</h5>
-                                            <h5 class="detail-price">$187.87</h5>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
-                            <div class="slider-item">
-                                <div class="slider-image">
-                                    <img src="https://dummyimage.com/250x200/#cccccc/1f1b1f.png" class="img-responsive"
-                                        alt="a" />
-                                </div>
-                                <div class="slider-main-detail">
-                                    <div class="slider-detail">
-                                        <div class="product-detail">
-                                            <h5>Product Name</h5>
-                                            <h5 class="detail-price">$187.87</h5>
-                                        </div>
-                                    </div>
-                                    <div class="cart-section">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-6 review">
-                                                <p>♥1004</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                           <div class="slider-main-detail">
+                               <div class="slider-detail">
+                                   <div class="product-detail">
+                                       <h6 class="card-category">#${craft.shopCategoryName }</h6>
+                                       <h5 class="card-title">[${craft.shopName }]</h5>
+                                       <p class="card-text">${craft.thumbInfo}</p>
+                                   </div>
+                               </div>
+                               <div class="cart-section">
+                                   <div class="row">
+                                       <div class="col-md-6 col-sm-12 col-xs-6 like">
+                                           <p id="like">♥${craft.likeCount }</p>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+            		
+            		<c:if test="${vs.index % 4 == 3 }">
+            			</div>
+            		</div>
+            		</c:if>
+            	</c:forEach>
+              
             </div>
         </div>
     </div>
@@ -310,6 +150,17 @@
 
 
 <jsp:include page="footer.jsp"/>
+
+<script>
+	$(".shop-item").on("click",function(){
+		var shopNo = $(this).attr("id");
+		location.href = "${contextPath}/shop/"+shopNo;
+		
+		
+	});
+</script>
+
+
 
 </body>
 </html>
