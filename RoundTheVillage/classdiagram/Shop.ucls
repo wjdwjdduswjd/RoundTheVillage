@@ -14,7 +14,7 @@
   <class id="2" language="java" name="com.kh.RoundTheVillage.shop.model.dao.ShopDAO" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/shop/model/dao/ShopDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="513" y="170"/>    
+    <position height="-1" width="-1" x="563" y="573"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -25,7 +25,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/shop/model/service/ShopService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="133" y="551"/>    
+    <position height="-1" width="-1" x="562" y="183"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -36,7 +36,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/shop/model/service/ShopServiceImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="514" y="593"/>    
+    <position height="-1" width="-1" x="1020" y="288"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -46,7 +46,7 @@
   <class id="5" language="java" name="com.kh.RoundTheVillage.shop.model.vo.Shop" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/shop/model/vo/Shop.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="429" y="1223"/>    
+    <position height="-1" width="-1" x="247" y="1221"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -56,7 +56,7 @@
   <class id="6" language="java" name="com.kh.RoundTheVillage.shop.model.vo.ShopAttachment" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/shop/model/vo/ShopAttachment.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="92" y="1006"/>    
+    <position height="-1" width="-1" x="630" y="1009"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,8 +65,12 @@
   </class>  
   <association id="7">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="8" name="service"/>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+      <attribute id="8" name="service">        
+        <position height="0" width="0" x="429" y="-368"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="429" y="-368"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
@@ -77,8 +81,12 @@
   </realization>  
   <association id="11">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="12" name="dao"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+      <attribute id="12" name="dao">        
+        <position height="0" width="0" x="50" y="403"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="1">        
+        <position height="0" width="0" x="50" y="403"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
