@@ -58,4 +58,8 @@ public class PayService {
 	public Pay selectPay(int payNo) {
 		return dao.selectPay(payNo);
 	}
+
+	public int cancelPay(int payNo) {
+		return dao.cancelPay(payNo);
+	}
 }
