@@ -10,7 +10,7 @@
 	<result property="boardTitle" column="BOARD_TITLE"/>
 	<result property="boardContent" column="BOARD_CONTENT"/>
 	<result property="memberNo" column="MEMBER_NO"/>
-	<result property="readCount" column="BOARD_STATUS"/>
+	<result property="readCount" column="READ_COUNT"/>
 	<result property="boardCreateDate" column="BOARD_C_DT"/>
 	<result property="boardModifyDate" column="BOARD_M_DT"/>
 	<result property="boardStatus" column="BOARD_STATUS"/>

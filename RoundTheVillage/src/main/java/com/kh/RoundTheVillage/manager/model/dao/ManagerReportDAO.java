@@ -1,6 +1,7 @@
 package com.kh.RoundTheVillage.manager.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,5 +35,13 @@ public class ManagerReportDAO {
 
 	public int deleteMember(int memberNo) {
 		return sqlSession.update("Reportmapper.deletemanager", memberNo);
+	}
+
+	/** 후기 게시글 또는 리뷰 상태 변경 DAO
+	 * @param map
+	 * @return result
+	 */
+	public int updateStatus(Map<String, Object> map) {
+		return sqlSession.update("Reportmapper.updateStatus", map);
 	}
 }
