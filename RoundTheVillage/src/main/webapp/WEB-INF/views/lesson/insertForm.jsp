@@ -277,9 +277,6 @@ dateBtn.click(function() {
 
 function validate() {
 	
-	console.log($("#start-time1").value);
-	console.log($("#title").val());
-	
 	var $category = $(".active").val();
 	if($category == null){
 		window.alert("카테고리를 입력해주세요");
@@ -305,6 +302,9 @@ function validate() {
 		$("#length").focus();
 		return false;
 	} else if($("#summernote").val().trim() == "") {
+		window.alert("수업 내용을 입력해주세요");
+		return false;
+	} else if($("#mainimage-file").val.trim() == "") {
 		window.alert("수업 내용을 입력해주세요");
 		return false;
 	}

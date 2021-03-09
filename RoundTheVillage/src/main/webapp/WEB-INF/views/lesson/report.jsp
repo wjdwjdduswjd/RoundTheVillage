@@ -117,21 +117,16 @@ p {
 				</label>
 				<label>
 					<input type="radio" class="reason-button" name="catCode" value="3">
-					<strong>사유1</strong>
-					(무야호)
+					<strong>음란성</strong>
+					(음란성 또는 청소년에게 부적합한 내용)
 				</label>
 				<label>
 					<input type="radio" class="reason-button" name="catCode" value="4">
-					<strong>사유2</strong>
-					(어떤 어떤 사유)
+					<strong>무야호</strong>
+					(그만큼 신나시는거지)
 				</label>
 				<label>
 					<input type="radio" class="reason-button" name="catCode" value="5">
-					<strong>사유3</strong>
-					(가나다라마바사 아자차카타파하)
-				</label>
-				<label>
-					<input type="radio" class="reason-button" name="catCode" value="6">
 					<strong>기타</strong>
 					(사유 작성)
 				</label>
@@ -165,7 +160,7 @@ function validate() {
 		window.alert("신고사유를 선택해주세요");
 		return false;
 	}
-	if($("input[name='catCode']:checked").val()==6) {
+	if($("input[name='catCode']:checked").val()==5) {
 		window.alert("상세 사유를 작성해주세요");
 		return false;
 	}

@@ -56,6 +56,18 @@
 			<if test="region2 != null">
 				AND CRAFTSHOP_ADDR LIKE '%' || #{region2} || '%'
 			</if> 
+			<if test="sort == null">
+				ORDER BY LES_NO DESC
+			</if> 
+			<if test="sort == 'higherPrice'">
+				ORDER BY LES_PRICE DESC
+			</if>
+			<if test="sort == 'lowerPrice'">
+				ORDER BY LES_PRICE
+			</if>
+			<if test="sort == rating">
+			</if>
+				
 		
 	</select>
 	
