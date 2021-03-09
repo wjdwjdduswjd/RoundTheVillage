@@ -36,7 +36,7 @@ public class ManagerShopController {
 
 		// 신청된 공방 목록 가져오기 
 		List<Shop> sList = service.selectList(pInfo);
-
+		System.out.println(sList);
 		if(sList != null && !sList.isEmpty()) {
 
 			model.addAttribute("pInfo", pInfo);
@@ -73,6 +73,7 @@ public class ManagerShopController {
 
 	}
 
+	
 	@RequestMapping("regiCon/{shopNo}")
 	public String regCon(@PathVariable("shopNo") int shopNo) {
 
@@ -81,7 +82,7 @@ public class ManagerShopController {
 
 
 
-		return "redirect:../shopListView" + shopNo;
+		return "redirect:manager/shopListView" + shopNo;
 
 	}
 

@@ -17,6 +17,7 @@ public interface ManagerShopService {
 
 	/** 신청된 공방 목록 가져오기
 	 * @param pInfo
+	 * @param  
 	 * @param shopNo 
 	 * @return
 	 */

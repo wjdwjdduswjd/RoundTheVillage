@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.RoundTheVillage.manager.model.dao.ManagerShopDAO;
 import com.kh.RoundTheVillage.manager.model.vo.ManagerPageInfo;
@@ -38,6 +39,7 @@ public class ManagerShopServiceImpl implements ManagerShopService {
 	
 		
 		return dao.selectList(pInfo);
+		
 	}
 
 
@@ -48,6 +50,7 @@ public class ManagerShopServiceImpl implements ManagerShopService {
 	}
 
 	// 공방 상태 변경 하기
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateShopFl(int shopNo) {
 		return dao.updateShopFl(shopNo);
