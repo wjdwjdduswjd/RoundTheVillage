@@ -1,7 +1,7 @@
 package com.kh.RoundTheVillage.lesson.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -31,6 +31,7 @@ import com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Controller
+@SessionAttributes({ "loginMember" })
 public class LessonController {
 	
 	@Autowired
