@@ -74,20 +74,20 @@
 	margin-top: 40px;
 }
 
-.page-item > a {
+.page-item>a {
 	color: #5B3929;
 }
 
-.page-item > a:hover {
+.page-item>a:hover {
 	color: #FBBC73;
 	background-color: #fff;
 }
 
 .page-item:active, .page-item:active {
-    z-index: 3;
-    color: #fff;
-    background-color: #FBBC73;
-    border-color: #FBBC73;
+	z-index: 3;
+	color: #fff;
+	background-color: #FBBC73;
+	border-color: #FBBC73;
 }
 </style>
 
@@ -111,7 +111,9 @@
 				</thead>
 				<tbody>
 					<c:if test="${empty sList}">
-						<tr><td colspan="6">존재하는 게시글이 없습니다.</td></tr>
+						<tr>
+							<td colspan="6">존재하는 게시글이 없습니다.</td>
+						</tr>
 					</c:if>
 
 					<c:if test="${!empty sList}">
@@ -122,16 +124,14 @@
 								<td class="noticeTitle">${shop.shopName}</td>
 								<td>${shop.shopContact}</td>
 								<td>${shop.shopAdress}</td>
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${shop.shopRegiFL == 'Y'.charAt(0)}">
 											<span class="badge badge-pri ml-3">승인 완료</span>
 										</c:when>
 										<c:otherwise>
 											<span class="badge badge-not ml-3">미승인</span>
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -219,11 +219,11 @@
 
 	<%-- 목록으로 버튼에 사용할 URL 저장 변수 선언 --%>
 	<c:set var="returnListURL" value="${pageUrl}?cp=${pInfo.currentPage}" scope="session" />
-	
+
 	<script>
 		// 게시글 상세보기 기능 (jquery를 통해 작업)
 		$("#list-table td").on("click", function(){
-			var bannerNo = $(this).parent().children().eq(0).text();
+			var shopNo = $(this).parent().children().eq(0).text();
 			location.href = "shopListView/" + shopNo;
 		});
 	</script>

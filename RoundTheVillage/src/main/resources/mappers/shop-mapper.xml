@@ -16,6 +16,7 @@
 		<result property="avgRating" column="AVG_RATING" />
 		<result property="participantsCount" column="PRT_COUNT" />
 		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="shopRegiFL" column="SHOP_REGI_FL" />
 	</resultMap>
 
 	<resultMap type="ShopAttachment" id="shopAttachment_rm">
@@ -200,7 +201,7 @@
 	<!--신청된 공방 리스트  -->
 	<select id ="selectList" parameterType = "_int" resultMap ="shop_rm">
 		SELECT * FROM CRAFTSHOP
-		WHERE SHOP_REGI_FL = 'N'
+		ORDER BY CRAFTSHOP_NO DESC
 	</select>
 	
 	<!-- 공방 내용 가져오기 -->
