@@ -47,11 +47,16 @@ public class PayController {
 	
 	// 결제 화면
 	@RequestMapping("{lesNo}")
-	public String pay(@PathVariable("lesNo") int lesNo, @RequestParam(value = "lesTime") int lesTime, @RequestParam(value = "lesAmount") int lesAmount,
+	public String pay(@PathVariable("lesNo") int lesNo, @RequestParam(value = "lesTime") String lesTime, @RequestParam(value = "lesAmount") int lesAmount,
 			@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
+		String tmp = lesTime.replace(".", "-");
+		tmp = lesTime.substring(0, 10) + " " + lesTime.substring(11);
+		String[] tmpArr = tmp.split(",");
+		tmp = tmpArr[0] + " ~ " + tmpArr[1];
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("lesTime", lesTime);
+		map.put("lesTime", tmp);
 		map.put("lesAmount", lesAmount);
 		
 		List<Coupon> cList = service.selectCupon(loginMember.getMemberNo());
@@ -67,14 +72,8 @@ public class PayController {
 	// 결제 삽입
 	@ResponseBody
 	@RequestMapping("payAction")
-	public int payAction(
-			@ModelAttribute Pay pay,
-			@RequestParam("dateStr") String dateStr, @ModelAttribute("loginMember") Member loginMember) throws ParseException {
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = (Date) transFormat.parse(dateStr);
-		
-		pay.setResDate(new java.sql.Timestamp(date.getTime()));
+	public int payAction(@ModelAttribute Pay pay, @ModelAttribute("loginMember") Member loginMember) throws ParseException {
+		System.out.println(pay);
 		pay.setMemNo(loginMember.getMemberNo());
 		
 		int result = service.insertPay(pay);

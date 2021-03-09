@@ -66,7 +66,7 @@
 				#{couponNo}
 			</otherwise>
 		</choose>
-		, DEFAULT)
+		, DEFAULT, #{prtcpAmt})
 	</insert>
 	
 	<update id="updateCoupon" parameterType="_int">

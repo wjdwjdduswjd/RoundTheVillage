@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,12 +18,17 @@
 	            <img src="${contextPath}/resources/images/lesson/${lesson.fileName}" class="rounded float-left mb-4 w-100" id="classImg">
 	        </div>
 	        <div class="col-md-9 d-flex flex-column position-static">
-	            <h3 class="mb-2 mt-4 font-weight-bold" id="lseTitle">${lesson.lesTitle}</h3>
+	            <h3 class="mb-2 font-weight-bold" id="lseTitle">${lesson.lesTitle}</h3>
 	            <div class="mb-2">${lesson.craftshopName} | ${lesson.lesCategory}</div>
 	
-	            <div class="row pt-4">
+	            <div class="row pt-2">
 	                <div class="col-md-3"><h6 class="font-weight-bold">예약 날짜</h6></div>
-	                <span class="col-md-9 font-weight-bold">2021년 2월 18일 오후 2시</span>
+	                <span class="col-md-9 font-weight-bold">${map.lesTime}</span>
+	            </div>
+	            
+	            <div class="row pt-2">
+	                <div class="col-md-3"><h6 class="font-weight-bold">참가 인원</h6></div>
+	                <span class="col-md-9 font-weight-bold">${map.lesAmount}명</span>
 	            </div>
 	        </div>
 	    </div>
@@ -31,7 +37,7 @@
 			    <ul class="list-group list-group-flush mb-3">
 			        <li class="list-group-item d-flex justify-content-between lh-condensed">
 			            <div><h6 class="my-0 font-weight-bold">상품 금액</h6></div>
-			            <span>${lesson.lesPrice}원</span>
+			            <span>${lesson.lesPrice * map.lesAmount}원</span>
 			        </li>
 			        <li class="list-group-item d-flex justify-content-between bg-light">
 			            <div class="text-around"><h6 class="my-0">할인 금액</h6></div>
@@ -72,7 +78,7 @@
 <jsp:include page="../common/footer.jsp" />
 
 <script>
-    var price = "${lesson.lesPrice}";
+    var price = "${lesson.lesPrice * map.lesAmount}";
 		var grade = "${loginMember.memberGrade}";
     var coupon = 0;
     var couponCnt = "${cList.size()}";
@@ -133,14 +139,14 @@
 	              url: "${contextPath}/pay/payAction", // 가맹점 서버
 	              method: "POST",
 	              data: {
-	            	  dateStr: "2021-03-21 10:53:00",
-	            	  //dateStr: "2021-03-21 10:53:00",
+	            	  resDate: "${map.lesTime}",
 	            		payAmt: rsp.paid_amount,
 	            		gradeDis: $("#gradeDis").text().slice(1, -1),
 	            		couponDis: $("#couponDis").text().slice(1, -1),
 	            		impUid: rsp.imp_uid,
 	            		couponNo: $("#coupon option:selected").attr("id"),
-	            		lesNo: ${lesson.lesNo}
+	            		lesNo: "${lesson.lesNo}",
+	            		prtcpAmt: "${map.lesAmount}"
 	              }
 	          }) .done(function (data) {
 	        	  if(data > 0){ // 결제 완료 페이지로

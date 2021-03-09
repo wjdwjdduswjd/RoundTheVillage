@@ -31,6 +31,10 @@
                   <span>${pay.resDate}</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
+                  <span>참가 인원</span>
+                  <span>${pay.prtcpAmt}명</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
                   <span>결제 금액</span>
                   <span>${pay.payAmt}원</span>
               </li>

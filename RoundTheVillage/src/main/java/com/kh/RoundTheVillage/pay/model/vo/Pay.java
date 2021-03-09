@@ -6,7 +6,7 @@ public class Pay {
 	
 	private int payNo;
 	private Timestamp payDate;
-	private Timestamp resDate;
+	private String resDate;
 	private int payAmt;
 	private int gradeDis;
 	private int couponDis;
@@ -21,6 +21,7 @@ public class Pay {
 	private String craftshopName;
 	private String fileName;
 	private char payFl;
+	private int prtcpAmt;
 	
 	public Pay() {}
 
@@ -40,11 +41,11 @@ public class Pay {
 		this.payDate = payDate;
 	}
 
-	public Timestamp getResDate() {
+	public String getResDate() {
 		return resDate;
 	}
 
-	public void setResDate(Timestamp resDate) {
+	public void setResDate(String resDate) {
 		this.resDate = resDate;
 	}
 
@@ -160,12 +161,20 @@ public class Pay {
 		this.payFl = payFl;
 	}
 
+	public int getPrtcpAmt() {
+		return prtcpAmt;
+	}
+
+	public void setPrtcpAmt(int prtcpAmt) {
+		this.prtcpAmt = prtcpAmt;
+	}
+
 	@Override
 	public String toString() {
 		return "Pay [payNo=" + payNo + ", payDate=" + payDate + ", resDate=" + resDate + ", payAmt=" + payAmt
 				+ ", gradeDis=" + gradeDis + ", couponDis=" + couponDis + ", impUid=" + impUid + ", couponNo="
 				+ couponNo + ", memNo=" + memNo + ", lesNo=" + lesNo + ", lesTitle=" + lesTitle + ", lesCategory="
 				+ lesCategory + ", lesPrice=" + lesPrice + ", craftshopNo=" + craftshopNo + ", craftshopName="
-				+ craftshopName + ", fileName=" + fileName + ", payFl=" + payFl + "]";
+				+ craftshopName + ", fileName=" + fileName + ", payFl=" + payFl + ", prtcpAmt=" + prtcpAmt + "]";
 	}
 }

@@ -34,7 +34,7 @@
 		                    
 		                    <div class="row pt-3 d-block">
 			                    <span class="font-weight-bold col-md-6">예약 날짜</span>
-			                    <span class="col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
+			                    <span class="col-md-6">${pay.resDate}</span>
 	                    	</div>
 	                    	
 		                    <div class="row pt-3 d-block">
