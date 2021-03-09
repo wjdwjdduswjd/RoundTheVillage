@@ -62,4 +62,8 @@ public class PayService {
 	public int cancelPay(int payNo) {
 		return dao.cancelPay(payNo);
 	}
+	
+	public int insertWelcomeCoupon(int memNo) {
+		return dao.insertWelcomeCoupon(memNo);
+	}
 }
