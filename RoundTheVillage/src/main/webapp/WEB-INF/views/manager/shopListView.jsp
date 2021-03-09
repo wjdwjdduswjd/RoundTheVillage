@@ -14,11 +14,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <style>
+
 * {
 	font-family: 'NanumSquare', sans-serif !important;
 	font-size: 16px;
 }
-
 
 .container {
 	margin-top: 30px;
@@ -115,7 +115,7 @@
 				</div>
 
 				 <div class="text-right">
-        <a href="../shopListView/${shop.shopNo}" class="btn btn-around <c:if test="${shop.shopRegiFL == 'Y'.charAt(0)}">disabled</c:if>">승인</a>
+        <a href="../regiCon/${shop.shopNo}" class="btn btn-around <c:if test="${shop.shopRegiFL == 'Y'.charAt(0)}">disabled</c:if>">승인</a>
         <a href="${returnListURL}" class="btn btn-around-2">목록으로</a>
     </div>
 

@@ -142,12 +142,12 @@
 		<!--------------------------------- pagination  ---------------------------------->
 		<c:choose>
 			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/shop/shopList" />
+				<c:url var="pageUrl" value="/manager/shopList" />
 				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
 			</c:when>
 
 			<c:otherwise>
-				<c:url var="pageUrl" value="/shop/shopList" />
+				<c:url var="pageUrl" value="/manager/shopList" />
 			</c:otherwise>
 		</c:choose>
 
