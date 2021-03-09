@@ -16,7 +16,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/member/model/service/MemberServiceImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="628" y="773"/>    
+    <position height="-1" width="-1" x="987" y="411"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,7 +27,7 @@
     project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/member/model/service/MemberService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="242" y="777"/>    
+    <position height="-1" width="-1" x="616" y="401"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -37,7 +37,7 @@
   <class id="4" language="java" name="com.kh.RoundTheVillage.member.model.dao.MemberDAO" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/member/model/dao/MemberDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1008" y="781"/>    
+    <position height="-1" width="-1" x="616" y="760"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -47,7 +47,7 @@
   <class id="5" language="java" name="com.kh.RoundTheVillage.member.model.vo.Member" project="RoundTheVillage" 
     file="/RoundTheVillage/src/main/java/com/kh/RoundTheVillage/member/model/vo/Member.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1454" y="556"/>    
+    <position height="-1" width="-1" x="1406" y="412"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,34 +65,46 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="7">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <association id="8">    
+  <association id="7">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="9" name="dao"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="8" name="dao">        
+        <position height="0" width="0" x="-392" y="-21"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-392" y="-21"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="11">    
+  <association id="10">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="service"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+      <attribute id="11" name="service">        
+        <position height="0" width="0" x="374" y="-376"/>      
+      </attribute>      
+      <multiplicity id="12" minimum="0" maximum="1">        
+        <position height="0" width="0" x="374" y="-376"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="14">    
+  <association id="13">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="15" name="service"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="14" name="service">        
+        <position height="0" width="0" x="374" y="-376"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="0" width="0" x="374" y="-376"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="16">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
