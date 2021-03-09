@@ -53,4 +53,8 @@ public class PayDAO {
 	public int updateCoupon(int couponNo) {
 		return sqlSession.update("payMapper.updateCoupon", couponNo);
 	}
+
+	public int cancelPay(int payNo) {
+		return sqlSession.update("payMapper.cancelPay", payNo);
+	}
 }

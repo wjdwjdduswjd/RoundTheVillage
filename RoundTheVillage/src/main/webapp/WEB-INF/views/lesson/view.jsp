@@ -59,13 +59,13 @@ li {list-style: none;}
 }
 .info-right {
 	width: 38%;
-	min-height: 500px;
 	padding: 22px;
   border: 1px solid #e4e9ef;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 0;
   float: right;
+  max-height: 500px;
 }
 .main-image {
 	width: 100%;
@@ -116,7 +116,7 @@ li {list-style: none;}
 	right: 20px;
 }
 .lesson-amount {
-	margin: 20px 0;
+	margin: 15px 0;
 }
 .lesson-amount-num {
 	padding: 0 !important;
@@ -177,6 +177,11 @@ li {list-style: none;}
 .lesson-time {
 	padding-bottom: 15px;
 }
+.time-list-area {
+	max-height: 140px;
+	overflow: scroll;
+	
+}
 .lesson-calendar {
 	position: absolute;
 	top: 50%;
@@ -216,6 +221,7 @@ li {list-style: none;}
 	height: 70px;
 	border: 1px solid #e4e9ef;
 	padding: 0 20px;
+	cursor: pointer;
 }
 .closed {
 	background-color: #f8fafb;
@@ -302,7 +308,7 @@ li {list-style: none;}
 					<div class="lesson-price">${lesson.lesPrice}<span>원</span> </div>
 			 	</div>
 			 	<div class="lesson-order">
-			 		<a href="#">결제하기</a>
+			 		<a href="${contextPath}/pay/${lesson.lesNo}">결제하기</a>
 			 	</div>
 			 </div>
 		</div>
@@ -385,8 +391,11 @@ var plus = $(".lesson-plus");
 var minus = $(".lesson-minus");
 var amount = $(".lesson-amount-num");
 plus.click(function() {
-	amount.text(Number(amount.text())+1);
-	$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>"); // 가격 적기
+	var participant = $("#schedule-participant").text();
+	if(Number(participant.substring(participant.indexOf("/")+2, 5)) - Number(participant.substring(0, participant.indexOf("/")-1)) > Number(amount.text())){
+		amount.text(Number(amount.text())+1);
+		$(".lesson-price").html( ${lesson.lesPrice} * Number(amount.text()) + " <span>원</span>"); // 가격 적기
+	}
 });
 minus.click(function() {
 	if(amount.text()>1){
@@ -416,7 +425,6 @@ $(".fa-calendar").click(function() {
 })
 
 $(".lesson-time > div > span").click(function(){
-	console.log("123");
 	$(".time-list").remove();
 	$date = $(".datetimepicker-input").val();
 	var startTime = [];
@@ -432,6 +440,7 @@ $(".lesson-time > div > span").click(function(){
 				participant.push("${item.lesParticipant}");
 			}
 		</c:forEach>
+		var timelistarea = $("<div>").addClass("time-list-area");
 		for(var i in startTime){
 			var $schedule = $("<div>", {id: "schedule"+i, onclick:"func(" + i + ")"});
 			var $b;
@@ -446,8 +455,10 @@ $(".lesson-time > div > span").click(function(){
 			
 			$schedule.append($b).append($c);
 			$schedule.addClass("time-list");
-			$(".lesson-time").append($schedule);
+			
+			timelistarea.append($schedule);
 		}
+		$(".lesson-time").append(timelistarea)
 	}
 });
 

@@ -14,33 +14,41 @@
 
     <h4 class="mt-5 mb-4">예약 내역</h4>
     <div class="row p-3 pt-4 bg-light rounded mb-5">
-		    <c:forEach var="pay" items="${pList}">
-	        <div class="col-md-12">
-	            <div class="d-flex justify-content-between bb">
-	                <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
-	                <a href="view/${pay.payNo}" class="ahover">내역 상세 보기 ></a>
-	            </div>
-	            <div class="d-flex justify-content-left py-4 mb-5 bb">
-	                <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
-	                <div class="p-4">
-	                    <h4 class="">${pay.lesTitle}</h4>
-	                    <span class="">${pay.craftshopName}</span> |
-	                    <span class="">${pay.lesCategory}</span>
-	                    
-	                    <div class="row pt-3 d-block">
-		                    <span class="font-weight-bold col-md-6">예약 날짜</span>
-		                    <span class="col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
-                    	</div>
-                    	
-	                    <div class="row pt-3 d-block">
-													<c:if test="${pay.payFl == 'Y'.charAt(0)}">
-															<span class="badge badge-around ml-3">취소됨</span>
-													</c:if>
-                    	</div>
-	                </div>
-	            </div>
-	        </div>
-		    </c:forEach>
+    	<c:choose>
+	    	<c:when test="${empty pList}">
+	    		<div>예약 내역이 없습니다.</div>
+	    	</c:when>
+	    	<c:otherwise>
+			    <c:forEach var="pay" items="${pList}">
+		        <div class="col-md-12">
+		            <div class="d-flex justify-content-between bb">
+		                <span class=""><fmt:formatDate pattern="yyyy-MM-dd" value="${pay.payDate}"/></span>
+		                <a href="view/${pay.payNo}" class="ahover">내역 상세 보기 ></a>
+		            </div>
+		            <div class="d-flex justify-content-left py-4 mb-5 bb">
+		                <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
+		                <div class="p-4">
+		                    <h4 class="">${pay.lesTitle}</h4>
+		                    <span class="">${pay.craftshopName}</span> |
+		                    <span class="">${pay.lesCategory}</span>
+		                    
+		                    <div class="row pt-3 d-block">
+			                    <span class="font-weight-bold col-md-6">예약 날짜</span>
+			                    <span class="col-md-6"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${pay.resDate}"/></span>
+	                    	</div>
+	                    	
+		                    <div class="row pt-3 d-block">
+														<c:if test="${pay.payFl == 'Y'.charAt(0)}">
+																<span class="badge badge-around ml-3">취소됨</span>
+														</c:if>
+	                    	</div>
+		                </div>
+		            </div>
+		        </div>
+			    </c:forEach>
+	    	</c:otherwise>
+    	</c:choose>
+    	
     </div>
 
  		<!--------------------------------- pagination  ---------------------------------->

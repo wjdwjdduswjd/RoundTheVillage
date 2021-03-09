@@ -115,8 +115,8 @@ public class LessonController {
 		return "lesson/list";
 	}
 	
-	@GetMapping("/lesson/updateForm/{lesNo}")
-	public String updateForm(@PathVariable("lesNo") int lesNo,
+	@PostMapping("/lesson/updateForm")
+	public String updateForm(@RequestParam int lesNo,
 							 Model model) {
 		Lesson lesson = service.selectLesson(lesNo); 
 		List<LessonDetail> detailList = new ArrayList<>();
@@ -148,9 +148,15 @@ public class LessonController {
 		}
 		return "common/main";
 	}
+
+	@GetMapping("/lesson/deleteLesson/{lesNo}")
+	public String deleteLesson(@PathVariable int lesNo) {
+		int result = service.deleteLesson(lesNo);
+		return "common/main";
+	}
 	
 	@ResponseBody
-	@PostMapping("/lesson/updateForm/insertImage")
+	@PostMapping("/lesson/insertImage")
 	public String insertImage(HttpServletRequest request,
 							  MultipartFile uploadFile) {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");

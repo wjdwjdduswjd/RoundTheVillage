@@ -54,7 +54,7 @@
 
 				<div class="input-area ">
 					<label class="text">이메일 주소</label> <input class="b" type="text" name="memberEmail" id="email" placeholder="가입시 사용한 이메일을 입력해주세요." required>
-					<button id="email_button" class="email_button">인증번호 받기</button>
+					<button id="email_button"  type="button" class="email_button">인증번호 받기</button>
 					<div class="check">
 						<label class="text"></label><span id="checkEmail">&nbsp;</span>
 					</div>

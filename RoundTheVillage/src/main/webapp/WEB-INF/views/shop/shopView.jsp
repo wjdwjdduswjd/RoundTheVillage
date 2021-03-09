@@ -249,7 +249,7 @@
 						<%-- ${lesList}
 					${thList } --%>
 					</div>
-
+				
 
 					<div class="row">
 						<c:forEach var="lesson" items="${lesList}">
@@ -257,8 +257,9 @@
 							<c:forEach items="${thList}" var="th">
 								<c:if test="${th.lesNo == lesson.lesNo}">
 									<div class="col-md-3 lesson" id="${lesson.lesNo }">
-										<img src="${contextPath}${th.filePath}/${th.fileName}">
+										<img src="${contextPath}${th.filePath}/${th.fileName}"> 
 										<p>${lesson.lesTitle }</p>
+										<form action="${contextPath}/lesson/updateForm" method="post"> <input type="hidden" name="lesNo" value="${lesson.lesNo}"><button>수정/삭제</button></form>
 									</div>
 								</c:if>
 							</c:forEach>

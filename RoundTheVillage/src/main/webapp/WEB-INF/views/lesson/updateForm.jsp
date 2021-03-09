@@ -9,8 +9,8 @@
 <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> -->
-<link rel="stylesheet" href="../../resources/timepicker/tempusdominus-bootstrap.css"/>
-<link rel="stylesheet" href="../../resources/timepicker/jquery.timepicker.min.css">
+<link rel="stylesheet" href="../resources/timepicker/tempusdominus-bootstrap.css"/>
+<link rel="stylesheet" href="../resources/timepicker/jquery.timepicker.min.css">
 <link rel="stylesheet" href="${contextPath}/resources/summernote/css/summernote-lite.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -99,13 +99,16 @@ body {
 textarea:focus{
 	outline: none;
 }
+.note-modal-footer {
+	height: 60px;
+}
 </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
-<script src="../../resources/timepicker/tempusdominus-bootstrap.js"></script>
+<script src="../resources/timepicker/tempusdominus-bootstrap.js"></script>
 <script src="${contextPath}/resources/timepicker/jquery.timepicker.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
@@ -113,7 +116,7 @@ textarea:focus{
 <script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
 
 	<div class="container">
-	<form action="${contextPath}/lesson/update/${lesson.lesNo}" method="post" enctype="multipart/form-data" onsubmit="return validate();" onreset="return validate2();">
+	<form action="${contextPath}/lesson/update/${lesson.lesNo}" method="post" enctype="multipart/form-data" onsubmit="return validate();">
 
 		<div class="insert-main">
 			
@@ -182,12 +185,12 @@ textarea:focus{
 			<div>
 				<label for="content">내용</label>
 			</div>
-				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;">${lesson.lesContent}</textarea>
+				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;"></textarea>
 		</div>
 
 		<br>
 		<div class="button-area">
-			<button type="reset">초기화</button>
+			<button type="button" id="delete-lesson">수업 삭제</button>
 			<button type="submit" id="submit">수업 등록</button>
 		</div>
 		</form>	
@@ -384,6 +387,11 @@ function LoadImg(value) {
 	}
 }
 
+$("#delete-lesson").click(function() {
+	if(window.confirm("정말 삭제하시겠습니까?")) {
+		location.href = "${contextPath}/lesson/deleteLesson/" + ${lesson.lesNo};
+	}
+});
 </script>
 	
 </body>

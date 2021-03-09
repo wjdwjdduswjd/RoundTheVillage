@@ -94,4 +94,10 @@
 		SELECT * FROM V_PAY
 		WHERE PAY_NO = #{payNo}
 	</select>
+	
+	<update id="cancelPay">
+		UPDATE PAY
+		SET PAY_FL = 'Y'
+		WHERE PAY_NO = #{payNo}
+	</update>
 </mapper>

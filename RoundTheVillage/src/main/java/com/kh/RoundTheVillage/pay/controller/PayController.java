@@ -70,11 +70,10 @@ public class PayController {
 		
 		pay.setResDate(new java.sql.Timestamp(date.getTime()));
 		pay.setMemNo(loginMember.getMemberNo());
-//		pay.setMemNo(1);
 		
 		int result = service.insertPay(pay);
 		
-		if(result > 0)
+		if(result > 0 && pay.getCouponNo() != 0)
 			result = service.updateCoupon(pay.getCouponNo());
 			
 		return result;
@@ -95,9 +94,7 @@ public class PayController {
 	public String payList(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
 			Model model, @ModelAttribute("loginMember") Member loginMember) {
 		
-//		PageInfo pInfo = service.getPageInfo(1, cp);
 		PageInfo pInfo = service.getPageInfo(loginMember.getMemberNo(), cp);
-//		List<Pay> pList = service.selectList(pInfo, 1);
 		List<Pay> pList = service.selectList(pInfo, loginMember.getMemberNo());
 		
 		model.addAttribute("pList", pList);
@@ -129,5 +126,12 @@ public class PayController {
 		}
 		
 		return url;
+	}
+	
+	@RequestMapping("cancelPay/{payNo}")
+	public String cancelPay(@PathVariable("payNo") int payNo) {
+		
+		int result = service.cancelPay(payNo);
+		return "redirect:../view" + payNo;
 	}
 }
