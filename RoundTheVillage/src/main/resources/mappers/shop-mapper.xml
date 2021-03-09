@@ -203,6 +203,12 @@
 		WHERE SHOP_REGI_FL = 'N'
 	</select>
 	
+	<!-- 공방 내용 가져오기 -->
+		<select id="selectShopManager" parameterType="_int" resultMap="shop_rm">
+		SELECT * FROM CRAFTSHOP
+		WHERE CRAFTSHOP_NO = #{shopNo}
+	</select>
+	
 	
 	
 	

@@ -21,4 +21,10 @@ public interface ManagerShopService {
 	 */
 	List<Shop> selectList(ManagerPageInfo pInfo);
 
+	/** 공방 내용 가져오기
+	 * @param shopNo
+	 * @return
+	 */
+	Shop selectShop(int shopNo);
+
 }

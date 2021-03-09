@@ -47,7 +47,14 @@ public class ManagerShopController {
 	}
 	
 	@RequestMapping("shopListView/{shopNo}")
-	public String shopListView(@PathVariable("shopNo") int shopNo) {
+	public String shopListView(@PathVariable("shopNo") int shopNo,Model model) {
+		
+		
+		
+		// 신정한 공방 내용 가져오기
+		Shop shop = service.selectShop(shopNo);
+		
+		model.addAttribute("shop", shop);
 		
 		
 		return "manager/shopListView";

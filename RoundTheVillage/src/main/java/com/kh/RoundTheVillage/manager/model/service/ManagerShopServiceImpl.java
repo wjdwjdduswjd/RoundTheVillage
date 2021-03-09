@@ -38,5 +38,11 @@ public class ManagerShopServiceImpl implements ManagerShopService {
 		
 		return dao.selectList(pInfo);
 	}
+
+
+	@Override
+	public Shop selectShop(int shopNo) {
+		return dao.selectShop(shopNo);
+	}
 	
 }
