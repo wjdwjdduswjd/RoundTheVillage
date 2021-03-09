@@ -157,9 +157,10 @@ img {
 	<div class="search-result">
 		<div class="result-top">
 			<select class="search-sort">
-				<option>정렬</option>
-				<option>리뷰순</option>
-				<option>별점순</option>
+				<option class="option" value="">최신순</option>
+				<option class="option" value="higherPrice">높은 가격순</option>
+				<option class="option" value="lowerPrice">낮은 가격순</option>
+				<option class="option" value="rating">평점순</option>
 			</select>
 		<p>검색결과 ></p>
 		</div>
@@ -358,7 +359,7 @@ function selectList(map) {
 			}
 		}
 		infoparticipant.append(participant);
-		var infoprice = $("<div>").addClass("info-price").html("<h4>" + item.lesPrice + "<h4>");
+		var infoprice = $("<div>").addClass("info-price").html("<h4>" + item.lesPrice + "원<h4>");
 		searchinfomain.append(infoparticipant).append(infoprice);
 		
 		var shopName;
@@ -387,6 +388,22 @@ function selectList(map) {
 	}
 	
 }
+
+$(".search-sort").change(function(){
+	var sort = $(this).val();
+	console.log(sort);
+	$.ajax({
+    url: "${contextPath}/lesson/search",
+    data: {"region": region, "category": category, "minPrice": minPrice, "maxPrice": maxPrice, "sort": sort},
+    success: function(map) {
+  	  selectList(map);
+    },
+    error: function() {
+        console.log("조회 실패");
+    }
+	})
+})
+
 
 </script>
 

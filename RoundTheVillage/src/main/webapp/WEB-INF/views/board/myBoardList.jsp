@@ -206,8 +206,6 @@
 			<c:set var="firstPage" value="?cp=1${searchStr}" />
 			<c:set var="lastPage" value="?cp=${mPInfo.maxPage}${searchStr}" />
 
-
-
 			<fmt:parseNumber var="c1" value="${(mPInfo.currentPage - 1) / 10 }" integerOnly="true" />
 			<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
 			<c:set var="prevPage" value="?cp=${prev}${searchStr}" />

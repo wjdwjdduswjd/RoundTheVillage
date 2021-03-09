@@ -62,7 +62,7 @@ public class LessonController {
 	
 	@ResponseBody
 	@GetMapping("/lesson/search")
-	public Map<String, List> searchList(Model model, String region, String region2, String minPrice, String maxPrice,
+	public Map<String, List> searchList(Model model, String region, String region2, String minPrice, String maxPrice, String sort,
 										@RequestParam(value="category[]", required=false) String[] category) {
 		List<Lesson> list = new ArrayList<Lesson>();
 		List<LessonFile> fileList = new ArrayList<LessonFile>();
@@ -75,6 +75,7 @@ public class LessonController {
 		searchMap.put("category", category);
 		searchMap.put("minPrice", minPrice);
 		searchMap.put("maxPrice", maxPrice);
+		searchMap.put("sort", sort);
 		map = service.selectList(searchMap);
 		return map;
 	}

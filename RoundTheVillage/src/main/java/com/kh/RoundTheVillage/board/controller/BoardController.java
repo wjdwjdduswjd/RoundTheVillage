@@ -423,12 +423,12 @@ System.out.println(search);
 		
 		PageInfo mpInfo = service.getMyPageInfo(cp, loginMember);
 		
-		System.out.println(mpInfo);
 		List<Board> mList = service.selectmyList(mpInfo, loginMember);
 		
 		System.out.println(mList);
 		
 		model.addAttribute("mList", mList);
+		model.addAttribute("mPInfo", mpInfo);
 		
 		
 		  return "board/myBoardList";
