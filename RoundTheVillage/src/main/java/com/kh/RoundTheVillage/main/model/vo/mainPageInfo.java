@@ -3,7 +3,7 @@ package com.kh.RoundTheVillage.main.model.vo;
 import org.springframework.stereotype.Component;
 
 @Component
-public class mPageInfo {
+public class mainPageInfo {
 	private int currentPage; 	// 현재 페이지 번호를 표시할 변수
 	private int listCount; 		// 전체 게시글 수
 	private int limit = 10; 			// 한 페이지에 보여질 게시글 수
@@ -13,15 +13,13 @@ public class mPageInfo {
 	private int startPage;	 	// 페이징바 시작 페이지 번호
 	private int endPage; 	 	// 페이징바 끝 페이지 번호
 	
-	private int noticeNo; 		// 공지사항번호
-	
-	private int normalMemNo; 	// 일반
-	private int craftMemNo;		// 공방
+	private int shopNo; 		// 공지사항번호
 	
 	
-	public mPageInfo() {}
 	
-	public mPageInfo(int currentPage, int listCount) {
+	public mainPageInfo() {}
+	
+	public mainPageInfo(int currentPage, int listCount) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		
@@ -29,20 +27,20 @@ public class mPageInfo {
 		makePageInfo();
 	}
 	
-	public mPageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int noticeNo) {
+	public mainPageInfo(int currentPage, int listCount, int limit, int pagingBarSize, int shopNo) {
 		super();
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		this.limit = limit;
 		this.pageSize = pagingBarSize;
-		this.noticeNo = noticeNo;
+		this.shopNo = shopNo;
 		
 		makePageInfo();
 	}
 	
 	
-	public mPageInfo(int currentPage, int listCount, int limit, int pageSize, int maxPage, int startPage, int endPage,
-			int normalMemNo, int craftMemNo) {
+	public mainPageInfo(int currentPage, int listCount, int limit, int pageSize, int maxPage, int startPage,
+			int endPage, int shopNo) {
 		super();
 		this.currentPage = currentPage;
 		this.listCount = listCount;
@@ -51,17 +49,19 @@ public class mPageInfo {
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
-		this.normalMemNo = normalMemNo;
-		this.craftMemNo = craftMemNo;
+		this.shopNo = shopNo;
 	}
 
-	public int getNoticeNo() {
-		return	noticeNo;
+	
+	
+	
+	public int getShopNo() {
+		return	shopNo;
 	}
 	
 
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setShopNo(int shopNo) {
+		this.shopNo = shopNo;
 	}
 
 
@@ -115,11 +115,13 @@ public class mPageInfo {
 	}
 
 	
+	
+
 	@Override
 	public String toString() {
-		return "PageInfo2 [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", pageSize="
-				+ pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", noticeNo=" + noticeNo + ", normalMemNo=" + normalMemNo + ", craftMemNo=" + craftMemNo + "]";
+		return "mainPageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
+				+ ", pageSize=" + pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", shopNo=" + shopNo + "]";
 	}
 
 	// 페이징 처리에 필요한 값을 계산하는 메소드.
@@ -152,21 +154,6 @@ public class mPageInfo {
 		}
 	}
 
-	public int getNormalMemNo() {
-		return normalMemNo;
-	}
-
-	public void setNormalMemNo(int normalMemNo) {
-		this.normalMemNo = normalMemNo;
-	}
-
-	public int getCraftMemNo() {
-		return craftMemNo;
-	}
-
-	public void setCraftMemNo(int craftMemNo) {
-		this.craftMemNo = craftMemNo;
-	}
 
 	
 }
