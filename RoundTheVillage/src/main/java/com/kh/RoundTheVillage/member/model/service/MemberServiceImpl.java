@@ -166,6 +166,11 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectKakaoMember(String id) {
 		return dao.selectKakaoMember(id);
 	}
+
+	@Override
+	public int selectMemberNo() {
+		return dao.selectMemberNo();
+	}
 	
 	
 	

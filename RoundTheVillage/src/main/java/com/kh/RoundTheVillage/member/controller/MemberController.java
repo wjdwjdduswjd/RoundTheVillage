@@ -147,7 +147,10 @@ public class MemberController {
 								RedirectAttributes ra) {
 		
 		String returnUrl = null;
-		//System.out.println(signUpMember);
+//		System.out.println(signUpMember);
+		
+		int memberNo = service.selectMemberNo();
+		signUpMember.setMemberNo(memberNo);
 		
 		int result = service.signUp(signUpMember);
 		
