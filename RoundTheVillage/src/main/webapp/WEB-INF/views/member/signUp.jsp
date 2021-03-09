@@ -89,6 +89,7 @@
 					<div class="check">
 						<span id="checkEmail">&nbsp;</span>
 					</div>
+					
 					<label class="title">
 						<input type="text" name="verifyEmail" id="verifyEmail" placeholder="받은 인증번호를 입력해주세요.">
 					</label>
