@@ -274,65 +274,57 @@ body {
 
 
 	<script>
-		var likeFl = $
-		{
-			likeFl
-		}; // 좋아요 여부 0/1
-		var boardNo = $
-		{
-			board.boardNo
-		}; // 게시글 번호
+		var likeFl = ${likeFl}; // 좋아요 여부 0/1
+		var boardNo = ${board.boardNo}; // 게시글 번호
 
-		$(".like")
-				.click(
-						function() {
+		$(".like").click(function() {
 
-							if ("${loginMember}" == "") {
-								alert("로그인 후 이용해주세요.");
+			if ("${loginMember}" == "") {
+				alert("로그인 후 이용해주세요.");
 
-							} else {
-								var requestUrl;
-								var str;
+			} else {
+				var requestUrl;
+				var str;
 
-								if (likeFl == 0) {
-									requestUrl = "insertLike";
-									str = "해당 글을 추천하시겠습니까?";
-								} else {
-									requestUrl = "deleteLike";
-									str = "추천 취소";
+				if (likeFl == 0) {
+					requestUrl = "insertLike";
+					str = "해당 글을 추천하시겠습니까?";
+				} else {
+					requestUrl = "deleteLike";
+					str = "추천 취소";
+				}
+
+				if (confirm(str)) {
+					$
+							.ajax({
+								url : requestUrl,
+								data : {
+									"boardNo" : boardNo
+								},
+								success : function(result) {
+									// 좋아요 여부 상태 변경
+									if (likeFl == 0) {
+										likeFl = 1;
+										$(".like")
+												.attr("src",
+														"${contextPath}/resources/images/boardListImages/fill-heart.png");
+									} else {
+										likeFl = 0;
+										$(".like")
+												.attr("src",
+														"${contextPath}/resources/images/boardListImages/heart.png");
+									}
+
+									selectLikeCount();
+								},
+								error : function() {
+									console.log("좋아요 실패")
 								}
+							});
 
-								if (confirm(str)) {
-									$
-											.ajax({
-												url : requestUrl,
-												data : {
-													"boardNo" : boardNo
-												},
-												success : function(result) {
-													// 좋아요 여부 상태 변경
-													if (likeFl == 0) {
-														likeFl = 1;
-														$(".like")
-																.attr("src",
-																		"${contextPath}/resources/images/boardListImages/fill-heart.png");
-													} else {
-														likeFl = 0;
-														$(".like")
-																.attr("src",
-																		"${contextPath}/resources/images/boardListImages/heart.png");
-													}
-
-													selectLikeCount();
-												},
-												error : function() {
-													console.log("좋아요 실패")
-												}
-											});
-
-								}
-							}
-						});
+				}
+			}
+		});
 
 		// 좋아요 개수 카운트
 		function selectLikeCount() {

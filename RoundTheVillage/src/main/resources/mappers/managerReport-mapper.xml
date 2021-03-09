@@ -24,15 +24,13 @@
 
 
 	<!-- 전체 게시글 수 조회 -->
-	<select id="getListCount" parameterType="string"
-		resultType="_int">
+	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM V_REPORT
 	</select>
 
 
 	<!-- 게시글 목록 조회 -->
-	<select id="selectList" parameterType="string"
-		resultMap="managerReport_rm">
+	<select id="selectList" parameterType="string" resultMap="managerReport_rm">
 		<!-- SELECT BOARD_REPORT_NO, BOARD_TITLE, CATE_NM, B_REPORT_REASON, MEM_NICKNAME, 
 			BOARD_REPORT_DT, FROM V_REPORT -->
 		<!-- JOIN B_REPORT_CATE ON (BOARD_REPORT_CT = CATE_CD) JOIN BOARD ON (MEM_NO 

@@ -112,7 +112,7 @@ h6 {
 						<thead>
 							<tr>
 
-								<th><input type="checkbox" id="reportBox" value="reportBox" name="reportBox"> <br></th>
+								
 								<th>종류</th>
 								<th>제목</th>
 								<th>신고이유</th>
@@ -189,25 +189,24 @@ h6 {
 					</table>
 
 
-
 					<!-- 화살표에 들어갈 주소를 변수로 생성 -->
-					<!--  <%-- 검색을 안했을 때 : /board/list.do?cp=1 검색을 했을 때 : /search.do?cp=1&sk=title&sv=49 --%>
+					<%-- 검색을 안했을 때 : /board/list.do?cp=1 검색을 했을 때 : /search.do?cp=1&sk=title&sv=49 --%>
                         <c:set var="firstPage" value="${pageUrl}?cp=1" />
-                        <c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}" />
+                        <c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}" />
 
                         <%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다. ex) 5/2=2.5 --%>
                             <%-- <fmt:parseNumber> : 숫자 형태를 지정하여 변수 선언
                                 integerOnly="true" : 정수로만 숫자 표현 (소수점 버림)
                                 --%>
 
-                                <fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1)/10}" integerOnly="true" />
-                                <fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
-                                <c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}" /> -->
+	         <fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1)/10}" integerOnly="true" />
+	         <fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
+	         <c:set var="prevPage" value="${pageUrl}?cp=${prev}" /> 
 					<!-- /board/list/do?cp=10  -->
 
-					<!--    <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}" integerOnly="true" />
+					<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}" integerOnly="true" />
                                 <fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true" />
-                                <c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}" /> -->
+                                <c:set var="nextPage" value="${pageUrl}?cp=${next}" />
 
 
 
@@ -215,7 +214,7 @@ h6 {
 						<ul class="pagination pagination-sm justify-content-center">
 
 
-
+<%-- 
 							<li class="page-item">
 								<!-- 첫 페이지로 이동(<<) --> <a class="page-link" href="${firstPage}">&lt;&lt;</a>
 							</li>
@@ -238,7 +237,71 @@ h6 {
 							<li class="page-item">
 								<!-- 마지막 페이지로 이동(>>) --> <a class="page-link" href="${lastPage}">&gt;&gt;</a>
 							</li>
+ --%>
+ 							<%-- 주소 조합 작업 --%>
+            <c:url var="pageUrl" value="reportList?"/>
 
+            <!-- 화살표에 들어갈 주소를 변수로 생성 -->
+            <c:set var="firstPage" value="${pageUrl}cp=1"/>
+            <c:set var="lastPage" value="${pageUrl}cp=${pInfo.maxPage}"/>
+            
+            <%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다--%>
+            <%-- 
+               <fmt:parseNumber>   : 숫자 형태를 지정하여 변수 선언 
+               integerOnly="true"  : 정수로만 숫자 표현 (소수점 버림)
+            --%>
+            
+            <fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"  integerOnly="true" />
+            <fmt:parseNumber var="prev" value="${ c1 * 10 }"  integerOnly="true" />
+            <c:set var="prevPage" value="${pageUrl}cp=${prev}" />
+            
+            
+            <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true" />
+            <fmt:parseNumber var="next" value="${ c2 * 10 + 1 }" integerOnly="true" />
+            <c:set var="nextPage" value="${pageUrl}cp=${next}" />
+            
+
+
+            <c:if test="${pInfo.currentPage > pInfo.pageSize}">
+               <li> <!-- 첫 페이지로 이동(<<) -->
+                  <a class="page-link" href="${firstPage}">&lt;&lt;</a>
+               </li>
+               
+               <li> <!-- 이전 페이지로 이동 (<) -->
+                  <a class="page-link" href="${prevPage}">&lt;</a>
+               </li>
+            </c:if>
+
+
+
+            <!-- 페이지 목록 -->
+            <c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}" >
+               <c:choose>
+                  <c:when test="${pInfo.currentPage == page }">
+                     <li>
+                        <a class="page-link">${page}</a>
+                     </li>
+                  </c:when>
+               
+                  <c:otherwise>
+                     <li>   
+                        <a class="page-link" href="${pageUrl}cp=${page}">${page}</a>
+                     </li>
+                  </c:otherwise>
+               </c:choose>
+            </c:forEach>
+               
+      
+            <%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
+            <c:if test="${next <= pInfo.maxPage}">
+               <li> <!-- 다음 페이지로 이동 (>) -->
+                  <a class="page-link" href="${nextPage}">&gt;</a>
+               </li>
+               
+               <li> <!-- 마지막 페이지로 이동(>>) -->
+                  <a class="page-link" href="${lastPage}">&gt;&gt;</a>
+               </li>
+            </c:if>
 
 						</ul>
 					</div>
@@ -247,12 +310,12 @@ h6 {
 					<div class="col-md-3" style="height: 200px;">
 
 
-						<c:if test="${!empty loginMember }">
+					<%-- 	<c:if test="${!empty loginMember }">
 							<span class="btnBtn">
 								<button type="button" class="btn btn-warning btn-sm px-2 btnBtn3" onclick="deleteReport()">글 삭제</button>
 								<button class="btn btn-warning btn-sm px-2 btnBtn3" onclick="deleteMember()">회원정지</button>
 							</span>
-						</c:if>
+						</c:if> --%>
 
 					</div>
 
