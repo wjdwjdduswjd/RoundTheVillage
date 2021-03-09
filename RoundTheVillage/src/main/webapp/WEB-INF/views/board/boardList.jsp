@@ -270,21 +270,21 @@ hr {
 				<div class="selectCategory">
 					<div class="row1">
 						<div class="col-md-12">
-							<button type="button" class="btn categoryBtn">미술</button>
-							<button type="button" class="btn categoryBtn">사진/영상</button>
-							<button type="button" class="btn categoryBtn">요리/음료</button>
-							<button type="button" class="btn categoryBtn">뷰티</button>
-							<button type="button" class="btn categoryBtn">음악</button>
+							<button type="button" class="btn categoryBtn" name="category">미술</button>
+							<button type="button" class="btn categoryBtn" name="category">사진/영상</button>
+							<button type="button" class="btn categoryBtn" name="category">요리/음료</button>
+							<button type="button" class="btn categoryBtn" name="category">뷰티</button>
+							<button type="button" class="btn categoryBtn" name="category">음악</button>
 						</div>
 					</div>
 
 					<div class="row2">
 						<div class="col-md-12">
-							<button type="button" class="btn categoryBtn">운동</button>
-							<button type="button" class="btn categoryBtn">공예</button>
-							<button type="button" class="btn categoryBtn">글쓰기</button>
-							<button type="button" class="btn categoryBtn">키즈</button>
-							<button type="button" class="btn categoryBtn">플라워</button>
+							<button type="button" class="btn categoryBtn" name="category">운동</button>
+							<button type="button" class="btn categoryBtn" name="category">공예</button>
+							<button type="button" class="btn categoryBtn" name="category">글쓰기</button>
+							<button type="button" class="btn categoryBtn" name="category">키즈</button>
+							<button type="button" class="btn categoryBtn" name="category">플라워</button>
 						</div>
 					</div>
 				</div>
@@ -294,7 +294,7 @@ hr {
 				<div class="row" style="height:50px">
 					<div class="col-md-9"></div>
 					<div class="col-md-3">
-						<select name="selectedBtn" class="form-control" style="width: 100px; display: inline-block;">
+						<select name="selectedBtn" class="form-control search-sort" style="width: 100px; display: inline-block;">
 							<option value="new">최신순</option>
 							<option value="view">조회순</option>
 							<option value="like">좋아요순</option>
@@ -309,9 +309,9 @@ hr {
 
 
 				<c:if test="${empty bList}">
-					<tr>
-						<td colspan="6">존재하는 게시글이 없습니다.</td>
-					</tr>
+					<div class="row" id="emptyList">
+						<div class="col-md-12">존재하는 게시글이 없습니다.</div>
+					</div>
 				</c:if>
 
 				<br>
@@ -340,8 +340,8 @@ hr {
 							</div>
 
 						</c:forEach>
+					</div>
 				</c:if>
-			</div>
 
 
 			<div class="row">
@@ -496,7 +496,21 @@ hr {
 		$(".categoryBtn").on("click", function() {
 
 		});
-
+		
+		
+		$(".search-sort").change(function(){
+			var sort = $(this).val();
+			$.ajax({
+		    url: "${contextPath}/board/sort",
+		    data: {"region": region, "category": category},
+		    success: function(map) {
+		  	  selectList(map);
+		    },
+		    error: function() {
+		        console.log("조회 실패");
+		    }
+			})
+		})
 		
 	</script>
 

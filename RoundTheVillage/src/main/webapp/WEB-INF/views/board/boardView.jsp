@@ -132,7 +132,7 @@ body {
 			<!-- <div class="col-md-2">
       </div> -->
 			<div class="col-md-12">
-				<a class="classBtn">해당 공방 수업 바로가기 >></a> <br>
+				<a class="classBtn" href="${contextPath}/lesson/view/${board.classNo}">해당 공방 수업 바로가기 >></a> <br>
 				<hr>
 
 				<div class="content-header">
@@ -182,16 +182,18 @@ body {
 				<span id="likeCount">${board.likeCount}</span> <span class="readCountArea"><b>조회수 ${board.readCount}</b></span>
 				<hr>
 				<div class="row">
+				<c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
 					<div class="col-md-8">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신고</button>
 					</div>
-					<div class="col-md-4 text-right px-0 btnArea">
+					</c:if>
+					<div class="col-md-12 text-right px-0 btnArea">
 						<span class="btnBtn"> <c:url var="updateUrl" value="${board.boardNo}/update" /> <c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
 								<a href="${updateUrl}" type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 ">수정</a>
 								<button type="button" class="btnBtn1 btn btn-secondary btn-sm px-2 " onclick="deleteBoard()">삭제</button>
 							</c:if> <%-- <c:if test="${empty sessionScope.returnListURL}"> --%>
 								<c:set var="returnListURL" value="../list" scope="session" />
-							<%-- </c:if> --%> <a class="btnBtn1 btn btn-primary btn-sm px-2" href="${sessionScope.returnListURL}">목록</a> <!-- 	<button type="button" class="btnBtn1 btn btn-primary btn-sm px-2">목록</button> -->
+							<%-- </c:if> --%> <a class="btnBtn1 btn btn-primary btn-sm px-2" href="${contextPath}/board/list">목록</a> <!-- 	<button type="button" class="btnBtn1 btn btn-primary btn-sm px-2">목록</button> -->
 						</span>
 					</div>
 				</div>
