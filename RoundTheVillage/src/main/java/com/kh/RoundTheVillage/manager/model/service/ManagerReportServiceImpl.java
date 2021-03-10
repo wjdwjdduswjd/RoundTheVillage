@@ -49,6 +49,7 @@ public class ManagerReportServiceImpl implements ManagerReportService{
 		return dao.updateStatus(map);
 	}
 
+
 	
 	
 }
