@@ -25,7 +25,7 @@
 			<![CDATA[
 				SELECT TO_DATE(UNABLE) FROM (
 					SELECT COUNT(*) CNT, #{item} UNABLE FROM BANNER
-					WHERE START_DT <= #{item} AND END_DT >= #{item})
+					WHERE START_DT <= #{item} AND END_DT >= #{item} AND APRVL_FL = 'Y' AND BANNER_FL = 'N')
 				WHERE CNT >= 10
 			]]>
 	</select>
