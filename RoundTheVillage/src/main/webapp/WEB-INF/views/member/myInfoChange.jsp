@@ -38,7 +38,7 @@
 
 				--><div class="grade">
 				<!-- 등급 계산 필요   누적 금액으로 계산하기!!!  -->
-				<div class="my-grade">LV.<strong>${loginMember.memberGrade}</strong></div>
+				<div class="my-grade"><strong>LV.${loginMember.memberGrade}</strong></div>
 			</div>
 
 
