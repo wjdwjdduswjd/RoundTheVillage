@@ -96,7 +96,7 @@
     </div>
 
     <div class="nav">
-      <a id="menu" href="#">공방찾기</a>
+      <a id="menu" href="${contextPath}/shop/shopMap">공방찾기</a>
       <a id="menu" href="${contextPath}/lesson">수업찾기</a>
       <a id="menu" href="${contextPath}/board/list">후기게시판</a>
 

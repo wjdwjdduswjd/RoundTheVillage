@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
@@ -26,6 +27,7 @@ import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.service.ShopService;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 import com.kh.RoundTheVillage.shop.model.vo.ShopAttachment;
+
 
 @Controller
 @SessionAttributes("loginMember")
@@ -286,4 +288,20 @@ public class ShopController {
 		map.put("memberNo", loginMember.getMemberNo());
 		return service.selectLikeFl(map);
 	}
+	
+	@RequestMapping("shopMap")
+	public String a() {
+		return "shop/shopMap";
+	}
+	
+	
+	  @RequestMapping("selectShopList")
+	   public List<Shop> selectReplyList() {
+	      
+	      List<Shop> sList = service.selectShopList();
+	      
+	      
+	      
+	      return sList;
+	   }
 }

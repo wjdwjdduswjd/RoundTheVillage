@@ -35,11 +35,16 @@
 .btnArea {
 	display: inline-block;
 	margin-left: 20px;
+	font-weight: 1000;
+
 }
 
 .btnArea:hover {
-	border-bottom: black;
-	color: red;
+	border-bottom: 5px solid black;
+}
+
+.btnArea > a:hover{
+color : orange;
 }
 
 #map {
@@ -69,7 +74,7 @@
 
 .boardImg {
 	width: 400px;
-	height: 280px;
+	height: 350px;
 }
 
 .boardImg>img {
@@ -92,10 +97,15 @@
 }
 
 .like {
-	width: 20px;
-	height: 20px;
+	width: 40px;
+	height: 40px;
 }
 
+#updateBtn{
+
+	border-bottom: 10px;
+
+}
 </style>
 </head>
 <body>
@@ -107,200 +117,209 @@
 	<div class="container" style="margin-top: 50px">
 
 
+
+		<div class="top" style="width: 90%;">
+
+			<div class="top" id="shopname" style="width: auto">
+				<p>
+				<h1 style="font-weight: bold;">${shop.shopName}</h1>
+				</p>
+			</div>
+			<div class="top" id="category" style="width: auto; font-size: 15px;">
+
+				<p>${shop.shopCategoryName}</p>
+			</div>
+		</div>
+
+
+
+			<!-- 좋아요  -->
+		<div class="top">
+			<c:choose>
+				<c:when test="${empty likeFl}">
+					<img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">
+				</c:when>
+
+				<c:otherwise>
+					<img src="${contextPath}/resources/images/boardListImages/fill-heart.png" class="like">
+				</c:otherwise>
+			</c:choose>
+			<span id="likeCount">${shop.likeCount}</span>
+
+		</div>
+
+		<div style="font-size: 10px;">
+
+
+			<div class="top" style="width: auto;">
+				<p>별점</p>
+
+			</div>
+			<div class="top" style="width: auto;">
+				<p>${shop.avgRating}</p>
+			</div>
+			|
+			<div class="top" style="width: auto;">
+				<p>별점 참여자수 : ${shop.participantsCount }</p>
+			</div>
+
+
+		</div>
+
+		<!-- 썸네일 -->
+		<div>
 		
-			<div class="top" style="width: 90%;">
-
-				<div class="top" id="shopname" style="width: auto">
-					<p>
-					<h1 style="font-weight: bold;">${shop.shopName}</h1>
-					</p>
-				</div>
-				<div class="top" id="category" style="width: auto; font-size: 15px;">
-
-					<p>${shop.shopCategoryName}</p>
-				</div>
+		<div class="top">
+			<div class="boardImg top" id="titleImgArea">
+				<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
 			</div>
-
-
+		</div>
 			<div class="top">
-				<c:choose>
-					<c:when test="${empty likeFl}">
-						<img src="${contextPath}/resources/images/boardListImages/heart.png" class="like">
-					</c:when>
+		<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
+			<a class="btn btn-success float-right" id = "updateBtn" href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
+		</c:if>
+			</div>
+</div>
 
-					<c:otherwise>
-						<img src="${contextPath}/resources/images/boardListImages/fill-heart.png" class="like">
-					</c:otherwise>
-				</c:choose>
-				<span id="likeCount">${shop.likeCount}</span>
+
+
+		<div id="tab-btn">
+			<div class="btnArea" style="width: 30%;">
+
+				<a id="infobtn" class="btns" href="#infoArea">정보</a> 
+			</div>
+
+			<div class="btnArea" style="width: 30%;">
+				<a id="classbtn" class="btns" href="#classArea">수업</a>
 
 			</div>
 
-			<div style="font-size: 10px;">
-
-
-				<div class="top" style="width: auto;">
-					<p>별점</p>
-
-				</div>
-				<div class="top" style="width: auto;">
-					<p>${shop.avgRating}</p>
-				</div>
-				|
-				<div class="top" style="width: auto;">
-					<p>별점 참여자수 : ${shop.participantsCount }</p>
-				</div>
-
+			<div class="btnArea" style="width: 30%;">
+				<a id="reviewbtn" class="btns" href="#reviewArea">리뷰</a>
 
 			</div>
 
-			<!-- 썸네일 -->
-			<div class="top">
-				<label>썸네일</label>
-				<div class="boardImg" id="titleImgArea">
-					<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
-				</div>
-			</div>
+		</div>
 
-			<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
-				<a class="btn btn-success float-right" href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
-			</c:if>
+		<div id="shopcontent">
 
-
-
-			<div id="tab-btn">
-				<div class="btnArea" style="width: 30%;">
-
-					<a id="infobtn" class="btns" href="#infoArea">정보</a>
+			<div id="infoArea">
+				<div style="font-weight: bold;">
+					<h1>공방 정보</h1>
 				</div>
 
-				<div class="btnArea" style="width: 30%;">
-					<a id="classbtn" class="btns" href="#classArea">수업</a>
+				<br>
 
-				</div>
-
-				<div class="btnArea" style="width: 30%;">
-					<a id="reviewbtn" class="btns" href="#reviewArea">리뷰</a>
-
-				</div>
-
-			</div>
-
-			<div id="shopcontent">
-
-				<div id="infoArea">
-					<div style="font-weight: bold;">
-						<h1>공방 정보</h1>
-					</div>
-
-					<br>
-
-					<div style="font-size: 12px">
+				<div style="font-size: 12px">
 
 
-						<div class="row mb-3 form-row">
+					<div class="row mb-3 form-row">
 
-							<div class="col-md-3" id="infotitle">
-								<label for="infoshop">공방소개</label>
-							</div>
-							<div class="col-md-7" style="height: auto;">
-								<%
+						<div class="col-md-3" id="infotitle">
+							<label for="infoshop">공방소개</label>
+						</div>
+						<div class="col-md-7" style="height: auto;">
+							<%
 								pageContext.setAttribute("newLine", "\n");
 								%>
 
-								${fn:replace(shop.shopInfo , newLine, "<br>" ) }
-							</div>
-
+							${fn:replace(shop.shopInfo , newLine, "<br>" ) }
 						</div>
 
-						<div class="row mb-3 form-row">
+					</div>
 
-							<div class="col-md-3" id="infotitle">
-								<label for="contact">연락처</label>
-							</div>
-							<div class="col-md-7">${shop.shopContact}</div>
+					<div class="row mb-3 form-row">
+
+						<div class="col-md-3" id="infotitle">
+							<label for="contact">연락처</label>
+						</div>
+						<div class="col-md-7">${shop.shopContact}</div>
+					</div>
+
+
+					<div class="row mb-3 form-row">
+
+						<div class="col-md-3" id="infotitle">
+							<label for="address">위치</label>
 						</div>
 
-
-						<div class="row mb-3 form-row">
-
-							<div class="col-md-3" id="infotitle">
-								<label for="address">위치</label>
-							</div>
-
-							<div class="col-md-7">${shop.shopAdress}</div>
+						<div class="col-md-7">${shop.shopAdress}</div>
 
 
-
+						<div>
 							<div id="map" style="width: 400px; height: 400px;"></div>
 
 						</div>
-
 					</div>
 
 				</div>
 
-				<hr>
-
-				<div id="classArea">
-
-					<div style="font-weight: bold;">
-						<h1>수업 목록</h1>
-						<%-- ${lesList}
-					${thList } --%>
-					</div>
-				
-
-					<div class="row">
-						<c:forEach var="lesson" items="${lesList}">
-
-							<c:forEach items="${thList}" var="th">
-								<c:if test="${th.lesNo == lesson.lesNo}">
-									<div class="col-md-3 lesson" id="${lesson.lesNo }">
-										<img src="${contextPath}${th.filePath}/${th.fileName}"> 
-										<p>${lesson.lesTitle }</p>
-										<form action="${contextPath}/lesson/updateForm" method="post"> <input type="hidden" name="lesNo" value="${lesson.lesNo}"><button>수정/삭제</button></form>
-									</div>
-								</c:if>
-							</c:forEach>
-
-						</c:forEach>
-
-						<!-- </div> -->
-					</div>
-
-				</div>
-
-
-
-				<hr>
-
-				<div id="reviewArea">
-
-					<div style="font-weight: bold;">
-						<h1>후기</h1>
-					</div>
-
-					<div id="review" style="width: 80%; height: auto;">
-						<c:forEach items="${reviewList}" var="rl">
-							<div>
-								<div class="top" style="width: 70%;">
-									<div class="top" style="width: auto">
-										<h5>${rl.reviewWriter}</h5>
-									</div>
-									<div class="top" style="width: auto">별점</div>
-								</div>
-								<div class="top">
-									<div>${rl.revCreateDt}</div>
-								</div>
-							</div>
-							<div>${rl.revContent}</div>
-						</c:forEach>
-					</div>
-
-</div>
-				</div>
 			</div>
+
+			<hr>
+
+			<div id="classArea">
+
+				<div style="font-weight: bold;">
+					<h1>수업 목록</h1>
+					<%-- ${lesList}
+					${thList } --%>
+				</div>
+
+
+				<div class="row">
+					<c:forEach var="lesson" items="${lesList}">
+
+						<c:forEach items="${thList}" var="th">
+							<c:if test="${th.lesNo == lesson.lesNo}">
+								<div class="col-md-3 lesson" id="${lesson.lesNo }">
+									<img src="${contextPath}${th.filePath}/${th.fileName}">
+									<p>${lesson.lesTitle }</p>
+									<form action="${contextPath}/lesson/updateForm" method="post">
+										<input type="hidden" name="lesNo" value="${lesson.lesNo}">
+										<button>수정/삭제</button>
+									</form>
+								</div>
+							</c:if>
+						</c:forEach>
+
+					</c:forEach>
+
+					<!-- </div> -->
+				</div>
+
+			</div>
+
+
+
+			<hr>
+
+			<div id="reviewArea">
+
+				<div style="font-weight: bold;">
+					<h1>후기</h1>
+				</div>
+
+				<div id="review" style="width: 80%; height: auto;">
+					<c:forEach items="${reviewList}" var="rl">
+						<div>
+							<div class="top" style="width: 70%;">
+								<div class="top" style="width: auto">
+									<h5>${rl.reviewWriter}</h5>
+								</div>
+								<div class="top" style="width: auto">별점</div>
+							</div>
+							<div class="top">
+								<div>${rl.revCreateDt}</div>
+							</div>
+						</div>
+						<div>${rl.revContent}</div>
+					</c:forEach>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </body>
 
 <jsp:include page="../common/footer.jsp" />
