@@ -176,6 +176,13 @@ public class ShopDAO {
 	public int deleteAttachmentList(List<Integer> deleteFileNoList) {
 		return sqlSession.delete("shopMapper.deleteAttachmentList", deleteFileNoList);
 	}
+
+	/** 공방 목록 가져오기
+	 * @return
+	 */
+	public List<Shop> selectShopList() {
+		return sqlSession.selectList("shopMapper.selectListShop");
+	}
 	
 
 

@@ -518,4 +518,11 @@ public class ShopServiceImpl implements ShopService {
 		return result;
 	}
 
+	
+	// 공방 목록 가져오기
+	@Override
+	public List<Shop> selectShopList() {
+		return dao.selectShopList();
+	}
+
 }

@@ -219,6 +219,13 @@
 	</update>
 	
 	
+	<!-- 공방 목록 가져오기  -->
+	<select id="selectListShop" resultMap="shop_rm">
+	SELECT CRAFTSHOP_NAME, CRAFTSHOP_ADDR, CS_CATE_NM
+	FROM CRAFTSHOP
+	WHERE SHOP_REGI_FL = 'Y'
+	</select>
+	
 	
 	
 	
