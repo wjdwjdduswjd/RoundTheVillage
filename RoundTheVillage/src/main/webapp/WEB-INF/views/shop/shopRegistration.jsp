@@ -106,7 +106,7 @@
    </script>
 	<div class="container">
 
-		<div class="py-5 ml-5">
+		<div class="py-5">
 			<h2>공방 등록</h2>
 		</div>
 
@@ -114,7 +114,7 @@
 
 			<br>
 
-			<div class="col-md-7 offset-md-1">
+			<div class="col-md-7 offset-md-3">
 
 				<form method="POST" action="RegistrationAction" class="needs-validation" name="registrationFrom" onsubmit="return validate();" enctype="multipart/form-data">
 
