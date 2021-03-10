@@ -109,7 +109,7 @@
 				
 				<%-- 일반 / 공방 회원 --%>
 				<c:when test="${!empty loginMember && (loginMember.memberType == 'G') || (loginMember.memberType == 'C') }">
-					<a class="dropdown-toggl" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+					<a class="dropdown-toggle" id="menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
 				</c:when>
 				
 				<%-- 관리자 --%>
