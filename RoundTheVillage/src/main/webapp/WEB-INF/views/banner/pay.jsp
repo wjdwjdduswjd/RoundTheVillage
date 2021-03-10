@@ -162,6 +162,16 @@
             cnt++;
         }
         
+        if("${empty dList}") {
+	        $("#calendar td").each(function(index, item){
+				   if("${dList}".indexOf(("00"+$(item).text()).slice(-2)) != -1) {
+					   $(item).css("opacity", "0.3");
+	 			   $(item).css("cursor", "default");
+	 			   $(item).prop("disabled", true);
+				   }
+			   })
+			   
+       } else {
         var disabled;
         
     		jQuery.ajax({
@@ -184,6 +194,7 @@
     			   })
     			 }
     		});
+		   }
         
         for (var i = 1; i <= lastDate.getDate(); i++) { // 달력 출력
 

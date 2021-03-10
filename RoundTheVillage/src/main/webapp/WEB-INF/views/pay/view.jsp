@@ -22,18 +22,22 @@
             </div>
             <div class="d-flex justify-content-left py-4 bb">
                 <img src="${contextPath}/resources/images/lesson/${pay.fileName}" class="rounded img-responsive w-25">
-                <div class="p-3 col-md-9">
-                    <h4 class="mt-4">${pay.lesTitle}</h4>
+                <div class="p-3 ml-4 col-md-9">
+                    <h3 class="mt-2">${pay.lesTitle}</h3>
                     <span>${pay.craftshopName}</span> |
                     <span>${pay.lesCategory}</span>
                     
-                    <div class="row pt-4 d-block">
+                    <div class="row pt-3 d-block">
 	                    <span class="font-weight-bold col-md-6">예약 날짜</span>
 	                    <span class="font-weight-bold col-md-6">${pay.resDate}</span>
                     </div>
                     
-                    <div class="text-right mt-3">
+                    <div class="row pt-3 d-block">
+	                    <span class="font-weight-bold col-md-6">참가 인원</span>
+	                    <span class="font-weight-bold col-md-6">${pay.prtcpAmt}</span>
+                    </div>
                     
+                    <div class="text-right mt-2">
 	                    <fmt:parseDate  var="resDate" value="${fn:substring(pay.resDate,0,10)}" pattern="yyyy-MM-dd"/>
 											<fmt:formatDate var="now" value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/> 
 											<c:choose>
@@ -41,7 +45,7 @@
 														<button class="btn btn-around" disabled>취소됨</button>
 												</c:when>
 												<c:when test="${resDate > now && pay.payFl == 'N'.charAt(0)}">
-										        <button class="btn btn-around" onclick="cancelPay()">예약 취소</button>
+										        <button class="btn btn-around" onclick="location.href='../cancelPay/${pay.payNo}'">예약 취소</button>
 												</c:when>
 											</c:choose>
 								    </div>

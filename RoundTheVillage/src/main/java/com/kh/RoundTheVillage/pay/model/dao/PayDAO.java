@@ -1,7 +1,6 @@
 package com.kh.RoundTheVillage.pay.model.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,7 +11,6 @@ import com.kh.RoundTheVillage.pay.model.vo.Coupon;
 import com.kh.RoundTheVillage.pay.model.vo.Pay;
 import com.kh.RoundTheVillage.pay.model.vo.PayLes;
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
-import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 
 @Repository
 public class PayDAO {

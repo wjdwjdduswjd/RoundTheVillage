@@ -2,7 +2,6 @@ package com.kh.RoundTheVillage.banner.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.banner.model.service.BannerService;
@@ -35,9 +36,19 @@ public class BannerController {
 	@Autowired
 	private BannerService service;
 	
+	private String swalIcon = null;
+	private String swalTitle = null;
+	private String swalText = null;
+	
 	// 배너 등록
 	@RequestMapping("pay")
-	public String pay() {
+	public String pay(Model model) {
+		
+		Calendar cal = Calendar.getInstance();
+		
+		Set<String> dList = service.selectDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE));
+		model.addAttribute("dList", dList);
+		
 		return "banner/pay";
 	}
 	
@@ -45,7 +56,7 @@ public class BannerController {
 	@ResponseBody
 	public String insertImage(HttpServletRequest request, @RequestParam("uploadFile") MultipartFile uploadFile) {
 		
-		String savePath = request.getSession().getServletContext().getRealPath("resources/images/bannerImages"); // 서버에 파일 저장할 폴더 경로
+		String savePath = request.getSession().getServletContext().getRealPath("resources/bannerImages"); // 서버에 파일 저장할 폴더 경로
 		String fileName = service.insertImage(uploadFile, savePath);
 		
 		return new Gson().toJson(fileName);
@@ -99,19 +110,42 @@ public class BannerController {
 	}
 	
 	@RequestMapping("payView/{banNo}")
-	public String payView(@PathVariable("banNo") int banNo, Model model) {
+	public String payView(@PathVariable("banNo") int banNo, Model model,
+			@RequestHeader(value = "referer", required = false) String referer, RedirectAttributes ra) {
 		
 		Banner banner = service.selectBanner(banNo);
 		model.addAttribute("banner", banner);
 		
-		return "banner/payView";
+		String url = null;
+		
+		if(banner != null)
+			url = "banner/payView";
+		else {
+			if(referer == null) // 이전 요청 주소가 없는 경우
+				url = "redirect:../list";
+			else
+				url = "redirect:" + referer;
+			
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 내역입니다.");
+		}
+		
+		return url;
 	}
 	
 	// 배너 결제 취소
 	@RequestMapping("cancelBanner/{banNo}")
-	public String cancelBanner(@PathVariable("banNo") int banNo, Model model) {
+	public String cancelBanner(@PathVariable("banNo") int banNo, RedirectAttributes ra) {
 		
 		int result = service.cancelBanner(banNo);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("swalIcon", "success");
+			ra.addFlashAttribute("swalTitle", "취소되었습니다.");
+		} else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "취소 실패하였습니다.");
+		}
 		
 		return "redirect:../payView/" + banNo;
 	}
@@ -130,18 +164,38 @@ public class BannerController {
 	}
 	
 	@RequestMapping("view/{banNo}")
-	public String view(@PathVariable("banNo") int banNo, Model model) {
+	public String view(@PathVariable("banNo") int banNo, Model model, RedirectAttributes ra) {
 		
 		Banner banner = service.selectBanner(banNo);
-		model.addAttribute("banner", banner);
 		
-		return "banner/view";
+		String url = null;
+		
+		if(banner != null) {
+			model.addAttribute("banner", banner);
+			url = "banner/view";
+		} else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "존재하지 않는 배너입니다.");
+			
+			url = "redirect:../list";
+		}
+		
+		return url;
 	}
 	
 	@RequestMapping("reg/{banNo}")
-	public String reg(@PathVariable("banNo") int banNo) {
+	public String reg(@PathVariable("banNo") int banNo, RedirectAttributes ra) {
 		
 		int result = service.updateBanFl(banNo);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("swalIcon", "success");
+			ra.addFlashAttribute("swalTitle", "승인되었습니다.");
+		} else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "승인 실패하였습니다.");
+		}
+		
 		return "redirect:../view/" + banNo;
 	}
 }

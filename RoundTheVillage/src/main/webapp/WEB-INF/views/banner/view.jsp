@@ -21,7 +21,7 @@
         <div class="offset-md-1 col-md-10 p-1 mb-3">${banner.startDate} ~ ${banner.endDate}</div>
 
         <strong class="offset-md-1 col-md-10 p-1 mb-2">배너 이미지</strong>
-        <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="offset-md-1 col-md-10 rounded mb-5">
+        <img src="${contextPath}/resources/bannerImages/${banner.img}" class="offset-md-1 col-md-10 rounded mb-5">
     </div>
 
     <div class="text-right">

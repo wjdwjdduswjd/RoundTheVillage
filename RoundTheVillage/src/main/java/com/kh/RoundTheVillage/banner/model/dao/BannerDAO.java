@@ -1,6 +1,5 @@
 package com.kh.RoundTheVillage.banner.model.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;

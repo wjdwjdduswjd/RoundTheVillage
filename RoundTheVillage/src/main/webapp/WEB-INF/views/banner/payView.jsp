@@ -46,7 +46,7 @@
 
                 <strong class="col-md-12 p-1 mb-2">배너 이미지</strong>
                 <div class="bb">
-	                <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="col-md-12 mb-5">
+	                <img src="${contextPath}/resources/bannerImages/${banner.img}" class="col-md-12 mb-5">
                 </div>
             </div>
         </div>

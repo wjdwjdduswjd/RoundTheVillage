@@ -1,12 +1,9 @@
 package com.kh.RoundTheVillage.pay.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.RoundTheVillage.pay.model.service.PayService;
@@ -26,11 +22,7 @@ import com.kh.RoundTheVillage.pay.model.vo.Coupon;
 import com.kh.RoundTheVillage.pay.model.vo.Pay;
 import com.kh.RoundTheVillage.pay.model.vo.PayLes;
 
-import oracle.net.aso.i;
-
 import com.kh.RoundTheVillage.board.model.vo.PageInfo;
-import com.kh.RoundTheVillage.lesson.model.service.LessonServiceImpl;
-import com.kh.RoundTheVillage.lesson.model.vo.Lesson;
 import com.kh.RoundTheVillage.member.model.vo.Member;
 
 @Controller
@@ -51,7 +43,7 @@ public class PayController {
 			@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
 		String tmp = lesTime.replace(".", "-");
-		tmp = lesTime.substring(0, 10) + " " + lesTime.substring(11);
+		tmp = tmp.substring(0, 10) + " " + tmp.substring(11);
 		String[] tmpArr = tmp.split(",");
 		tmp = tmpArr[0] + " ~ " + tmpArr[1];
 		
@@ -73,7 +65,7 @@ public class PayController {
 	@ResponseBody
 	@RequestMapping("payAction")
 	public int payAction(@ModelAttribute Pay pay, @ModelAttribute("loginMember") Member loginMember) throws ParseException {
-		System.out.println(pay);
+		
 		pay.setMemNo(loginMember.getMemberNo());
 		
 		int result = service.insertPay(pay);
@@ -134,9 +126,18 @@ public class PayController {
 	}
 	
 	@RequestMapping("cancelPay/{payNo}")
-	public String cancelPay(@PathVariable("payNo") int payNo) {
+	public String cancelPay(@PathVariable("payNo") int payNo, RedirectAttributes ra) {
 		
 		int result = service.cancelPay(payNo);
-		return "redirect:../view" + payNo;
+		
+		if(result > 0) {
+			ra.addFlashAttribute("swalIcon", "success");
+			ra.addFlashAttribute("swalTitle", "취소되었습니다.");
+		} else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "취소 실패하였습니다.");
+		}
+		
+		return "redirect:../view/" + payNo;
 	}
 }
