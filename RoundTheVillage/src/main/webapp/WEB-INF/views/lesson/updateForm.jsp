@@ -293,8 +293,7 @@ function validate() {
 	} else if($("#summernote").val().trim() == "") {
 		window.alert("수업 내용을 입력해주세요");
 		return false;
-	}
-	
+	} 
 }
 
 function validate2() {

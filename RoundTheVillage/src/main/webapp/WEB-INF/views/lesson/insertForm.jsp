@@ -307,7 +307,7 @@ function validate() {
 	} else if($("#mainimage-file").val.trim() == "") {
 		window.alert("수업 내용을 입력해주세요");
 		return false;
-	}
+	} 
 	
 }
 
