@@ -161,8 +161,6 @@ public class LessonController {
 		if(!mainimageFile.getOriginalFilename().equals("")) {
 			int result3 = service.updateImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
 		}
-		System.out.println(result1);
-		System.out.println(result2);
 		if(result1 * result2 >= 0) {
 			ra.addFlashAttribute("alert", "수정 성공했습니다");
 		}
