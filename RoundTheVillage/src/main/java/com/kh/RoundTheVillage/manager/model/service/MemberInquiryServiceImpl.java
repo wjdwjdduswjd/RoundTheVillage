@@ -88,4 +88,14 @@ public class MemberInquiryServiceImpl implements MemberInquiryService {
 		return dao.selectSearchCraft(pInfo, search);
 	}
 
+	@Override
+	public int updateMemberStatus(Map<String, Object> map) {
+		return dao.updateMemberStatus(map);
+	}
+
+	@Override
+	public int updateCraftStatus(Map<String, Object> map) {
+		return dao.updateCraftStatus(map);
+	}
+
 }

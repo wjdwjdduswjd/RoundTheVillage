@@ -101,5 +101,32 @@ public class MemberInquiryController {
 
 			return "manager/craftList";
 		}
+		
+		// 회원 상태 변경 Controller
+		@ResponseBody
+		@RequestMapping("updateMemberStatus")
+		public int updateMemberStatus(int no, String status) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("no", no);
+			map.put("status", status);
+			
+			return service.updateMemberStatus(map);
+		}
+		
+		// 공방 상태 변경 Controller
+		@ResponseBody
+		@RequestMapping("updateCraftStatus")
+		public int updateCraftStatus(int no, String status) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("no", no);
+			map.put("status", status);
+			
+			return service.updateCraftStatus(map);
+		}
+		
+
+		
+		
+		
 
 }

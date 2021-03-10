@@ -129,6 +129,7 @@
 						<th>공방명</th>
 						<th>전화번호</th>
 						<th>카테고리</th>
+						<th>정지</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -147,6 +148,16 @@
 								<td>${craft.shopName}</td>
 								<td>${craft.shopContact}</td>
 								<td>${craft.shopCategoryName}</td>
+								
+								<td><c:choose>
+									<c:when test="${craft.memberSecessionFl == 'Y'}">
+										<button type="button" class="btn btn-sm btn-success" onclick="updateCraftStatus(this, ${craft.shopNo},'N');">복구</button>
+									</c:when>
+									<c:otherwise>
+										<button type="button" class="btn btn-sm btn-danger" onclick="updateCraftStatus(this, ${craft.shopNo},'Y');">정지</button>
+									</c:otherwise>
+								</c:choose>
+								</td>
 							</tr>
 							
 						</c:forEach>
@@ -270,6 +281,67 @@
 			
 			location.href = normalViewURL;
 		}); --%>
+
+		
+		function updateCraftStatus(btn, no, status){
+       		var msg;
+       		
+       		if(status == 'Y') msg = "복구";
+       		else							msg = "정지";
+       		
+       		if(confirm(msg + " 하시 겠습니까?")){
+       			
+       			$.ajax({
+       				url : "${contextPath}/manager/updateCraftStatus",
+       				data : {"no" : no, "status" : status},
+       				success : function(result){
+       					var reverseStatus;
+       					if(status == 'Y') reverseStatus = 'N';
+       					else						reverseStatus = 'Y';
+       					
+       					
+       					console.log(result)
+       					if(result > 0){
+       						
+       						if($(btn).hasClass("btn-danger")){
+										
+										$(btn).removeClass("btn-danger");
+										$(btn).addClass("btn-success");
+										$(btn).text("복구");
+										
+										
+									}else{
+										$(btn).removeClass("btn-success");
+										$(btn).addClass("btn-danger");
+										$(btn).text("삭제");
+									}
+									
+									$(btn).removeAttr("onclick");
+									
+									$(btn).attr("onclick", "updateCraftStatus(this, " + no + ", '"+reverseStatus+ "')");
+									
+       					}
+       					
+       					
+       				}, error : function(){
+       					console.log("상태 변경 실패");
+       				}
+       				
+       				
+       				
+       				
+       			})
+       			
+       		}
+       			
+       		
+       		
+       		
+       	}    
+		
+		
+		
+		
 		
 
 		

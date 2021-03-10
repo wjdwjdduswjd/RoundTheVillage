@@ -31,6 +31,7 @@
 		<result property="avgRating" column="AVG_RATING" />
 		<result property="participantsCount" column="PRT_COUNT" />
 		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="memberSecessionFl" column="MEM_SCSN_FL" />
 	</resultMap>
 	
 	
@@ -52,16 +53,15 @@
 	
 	<!-- 일반 회원 목록 조회 -->
 	<select id="selectNormalList" parameterType="_int" resultMap="member_rm">
-		SELECT MEM_NO, MEM_ID, MEM_NICKNAME, MEM_EMAIL, MEM_GRADE
+		SELECT MEM_NO, MEM_ID, MEM_NICKNAME, MEM_EMAIL, MEM_GRADE, MEM_SCSN_FL
 		FROM V_MYINFO
 		WHERE MEM_TYPE = 'G'
-		AND MEM_SCSN_FL = 'N'
 		ORDER BY MEM_NO
 	</select>
 	
 	<!-- 공방 회원 목록 조회 -->
 	<select id="selectCraftList" parameterType="_int" resultMap="shop_rm">
-		SELECT CRAFTSHOP_NO, NAME, CRAFTSHOP_NAME, CRAFTSHOP_CONTACT, CS_CATE_NM
+		SELECT CRAFTSHOP_NO, NAME, CRAFTSHOP_NAME, CRAFTSHOP_CONTACT, CS_CATE_NM, MEM_SCSN_FL
 		FROM CRAFTSHOP
 		JOIN V_MYINFO ON (MEM_NO = CRAFTSHOP_NO)
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
@@ -168,6 +168,26 @@
 			
 			 ORDER BY CRAFTSHOP_NO
 	</select>
+	
+	
+		<!-- 후기 게시글 또는 리뷰 상태 변경 -->
+	<update id="updateMemberStatus" parameterType="map">
+		UPDATE 
+		
+				MEMBER SET MEM_SCSN_FL = #{status}
+				WHERE MEM_NO = #{no}
+
+	</update>
+	
+		<update id="updateCraftStatus" parameterType="map">
+		UPDATE 
+		
+				MEMBER SET MEM_SCSN_FL = #{status}
+				WHERE MEM_NO = #{no}
+
+	</update>
+	
+	
 
 
 

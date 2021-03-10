@@ -115,11 +115,12 @@ h6 {
 								
 								<th>종류</th>
 								<th>제목</th>
-								<th>신고이유</th>
+								<th>신고사유</th>
 								<th>신고 상세내용</th>
 								<th>신고자</th>
 								<th>신고날짜</th>
-								<th></th>
+								<th>삭제</th>
+							
 							</tr>
 						</thead>
 
@@ -176,6 +177,8 @@ h6 {
 														<button type="button" class="btn btn-sm btn-success ${report.reportType}-${report.boardNo}" onclick="updateStatus(this, ${report.boardNo},'Y', ${report.reportType});">복구</button>
 													</c:otherwise>
 												</c:choose></td>
+												
+										
 										</tr>
 									</c:forEach>
 
