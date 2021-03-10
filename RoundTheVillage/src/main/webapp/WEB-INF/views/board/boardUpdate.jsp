@@ -18,7 +18,7 @@
 	font-family: 'NanumSquare', sans-serif !important;
 	font-weight: 500;
 	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
+	font-size: 18px;
 	color: #212529;
 }
 /*   .summerNoteArea {
@@ -238,8 +238,18 @@ hr {
 						<div class="col-md-8"></div>
 						<div class="col-md-4 text-right px-0 btnArea">
 							<span class="btnBtn">
-								<button type="button" class="btn btn-warning btn-sm px-2 btnBtn3">목록</button>
-								<button class="btn btn-warning btn-sm px-2 btnBtn3">수정</button>
+								<button type="button" class="btn btn-warning btn-sm px-2 btnBtn3" style= " background-color: #fbbc73;
+							  color: white;
+							  border: white;
+							  border-radius: 5px;
+							  height: 38px;
+							  margin-bottom: 11px;">목록</button>
+								<button class="btn btn-warning btn-sm px-2 btnBtn3" style=" background-color: #fbbc73;
+							  color: white;
+							  border: white;
+							  border-radius: 5px;
+							  height: 38px;
+							  margin-bottom: 11px;" >수정</button>
 							</span>
 						</div>
 					</div>
