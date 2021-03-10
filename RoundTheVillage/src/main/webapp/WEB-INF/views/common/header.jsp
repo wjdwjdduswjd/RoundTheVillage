@@ -128,7 +128,7 @@
           	<a class="dropdown-item" href="${contextPath}/banner/pay">배너신청</a>
           	<a class="dropdown-item" href="${contextPath}/member/myInfoChange">내정보수정</a>
          		<a class="dropdown-item" href="${contextPath}/board/myBoardList">나의활동</a>
-         		<a class="dropdown-item" href="${contextPath}/banner/payList">나의내역</a>
+         		<a class="dropdown-item" href="${contextPath}/pay/list">나의내역</a>
           </c:if>
           
           <%-- 일반 회원 --%>
