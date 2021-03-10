@@ -115,7 +115,7 @@
 		WHERE LES_NO = #{lesNo}
 	</update>
 	
-	<update id="updateFile">
+	<update id="updateImageFile">
 		UPDATE LESSON_FILE SET FILE_PATH = #{filePath}, FILE_NAME = #{fileName}
 		WHERE LES_NO = #{lesNo}
 	</update>
