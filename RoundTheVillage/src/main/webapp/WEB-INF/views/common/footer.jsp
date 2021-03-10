@@ -43,15 +43,14 @@
 .swal-button,
 .swal-button:active {
    background: #5B3929;
-   box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(91 57 41, 0.3);
 }
 .swal-button:not([disabled]):hover {
    background: #5B3929;
-   box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(91 57 41, 0.3);
 }
 
 .swal-button:focus {
-    box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(91 57 41, 0.3);
+    outline: none;
+    box-shadow: none;
 }
 </style>
 <body>
