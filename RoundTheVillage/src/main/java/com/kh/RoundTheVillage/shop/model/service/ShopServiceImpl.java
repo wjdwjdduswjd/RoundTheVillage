@@ -521,8 +521,8 @@ public class ShopServiceImpl implements ShopService {
 	
 	// 공방 목록 가져오기
 	@Override
-	public List<Shop> selectShopList() {
-		return dao.selectShopList();
+	public List<Shop> selectShopList(Map<String, String> map) {
+		return dao.selectShopList(map);
 	}
 
 }

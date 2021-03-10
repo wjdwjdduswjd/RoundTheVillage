@@ -221,10 +221,12 @@
 	
 	
 	<!-- 공방 목록 가져오기  -->
-	<select id="selectListShop" resultMap="shop_rm">
-	SELECT CRAFTSHOP_NAME, CRAFTSHOP_ADDR, CS_CATE_NM
-	FROM CRAFTSHOP
-	WHERE SHOP_REGI_FL = 'Y'
+	<select id="selectListShop" parameterType="map" resultMap="shop_rm">
+		SELECT CRAFTSHOP_NO, CRAFTSHOP_NAME, CRAFTSHOP_ADDR, CS_CATE_NM 
+		FROM CRAFTSHOP
+		JOIN CS_CATEGORY USING(CS_CATE_NO)
+		WHERE CRAFTSHOP_ADDR LIKE '%' || #{regoon1} || '%'
+		AND  CRAFTSHOP_ADDR LIKE '%' || #{region2} || '%'
 	</select>
 	
 	

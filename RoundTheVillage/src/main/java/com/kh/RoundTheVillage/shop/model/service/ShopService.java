@@ -106,9 +106,10 @@ public interface ShopService {
 	public abstract int updateShop(Shop shop, List<MultipartFile> images, String savePath);
 
 	/** 공방 목록 가져오기
+	 * @param map
 	 * @return
 	 */
-	public abstract List<Shop> selectShopList();
+	public abstract List<Shop> selectShopList(Map<String, String> map);
 
 
 
