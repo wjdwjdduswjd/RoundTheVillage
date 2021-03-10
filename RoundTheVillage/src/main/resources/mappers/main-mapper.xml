@@ -59,7 +59,7 @@
 		SELECT *
 		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
-		WHERE CRAFTSHOP_ADDR LIKE '%' || #{addr} || '%' AND WHERE SHOP_REGI_FL = 'Y'
+		WHERE CRAFTSHOP_ADDR LIKE '%' || #{addr} || '%' AND SHOP_REGI_FL = 'Y'
 	</select>
 		
 		
@@ -68,7 +68,7 @@
 		SELECT *
 		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
-		WHERE CS_CATE_NM = #{interest} AND WHERE SHOP_REGI_FL = 'Y'
+		WHERE CS_CATE_NM = #{interest} AND SHOP_REGI_FL = 'Y'
 	</select>
 	
 	
