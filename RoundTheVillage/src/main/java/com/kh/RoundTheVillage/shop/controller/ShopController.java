@@ -139,6 +139,7 @@ public class ShopController {
 		String url = null;
 
 		if (result > 0) { // 등록 성공 했을 때
+			
 			swalIcon = "success";
 			swalTitle = "공방 등록 성공";
 

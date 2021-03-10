@@ -21,14 +21,14 @@
 	display: inline-block
 }
 
-
-#reviewArea{
-margin-top: 80px;
+#reviewArea {
+	margin-top: 80px;
 }
 
-#classArea{
-margin-top: 80px;
+#classArea {
+	margin-top: 80px;
 }
+
 #tab-btn {
 	text-align: center;
 	font-size: 20px;
@@ -44,19 +44,17 @@ margin-top: 80px;
 	display: inline-block;
 	margin-left: 20px;
 	font-weight: 1000;
-
 }
 
 .btnArea:hover {
 	border-bottom: 5px solid #FBBC73;
 }
 
-#writer{
+/* #writer{
 	border-left: 5px solid #FBBC73;
-}
-
-.btnArea > a:hover{
-color : orange;
+} */
+.btnArea>a :hover {
+	color: orange;
 }
 
 #map {
@@ -67,11 +65,9 @@ color : orange;
 #infoArea {
 	margin-top: 50px;
 	margin-bottom: 20px;
-	font-size: 12px;
 }
 
 #infotitle {
-	text-align: center;
 	font-weight: bold;
 }
 
@@ -82,6 +78,7 @@ color : orange;
 
 #review {
 	padding: 30px 30px 30px 30px;
+	border-left: 5px solid #FBBC73;
 }
 
 .boardImg {
@@ -95,13 +92,13 @@ color : orange;
 }
 
 .lesson {
-	padding: 30px;
+	padding: 40px;
 	cursor: pointer;
 }
 
 .lesson>img {
-	height: 100%;
-	width: 100%;
+	width : 275px;
+	height : 400px;
 }
 
 .lesson>p {
@@ -113,51 +110,45 @@ color : orange;
 	height: 40px;
 }
 
-#likeCount{
-font-size : 16px;
-font-weight : 500;
+#likeCount {
+	font-size: 16px;
+	font-weight: 500;
 }
 
-#updateBtn{
-
+#updateBtn {
 	border-bottom: 10px;
-
 }
 
-#category{
-font-size : 20px;
-color: #FBBC73;
-font-weight : 700;
-
+#category {
+	font-size: 20px;
+	color: #FBBC73;
+	font-weight: 700;
 }
 
-.starArea >div > p {
+.starArea>div> strong {
+	font-size: 16px;
+	color: gray;
+}
 
-font-size : 16px;
-color : gray ;
+#nickName {
+	font-size: 17px;
+	font-weight: 700;
+	color: orange;
+}
+
+#reviewDate {
+	font-size: 10px;
+	font-weight: 500;
+	color: gray;
+}
+
+#reviewContent {
+	font-size: 14px;
+	margin-left: 100;
+	margin-top: 300;
 }
 
 
-#nickName{
-
-font-size : 17px;
-font-weight : 700;
-
-}
-
-#reviewDate{
-
-font-size : 10px;
-font-weight : 500;
-color : gray ;
-}
-
-#reviewContent{
-
-font-size : 12px;
-
-
-}
 
 </style>
 </head>
@@ -172,20 +163,21 @@ font-size : 12px;
 
 
 		<div class="top" style="width: 90%;">
-
 			<div class="top" id="shopname" style="width: auto">
 				<p>
-				<p style="font-weight: bold; font-size :40px">${shop.shopName}</p>
+				<p style="font-weight: bold; font-size: 40px">${shop.shopName}</p>
 				</p>
 			</div>
 			<div class="top" style="width: auto; font-size: 15px;">
-				<p  id = "category" >${shop.shopCategoryName}</p>
+				<p id="category">${shop.shopCategoryName}</p>
+
 			</div>
+
 		</div>
 
 
 
-			<!-- 좋아요  -->
+		<!-- 좋아요  -->
 		<div class="top">
 			<c:choose>
 				<c:when test="${empty likeFl}">
@@ -200,15 +192,17 @@ font-size : 12px;
 
 		</div>
 
-		<div class = "starArea">
+		<div class="starArea">
 
 
 			<div class="top" style="width: auto;">
-				<p>평점 : ${shop.avgRating}</p>
+				<strong>평점 : ${shop.avgRating}</strong>
 			</div>
-			|
+			&nbsp;&nbsp;&nbsp;
+			<strong>|</strong>
+		&nbsp;&nbsp;&nbsp;
 			<div class="top" style="width: auto;">
-				<p>별점 참여자수 : ${shop.participantsCount }</p>
+				<strong>별점 참여자수 : ${shop.participantsCount }</strong>
 			</div>
 
 
@@ -216,26 +210,36 @@ font-size : 12px;
 
 		<!-- 썸네일 -->
 		<div>
-		
-		<div class="top">
-			<div class="boardImg top" id="titleImgArea">
-				<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
+
+			<div>
+				<div class="boardImg top" id="titleImgArea">
+					<img src="${contextPath}${thumb.filePath}/${thumb.fileName}">
+				</div>
+			</div>
+			<div id="buttons">
+				<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
+				
+				<br>
+			
+				
+					<a class="btn btn-success" id="updateBtn" 
+					href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;width : 80px; height : 30px; font-size : 14px; font-weight : bold;">
+					수정
+					</a>
+					<a class="btn btn-success"  id="updateBtn" 
+					href="${contextPath}/lesson/insertForm" style="background-color: #fbbc73; border-color: #fbbc73; margin-right: 20px; width : 80px; height : 30px; font-size : 14px; font-weight : bold;">
+					수업 등록
+					</a>
+				</c:if>
 			</div>
 		</div>
-			<div class="top">
-		<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
-			<a class="btn btn-success float-right" id = "updateBtn" href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
-			<a class="btn btn-success float-right" href="${contextPath}/lesson/insertForm" style="background-color: #fbbc73; border-color: #fbbc73; margin-right: 20px;">수업 등록</a>
-		</c:if>
-			</div>
-</div>
 
 
 
 		<div id="tab-btn">
 			<div class="btnArea" style="width: 30%;">
 
-				<a id="infobtn" class="btns" href="#infoArea">정보</a> 
+				<a id="infobtn" class="btns" href="#infoArea">정보</a>
 			</div>
 
 			<div class="btnArea" style="width: 30%;">
@@ -253,21 +257,18 @@ font-size : 12px;
 		<div id="shopcontent">
 
 			<div id="infoArea">
-			<div>
-					<h1 style="font-weight: 1000;">공방 정보</h1>
+				<div>
+					<h1 style="font-weight: 1000; border-left : 7px solid red;">공방 정보</h1>
 				</div>
+				<br> <br>
 
-				<br>
-				<br>
-				
-
-				<div style="font-size: 12px">
+				<div style="font-size: 17px">
 
 
 					<div class="row mb-3 form-row">
 
-						<div class="col-md-3" id="infotitle">
-							<label for="infoshop">공방소개</label>
+						<div class="col-md-2" id="infotitle">
+							<label for="infoshop"><strong style = "color :orange; ">공방소개</strong></label>
 						</div>
 						<div class="col-md-7" style="height: auto;">
 							<%
@@ -281,8 +282,8 @@ font-size : 12px;
 
 					<div class="row mb-3 form-row">
 
-						<div class="col-md-3" id="infotitle">
-							<label for="contact">연락처</label>
+						<div class="col-md-2" id="infotitle">
+							<label for="contact"><strong style = "color :orange; ">연락처</strong></label>
 						</div>
 						<div class="col-md-7">${shop.shopContact}</div>
 					</div>
@@ -290,16 +291,14 @@ font-size : 12px;
 
 					<div class="row mb-3 form-row">
 
-						<div class="col-md-3" id="infotitle">
-							<label for="address">위치</label>
+						<div class="col-md-2" id="infotitle">
+							<label for="address"><strong style = "color :orange; ">위치</strong></label>
 						</div>
 
 						<div class="col-md-7">${shop.shopAdress}</div>
 
-
 						<div>
-							<div id="map" style="width: 400px; height: 400px;"></div>
-
+							<div id="map" style="width: 400px; height: 400px; margin-top:50px;"></div>
 						</div>
 					</div>
 
@@ -311,32 +310,37 @@ font-size : 12px;
 
 			<div id="classArea">
 
-				<div style="font-weight: bold;">
-					<h1 style="font-weight: 1000;">수업 목록</h1>
-					<%-- ${lesList}
+
+				<div>
+
+					<div style="font-weight: bold;">
+						<h1 style="font-weight: 1000;border-left : 7px solid red;">수업 목록</h1>
+						<%-- ${lesList}
 					${thList } --%>
-				</div>
+					</div>
 
 
-				<div class="row">
-					<c:forEach var="lesson" items="${lesList}">
+					<div class="row">
+						<c:forEach var="lesson" items="${lesList}">
 
-						<c:forEach items="${thList}" var="th">
-							<c:if test="${th.lesNo == lesson.lesNo}">
-								<div class="col-md-3 lesson" id="${lesson.lesNo }">
-									<img src="${contextPath}${th.filePath}/${th.fileName}">
-									<p>${lesson.lesTitle }</p>
-									<form action="${contextPath}/lesson/updateForm" method="post">
-										<input type="hidden" name="lesNo" value="${lesson.lesNo}">
-										<button>수정/삭제</button>
-									</form>
-								</div>
-							</c:if>
+							<c:forEach items="${thList}" var="th">
+								<c:if test="${th.lesNo == lesson.lesNo}">
+									<div class="col-md-3 lesson" id="${lesson.lesNo }">
+										<img src="${contextPath}${th.filePath}/${th.fileName}">
+										<p>${lesson.lesTitle }</p>
+										<form action="${contextPath}/lesson/updateForm" method="post">
+											<input type="hidden" name="lesNo" value="${lesson.lesNo}">
+											<div>
+												<button class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73; font-weight: bold">수정/삭제</button>
+											</div>
+										</form>
+									</div>
+								</c:if>
+							</c:forEach>
+
 						</c:forEach>
+					</div>
 
-					</c:forEach>
-
-					<!-- </div> -->
 				</div>
 
 			</div>
@@ -345,42 +349,52 @@ font-size : 12px;
 
 			<hr>
 
+
+
 			<div id="reviewArea">
 
 				<div style="font-weight: bold;">
-						<h1 style="font-weight: 1000;">후기</h1>
+					<h1 style="font-weight: 1000; border-left : 7px solid  red;">후기</h1>
 				</div>
 
 
 
 
-				<div  style="width: 80%; height: auto;">
+				<div id="reviews" style="width: 80%; height: auto;">
 					<c:forEach items="${reviewList}" var="rl">
-					
-					
-					<div id="review">
-							<div class="top" style="width: 70%;" >
-								<div class="top" style="width: auto" id = "writer">
-									<p id = "nickName">${rl.reviewWriter}</p>
+
+
+						<div id="review">
+							<div class="top" style="width: 70%;">
+								<div class="top" style="width: auto" id="writer">
+									<p id="nickName">${rl.reviewWriter}</p>
 								</div>
 							</div>
 							<div class="top">
-								<div id = "reviewDate">
-									<fmt:formatDate var="createDate" value="${rl.revCreateDt }" pattern="yyyy-MM-dd"/>
-									<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
+								<div id="reviewDate">
+									<fmt:formatDate var="createDate" value="${rl.revCreateDt }" pattern="yyyy-MM-dd" />
+									<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd" />
 									<c:choose>
 										<c:when test="${createDate != now}">
 											${createDate }
 										</c:when>
 										<c:otherwise>
-											<fmt:formatDate value="${rl.revCreateDt }" pattern="HH:mm"/>
+											<fmt:formatDate value="${rl.revCreateDt }" pattern="HH:mm" />
 										</c:otherwise>
 									</c:choose>
-									</div>
+								</div>
 							</div>
-						<div id = "reviewContent">${rl.revContent}</div>
+							<br>
+							<br>
+							<div id="reviewContent">
+								<p>${rl.revContent}
+								<p>
+							</div>
 						</div>
-						
+						<br>
+						<br>
+						<br>
+
 					</c:forEach>
 				</div>
 
