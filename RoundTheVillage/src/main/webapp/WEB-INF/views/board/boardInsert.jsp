@@ -18,7 +18,7 @@
    font-family: 'NanumSquare', sans-serif !important;
    font-weight: 500;
    /* 굵기 지정(100, 300, 400, 500, 700) */
-   font-size: 16px;
+   font-size: 18px;
   /*  color: #212529; */
    }
    
@@ -154,6 +154,46 @@ body {
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+		<script>
+	
+		$(document).ready(function() {
+			var parentWidth = $(".summerNoteArea").css("width").substring(0, $(".summerNoteArea").css("width").indexOf("px"))   * 0.98;
+			
+			console.log(parentWidth * 0.98)
+			$('#summernote').summernote({
+				width : parentWidth, // 에디터 넓이
+				height : 700, // 에디터 높이
+				lang : 'ko-KR', // 언어 : 한국어
+				callbacks : {
+					onImageUpload : function(files) {
+						sendFile(files[0], this);
+					}
+				}
+			});
+		});
+
+		// 섬머노트에 업로드 된 이미지를 비동기로 서버로 전송하여 저장하는 함수
+		function sendFile(file, editor) {
+			var formData = new FormData();
+			formData.append("uploadFile", file);
+			$.ajax({
+				url : "insertImage",
+				type : "post",
+				enctype : "multipart/form-data", // 파일 전송 형식으로 지정
+				data : formData,
+				contentType : false, // 서버로 전송되는 데이터 형식
+				cache : false,
+				processData : false,
+				dataType : "json",
+				success : function(at) {
+					var contextPath = location.pathname.substring(0,
+							window.location.pathname.indexOf("/", 2));
+					$(editor).summernote('editor.insertImage',
+							contextPath + at.filePath + "/" + at.fileName);
+				}
+			});
+		}
+	</script>
 	
 	 <div class="container">
     <div class="row">

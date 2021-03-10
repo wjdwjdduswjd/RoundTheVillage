@@ -21,7 +21,7 @@
 	font-family: 'NanumSquare', sans-serif !important;
 	font-weight: 500;
 	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
+	font-size: 18px;
 	color: #212529;
 }
 
@@ -133,6 +133,10 @@ body {
 
 .box select option {
 	padding: 30px;
+}
+
+.titleSize{
+	font-size: 18px;
 }
 /* ------------------------------------------------------- */
 
@@ -330,7 +334,7 @@ hr {
 								</div>
 
 								<%--   <img src="${contextPath}/resources/images/boardListImages/workshop.png" class="thumbnail"> --%>
-								<span class="badge badge-default">${board.boardTitle}</span>
+								<span class="badge badge-default titleSize">${board.boardTitle}</span>
 								<div class="likeArea">
 									<img src="${contextPath}/resources/images/boardListImages/yellowHeart.png" class="like"> ${board.likeCount }
 								</div>

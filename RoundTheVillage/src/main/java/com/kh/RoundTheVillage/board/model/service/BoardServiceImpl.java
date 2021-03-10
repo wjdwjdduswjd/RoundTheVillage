@@ -297,13 +297,14 @@ public class BoardServiceImpl implements BoardService {
 			// 서버에 파일 저장
 			if (result > 0) {
 				for (int i = 0; i < images.size(); i++) {
-
-					try {
-						images.get(uploadImages.get(i).getFileLevel())
-								.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
-					} catch (Exception e) {
-						e.printStackTrace();
-						throw new updateAttachmentFailException("파일 정보 수정 실패");
+					if(!uploadImages.isEmpty()) {
+						try {
+							images.get(uploadImages.get(i).getFileLevel())
+									.transferTo(new File(savePath + "/" + uploadImages.get(i).getFileName()));
+						} catch (Exception e) {
+							e.printStackTrace();
+							throw new updateAttachmentFailException("파일 정보 수정 실패");
+						}
 					}
 				}
 			}

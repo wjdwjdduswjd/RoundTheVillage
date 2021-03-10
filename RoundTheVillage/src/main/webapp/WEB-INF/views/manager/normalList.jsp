@@ -291,7 +291,7 @@
        		if(status == 'Y') msg = "복구";
        		else							msg = "정지";
        		
-       		if(confirm(msg + " 하시 겠습니까?")){
+       		if(confirm(msg + " 하시겠습니까?")){
        			
        			$.ajax({
        				url : "${contextPath}/manager/updateMemberStatus",

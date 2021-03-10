@@ -16,7 +16,7 @@
 	font-family: 'NanumSquare', sans-serif !important;
 	font-weight: 500;
 	/* 굵기 지정(100, 300, 400, 500, 700) */
-	font-size: 16px;
+	font-size: 18px;
 	color: #212529;
 }
 
@@ -180,7 +180,7 @@ body {
 				<span id="likeCount">${board.likeCount}</span> <span class="readCountArea"><b>조회수 ${board.readCount}</b></span>
 				<hr>
 				<div class="row">
-				<c:if test="${(loginMember != null) && (board.memberNo == loginMember.memberNo)}">
+				<c:if test="${(loginMember != null) && (board.memberNo != loginMember.memberNo)}">
 					<div class="col-md-8">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신고</button>
 					</div>
