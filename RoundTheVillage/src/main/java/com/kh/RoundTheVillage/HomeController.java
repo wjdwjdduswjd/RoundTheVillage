@@ -99,7 +99,7 @@ public class HomeController {
 		List<Shop> newList = service.newList();
 
 		if (!likeList.isEmpty()) {
-			List<ShopAttachment> newthList = service.selectThumbnailList(likeList);
+			List<ShopAttachment> newthList = service.selectThumbnailList(newList);
 			model.addAttribute("newthList", newthList);
 		}
 		model.addAttribute("newList", newList);

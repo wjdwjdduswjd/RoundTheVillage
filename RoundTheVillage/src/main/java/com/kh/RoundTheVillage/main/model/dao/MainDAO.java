@@ -34,13 +34,13 @@ public class MainDAO {
 	}
 
 
-	/** 좋아요순 인기 공방 12개 목록 조회 DAO
+	/** 좋아요순 인기 공방 8개 목록 조회 DAO
 	 * @return bList
 	 */
 	public List<Shop> likeCraftList() {
 		
 		//int offset = (pInfo.getCurrentPage()-1) * pInfo.getLimit();
-		RowBounds rowBounds = new RowBounds(0, 12);
+		RowBounds rowBounds = new RowBounds(0, 8);
 		return sqlSession.selectList("mainMapper.likeCraftList", null, rowBounds);
 	}
 
@@ -61,19 +61,19 @@ public class MainDAO {
 	 * @return
 	 */
 	public List<Shop> aroundList(String addr) {
-		RowBounds rowBounds = new RowBounds(0, 12);
+		RowBounds rowBounds = new RowBounds(0, 8);
 		return sqlSession.selectList("mainMapper.aroundList", addr, rowBounds);
 	}
 
 
 	public List<Shop> searchShopList(String interest) {
-		RowBounds rowBounds = new RowBounds(0, 12);
+		RowBounds rowBounds = new RowBounds(0, 8);
 		return sqlSession.selectList("mainMapper.searchShopList", interest, rowBounds);
 	}
 
 
 	public List<Shop> newList() {
-		RowBounds rowBounds = new RowBounds(0, 12);
+		RowBounds rowBounds = new RowBounds(0, 8);
 		return sqlSession.selectList("mainMapper.newList", null, rowBounds);
 	}
 	
