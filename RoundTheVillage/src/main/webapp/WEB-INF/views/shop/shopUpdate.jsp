@@ -24,6 +24,42 @@
 .container {
 	margin-top: 30px;
 }
+
+/* 관심분야 체크박스 버튼 관련 */
+/* 관심분야 체크박스 없애는 */
+.box-radio-input input[type="radio"] {
+	display: none;
+	width: 100%;
+}
+
+.box-radio-input input[type="radio"]+span {
+	width: 82px;
+	display: inline-block;
+	background: none;
+	border: 1px solid #dfdfdf;
+	text-align: center;
+	line-height: 50px;
+	font-weight: 400;
+	cursor: pointer;
+	background: #FCEAD6;
+	/* 모서리 */
+	border-radius: 5px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.box-radio-input input[type="radio"]:checked+span {
+	border: 1px solid #FBBC73;
+	background: #FBBC73;
+	color: rgb(0, 0, 0);
+	font-weight: 550;
+}
+
+#title > label {
+font-size : 17px;
+
+
+}
 </style>
 
 <!--summernote 사용 시  필요한 css 파일 추가  -->
@@ -36,25 +72,69 @@
 	<script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 	<script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
 	<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+	  <script>
+   
+      $(document).ready(function() {
+         var parentWidth = $(".summerNoteArea").css("width").substring(0, $(".summerNoteArea").css("width").indexOf("px"))   * 0.98;
+         
+         console.log(parentWidth * 0.98)
+         $('#summernote').summernote({
+            width : parentWidth, // 에디터 넓이
+            height : 700, // 에디터 높이
+            lang : 'ko-KR', // 언어 : 한국어
+            callbacks : {
+               onImageUpload : function(files) {
+                  sendFile(files[0], this);
+               }
+            }
+         });
+      });
+
+      // 섬머노트에 업로드 된 이미지를 비동기로 서버로 전송하여 저장하는 함수
+      function sendFile(file, editor) {
+         var formData = new FormData();
+         formData.append("uploadFile", file);
+         $.ajax({
+            url : "insertImage",
+            type : "post",
+            enctype : "multipart/form-data", // 파일 전송 형식으로 지정
+            data : formData,
+            contentType : false, // 서버로 전송되는 데이터 형식
+            cache : false,
+            processData : false,
+            dataType : "json",
+            success : function(at) {
+               var contextPath = location.pathname.substring(0,
+                     window.location.pathname.indexOf("/", 2));
+               $(editor).summernote('editor.insertImage',
+                     contextPath + at.filePath + "/" + at.fileName);
+            }
+         });
+      }
+   </script>
 	<div class="container">
 
 		<div class="py-5">
-			<h2>공방 등록 수정</h2>
+			<h1><strong>공방 등록 수정</strong></h1>
 		</div>
+		
+		<br>
+
 
 		<div class="row">
 
-			<br>
+			
+			
 
-			<div class="col-md-7 offset-md-3">
+			<div class="col-md-7 offset-md-1">
 
 				<form method="POST" enctype="multipart/form-data"  action="../updateAction/${shop.shopNo}" class="needs-validation" name="registrationFrom" onsubmit="return validate();">
 
 					<!-- 대표자 이름 -->
 					<div class="row mb-3 form-row">
 
-						<div class="col-md-3">
-							<label for="storeUserName">대표자</label>
+						<div class="col-md-3"  id = "title">
+							<label for="storeUserName"><strong>대표자</strong></label>
 						</div>
 						<div class="col-md-6">
 							<input type="text" class="form-control" id="name" name="shopOwnerName" placeholder="이름을 입력하세요." autocomplete="off" value="${shop.shopOwnerName}" required>
@@ -68,8 +148,8 @@
 
 					<!-- 공방명 -->
 					<div class="row mb-3 form-row">
-						<div class="col-md-3">
-							<label for="shopName">공방명</label>
+						<div class="col-md-3"  id = "title">
+							<label for="shopName" ><strong>공방명</strong></label>
 						</div>
 						<div class="col-md-6">
 							<input type="text" class="form-control" id="store" name="shopName" placeholder="공방명을 입력해 주세요." autocomplete="off" value="${shop.shopName}" required>
@@ -87,8 +167,8 @@
 					<!-- 오픈소스 도로명 주소 API -->
 					<!-- https://www.poesis.org/postcodify/ -->
 					<div class="row mb-3 form-row">
-						<div class="col-md-3">
-							<label for="postcodify_search_button">우편번호</label>
+						<div class="col-md-3"  id = "title">
+							<label for="postcodify_search_button"><strong>우편번호</strong></label>
 						</div>
 
 
@@ -104,8 +184,8 @@
 					<br>
 
 					<div class="row mb-3 form-row">
-						<div class="col-md-3">
-							<label for="address1">도로명 주소</label>
+						<div class="col-md-3"  id = "title">
+							<label for="address1"><strong>도로명 주소</strong></label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control postcodify_address" name="address1" id="address1" value="${address[1]}">
@@ -115,8 +195,8 @@
 					<br>
 
 					<div class="row mb-3 form-row">
-						<div class="col-md-3">
-							<label for="address2">상세주소</label>
+						<div class="col-md-3"  id = "title">
+							<label for="address2"><strong>상세주소</strong></label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control postcodify_details" name="address2" id="address2" value="${address[2]}">
@@ -126,7 +206,10 @@
 					<br>
 
 					<!-- 전화번호 -->
-					<div class="row mb-3 form-row">
+					<div class="row mb-3 form-row" >
+					<div class="col-md-3" id = "title">
+					<label for="phone1" ><strong>전화번호</strong></label>
+					</div>
             <!-- 전화번호1 -->
             <div class="col-md-3">
                <select class="custom-select" id="phone1" name="phone1">
@@ -153,10 +236,15 @@
 						</div>
 
 					</div>
+					
+					
+					<br>
+					<br>
+					
 
 					<!-- 카테고리 버튼 -->
-					<div>
-						<label>카테고리</label>
+					<div  id = "title">
+						<label><strong>카테고리</strong></label>
 					</div>
 
 					<hr>
@@ -178,26 +266,31 @@
 
 
 					<hr>
+					
+					<br>
+					<br>
 
 					<!-- 공방 썸네일 -->
-					<div class="form-inline mb-2">
-						<label>썸네일</label>
-						<div class="boardImg" id="titleImgArea">
-							<img id="titleImg" width="400" height="280" src="${contextPath}${thumb.filePath}/${thumb.fileName}">
+					<div class="form-inline mb-2"  id = "title">
+						<label><strong>썸네일</strong></label>
+						<div class="boardImg ml-5" id="titleImgArea">
+							<img id="titleImg" width="275" height="400" src="${contextPath}${thumb.filePath}/${thumb.fileName}">
 						</div>
 					</div>
 
 					<br>
+					<br>
 
 					<!-- 공방 썸네일 소개 글 -->
-					<div>
-						<label>공방 썸네일 소개글</label>
+					<div  id = "title">
+						<label><strong>공방 썸네일 소개글</strong></label>
 						<div>
 							<input class="form-control" id="thumbInfo" name="thumbInfo" autocomplete="off" value="${shop.thumbInfo}" required>
 						</div>
 					</div>
 
 
+					<br>
 					<br>
 
 					<!-- 파일 업로드 하는 부분 -->
@@ -206,16 +299,18 @@
 					</div>
 
 					<div class="form-group">
-						<div>
-							<label for="content">공방소개</label>
+						<div  id = "title" >
+							<label for="content"><strong>공방소개</strong></label>
 						</div>
+						<div class = "summerNoteArea">
 						<textarea class="form-control" id="summernote" name="shopInfo" rows="10" style="resize: none;">${shop.shopInfo }</textarea>
+						</div>
 					</div>
 
 
 					<div class="text-center">
-						<button type="submit" class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73;">수정</button>
-						<a class="btn btn-success float-right" href="" style="background-color: #fbbc73; border-color: #fbbc73;">취소</a>
+						<button type="submit" class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73;width : 80px; height : 30px; font-size : 14px; font-weight : bold;"><strong>수정</strong></button>
+						<a class="btn btn-success" href="" style="background-color: #fbbc73; border-color: #fbbc73;width : 80px; height : 30px; font-size : 14px; font-weight : bold;"><strong>취소</strong></a>
 					</div>
 
 

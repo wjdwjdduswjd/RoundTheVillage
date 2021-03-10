@@ -129,11 +129,11 @@ img {
 
 #addressList > li:hover{
 	cursor: pointer;
+background-color: #FBBC73;
+  color : white;
 }
-#addList> li : hover{
 
-background-color : salmon;
-}
+
 
 </style>
 </head>
@@ -223,9 +223,9 @@ background-color : salmon;
 	    	  $("#addressList").html(""); // 이전값 삭제
 	    	  
 	    	  for(var i=0 ; i<sList.length ; i++){
-		    	  $li = $("<li>").attr("id", sList[i].shopNo);
+		    	  $li = $("<li class = 'list'>").attr("id", sList[i].shopNo);
 		    	  $p1 = $("<p>");
-		    	  $span1 = $("<span style='font-size:20px; font-weight:bold'>").text(sList[i].shopName);
+		    	  $span1 = $("<span style='font-size:20px; font-weight:bold;'>").text(sList[i].shopName);
 		    	  $span2 = $("<span>").text(sList[i].shopCategoryName);
 
 		    	  $p1.append($span1, $span2);
