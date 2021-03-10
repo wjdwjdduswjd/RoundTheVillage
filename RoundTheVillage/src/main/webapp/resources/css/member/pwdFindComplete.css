@@ -2,8 +2,21 @@
 input[type='password'] {
 	font-family: sans-serif !important;
 }
-*{font-family: 'NanumSquare', sans-serif !important;}
 
+*{font-family: 'NanumSquare', sans-serif !important;}
+/* swal button */
+.swal-button,
+.swal-button:active {
+   background: #5B3929;
+}
+.swal-button:not([disabled]):hover {
+   background: #5B3929;
+}
+
+.swal-button:focus {
+    outline: none;
+    box-shadow: none;
+}
 .container{
 	height: 950px;
 }

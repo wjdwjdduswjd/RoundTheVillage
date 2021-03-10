@@ -3,6 +3,19 @@
 input[type='password'] {
 	font-family: sans-serif !important;
 }
+/* swal button */
+.swal-button,
+.swal-button:active {
+   background: #5B3929;
+}
+.swal-button:not([disabled]):hover {
+   background: #5B3929;
+}
+
+.swal-button:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 .login-logo-area{
 	padding-top: 56px; 
