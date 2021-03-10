@@ -91,7 +91,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <div id="bigTitle">
                 <img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-                <p class="p1">인기 폭발</p>
+                <p class="p1">인기 폭발!</p>
                 <p class="p2">좋아요 TOP12 공방</p>
             </div>
         </div>
@@ -154,7 +154,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <div id="bigTitle">
                 <img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-                <p class="p1">New ★</p>
+                <p class="p1">New!</p>
                 <p class="p2">신규 공방</p>
             </div>
         </div>
@@ -221,7 +221,7 @@
 	        <div class="col-md-6 col-sm-6 col-xs-12">
 	            <div id="bigTitle">
 	                <img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-	                <p class="p1">둘러봐요</p>
+	                <p class="p1">둘러봐요!</p>
 	                <p class="p2">우리 동네 공방</p>
 	            </div>
 	        </div>
@@ -278,14 +278,14 @@
 	</div>
 </c:if>
 
-
+<c:if test="${!empty loginMember}">
 <!-- 관심분야 기준 -->
 <div class="Amain">
 	    <div class="row">
 	        <div class="col-md-6 col-sm-6 col-xs-12">
 	            <div id="bigTitle">
 	                <img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-	                <p class="p1">나의 Pick</p>
+	                <p class="p1">나의 관심 pick!</p>
 	                <p class="p2">우리 동네 공방</p>
 	            </div>
 	        </div>
@@ -340,7 +340,7 @@
 	        	</div>
 	    </div>
 	</div>
-
+</c:if>
 
 </body>
 </html>
