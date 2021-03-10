@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -69,28 +70,27 @@
 	<div class="Amain">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
+			
 				<div id="bigTitle">
 					<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
 					<p class="p1">인기 폭발!</p>
-					<p class="p2">좋아요 TOP12 공방</p>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
-				<div class="controls pull-right">
-					<a class="left fa fa-chevron-left btn btn-light" id="leftBtn" href="#carousel-example1" data-slide="prev"></a> 
-					<a class="right fa fa-chevron-right btn btn-light" id="rightBtn" href="#carousel-example1" data-slide="next"></a>
+					<p class="p2">좋아요 TOP 공방</p>
 				</div>
 			</div>
 		</div>
-		<div id="carousel-example1" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
+		
+		
+		
+		<div id="page">
 			<div class="carousel-inner">
+			
 				<c:forEach items="${likeList}" var="craft" varStatus="vs">
 					<c:if test="${vs.index % 4 == 0 }">
 						<div class="item<c:if test="${vs.first}"> active</c:if>">
 							<div class="row">
 					</c:if>
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<div class="slider-item shop-item" id="${craft.shopNo}">
+					<div class="col-md-3 col-sm-3 col-xs-12" id="cursor">
+						<div class="shop-item" id="${craft.shopNo}">
 							<div class="slider-image">
 								<c:forEach items="${thList}" var="th">
 									<c:if test="${th.shopNo == craft.shopNo}">
@@ -98,23 +98,28 @@
 									</c:if>
 								</c:forEach>
 							</div>
-
-							<div class="slider-main-detail">
-								<div class="slider-detail">
-									<div class="product-detail">
-										<h6 class="card-category">#${craft.shopCategoryName }</h6>
+	
+							<%-- 제목의 길이가 30글자를 넘어가는 경우 --%>
+						    <c:set var="info" value="${craft.thumbInfo}"/>
+						    <c:if test="${fn:length(info) > 20 }">
+						       <c:set var="info" value="${fn:substring(info,0,20) }..."/>
+						    </c:if>
+    
+    
+							<div class="craftText">
+										<h6 class="card-category mt-2">#${craft.shopCategoryName }</h6>
 										<h5 class="card-title">[${craft.shopName }]</h5>
-										<p class="card-text">${craft.thumbInfo}</p>
-									</div>
-								</div>
+										<p class="card-text">${info}</p>
 								<div class="cart-section">
 									<div class="row">
 										<div class="col-md-6 col-sm-12 col-xs-6 like">
-											<p id="like">♥${craft.likeCount }</p>
+											<p id="like" style="font-size:12px;">♥${craft.likeCount }</p>
 										</div>
 									</div>
 								</div>
 							</div>
+							
+							
 						</div>
 					</div>
 					<c:if test="${vs.index % 4 == 3 }">
@@ -123,36 +128,34 @@
 		</c:if>
 		</c:forEach>
 	</div>
-	<!-- </div>
-	</div>
-	</div> -->
-
-
-
+	
+	
+	
+	
+	<!-- 신규 공방 --> 
 	<div class="Amain">
 		<div class="row">
 			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div id="bigTitle">
+			
+				<div id="bigTitle" style="margin-top: 50px;">
 					<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-					<p class="p1">New!</p>
+					<p class="p1"">New!</p>
 					<p class="p2">신규 공방</p>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
-				<div class="controls pull-right">
-					<a class="left fa fa-chevron-left btn btn-light" id="leftBtn" href="#carousel-example" data-slide="prev"></a> <a class="right fa fa-chevron-right btn btn-light" id="rightBtn" href="#carousel-example" data-slide="next"></a>
-				</div>
-			</div>
 		</div>
-		<div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
+		
+		
+		<div id="page">
 			<div class="carousel-inner">
+			
 				<c:forEach items="${newList}" var="craft" varStatus="vs">
 					<c:if test="${vs.index % 4 == 0 }">
-						<div class="item  <c:if test="${vs.first}"> active </c:if>">
+						<div class="item<c:if test="${vs.first}"> active</c:if>">
 							<div class="row">
 					</c:if>
-					<div class="col-md-3 col-sm-3 col-xs-12">
-						<div class="slider-item shop-item" id="${craft.shopNo}">
+					<div class="col-md-3 col-sm-3 col-xs-12" id="cursor">
+						<div class="shop-item" id="${craft.shopNo}">
 							<div class="slider-image">
 								<c:forEach items="${newthList}" var="th">
 									<c:if test="${th.shopNo == craft.shopNo}">
@@ -161,22 +164,20 @@
 								</c:forEach>
 							</div>
 
-							<div class="slider-main-detail">
-								<div class="slider-detail">
-									<div class="product-detail">
-										<h6 class="card-category">#${craft.shopCategoryName }</h6>
+							<div class="craftText">
+										<h6 class="card-category mt-2">#${craft.shopCategoryName }</h6>
 										<h5 class="card-title">[${craft.shopName }]</h5>
 										<p class="card-text">${craft.thumbInfo}</p>
-									</div>
-								</div>
 								<div class="cart-section">
 									<div class="row">
 										<div class="col-md-6 col-sm-12 col-xs-6 like">
-											<p id="like">♥${craft.likeCount }</p>
+											<p id="like" style="font-size:12px;">♥${craft.likeCount }</p>
 										</div>
 									</div>
 								</div>
 							</div>
+							
+							
 						</div>
 					</div>
 					<c:if test="${vs.index % 4 == 3 }">
@@ -188,131 +189,131 @@
 
 
 
+	
+
+
 	<!-- 주소 기준 -->
-	<c:if test="${!empty loginMember}">
+	<c:if test="${!empty loginMember && !empty addrList}" >
+		
 		<div class="Amain">
-			<div class="row">
-				<div class="col-md-6 col-sm-6 col-xs-12">
-					<div id="bigTitle">
-						<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-						<p class="p1">둘러봐요!</p>
-						<p class="p2">우리 동네 공방</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
-					<div class="controls pull-right">
-						<a class="left fa fa-chevron-left btn btn-light" id="leftBtn" href="#carousel-example" data-slide="prev"></a> <a class="right fa fa-chevron-right btn btn-light" id="rightBtn" href="#carousel-example" data-slide="next"></a>
-					</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+			
+				<div id="bigTitle" style="margin-top: 50px;">
+					<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
+					<p class="p1">둘러봐요!</p>
+					<p class="p2">우리 동네 공방</p>
 				</div>
 			</div>
-			<div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
-				<div class="carousel-inner">
-					<c:forEach items="${addrList}" var="craft" varStatus="vs">
-						<c:if test="${vs.index % 4 == 0 }">
-							<div class="item  <c:if test="${vs.first}"> active </c:if>">
-								<div class="row">
-						</c:if>
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="slider-item shop-item" id="${craft.shopNo}">
-								<div class="slider-image">
-									<c:forEach items="${addrThList}" var="th">
-										<c:if test="${th.shopNo == craft.shopNo}">
-											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-responsive" alt="a">
-										</c:if>
-									</c:forEach>
-								</div>
+		</div>
+		
+		
+		<div id="page">
+			<div class="carousel-inner">
+			
+				<c:forEach items="${addrList}" var="craft" varStatus="vs">
+					<c:if test="${vs.index % 4 == 0 }">
+						<div class="item<c:if test="${vs.first}"> active</c:if>">
+							<div class="row">
+					</c:if>
+					<div class="col-md-3 col-sm-3 col-xs-12" id="cursor">
+						<div class="shop-item" id="${craft.shopNo}">
+							<div class="slider-image">
+								<c:forEach items="${addrThList}" var="th">
+									<c:if test="${th.shopNo == craft.shopNo}">
+										<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-responsive" alt="a">
+									</c:if>
+								</c:forEach>
+							</div>
 
-								<div class="slider-main-detail">
-									<div class="slider-detail">
-										<div class="product-detail">
-											<h6 class="card-category">#${craft.shopCategoryName }</h6>
-											<h5 class="card-title">[${craft.shopName }]</h5>
-											<p class="card-text">${craft.thumbInfo}</p>
-										</div>
-									</div>
-									<div class="cart-section">
-										<div class="row">
-											<div class="col-md-6 col-sm-12 col-xs-6 like">
-												<p id="like">♥${craft.likeCount }</p>
-											</div>
+							<div class="craftText">
+										<h6 class="card-category mt-2">#${craft.shopCategoryName }</h6>
+										<h5 class="card-title">[${craft.shopName }]</h5>
+										<p class="card-text">${craft.thumbInfo}</p>
+								<div class="cart-section">
+									<div class="row">
+										<div class="col-md-6 col-sm-12 col-xs-6 like">
+											<p id="like" style="font-size:12px;">♥${craft.likeCount }</p>
 										</div>
 									</div>
 								</div>
 							</div>
+							
+							
 						</div>
-						<c:if test="${vs.index % 4 == 3 }">
-				</div>
+					</div>
+					<c:if test="${vs.index % 4 == 3 }">
 			</div>
-	</c:if>
-	</c:forEach>
+		</div>
+		</c:if>
+		</c:forEach>
 	</div>
-	</div>
-	</div>
-	<!-- </div> -->
 	</c:if>
 
-	<c:if test="${!empty loginMember}">
+
+
+
+
 		<!-- 관심분야 기준 -->
+	<c:if test="${!empty loginMember}">
 		<div class="Amain">
-			<div class="row">
-				<div class="col-md-6 col-sm-6 col-xs-12">
-					<div id="bigTitle">
-						<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
-						<p class="p1">나의 관심 pick!</p>
-						<p class="p2">우리 동네 공방</p>
-					</div>
-				</div>
-				<div class="col-md-6 col-sm-6 col-xs-6 hidden-xs ">
-					<div class="controls pull-right">
-						<a class="left fa fa-chevron-left btn btn-light" id="leftBtn" href="#carousel-example" data-slide="prev"></a> <a class="right fa fa-chevron-right btn btn-light" id="rightBtn" href="#carousel-example" data-slide="next"></a>
-					</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+			
+				<div id="bigTitle" style="margin-top: 50px;">
+					<img src="${contextPath}/resources/images/logo/bread.png" width="30px;">
+					<p class="p1" style="margin-top: 30px;">나의 관심 pick!</p>
+					<p class="p2">관심분야 공방</p>
 				</div>
 			</div>
-			<div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel" data-type="multi">
-				<div class="carousel-inner">
-					<c:forEach items="${intList}" var="craft" varStatus="vs">
-						<c:if test="${vs.index % 4 == 0 }">
-							<div class="item  <c:if test="${vs.first}"> active </c:if>">
-								<div class="row">
-						</c:if>
-						<div class="col-md-3 col-sm-3 col-xs-12">
-							<div class="slider-item shop-item" id="${craft.shopNo}">
-								<div class="slider-image">
-									<c:forEach items="${intfList}" var="th">
-										<c:if test="${th.shopNo == craft.shopNo}">
-											<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-responsive" alt="a">
-										</c:if>
-									</c:forEach>
-								</div>
+		</div>
+		
+		
+		
+		<div id="page">
+			<div class="carousel-inner">
+			
+				<c:forEach items="${intList}" var="craft" varStatus="vs">
+					<c:if test="${vs.index % 4 == 0 }">
+						<div class="item<c:if test="${vs.first}"> active</c:if>">
+							<div class="row">
+					</c:if>
+					<div class="col-md-3 col-sm-3 col-xs-12" id="cursor">
+						<div class="shop-item" id="${craft.shopNo}">
+							<div class="slider-image">
+								<c:forEach items="${intfList}" var="th">
+									<c:if test="${th.shopNo == craft.shopNo}">
+										<img src="${contextPath}${th.filePath}/${th.fileName}" class="img-responsive" alt="a">
+									</c:if>
+								</c:forEach>
+							</div>
 
-								<div class="slider-main-detail">
-									<div class="slider-detail">
-										<div class="product-detail">
-											<h6 class="card-category">#${craft.shopCategoryName }</h6>
-											<h5 class="card-title">[${craft.shopName }]</h5>
-											<p class="card-text">${craft.thumbInfo}</p>
-										</div>
-									</div>
-									<div class="cart-section">
-										<div class="row">
-											<div class="col-md-6 col-sm-12 col-xs-6 like">
-												<p id="like">♥${craft.likeCount }</p>
-											</div>
+							<div class="craftText">
+										<h6 class="card-category mt-2">#${craft.shopCategoryName }</h6>
+										<h5 class="card-title">[${craft.shopName }]</h5>
+										<p class="card-text">${craft.thumbInfo}</p>
+								<div class="cart-section">
+									<div class="row">
+										<div class="col-md-6 col-sm-12 col-xs-6 like">
+											<p id="like" style="font-size:12px;">♥${craft.likeCount }</p>
 										</div>
 									</div>
 								</div>
 							</div>
+							
+							
 						</div>
-						<c:if test="${vs.index % 4 == 3 }">
-				</div>
+					</div>
+					<c:if test="${vs.index % 4 == 3 }">
 			</div>
-	</c:if>
-	</c:forEach>
-	</div>
-	</div>
-	</div>
+		</div>
+		</c:if>
+		</c:forEach>
 	</div>
 	</c:if>
+	
+	
+
 
 <jsp:include page="footer.jsp" />
 

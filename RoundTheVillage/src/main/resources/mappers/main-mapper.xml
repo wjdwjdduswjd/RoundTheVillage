@@ -26,13 +26,6 @@
 		<result property="shopNo" column="CRAFTSHOP_NO" />
 	</resultMap>
 	
-	
-	<!-- 전체 게시글 수 조회 -->
-	<select id="getListCount" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM SHOP
-		WHERE SHOP_STATUS = 'Y'
-	</select>
-	
 	<!-- 좋아요순 공방 목록  조회 -->
 	<select id="likeCraftList" parameterType="_int" resultMap="shop_rm">
 		SELECT A.* , S.CS_CATE_NM,
@@ -45,6 +38,7 @@
 		    (SELECT COUNT(*) FROM CS_GOOD S WHERE S.CRAFTSHOP_NO = A.CRAFTSHOP_NO) LIKE_COUNT    
 		FROM CRAFTSHOP A
         JOIN CS_CATEGORY S ON (A.CS_CATE_NO = S.CS_CATE_NO)
+        WHERE SHOP_REGI_FL = 'Y'
 		ORDER BY LIKE_COUNT DESC
 	</select>
 
@@ -65,7 +59,7 @@
 		SELECT *
 		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
-		WHERE CRAFTSHOP_ADDR LIKE '%' || #{addr} || '%'
+		WHERE CRAFTSHOP_ADDR LIKE '%' || #{addr} || '%' AND WHERE SHOP_REGI_FL = 'Y'
 	</select>
 		
 		
@@ -74,7 +68,7 @@
 		SELECT *
 		FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
-		WHERE CS_CATE_NM = #{interest}
+		WHERE CS_CATE_NM = #{interest} AND WHERE SHOP_REGI_FL = 'Y'
 	</select>
 	
 	
@@ -82,6 +76,7 @@
 	<select id="newList" parameterType="string" resultMap="shop_rm">
 		SELECT * FROM CRAFTSHOP
 		JOIN CS_CATEGORY USING (CS_CATE_NO)
+		WHERE SHOP_REGI_FL = 'Y'
 		ORDER BY CRAFTSHOP_NO DESC
 	</select>
 	

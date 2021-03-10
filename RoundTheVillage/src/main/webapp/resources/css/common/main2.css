@@ -81,6 +81,7 @@
 #bigTitle {
   width: 280px;
   height: 33px;
+  
 }
 
 #bigTitle .p1 {
@@ -94,6 +95,14 @@
 #bigTitle .p2 {
 	font-size: 12px;
   margin-left: 40px;
+}
+
+#page {
+	margin-top: 30px;
+}
+
+.n2{
+	margin-top: 30px;
 }
 
 /* 폰트 관련 --------------------------------------*/
@@ -112,6 +121,7 @@
 .card-title, .card-text {
   font-family: 'NanumSquare', sans-serif !important;
 }
+
 
 
 /* 카드------------------------------------------*/
@@ -138,6 +148,11 @@
   width: 280px;
   height: 400px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+#cursor {
+	cursor: pointer;
 }
 
 /* 수정 ---------------------------------------------*/
