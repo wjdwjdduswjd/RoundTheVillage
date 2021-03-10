@@ -14,7 +14,7 @@
 <body>
 	<div class="lesson-content">
 		<div class="title">수업내용</div>
-		<p>${lesson.lesContent}</p>
+		${lesson.lesContent}
 	</div>
 	<div class="lesson-curriculum">
 		<div class="title">커리큘럼</div>
@@ -23,5 +23,6 @@
 	<div class="lesson-location">
 		<div class="title">위치</div>
 	</div>
+	
 </body>
 </html>

@@ -5,9 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>list</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="${contextPath}/resources/js/lesson/list.js"></script>
 <style>
 .filters {
@@ -77,12 +75,16 @@ img {
 	margin-bottom: 50px;
 }
 .filter-location {
-	background-color: #FBBC73;
+	background-color: #F0F0F0;
 	border: 0;
 	border-radius: 10px;
 	width: 150px;
 	height: 40px;
 	font-size: 15px;
+}
+
+select {
+  outline:0px;
 }
 .button-category {
 	background-color: #F0F0F0;
@@ -110,6 +112,9 @@ img {
   width: 48px;
   padding: 1px 0 0;
 }
+.info-price > h4 {
+	text-align: right;
+}
 </style>
 </head>
 <body>
@@ -118,8 +123,7 @@ img {
 
 <div class="container">
 <a href="${contextPath}/lesson/insertForm">--------수업등록 제작중-------</a>
-<a href="${contextPath}/lesson/updateForm/25">--------수업수정 제작중-------</a>
-	<form action="${contextPath}/lesson/updateForm" method="post" > <input type="hidden" name="lesNo" value="25"><button>수정/삭제</button></form>
+	<form action="${contextPath}/lesson/updateForm" method="post" > <input type="hidden" name="lesNo" value="41"><button>수정/삭제</button></form>
 	<form action="#" id="filter-form">
 	<div class="filter">
 		<div class="filter-select">
@@ -160,7 +164,6 @@ img {
 				<option class="option" value="">최신순</option>
 				<option class="option" value="higherPrice">높은 가격순</option>
 				<option class="option" value="lowerPrice">낮은 가격순</option>
-				<option class="option" value="rating">평점순</option>
 			</select>
 		<p>검색결과 ></p>
 		</div>

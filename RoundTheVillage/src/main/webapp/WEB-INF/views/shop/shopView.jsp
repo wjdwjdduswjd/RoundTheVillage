@@ -177,6 +177,7 @@ color : orange;
 			<div class="top">
 		<c:if test="${(loginMember != null) && (shop.shopNo == loginMember.memberNo)}">
 			<a class="btn btn-success float-right" id = "updateBtn" href="${contextPath}/shop/update/${shop.shopNo}" style="background-color: #fbbc73; border-color: #fbbc73;">수정</a>
+			<a class="btn btn-success float-right" href="${contextPath}/lesson/insertForm" style="background-color: #fbbc73; border-color: #fbbc73; margin-right: 20px;">수업 등록</a>
 		</c:if>
 			</div>
 </div>

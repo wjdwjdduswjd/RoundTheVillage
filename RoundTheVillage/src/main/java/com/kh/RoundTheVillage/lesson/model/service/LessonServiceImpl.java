@@ -53,6 +53,8 @@ public class LessonServiceImpl implements LessonService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int insertInfo(Lesson lesson) {
+		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
+		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
 		return dao.insertInfo(lesson);
 	}
 
@@ -107,23 +109,20 @@ public class LessonServiceImpl implements LessonService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int updateInfo(Lesson lesson) {
+		lesson.setLesCurri(replaceParameter(lesson.getLesCurri()));
+		lesson.setLesCurri(lesson.getLesCurri().replaceAll("\n", "<br>"));
 		return dao.updateInfo(lesson);
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
-	public int updateDate(String[] date, String[] startTime, String[] endTime, String lesLimit, int lesNo) {
-		int result = 0;
-		for(int i=0; i<date.length; i++) {
-			Map<String, String> map = new HashMap<String, String>();
-			String lesTime = startTime[i] + "," + endTime[i];
-			map.put("date", date[i]);
-			map.put("lesTime", lesTime);
-			map.put("lesLimit", lesLimit);
-			map.put("lesNo", ""+lesNo);
-			result = dao.updateDate(map);
-		}
-		return result;
-	}
+	/*
+	 * @Transactional(rollbackFor = Exception.class) public int updateDate(String[]
+	 * date, String[] startTime, String[] endTime, String lesLimit, int lesNo) { int
+	 * result = 0; for(int i=0; i<date.length; i++) { Map<String, String> map = new
+	 * HashMap<String, String>(); String lesTime = startTime[i] + "," + endTime[i];
+	 * map.put("date", date[i]); map.put("lesTime", lesTime); map.put("lesLimit",
+	 * lesLimit); map.put("lesNo", ""+lesNo); result = dao.updateDate(map); } return
+	 * result; }
+	 */
 	
 	@Transactional(rollbackFor = Exception.class)
 	public int updateImageFile(String savePath, MultipartFile mainimageFile, int lesNo) {

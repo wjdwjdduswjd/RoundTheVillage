@@ -185,7 +185,7 @@ textarea:focus{
 			<div>
 				<label for="content">내용</label>
 			</div>
-				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;"></textarea>
+				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;">${lesson.lesContent}</textarea>
 		</div>
 
 		<br>
