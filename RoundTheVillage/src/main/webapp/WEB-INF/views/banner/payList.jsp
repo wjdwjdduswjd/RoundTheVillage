@@ -25,7 +25,7 @@
 		                <a href="payView/${banner.banNo}" class="ahover">내역 상세 보기 ></a>
 		            </div>
 		            <div class="d-flex justify-content-left py-4 mb-5 bb">
-		                <img src="${contextPath}/resources/images/bannerImages/${banner.img}" class="rounded img-responsive w-50">
+		                <img src="${contextPath}/resources/bannerImages/${banner.img}" class="rounded img-responsive w-50">
 		                <div class="p-3">
 		                    <div class="mb-3">
 		                        <strong class="col-md-2">기간</strong>
