@@ -116,9 +116,12 @@
 	<div class="container notice-list">
 	
 		<div id="btnDiv">
-                    <a href="${contextPath}/manager/normalList"><button type="menu" id="normalBtn">결제 내역 조회</button></a>
-                    <a href="${contextPath}/manager/craftList"><button type="menu" id="craftBtn">공방 문의 내역</button></a>
-                </div>
+         <a href="${contextPath}/pay/list"><button type="menu" id="normalBtn">수업 예약 내역</button></a>
+         <c:if test="${loginMember.memberType == 'C'}">
+	         <a href="${contextPath}/banner/payList"><button type="menu" id="craftBtn">배너 결제 내역</button></a>
+         </c:if>
+         <a href="#"><button type="menu" id="craftBtn">공방 문의 내역</button></a>
+     </div>
 	
 		<div class="row p-3 pt-4 bg-light rounded mb-5">
     	<c:choose>
