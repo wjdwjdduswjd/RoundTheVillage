@@ -71,10 +71,11 @@ public class ShopController {
 				if (thumbnailList != null) {
 
 					model.addAttribute("thList", thumbnailList);
+					System.out.println(thumbnailList);
 				}
 			}
 			model.addAttribute("lesList", lesList);
-
+			System.out.println(lesList);
 			// 리뷰 목록 가져 오기----------------------------------------
 
 			List<LessonReview> reviewList = service.selectReviewList(shopNo);

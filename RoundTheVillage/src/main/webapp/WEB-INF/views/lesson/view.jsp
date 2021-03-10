@@ -273,7 +273,7 @@ li {list-style: none;}
 			 <div class="lesson-info info2">
 			 	<div class="lesson-craft">
 			 		<img src="${contextPath}/resources/images/home.png">
-			 		${shopInfo.shopName}
+			 		<a href="${contextPath}/shop/${shopInfo.shopNo}">${shopInfo.shopName}</a>
 			 	</div>
 			 	<div class="lesson-participant">
 			 		<img src="${contextPath}/resources/images/user.png">
@@ -348,8 +348,9 @@ li {list-style: none;}
 		enabledate.push("${item.lesDate}");
 		participant += ${item.lesParticipant};
 	</c:forEach>
-	
+		
 	$(function() {
+		console.log(enabledate);
 	  $('#datetimepicker14').datetimepicker( {
 		  //allowMultidate: true,
 		  //multidateSeparator: ',',
@@ -363,7 +364,6 @@ li {list-style: none;}
   	  //maxDate: maxDate,
       //minDate: minDate
 	  });
-	  
 	  $(".lesson-participant").append($("<span>").html("인원수 " + participant + "명"));
 	});
 	
@@ -479,10 +479,15 @@ $("#review").click(function(){
 
 
 $(".lesson-order").click(function() {
-	var lesDate = $(".datetimepicker-input").val();
-	var lesAmount = $(".lesson-amount-num").html();
-	var lesTime = $(".active2 > .schedule-time").html().substring(5, 10) + "," + $(".active2 > .schedule-time").html().substring(13);
-	location.href = "${contextPath}/pay/" + lesNo + "?lesAmount=" + lesAmount + "&lesTime=" + lesDate+ "." + lesTime;
+	if(${!empty loginMember}) {
+		var lesDate = $(".datetimepicker-input").val();
+		var lesAmount = $(".lesson-amount-num").html();
+		var lesTime = $(".active2 > .schedule-time").html().substring(5, 10) + "," + $(".active2 > .schedule-time").html().substring(13);
+		location.href = "${contextPath}/pay/" + lesNo + "?lesAmount=" + lesAmount + "&lesTime=" + lesDate+ "." + lesTime;
+	} else {
+		alert("로그인 후 이용할 수 있습니다");
+		location.href = "${contextPath}/member/login";
+	}
 });
 
 </script>

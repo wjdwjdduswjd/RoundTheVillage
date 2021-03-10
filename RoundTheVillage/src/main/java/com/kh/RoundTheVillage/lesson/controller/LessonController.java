@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,6 +29,7 @@ import com.kh.RoundTheVillage.lesson.model.vo.LessonFile;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonQuestion;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReview;
 import com.kh.RoundTheVillage.lesson.model.vo.LessonReviewReport;
+import com.kh.RoundTheVillage.member.model.vo.Member;
 import com.kh.RoundTheVillage.shop.model.vo.Shop;
 
 @Controller
@@ -102,19 +104,22 @@ public class LessonController {
 	
 	@PostMapping("/lesson/insert")
 	public String insert(@ModelAttribute Lesson lesson,
+						 @ModelAttribute("loginMember") Member loginMember,
 						 @RequestParam("date") String[] date,
 						 @RequestParam("start-time") String[] startTime, 
 						 @RequestParam("end-time") String[] endTime,
 						 @RequestParam("lesLimit") String lesLimit,
 						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
+						 @RequestHeader(value="referer", required=false) String referer,
 						 HttpServletRequest request) {
 		int lesNo = service.selectNextNo();
 		lesson.setLesNo(lesNo);
+		lesson.setCraftshopNo(loginMember.getMemberNo());
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
 		int result1 = service.insertInfo(lesson); // 기본정보 저장
 		int result2 = service.insertDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
 		int result3 = service.insertImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
-		return "lesson/list";
+		return "redirect:..";
 	}
 	
 	@PostMapping("/lesson/updateForm")
@@ -125,6 +130,8 @@ public class LessonController {
 		detailList = service.selectDetailList(lesNo);
 		LessonFile file = service.selectFile(lesNo);
 		Shop shopInfo = service.selectShopInfo(lesson.getCraftshopNo());
+		lesson.setLesContent(lesson.getLesContent().replaceAll("<br>", "\r\n"));
+		lesson.setLesCurri(lesson.getLesCurri().replaceAll("<br>", ""));
 		model.addAttribute("lesson", lesson);
 		model.addAttribute("detailList", detailList);
 		model.addAttribute("file", file);
@@ -140,15 +147,16 @@ public class LessonController {
 						 @RequestParam("lesLimit") String lesLimit,
 						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
 						 @PathVariable("lesNo") int lesNo,
+						 @RequestHeader(value="referer", required=false) String referer,
 						 HttpServletRequest request) {
 		lesson.setLesNo(lesNo);
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
 		int result1 = service.updateInfo(lesson); // 기본정보 저장
-		int result2 = service.updateDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
+		int result2 = service.insertDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
 		if(!mainimageFile.getOriginalFilename().equals("")) {
 			int result3 = service.updateImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
 		}
-		return "common/main";
+		return "redirect:..";
 	}
 
 	@GetMapping("/lesson/deleteLesson/{lesNo}")
@@ -177,7 +185,6 @@ public class LessonController {
 	@ResponseBody
 	@PostMapping("/lesson/insertReview")
 	public int insertReview(@ModelAttribute LessonReview review) {
-		System.out.println(review);
 		int result = service.insertReview(review);
 		return result;
 	}
