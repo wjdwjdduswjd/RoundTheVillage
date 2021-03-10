@@ -1,15 +1,15 @@
-@charset "UTF-8";
-*{font-family: 'NanumSquare', sans-serif !important;
-transform: skew(-0.001deg); }
-
-
-.container{
-	height: 1350px;
-	z-index: -1; 
-	position: relative;
+* {
+    font-family: 'NanumSquare', sans-serif !important;
 }
 
+.container{
+	height: 1150px;
+}
 
+.mypageInfo{
+	width: 100%;
+	height : 1100px;
+}
 
 .grade
 {
