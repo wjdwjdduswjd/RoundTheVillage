@@ -29,7 +29,7 @@ public abstract interface LessonService {
 	
 	public abstract int updateInfo(Lesson lesson);
 	
-	public abstract int updateDate(String[] date, String[] startTime, String[] endTime, String lesLimit, int lesNo);
+//	public abstract int updateDate(String[] date, String[] startTime, String[] endTime, String lesLimit, int lesNo);
 	
 	public abstract int updateImageFile(String savePath, MultipartFile mainimageFile, int lesNo);
 	

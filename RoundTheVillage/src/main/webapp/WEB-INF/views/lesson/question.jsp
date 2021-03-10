@@ -213,7 +213,7 @@ function selectQuestion() {
 			if(item.queType == 'Q'){
 				count++;
 				var questionQ = $("<div>").addClass("question-Q");
-				var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/profile3.jpg" style="width:60px; height:60px;">');
+				var questionphoto = $("<div>").addClass("question-photo");
 				var questiontext = $("<div>").addClass("question-text")
 				var questiontime = $("<div>").addClass("question-time").html(moment(item.queDt).format('YYYY-MM-DD'));
 				var questionname = $("<div>").addClass("question-name").html(item.queWriter);
@@ -241,11 +241,11 @@ function selectQuestion() {
 			else if(item.queType == 'A') {
 				var questionA = $("<div>").addClass("question-A");
 				
-				var questionphoto = $("<div>").addClass("question-photo").html('<img src="${contextPath}/resources/images/profile2.jpg" style="width:60px; height:60px;">');
+				var questionphoto = $("<div>").addClass("question-photo");
 				
 				var questiontext = $("<div>").addClass("question-text");
 				var questiontime = $("<div>").addClass("question-time").html(moment(item.queDt).format('YYYY-MM-DD'));
-				var questionname = $("<div>").addClass("question-name").html('<img src="${contextPath}/resources/images/right-arrow.png" style="width:15px; height:15px;">' + '${shopInfo.shopName}' +'</div>');
+				var questionname = $("<div>").addClass("question-name").html('<img src="${contextPath}/resources/images/right-arrow.png" style="width:15px; height:15px;">' + ' ${shopInfo.shopName}' +'</div>');
 				var questioncontent = $("<div>").addClass("question-content").html(item.queContent);
 				questiontext.append(questiontime).append(questionname).append(questioncontent)
 				
