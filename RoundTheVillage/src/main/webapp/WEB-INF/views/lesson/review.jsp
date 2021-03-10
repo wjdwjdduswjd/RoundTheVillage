@@ -17,12 +17,13 @@
 	text-align: center;
 }
 .review-write {
-	border: 1px solid #979797;
+	border: 2px solid #F6B60E;
+	border-radius: 10px;
 	width: 95%;
 	margin: auto;
 }
 .stars {
-	border-bottom: 1px solid #979797;
+	border-bottom: 2px solid #F6B60E;
 	padding: 10px 0 10px;
 	padding-left: 15px;
 }
@@ -57,12 +58,13 @@ textarea:focus {
 }
 .review-button {
 	height: 50px;
-	border-top: 1px solid #979797;
+	border-top: 2px solid #F6B60E;
 }
 .review-submit {
 	width: 100px;
 	height: 100%;
 	float: right;
+	border-bottom-right-radius: 8px;
 	background-color: #F6B60E;
 	border: 0;
 	color: #FFFFFF;
@@ -129,9 +131,9 @@ textarea:focus {
 	color: #FFFFFF;
 }
 .update-button-area {
-		border: 1px solid #E5E5E5;	
-    height: 42px;
-    line-height: 42px;
+	border: 1px solid #E5E5E5;	
+  height: 42px;
+  line-height: 42px;
 }
 .close-update {
 	cursor: pointer;
@@ -153,16 +155,18 @@ textarea:focus {
 		</div>
 	</div>
 	
+		<c:if test="${!empty loginMember && loginMember.memberNo != shopInfo.shopNo}">
 	<div class="title">
 		후기작성
 	</div>
+		
 		<div class="review-write">
 			<form action="#">
 				<div class="stars">
 					<span class="star on"></span>
 					<span class="star"></span>
 					<span class="star"></span>
-					<span class="star"></span>
+					<span class="star"></span>	
 					<span class="star"></span>
 				</div>
 				<div class="review-text">
@@ -173,6 +177,8 @@ textarea:focus {
 				</div>
 			</form>
 		</div>
+		</c:if>
+		
 		<div class="review-list">
 			<div class="review">
 				<div class="review-name-star">

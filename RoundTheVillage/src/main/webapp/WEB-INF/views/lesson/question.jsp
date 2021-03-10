@@ -122,7 +122,7 @@
 <div class="question-top">
 	<div class="title" id="question-count" style="margin: 0">총 0개의 문의
 	</div>
-	<c:if test="${!empty loginMember}">
+	<c:if test="${!empty loginMember && loginMember.memberNo != shopInfo.shopNo}">
 		<button class="question-write">문의 작성 하기</button>
 	</c:if>
 </div>

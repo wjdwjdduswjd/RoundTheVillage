@@ -102,7 +102,7 @@ body {
 	border: 0;
 }
 #curri {
-	width: 738px;
+	width: 798px;
 	resize: none;
 }
 textarea:focus{
@@ -119,8 +119,46 @@ textarea:focus{
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote/js/summernote-ko-KR.js"></script>
-<script src="${contextPath}/resources/summernote/js/mySummernote.js"></script>
+ <script>
+ 
+   $(document).ready(function() {
+      var parentWidth = $(".summerNoteArea").css("width").substring(0, $(".summerNoteArea").css("width").indexOf("px"))   * 0.98;
+      
+      console.log(parentWidth * 0.98)
+      $('#summernote').summernote({
+         width : 800, // 에디터 넓이
+         height : 700, // 에디터 높이
+         lang : 'ko-KR', // 언어 : 한국어
+         callbacks : {
+            onImageUpload : function(files) {
+               sendFile(files[0], this);
+            }
+         }
+      });
+   });
 
+   // 섬머노트에 업로드 된 이미지를 비동기로 서버로 전송하여 저장하는 함수
+   function sendFile(file, editor) {
+      var formData = new FormData();
+      formData.append("uploadFile", file);
+      $.ajax({
+         url : "insertImage",
+         type : "post",
+         enctype : "multipart/form-data", // 파일 전송 형식으로 지정
+         data : formData,
+         contentType : false, // 서버로 전송되는 데이터 형식
+         cache : false,
+         processData : false,
+         dataType : "json",
+         success : function(at) {
+            var contextPath = location.pathname.substring(0,
+                  window.location.pathname.indexOf("/", 2));
+            $(editor).summernote('editor.insertImage',
+                  contextPath + at.filePath + "/" + at.fileName);
+         }
+      });
+   }
+ </script>
 	<div class="container">
 	<form action="${contextPath}/lesson/insert" method="post" enctype="multipart/form-data" onsubmit="return validate();" onreset="return validate2();">
 
@@ -193,7 +231,9 @@ textarea:focus{
 			<div>
 				<label for="content">내용</label>
 			</div>
+				<div class="summerNoteArea">
 				<textarea class="form-control" id="summernote" name="lesContent" rows="20" style="resize: none;"></textarea>
+				</div>
 		</div>
 
 		<br>
