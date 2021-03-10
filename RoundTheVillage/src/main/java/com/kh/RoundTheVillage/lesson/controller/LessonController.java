@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.kh.RoundTheVillage.lesson.model.service.LessonService;
@@ -113,14 +114,17 @@ public class LessonController {
 						 @RequestParam("lesLimit") String lesLimit,
 						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
 						 @RequestHeader(value="referer", required=false) String referer,
-						 HttpServletRequest request) {
+						 HttpServletRequest request, RedirectAttributes ra) {
 		int lesNo = service.selectNextNo();
 		lesson.setLesNo(lesNo);
 		lesson.setCraftshopNo(loginMember.getMemberNo());
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
 		int result1 = service.insertInfo(lesson); // 기본정보 저장
 		int result2 = service.insertDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
-		int result3 = service.insertImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
+		int result3 = service.insertImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장3
+		if(result1 * result2 >= 0) {
+			ra.addFlashAttribute("alert", "등록 성공했습니다");
+		}
 		return "redirect:..";
 	}
 	
@@ -132,7 +136,6 @@ public class LessonController {
 		detailList = service.selectDetailList(lesNo);
 		LessonFile file = service.selectFile(lesNo);
 		Shop shopInfo = service.selectShopInfo(lesson.getCraftshopNo());
-		lesson.setLesContent(lesson.getLesContent().replaceAll("<br>", "\r\n"));
 		lesson.setLesCurri(lesson.getLesCurri().replaceAll("<br>", ""));
 		model.addAttribute("lesson", lesson);
 		model.addAttribute("detailList", detailList);
@@ -150,13 +153,18 @@ public class LessonController {
 						 @RequestParam("mainimageFile") MultipartFile mainimageFile,
 						 @PathVariable("lesNo") int lesNo,
 						 @RequestHeader(value="referer", required=false) String referer,
-						 HttpServletRequest request) {
+						 HttpServletRequest request, RedirectAttributes ra) {
 		lesson.setLesNo(lesNo);
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/lesson");
 		int result1 = service.updateInfo(lesson); // 기본정보 저장
 		int result2 = service.insertDate(date, startTime, endTime, lesLimit, lesNo);  // 날짜, 시간 저장
 		if(!mainimageFile.getOriginalFilename().equals("")) {
 			int result3 = service.updateImageFile(savePath, mainimageFile, lesNo); //대표이미지 저장
+		}
+		System.out.println(result1);
+		System.out.println(result2);
+		if(result1 * result2 >= 0) {
+			ra.addFlashAttribute("alert", "수정 성공했습니다");
 		}
 		return "redirect:..";
 	}

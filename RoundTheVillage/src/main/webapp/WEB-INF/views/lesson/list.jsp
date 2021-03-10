@@ -8,124 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="${contextPath}/resources/js/lesson/list.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<style>
-.filters {
-	width: 1200px;
-	margin: auto;
-}
-.filter {
-	height: 100px;
-}
-.filter-category {
-	height: 200px;
-}
-.filter-select {
-	width: 90%;
-	border-top : 1px solid #5B3929;
-	float: right;
-	padding: 20px 0 25px;
-}
-.filter-name {
-	width: 10%;
-}
-.container {
-	margin-top: 30px;
-}
-.result-top {
-	width: 100%;
-	height: 80px;
-	padding: 20px 0 25px;
-	border-bottom: 1px solid #e4e9ef;
-}
-.result-bottom {
-	width: 100%;
-}
-.search-sort {
-	float: right;
-}
-.search-image {
-	width: 20%;
-	height: 100%;
-	padding: 10px 20px 10px
-}
-.search-info {
-	width: 78%;
-	height: 100%;
-	float: right;
-}
-.search-result {
-	border-top: 1px solid #e4e9ef;
-	margin-bottom: 50px;
-}
-img {
-	width: 100%;
-	height: 100%;
-}
-.result-form {
-	width: 100%;
-	height: 220px;
-	border-bottom: 1px solid #e4e9ef;
-	padding: 10px 0 15px;
-	cursor: pointer;
-}
-.search-info-main {
-	float: right;
-}
-.info-participant {
-	text-align: right;
-	margin-bottom: 50px;
-}
-.filter-location {
-	background-color: #F0F0F0;
-	border: 0;
-	border-radius: 10px;
-	width: 150px;
-	height: 40px;
-	font-size: 15px;
-}
-
-select {
-  outline:0px;
-}
-.button-category {
-	background-color: #F0F0F0;
-	font-size: 15px;
-	border: 0;
-	border-radius: 15px;
-	width: 100px;
-	height: 60px;
-	margin: 0 20px;
-}
-.select-price {
-	border-radius: 10px;
-}
-.filter-image {
-	width: 26px;
-	height: 26px;
-	margin-right: 10px;
-}
-#search-price {
- 	background: #716f6f;
-  color: #fff;
-  font-size: 14px;
-  height: 27px;
-  border: 0;
-  width: 48px;
-  padding: 1px 0 0;
-}
-.info-price > h4 {
-	text-align: right;
-}
-input {
-	outline: none;
-}
-* {
-	font-family: 'NanumSquare', sans-serif !important;
-}
-#footerHR {
-	margin-top: 150px !important;
-}
-</style>
+<link rel="stylesheet" href="${contextPath}/resources/css/lesson/list.css"/>
 </head>
 <body>
 
@@ -225,6 +108,12 @@ input {
 <jsp:include page="../common/footer.jsp"/>
 
 <script>
+
+$(function() {
+	if(${alert != null}) {
+		alert("${alert}");
+	}
+});
 
 var region;
 var region2;
