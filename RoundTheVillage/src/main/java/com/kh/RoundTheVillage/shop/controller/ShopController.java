@@ -296,13 +296,20 @@ public class ShopController {
 	}
 	
 	
-	  @RequestMapping("selectShopList")
-	   public List<Shop> selectReplyList() {
-	      
-	      List<Shop> sList = service.selectShopList();
-	      
-	      
-	      
-	      return sList;
-	   }
+	@ResponseBody
+	@RequestMapping("selectShopList")
+	public List<Shop> selectShopList(String region1, String region2) {
+	  Map<String, String> map = new HashMap<String, String>();
+	  map.put("region1", region1);
+	  map.put("region2", region2);
+	  
+	  return service.selectShopList(map);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

@@ -178,13 +178,16 @@ public class ShopDAO {
 	}
 
 	/** 공방 목록 가져오기
+	 * @param map
 	 * @return
 	 */
-	public List<Shop> selectShopList() {
-		return sqlSession.selectList("shopMapper.selectListShop");
+	public List<Shop> selectShopList(Map<String, String> map) {
+		return sqlSession.selectList("shopMapper.selectListShop", map);
 	}
 	
 
-
-
 }
+
+
+
+
