@@ -296,11 +296,11 @@ hr {
 				<div class="row" style="height:50px">
 					<div class="col-md-9"></div>
 					<div class="col-md-3">
-						<select name="selectedBtn" class="form-control search-sort" style="width: 100px; display: inline-block;">
+					<!-- 	<select name="selectedBtn" class="form-control search-sort" style="width: 100px; display: inline-block;">
 							<option value="new">최신순</option>
 							<option value="view">조회순</option>
 							<option value="like">좋아요순</option>
-						</select>
+						</select> -->
 
   
 					</div>
