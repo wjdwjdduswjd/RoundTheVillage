@@ -61,7 +61,7 @@ public class BannerService {
         
 		for(int i = date; i < lastDate; i++) {
 			String disableDate = dao.selectDate(dateFormat.format(cal.getTime()));
-			System.out.println(disableDate);
+			
 			if(disableDate != null)	{
 				disableDate = disableDate.substring(8, 10);
 				dList.add(disableDate); // 2021-03-06;
@@ -70,7 +70,6 @@ public class BannerService {
 				int cnt = 0;
 				for(int j = tmp-1; j > 0; j--) {
 					dList.add(("00"+j).substring(("00"+j).length()-2));
-					System.out.println(("00"+j).substring(("00"+j).length()-2));
 					if(cnt == 5)
 						break;
 					cnt++;
@@ -79,7 +78,6 @@ public class BannerService {
 			
 			cal.add(Calendar.DATE, 1);
 		}
-		System.out.println(dList);
 		
 		return dList;
 	}

@@ -162,40 +162,6 @@
             cnt++;
         }
         
-        if("${empty dList}") {
-	        $("#calendar td").each(function(index, item){
-				   if("${dList}".indexOf(("00"+$(item).text()).slice(-2)) != -1) {
-					   $(item).css("opacity", "0.3");
-	 			   $(item).css("cursor", "default");
-	 			   $(item).prop("disabled", true);
-				   }
-			   })
-			   
-       } else {
-        var disabled;
-        
-    		jQuery.ajax({
-    		   url: "${contextPath}/banner/selectDate", 
-    		   method: "POST",
-    		   data: { 
-    			   year: today.getFullYear(),
-    			   month: today.getMonth() + 1,
-    			   date: today.getDate()
-    		   },
-    		   success: function(result) {
-    			   disabled = result;
-    			   
-    			   $("#calendar td").each(function(index, item){
-    				   if(disabled.indexOf(("00"+$(item).text()).slice(-2)) != -1) {
-    					   $(item).css("opacity", "0.3");
-		    			   $(item).css("cursor", "default");
-		    			   $(item).prop("disabled", true);
-    				   }
-    			   })
-    			 }
-    		});
-		   }
-        
         for (var i = 1; i <= lastDate.getDate(); i++) { // 달력 출력
 
             cell = row.insertCell();
@@ -226,6 +192,42 @@
                 
             }
         }
+		   
+
+        if("${empty dList}") {
+	        $("#calendar td").each(function(index, item){
+						console.log("${dList}".indexOf(("00"+$(item).text()).slice(-2)))
+						if("${dList}".indexOf(("00"+$(item).text()).slice(-2)) != -1) {
+						 	$(item).css("opacity", "0.3");
+						  $(item).css("cursor", "default");
+						  $(item).prop("disabled", true);
+						}
+			   })
+			   
+       } else {
+        var disabled;
+        
+    		jQuery.ajax({
+    		   url: "${contextPath}/banner/selectDate", 
+    		   method: "POST",
+    		   data: { 
+    			   year: today.getFullYear(),
+    			   month: today.getMonth() + 1,
+    			   date: today.getDate()
+    		   },
+    		   success: function(result) {
+    			   disabled = result;
+    			   
+    			   $("#calendar td").each(function(index, item){
+    				   if(disabled.indexOf(("00"+$(item).text()).slice(-2)) != -1) {
+    					   $(item).css("opacity", "0.3");
+		    			   $(item).css("cursor", "default");
+		    			   $(item).prop("disabled", true);
+    				   }
+    			   })
+    			 }
+    		});
+		   } 
     }
 
     // 날짜 선택

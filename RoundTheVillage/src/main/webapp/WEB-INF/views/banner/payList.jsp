@@ -165,7 +165,7 @@
  		<!--------------------------------- pagination  ---------------------------------->
 		<div class="my-4">
 			<ul class="pagination justify-content-center">
-				<c:url var="pageUrl" value="list?"/>
+				<c:url var="pageUrl" value="payList?"/>
 
 				<!-- 화살표에 들어갈 주소를 변수로 생성 -->
 				<c:set var="firstPage" value="${pageUrl}cp=1"/>
@@ -208,7 +208,7 @@
 		<!-- ---------------------------------------------------------------------------------- -->
 		
 		<%-- 목록으로 버튼에 사용할 URL 변수 선언 --%>
-		<c:set var="returnListURL" value="${contextPath}/pay/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
+		<c:set var="returnListURL" value="${contextPath}/banner/${pageUrl}cp=${pInfo.currentPage}" scope="session"/>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
 </body>
