@@ -57,7 +57,7 @@ public class MemberDAO {
 	}
 
 	// 비밀번호 찾기
-	public int pwdFind(Member findMember) {
+	public String pwdFind(Member findMember) {
 		return sqlSession.selectOne("memberMapper.pwdFind",findMember);
 	}
 

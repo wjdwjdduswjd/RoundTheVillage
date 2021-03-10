@@ -44,7 +44,7 @@
 					<br>
 					<br>
 					<br>
-					<hr>
+					<div class="my-hr"></div>
 
 					<div class="info-b">
 						<label class="label-area">새 비밀번호</label> <input class="output input-area" type="password" id="newPwd1" name="newPwd1">

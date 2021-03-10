@@ -85,8 +85,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 비밀번호 찾기
 	@Override
-	public int pwdFind(Member findMember) {
-		int memberPwdFind = dao.pwdFind(findMember);
+	public String pwdFind(Member findMember) {
+		String memberPwdFind = dao.pwdFind(findMember);
 		return memberPwdFind;
 	}
 

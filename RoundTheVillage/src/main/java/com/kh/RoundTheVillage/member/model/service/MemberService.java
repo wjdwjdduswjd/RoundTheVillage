@@ -50,7 +50,7 @@ public interface MemberService {
 	 * @param findMember
 	 * @return result
 	 */
-	public abstract int pwdFind(Member findMember);
+	public abstract String pwdFind(Member findMember);
 
 
 	/** 비밀번호 찾기의 새로운 비밀번호 등록

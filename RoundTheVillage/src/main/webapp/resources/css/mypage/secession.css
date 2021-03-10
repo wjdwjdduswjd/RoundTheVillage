@@ -4,7 +4,9 @@ input[type='password'] {
 	font-family: sans-serif !important;
 }
 .container{
-	height: 1100px;
+	height: 900px;
+
+	
 }
 
 .myInfo{
@@ -13,7 +15,10 @@ input[type='password'] {
 	margin-top: 100px;
 }
 
-
+.my-hr{
+	width: 100%;
+	border-bottom: 1px solid #e3e3e3;
+}
 .info{
 	width: 70%;
 	margin: auto;

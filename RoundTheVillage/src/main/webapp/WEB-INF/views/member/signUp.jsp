@@ -15,6 +15,10 @@
 <!-- 부트스트랩 사용을 위한 라이브러리 추가 (반드시 jQuery가 항상 먼저여야한다. 순서 중요!) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  	
 </head>
 
 <body>
@@ -179,7 +183,8 @@
 			"name" : false,
 			"email" : false,
 			"nickName" : false
-		};
+			//"post" : false 
+			};
 		
 		
 
@@ -189,6 +194,7 @@
 		var $name = $("#name");
 		var $email = $("#email");
 		var $nickName = $("#nickName");
+		//var $post = $("#post");
 		
 		
 		
@@ -320,6 +326,19 @@
 			
 		});
 		
+	
+		//주소
+		/* $post.on("input", function(){
+			
+			if($post.val().length != 0){
+				signUpCheck.post = true;
+			}else{
+				signUpCheck.post = false;
+			}
+		}); */
+		
+		
+		
 
 		// 이름 유효성 검사
 		$name.on("input", function() {
@@ -407,25 +426,23 @@
 
 		// 유효성 검사 
 		function validate() {
-
 			//alert(0);
 
 			for ( var key in signUpCheck) {
+				console.log(signUpCheck[key])
 				if (!signUpCheck[key]) {
 					var str;
 					switch (key) {
 					case "name" : str = "이름"; break;
+					case "nickName" : str = "닉네임"; break;
 					case "id" : str = "아이디"; break;
 					case "pwd1" : str = "비밀번호"; break;
 					case "pwd2" : str = "비밀번호 확인"; break;
 					case "email" : str = "이메일"; break;
-					case "nickName" : str = "닉네임"; break;
+					//case "post" : str = "주소"; break;
 					}
 
-					swal({
-						icon : "warning",
-						title : str + " 형식이 유효하지 않습니다."
-					}).then(function() { //swal 창이 닫힘 후 동작을 지정
+					swal({icon : "warning", title : str + " 형식이 유효하지 않습니다."}).then(function() { //swal 창이 닫힘 후 동작을 지정
 						var id = "#" + key;
 						$(id).focus();
 					});
@@ -434,14 +451,14 @@
 				}
 			}
 
-			$memberAddr = $("<input>", {
+			 $memberAddr = $("<input>", {
 				type : "hidden",
 				name : "memberAddr",
 				value : $("#post").val() + "," + $("#address1").val() + ","
 						+ $("#address2").val()
 			});
 
-			$("form[name='signUpForm']").append($memberAddr);
+			$("form[name='signUpForm']").append($memberAddr); 
 
 		}
 		
@@ -470,6 +487,7 @@
          }
       }); 
       
+      var isCertification;
       $("#verifyEmail").on("propertychange change keyup paste input", function() {
          if ($("#verifyEmail").val() == key) {   //인증 키 값을 비교를 위해 텍스트인풋과 벨류를 비교
             $("#checkNumEmail").text("인증에 성공하셨습니다.").css("color", "green");

@@ -48,7 +48,7 @@ public class MemberController {
 	// sweet alert 메세지 전달용 변수 선언
 	private String swalIcon;
 	private String swalTitle;
-	private String swalText;
+	private String swalText; 
 	
 
 	
@@ -155,11 +155,25 @@ public class MemberController {
 		int result = service.signUp(signUpMember);
 		
 		if(result > 0) {        //추후 얼러트 창으로 바꿀 예정
+			
+			swalIcon = "success";
+			swalTitle = "회원 가입 성공";
+			swalText = "동네한바퀴에 오실걸 환영합니다.";
+			
 			payService.insertWelcomeCoupon(signUpMember.getMemberNo());
 			returnUrl = "/";
 		}else {
+			swalIcon = "error";
+			swalTitle = "회원 가입 실패";
+			swalText = "회원가입 과정에서 문제가 발생했습니다.";
+			
 			returnUrl = "member/signUp";
 		}
+		
+		ra.addFlashAttribute("swalIcon", swalIcon);
+		ra.addFlashAttribute("swalTitle", swalTitle);
+		ra.addFlashAttribute("swalText", swalText);
+		
 		
 		return "redirect:" + returnUrl ;
 	}
@@ -176,7 +190,7 @@ public class MemberController {
 	@RequestMapping("loginAction")
 	public String loginAction(Member inputMember,
 							@RequestParam(value="saveId", required = false) String saveId,
-							HttpServletResponse response,
+							HttpServletResponse response,RedirectAttributes ra,
 							Model model) {
 		Member loginMember = service.loginAction(inputMember);
 		
@@ -197,8 +211,14 @@ public class MemberController {
 			url = "/";
 			
 		}else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "로그인 실패");
+			ra.addFlashAttribute("swalText", "아이디 또는 비밀번호가 일치하지 않습니다.");
+		
 			url = "login";
 		}
+		
+		
 		return "redirect:" + url;
 	}
 	
@@ -244,16 +264,20 @@ public class MemberController {
 		if(memberIdFind != null) {
 			
 			if(memberIdFind.substring(0, 2).equals("k@")) {
-				
+				ra.addFlashAttribute("swalIcon", "error");
 				ra.addFlashAttribute("swalTitle", "카카오로 가입된 계정은 아이디 찾기를 할 수 없습니다.");
 				url = "redirect:idFind";
 				
 			}else {
+				
 				model.addAttribute("memberIdFind", memberIdFind);
 				url = "member/idFindComplete";
+				
+				
 			}
-			
 		}else {  
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "일치하는 회원의 정보가 없습니다.");
 			url = "redirect:idFind";
 		}
 		return url;
@@ -261,18 +285,21 @@ public class MemberController {
 	
 	// 비밀번호 찾기 성공 페이지
 	@RequestMapping("pwdFindComplete")
-	public String pwdFindComplete(@ModelAttribute Member findMember, Model model) {
-		
-		int memberPwdFind = service.pwdFind(findMember); //
-		System.out.println(memberPwdFind);
+	public String pwdFindComplete(@ModelAttribute Member findMember, Model model, RedirectAttributes ra) {
+		 
+		String memberPwdFind = service.pwdFind(findMember); //  
+		System.out.println("memberPwdFind : " + memberPwdFind);
 		
 		String url = null;
 		
-		if(memberPwdFind > 0) {
+		if(memberPwdFind != null) {
 			model.addAttribute("memberPwdFind", memberPwdFind);  // 회원번호가 넘어감.
 			url = "member/pwdFindComplete";
 		}else {
-			url = "member/pwdFind";
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "해당 회원 정보를 찾을 수 없습니다.");
+			
+			url = "redirect:pwdFind";
 		}
 		
 		
@@ -282,7 +309,7 @@ public class MemberController {
 	@RequestMapping("updatePwd")
 	// 비밀번호 찾기의 새로운 비밀번호 등록
 	public String updatePwd(@RequestParam("newPwd") String newPwd,
-							@RequestParam("memberPwdFind") int memberPwdFind) {
+							@RequestParam("memberPwdFind") int memberPwdFind, RedirectAttributes ra ) {
 		//System.out.println(newPwd);
 		//System.out.println(memberPwdFind);
 		
@@ -292,8 +319,17 @@ public class MemberController {
 		map.put("memNo", memberPwdFind);
 		
 		int result = service.updatePwd(map);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("swalIcon", "success");
+			ra.addFlashAttribute("swalTitle", "새 비밀번호 등록 완료");
+		}else {
+			ra.addFlashAttribute("swalIcon", "error");
+			ra.addFlashAttribute("swalTitle", "새 비밀번호 등록 실패");
+		}
+
+		return "redirect:login";
 		 
-		return "member/login";
 		
 	}
 	
@@ -364,7 +400,7 @@ public class MemberController {
 			ra.addFlashAttribute("swalIcon", swalIcon);
 			ra.addFlashAttribute("swalTitle", swalTitle);
 			
-			return "member/myInfoChange";
+			return "redirect:myInfoChange";
 			
 		}
 		

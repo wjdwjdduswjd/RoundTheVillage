@@ -68,7 +68,7 @@
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="pwdFind" parameterType="Member" resultType="_int">
+	<select id="pwdFind" parameterType="Member" resultType="string">
 		SELECT MEM_NO FROM MEMBER
 			WHERE MEM_ID = #{memberId}
 			AND MEM_EMAIL = #{memberEmail}
