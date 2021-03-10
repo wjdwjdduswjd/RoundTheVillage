@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>공방 찾기</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 .filters {
 	width: 1200px;
@@ -199,7 +197,7 @@ img {
 	<script>
 	
 	
-	function selectReplyList(){
+/* 	function selectReplyList(){
 		   
 		   $.ajax({
 		      url : "${contextPath}/shop/selectShopList",
@@ -209,43 +207,13 @@ img {
 		    	  
 		    	  console.log(sList);
 		      
-		         
-		         // 조회된 댓글을 화면에 추가 (새로운 요소(태그) 생성)
-		         
-		         // rList에는 현재 게시글의 댓글 List가 담겨 있음.
-		            
-		            var replyListArea = $("#replyListArea");
-		            
-		            replyListArea.html(""); // 기존 정보 초기화
-		            
-		            
-		            // 댓글 List 반복 접근
-		            $.each(rList, function(index, item){   
-		               
-		               // 댓글을 출력할 li 요소를 생성
-		               var li = $("<li>").addClass("reply-row");
-		              
-		              
-		               
-		               
-		               // 댓글 내용
-		               var rContent = $("<p>").addClass("rContent").html(item.replyContent);
-		               
-             
-		               // 댓글 하나로 합치기
-		               li.append(div).append(rContent).append(replyBtnArea);
-		               
-		               // 댓글 영역을 화면에 배치
-		               replyListArea.append(li);
-		               
-		            });
 		            
 		      }, error : function(){
-		         console.log("댓글 목록 조회 실패");
+		         console.log("공방 목록 조회 실패");
 		      }
 		      
 		   });
-     
+      */
 	
 	$(function() {
 		mapControl("서울");
@@ -389,57 +357,6 @@ function searchLocation2(Region, Region2) {
 }
 
 
-
-
-
-
-
-function selectList(map) {
-	region = $("#addressRegion").val();
-	region2 = $("#addressRegion2").val();
-	
-	$(".result-bottom").html("");
-	
-	for(var item of map["list"]){
-		var resultform = $("<div>", {onclick: "view(" + item.lesNo + ")"}).addClass("result-form");
-		var searchinfo = $("<div>").addClass("search-info");
-		var searchinfomain = $("<div>").addClass("search-info-main");
-		var infoparticipant = $("<div>").addClass("info-participant");
-		for(var parti of map["sumParti"]) {
-			if(parti.lesNo == item.lesNo) {
-				var participant = $("<span>").html(parti.lesParticipant + "명 참가중");
-			}
-		}
-		infoparticipant.append(participant);
-		var infoprice = $("<div>").addClass("info-price").html("<h4>" + item.lesPrice + "<h4>");
-		searchinfomain.append(infoparticipant).append(infoprice);
-		
-		var shopName;
-		var shopAddress;
-		var shopContact;
-		for(var shop of map["shopList"]) {
-			if(item.craftshopNo == shop.shopNo) {
-				shopName = $("<p>").html(shop.shopName);
-				shopAddress = $("<p>", {id: "shopAddress"}).html(shop.shopAdress.substring(6));
-				shopContact = $("<p>").html(shop.shopContact);
-			}
-		}
-		
-		searchinfo.append(searchinfomain).append("<p>" + item.lesTitle + "</p>").append("<p>" + item.lesCategory + "</p>").append(shopName).append(shopAddress).append(shopContact);
-		
-		var searchimage = $("<div>").addClass("search-image");
-		for(var file of map["fileList"]) {
-			if(item.lesNo == file.lesNo) {
-				var img = $("<img>", {src: "${contextPath}" + file.filePath + "/" + file.fileName});
-			}
-		}
-		searchimage.append(img);
-		
-		resultform.append(searchinfo).append(searchimage);
-		$(".result-bottom").append(resultform);
-	}
-	
-}
 
 </script>
 

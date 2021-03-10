@@ -21,6 +21,14 @@
 	display: inline-block
 }
 
+
+#reviewArea{
+margin-top: 80px;
+}
+
+#classArea{
+margin-top: 80px;
+}
 #tab-btn {
 	text-align: center;
 	font-size: 20px;
@@ -40,7 +48,11 @@
 }
 
 .btnArea:hover {
-	border-bottom: 5px solid black;
+	border-bottom: 5px solid #FBBC73;
+}
+
+#writer{
+	border-left: 5px solid #FBBC73;
 }
 
 .btnArea > a:hover{
@@ -69,7 +81,7 @@ color : orange;
 }
 
 #review {
-	padding: 20px 20px 20px 20px;
+	padding: 30px 30px 30px 30px;
 }
 
 .boardImg {
@@ -101,11 +113,52 @@ color : orange;
 	height: 40px;
 }
 
+#likeCount{
+font-size : 16px;
+font-weight : 500;
+}
+
 #updateBtn{
 
 	border-bottom: 10px;
 
 }
+
+#category{
+font-size : 20px;
+color: #FBBC73;
+font-weight : 700;
+
+}
+
+.starArea >div > p {
+
+font-size : 16px;
+color : gray ;
+}
+
+
+#nickName{
+
+font-size : 17px;
+font-weight : 700;
+
+}
+
+#reviewDate{
+
+font-size : 10px;
+font-weight : 500;
+color : gray ;
+}
+
+#reviewContent{
+
+font-size : 12px;
+
+
+}
+
 </style>
 </head>
 <body>
@@ -122,12 +175,11 @@ color : orange;
 
 			<div class="top" id="shopname" style="width: auto">
 				<p>
-				<h1 style="font-weight: bold;">${shop.shopName}</h1>
+				<p style="font-weight: bold; font-size :40px">${shop.shopName}</p>
 				</p>
 			</div>
-			<div class="top" id="category" style="width: auto; font-size: 15px;">
-
-				<p>${shop.shopCategoryName}</p>
+			<div class="top" style="width: auto; font-size: 15px;">
+				<p  id = "category" >${shop.shopCategoryName}</p>
 			</div>
 		</div>
 
@@ -148,15 +200,11 @@ color : orange;
 
 		</div>
 
-		<div style="font-size: 10px;">
+		<div class = "starArea">
 
 
 			<div class="top" style="width: auto;">
-				<p>별점</p>
-
-			</div>
-			<div class="top" style="width: auto;">
-				<p>${shop.avgRating}</p>
+				<p>평점 : ${shop.avgRating}</p>
 			</div>
 			|
 			<div class="top" style="width: auto;">
@@ -204,11 +252,13 @@ color : orange;
 		<div id="shopcontent">
 
 			<div id="infoArea">
-				<div style="font-weight: bold;">
-					<h1>공방 정보</h1>
+			<div>
+					<h1 style="font-weight: 1000;">공방 정보</h1>
 				</div>
 
 				<br>
+				<br>
+				
 
 				<div style="font-size: 12px">
 
@@ -261,7 +311,7 @@ color : orange;
 			<div id="classArea">
 
 				<div style="font-weight: bold;">
-					<h1>수업 목록</h1>
+					<h1 style="font-weight: 1000;">수업 목록</h1>
 					<%-- ${lesList}
 					${thList } --%>
 				</div>
@@ -297,23 +347,39 @@ color : orange;
 			<div id="reviewArea">
 
 				<div style="font-weight: bold;">
-					<h1>후기</h1>
+						<h1 style="font-weight: 1000;">후기</h1>
 				</div>
 
-				<div id="review" style="width: 80%; height: auto;">
+
+
+
+				<div  style="width: 80%; height: auto;">
 					<c:forEach items="${reviewList}" var="rl">
-						<div>
-							<div class="top" style="width: 70%;">
-								<div class="top" style="width: auto">
-									<h5>${rl.reviewWriter}</h5>
+					
+					
+					<div id="review">
+							<div class="top" style="width: 70%;" >
+								<div class="top" style="width: auto" id = "writer">
+									<p id = "nickName">${rl.reviewWriter}</p>
 								</div>
-								<div class="top" style="width: auto">별점</div>
 							</div>
 							<div class="top">
-								<div>${rl.revCreateDt}</div>
+								<div id = "reviewDate">
+									<fmt:formatDate var="createDate" value="${rl.revCreateDt }" pattern="yyyy-MM-dd"/>
+									<fmt:formatDate var="now" value="<%=new java.util.Date()%>" pattern="yyyy-MM-dd"/> 
+									<c:choose>
+										<c:when test="${createDate != now}">
+											${createDate }
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${rl.revCreateDt }" pattern="HH:mm"/>
+										</c:otherwise>
+									</c:choose>
+									</div>
 							</div>
+						<div id = "reviewContent">${rl.revContent}</div>
 						</div>
-						<div>${rl.revContent}</div>
+						
 					</c:forEach>
 				</div>
 
