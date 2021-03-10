@@ -1,5 +1,8 @@
 @charset "UTF-8";
 *{font-family: 'NanumSquare', sans-serif !important;}
+.container{
+	height: 880px;
+}
 .login-logo-area{
 	padding-top: 56px; 
 		text-align: center;

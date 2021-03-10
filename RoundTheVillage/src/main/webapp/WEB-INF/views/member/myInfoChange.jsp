@@ -23,7 +23,7 @@
 	<jsp:include page="../common/header.jsp"/>
 	<div class="container">
 	
-			<div class="mypageInfo">
+			<!-- <div class="mypageInfo"> -->
 
 			<c:set var="address" value="${fn:split(loginMember.memberAddr,',' ) }" />
 
@@ -180,7 +180,7 @@
 
 
 
-		</div>
+		<!-- </div> -->
 
 	</div>
 

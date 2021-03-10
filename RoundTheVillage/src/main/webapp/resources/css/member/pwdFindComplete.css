@@ -3,6 +3,10 @@ input[type='password'] {
 	font-family: sans-serif !important;
 }
 *{font-family: 'NanumSquare', sans-serif !important;}
+
+.container{
+	height: 950px;
+}
 .login-logo-area{
 	padding-top: 56px; 
 	text-align: center;
