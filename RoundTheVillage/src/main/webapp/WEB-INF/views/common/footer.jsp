@@ -8,7 +8,7 @@
 </head>
 <style>
 #footerHR {
-	margin-top: 350px;
+	margin-top: 250px;
 }
 #footer {
     width: 1200px;
@@ -19,6 +19,10 @@
 
 .f1, .f2 {
     font-size: 10px;
+}
+
+.f3{
+	font-size: 12px;
 }
 
 .f4 {
