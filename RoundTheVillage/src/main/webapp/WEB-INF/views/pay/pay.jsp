@@ -37,7 +37,7 @@
 			    <ul class="list-group list-group-flush mb-3">
 			        <li class="list-group-item d-flex justify-content-between lh-condensed">
 			            <div><h6 class="my-0 font-weight-bold">상품 금액</h6></div>
-			            <span>${lesson.lesPrice * map.lesAmount}원</span>
+			            <span>${lesson.lesPrice * map.lesAmount}원</span>${lesson.lesPrice}
 			        </li>
 			        <li class="list-group-item d-flex justify-content-between bg-light">
 			            <div class="text-around"><h6 class="my-0">할인 금액</h6></div>
