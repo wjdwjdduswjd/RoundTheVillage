@@ -44,4 +44,6 @@ public class ManagerReportDAO {
 	public int updateStatus(Map<String, Object> map) {
 		return sqlSession.update("Reportmapper.updateStatus", map);
 	}
+
+
 }

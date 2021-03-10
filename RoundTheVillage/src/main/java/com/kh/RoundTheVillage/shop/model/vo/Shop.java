@@ -19,14 +19,19 @@ public class Shop {
 	private int participantsCount;
 	private int likeCount; // 공방 좋아요 
 	private char shopRegiFL;
+	private String memberSecessionFl;
+
 	
 
 	public Shop() {}
 
 
+	
+	
+
 	public Shop(int shopNo, String shopOwnerName, String shopName, String shopAdress, String shopInfo,
 			String shopContact, String thumbInfo, String shopCategoryName, int shopCategoryNo, double avgRating,
-			int participantsCount, int likeCount, char shopRegiFL) {
+			int participantsCount, int likeCount, char shopRegiFL, String memberSecessionFl) {
 		super();
 		this.shopNo = shopNo;
 		this.shopOwnerName = shopOwnerName;
@@ -41,7 +46,11 @@ public class Shop {
 		this.participantsCount = participantsCount;
 		this.likeCount = likeCount;
 		this.shopRegiFL = shopRegiFL;
+		this.memberSecessionFl = memberSecessionFl;
 	}
+
+
+
 
 
 	/**
@@ -250,6 +259,25 @@ public class Shop {
 	public void setShopRegiFL(char shopRegiFL) {
 		this.shopRegiFL = shopRegiFL;
 	}
+	
+	
+	
+
+
+	public String getMemberSecessionFl() {
+		return memberSecessionFl;
+	}
+
+
+
+
+
+	public void setMemberSecessionFl(String memberSecessionFl) {
+		this.memberSecessionFl = memberSecessionFl;
+	}
+
+
+
 
 
 	@Override

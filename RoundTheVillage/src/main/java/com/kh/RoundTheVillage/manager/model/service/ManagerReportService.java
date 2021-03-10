@@ -28,4 +28,6 @@ public interface ManagerReportService {
 	 */
 	public abstract int updateStatus(Map<String, Object> map);
 
+	
+
 }

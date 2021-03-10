@@ -69,6 +69,12 @@ public interface MemberInquiryService {
 	 * @return bList
 	 */
 	public abstract List<Shop> selectSearchCraft(PageInfo2 pInfo, Search search);
+
+
+	public abstract int updateMemberStatus(Map<String, Object> map);
+
+
+	public abstract int updateCraftStatus(Map<String, Object> map);
 	
 
 }

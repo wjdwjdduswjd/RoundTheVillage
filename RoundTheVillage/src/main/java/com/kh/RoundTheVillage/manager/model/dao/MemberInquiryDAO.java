@@ -101,6 +101,16 @@ public class MemberInquiryDAO {
 		RowBounds rowBounds = new RowBounds(offset, pInfo.getLimit());
 		return sqlSession.selectList("inquiryMapper.selectSearchCraft", search, rowBounds);
 	}
+
+
+	public int updateMemberStatus(Map<String, Object> map) {
+		return sqlSession.update("inquiryMapper.updateMemberStatus", map);
+	}
+
+
+	public int updateCraftStatus(Map<String, Object> map) {
+		return sqlSession.update("inquiryMapper.updateCraftStatus", map);
+	}
 	
 }	
 	
