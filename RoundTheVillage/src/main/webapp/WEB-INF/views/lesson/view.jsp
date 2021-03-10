@@ -14,8 +14,14 @@
 body {
 	width: 100%;
 }
-* {padding: 0; margin: 0;}
-a {text-decoration: none !important; color: #666;}
+* {
+	padding: 0; 
+	margin: 0;
+	font-family: 'NanumSquare', sans-serif !important;
+}
+a {
+	text-decoration: none !important; color: #666;
+}
 a:hover {
 	color: #666;
 }
@@ -244,6 +250,9 @@ li {list-style: none;}
 }
 .disabled {
 	color: #dad8d8 !important;
+}
+#footerHR {
+	margin-top: 150px !important;
 }
 </style>
 </head>

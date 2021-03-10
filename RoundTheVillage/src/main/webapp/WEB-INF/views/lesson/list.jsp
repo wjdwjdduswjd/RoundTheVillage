@@ -7,6 +7,7 @@
 <title>list</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="${contextPath}/resources/js/lesson/list.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <style>
 .filters {
 	width: 1200px;
@@ -115,6 +116,15 @@ select {
 .info-price > h4 {
 	text-align: right;
 }
+input {
+	outline: none;
+}
+* {
+	font-family: 'NanumSquare', sans-serif !important;
+}
+#footerHR {
+	margin-top: 150px !important;
+}
 </style>
 </head>
 <body>
@@ -122,8 +132,6 @@ select {
 <jsp:include page="../common/header.jsp"/>
 
 <div class="container">
-<a href="${contextPath}/lesson/insertForm">--------수업등록 제작중-------</a>
-	<form action="${contextPath}/lesson/updateForm" method="post" > <input type="hidden" name="lesNo" value="41"><button>수정/삭제</button></form>
 	<form action="#" id="filter-form">
 	<div class="filter">
 		<div class="filter-select">
