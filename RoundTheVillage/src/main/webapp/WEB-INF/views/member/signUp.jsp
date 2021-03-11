@@ -64,7 +64,7 @@
 				</c:if>
 				
 				<c:if test="${empty kakaoId}">
-					<label class="title">* 아이디</label><br> <input type="text" name="memberId" id="id" placeholder="아이디 조건" required>
+					<label class="title">* 아이디</label><br> <input type="text" name="memberId" id="id" placeholder="아이디" required>
 					<div class="check">
 						<span id="checkId">&nbsp;</span>
 					</div>
