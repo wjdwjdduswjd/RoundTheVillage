@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<title>배너 승인 목록</title>
+<title>공방 신청 목록</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/pay/pay.css">
 <style>
 #title {
@@ -96,7 +96,7 @@
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="container notice-list">
-		<h3 id="title">배너 승인 목록</h3>
+		<h3 id="title">공방 신청 목록</h3>
 		<div>
 			<table class="table table-hover table-striped text-center" id="list-table">
 				<thead>
@@ -105,7 +105,7 @@
 						<th>대표</th>
 						<th>공방명</th>
 						<th>전화번호</th>
-						<th>위치</th>
+						<th>위치</th>   
 						<th>승인 여부</th>
 					</tr>
 				</thead>
