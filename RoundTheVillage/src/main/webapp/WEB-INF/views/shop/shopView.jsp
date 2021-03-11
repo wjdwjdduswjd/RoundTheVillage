@@ -96,9 +96,17 @@
 	cursor: pointer;
 }
 
-.lesson>img {
+.lesson {
 	width : 275px;
 	height : 400px;
+}
+
+
+.lesson>img{
+
+	width: 100%;
+	height: 100%;
+
 }
 
 .lesson>p {
@@ -148,6 +156,10 @@
 	margin-top: 300;
 }
 
+.col-md-3 lesson > p : hover{
+ color : orange;
+
+}
 
 
 </style>
@@ -327,7 +339,7 @@
 								<c:if test="${th.lesNo == lesson.lesNo}">
 									<div class="col-md-3 lesson" id="${lesson.lesNo }">
 										<img src="${contextPath}${th.filePath}/${th.fileName}">
-										<p>${lesson.lesTitle }</p>
+										<p style = "font-size : 14px; font-weight : bold">${lesson.lesTitle }</p>
 										<form action="${contextPath}/lesson/updateForm" method="post">
 											<input type="hidden" name="lesNo" value="${lesson.lesNo}">
 											<div>
@@ -349,11 +361,13 @@
 
 
 
-			<hr>
+	
 
 
 
 			<div id="reviewArea">
+			
+			<hr>
 
 				<div style="font-weight: bold;">
 					<h1 style="font-weight: 1000; border-left : 7px solid  red;">리뷰</h1>
