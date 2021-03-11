@@ -88,6 +88,14 @@
     background-color: #FBBC73;
     border-color: #FBBC73;
 }
+
+.page-item>a {
+	color: black;
+}
+
+.page-item>a:hover {
+	color: orange;
+}
 </style>
 
 </head>
