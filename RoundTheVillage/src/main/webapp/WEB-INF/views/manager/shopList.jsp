@@ -105,7 +105,7 @@
 						<th>대표</th>
 						<th>공방명</th>
 						<th>전화번호</th>
-						<th>위치</th>
+						<th>위치</th>   
 						<th>승인 여부</th>
 					</tr>
 				</thead>
