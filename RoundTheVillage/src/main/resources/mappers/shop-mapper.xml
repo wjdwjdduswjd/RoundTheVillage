@@ -227,6 +227,7 @@
 		JOIN CS_CATEGORY USING(CS_CATE_NO)
 		WHERE CRAFTSHOP_ADDR LIKE '%' || #{regoon1} || '%'
 		AND  CRAFTSHOP_ADDR LIKE '%' || #{region2} || '%'
+		AND SHOP_REGI_FL = 'Y'
 	</select>
 	
 	
