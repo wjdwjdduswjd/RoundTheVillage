@@ -106,7 +106,7 @@
 						    </c:if>
     
     
-							<div class="craftText">
+							<div class="craftText" id="craftHover">
 										<h6 class="card-category mt-2">#${craft.shopCategoryName }</h6>
 										<h5 class="card-title">[${craft.shopName }]</h5>
 										<p class="card-text">${info}</p>
