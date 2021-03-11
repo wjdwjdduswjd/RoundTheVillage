@@ -164,7 +164,7 @@ background-color: #FBBC73;
 			</div>
 
 			<div class="row">
-				<div class=" col-4" >
+				<div class=" col-4"  style= "overflow:auto; height:500px;">
 					<ul id="addressList" class="mt-4">
 					</ul>
 				</div>
