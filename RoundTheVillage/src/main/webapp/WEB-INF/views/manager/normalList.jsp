@@ -288,8 +288,8 @@
 		function updateMemberStatus(btn, no, status){
        		var msg;
        		
-       		if(status == 'Y') msg = "복구";
-       		else							msg = "정지";
+       		if(status == 'Y') msg = "정지";
+       		else							msg = "복구";
        		
        		if(confirm(msg + " 하시겠습니까?")){
        			
