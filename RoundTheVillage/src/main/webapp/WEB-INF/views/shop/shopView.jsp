@@ -331,7 +331,9 @@
 										<form action="${contextPath}/lesson/updateForm" method="post">
 											<input type="hidden" name="lesNo" value="${lesson.lesNo}">
 											<div>
-												<button class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73; font-weight: bold">수정/삭제</button>
+												<c:if test="${loginMember.memberNo == shop.shopNo}">
+													<button class="btn btn-success" style="background-color: #fbbc73; border-color: #fbbc73; font-weight: bold">수정/삭제</button>
+												</c:if>
 											</div>
 										</form>
 									</div>
