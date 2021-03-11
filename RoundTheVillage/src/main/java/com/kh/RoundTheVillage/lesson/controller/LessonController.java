@@ -168,9 +168,10 @@ public class LessonController {
 	}
 
 	@GetMapping("/lesson/deleteLesson/{lesNo}")
-	public String deleteLesson(@PathVariable int lesNo) {
+	public String deleteLesson(@PathVariable int lesNo, RedirectAttributes ra) {
 		int result = service.deleteLesson(lesNo);
-		return "common/main";
+		ra.addFlashAttribute("alert", "삭제 성공했습니다");
+		return "redirect:..";
 	}
 	
 	@ResponseBody
