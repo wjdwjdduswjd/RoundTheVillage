@@ -82,8 +82,8 @@
 }
 
 .boardImg {
-	width: 400px;
-	height: 350px;
+	width: 275px;
+	height: 400px;
 }
 
 .boardImg>img {
@@ -165,15 +165,15 @@
 		<div class="top" style="width: 90%;">
 			<div class="top" id="shopname" style="width: auto">
 				<p>
-				<p style="font-weight: bold; font-size: 40px">${shop.shopName}</p>
+				<p style="font-weight: bold; font-size: 40px">[${shop.shopName}]</p>
 				</p>
 			</div>
-			<div class="top" style="width: auto; font-size: 15px;">
+			<div  style="width: auto; font-size: 15px;">
 				<p id="category">${shop.shopCategoryName}</p>
 
 			</div>
 
-		</div>
+		</div> 
 
 
 
