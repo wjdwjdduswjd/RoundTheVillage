@@ -137,7 +137,7 @@
 }
 
 #reviewDate {
-	font-size: 10px;
+	font-size: 15px;
 	font-weight: 500;
 	color: gray;
 }
@@ -354,8 +354,13 @@
 			<div id="reviewArea">
 
 				<div style="font-weight: bold;">
-					<h1 style="font-weight: 1000; border-left : 7px solid  red;">후기</h1>
+					<h1 style="font-weight: 1000; border-left : 7px solid  red;">리뷰</h1>
 				</div>
+				
+				<br>
+				<br>
+				<br>
+				
 
 
 
