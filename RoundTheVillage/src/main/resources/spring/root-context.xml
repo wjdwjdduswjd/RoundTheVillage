@@ -19,7 +19,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 	   
 	   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-	   <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	   <property name="url" value="jdbc:oracle:thin:@175.193.81.25:9999:xe"/>
 	   <property name="username" value="around"/>
 	   <property name="password" value="around"/>
 	   <!-- defaultAutoCommit: 풀에서 생성 된 연결의 기본 자동 커밋 상태입니다. 설정하지 않으면 setAutoCommit 메서드가 호출되지 않습니다. -->
