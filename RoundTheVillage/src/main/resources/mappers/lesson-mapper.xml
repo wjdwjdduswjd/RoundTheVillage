@@ -87,7 +87,7 @@
 	
 	<insert id="insertInfo" parameterType="Lesson">
 		INSERT INTO LESSON
-		VALUES(#{lesNo}, #{lesTitle}, #{lesContent}, #{lesCurri}, #{lesPrice}, DEFAULT, #{craftshopNo}, #{lesCategory})
+		VALUES(#{lesNo}, #{lesTitle}, #{lesContent}, #{lesCurri}, #{lesPrice}, #{lesCategory}, DEFAULT, #{craftshopNo})
 	</insert>
 	
 	<insert id="insertDate" parameterType="map">
