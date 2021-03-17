@@ -315,7 +315,7 @@
 									}else{
 										$(btn).removeClass("btn-success");
 										$(btn).addClass("btn-danger");
-										$(btn).text("삭제");
+										$(btn).text("정지");
 									}
 									
 									$(btn).removeAttr("onclick");
