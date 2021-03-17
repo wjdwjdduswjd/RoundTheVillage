@@ -14,6 +14,7 @@
     <!-- <h5 class="hr-sect">수업 결제</h5> -->
     <div class="p-3 row bb">
       <div class="col-md-12 d-flex flex-column position-static">
+      		<img src="${contextPath}/resources/images/logo/bread.png" class="rounded mx-auto d-block pt-5" width="150">
           <h2 class="mb-2 font-weight-bold text-center p-5 mb-5">결제가 완료되었습니다.</h2>
       </div>
 

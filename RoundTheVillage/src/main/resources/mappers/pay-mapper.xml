@@ -57,7 +57,7 @@
 	
 	<insert id="insertPay" parameterType="Pay">
 		INSERT INTO PAY 
-		VALUES (SEQ_PNO.NEXTVAL, DEFAULT, #{resDate}, #{payAmt}, #{gradeDis}, #{couponDis}, #{impUid}, #{lesNo}, #{memNo},
+		VALUES (SEQ_PNO.NEXTVAL, DEFAULT, #{resDate}, #{payAmt}, #{gradeDis}, #{couponDis}, #{impUid}, DEFAULT, #{lesNo}, #{memNo},
 		<choose>
 			<when test="couponNo == 0">
 				NULL
@@ -66,7 +66,7 @@
 				#{couponNo}
 			</otherwise>
 		</choose>
-		, DEFAULT, #{prtcpAmt})
+		, #{prtcpAmt})
 	</insert>
 	
 	<update id="updateCoupon" parameterType="_int">
