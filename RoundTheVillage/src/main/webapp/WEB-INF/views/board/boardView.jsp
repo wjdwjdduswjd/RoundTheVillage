@@ -282,7 +282,11 @@ body {
 			if ("${loginMember}" == "") {
 				alert("로그인 후 이용해주세요.");
 
-			} else {
+			} else if("${board.memberNickname}" == "${loginMember.memberNickname}"){
+	            alert("자신의 글은 좋아요를 누를 수 없습니다.");
+	         } 
+			
+			else {
 				var requestUrl;
 				var str;
 
