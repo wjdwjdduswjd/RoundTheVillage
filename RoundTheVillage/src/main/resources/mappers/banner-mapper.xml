@@ -32,7 +32,7 @@
 	
 	<insert id="insertBanner" parameterType="Banner">
 		INSERT INTO BANNER 
-		VALUES (SEQ_BANO.NEXTVAL, #{startDate}, #{endDate}, #{URL}, #{img}, DEFAULT, DEFAULT, #{payAmt}, #{memNo}, #{impUid}, DEFAULT)
+		VALUES (SEQ_BANO.NEXTVAL, #{startDate}, #{endDate}, #{URL}, #{img}, DEFAULT, #{payAmt}, #{impUid}, DEFAULT ,  DEFAULT, #{memNo})
 	</insert>
 	
 	<select id="selectBannerByUid" parameterType="string" resultMap="banner_rm">

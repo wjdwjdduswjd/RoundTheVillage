@@ -186,7 +186,7 @@
                 $(cell).addClass("selected"); // 다른 달로 넘어갔다 왔을 때 선택 유지
 
             if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i < date.getDate()) { // 지날 날짜 선택 불가
-                $(cell).css("opacity", "0.7");
+                $(cell).css("opacity", "0.3");
                 $(cell).css("cursor", "default");
                 $(cell).prop("disabled", true);
                 
@@ -196,8 +196,7 @@
 
         if("${empty dList}") {
 	        $("#calendar td").each(function(index, item){
-						console.log("${dList}".indexOf(("00"+$(item).text()).slice(-2)))
-						if("${dList}".indexOf(("00"+$(item).text()).slice(-2)) != -1) {
+						if("${dList}".indexOf(("00"+$(item).text()).slice(-2)) != -1 && ("00"+$(item).text()).slice(-2) != date.getDate()) {
 						 	$(item).css("opacity", "0.3");
 						  $(item).css("cursor", "default");
 						  $(item).prop("disabled", true);
@@ -249,17 +248,15 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-	IMP.init("imp47764579"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+	IMP.init("imp47764579");
 	
   function requestPay() {
 		
 			if($("#banImg").val() == "") {
-					//swal({ icon: "info", title: "이미지를 등록해주세요" });
-					$("#myModal").modal("show");
+					swal({ icon: "info", title: "이미지를 등록해주세요" });
 			}
 			else if ($("#term").val() == "") {
-					//swal({ icon: "info", title: "시작 날짜를 선택해주세요" });
-					$("#myModal").modal("show");
+					swal({ icon: "info", title: "시작 날짜를 선택해주세요" });
 			    
 			} else {
 					var amt = Number($("#price").val().slice(0, -1));
