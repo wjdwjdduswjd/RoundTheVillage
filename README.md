@@ -55,7 +55,7 @@
 ---
 <img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="너비 " height="높이">
 
-### 후기게시판 메인 페이지
++ ### 후기게시판 메인 페이지
 
 1. 상단의 수업 카테고리를 통해 후기 게시글을 조회할 수 있다. 
 
@@ -80,7 +80,7 @@
 <img src="https://user-images.githubusercontent.com/71631964/115362057-22a4fa80-a1fc-11eb-9ed4-8f0a4a45bf40.png" width="너비 " height="높이">
 
 
-### 후기게시판 게시판 등록 페이지
+ + ### 후기게시판 게시판 등록 페이지
 
 
 1. 작성자가 결제한 공방 수업 목록을 selectbox를 통해 볼 수 있다.
