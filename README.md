@@ -1,3 +1,4 @@
+![그림3](https://user-images.githubusercontent.com/71631964/115364590-803a4680-a1fe-11eb-92b6-6c28679970f1.png)
 # 동네한바퀴
 
 ## 개요
@@ -110,7 +111,9 @@
 3. 하단의 수정 버튼을 누르면 '게시글 수정 성공‘ 이라는 alert창이 뜬다.
 
 
-<img src="https://user-images.githubusercontent.com/71631964/115364198-1ae65580-a1fe-11eb-99fb-f3ed624a46c4.png" width="너비 " height="높이">
+<img src="https://user-images.githubusercontent.com/71631964/115364620-88928180-a1fe-11eb-9ec0-271858e1e3ea.png" width="너비 " height="높이">
+
+
 
 
 ---
