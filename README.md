@@ -53,7 +53,7 @@
 
 ## 후기게시판 
 ---
-<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="너비 " height="높이">
+
 
 + ### 후기게시판 메인 페이지
 
@@ -75,9 +75,9 @@
 6. 글 제목과 내용으로 검색할 수 있다.
 
 
----
+<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="너비 " height="높이">
 
-<img src="https://user-images.githubusercontent.com/71631964/115362057-22a4fa80-a1fc-11eb-9ed4-8f0a4a45bf40.png" width="너비 " height="높이">
+---
 
 
  + ### 후기게시판 게시판 등록 페이지
@@ -92,6 +92,28 @@
 3. 등록 버튼을 누르면 ‘게시글 등록 성공’이라는 alert창이 뜬다.
 
 
+<img src="https://user-images.githubusercontent.com/71631964/115362057-22a4fa80-a1fc-11eb-9ed4-8f0a4a45bf40.png" width="너비 " height="높이">
+
+
+---
+
+
++ ### 후기게시판 게시글 수정 페이지
+
+
+1. 수정할 글 하단의 수정 버튼을 누르면 게시글 수정이 가능하다.
+
+
+2. 썸네일과 썸머노트 파일 수정이 가능하다.
+
+
+3. 하단의 수정 버튼을 누르면 '게시글 수정 성공‘ 이라는 alert창이 뜬다.
+
+
+<img src="https://user-images.githubusercontent.com/71631964/115364198-1ae65580-a1fe-11eb-99fb-f3ed624a46c4.png" width="너비 " height="높이">
+
+
+---
 
 
 
