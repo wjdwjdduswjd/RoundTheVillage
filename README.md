@@ -1,5 +1,6 @@
-![그림3](https://user-images.githubusercontent.com/71631964/115364590-803a4680-a1fe-11eb-92b6-6c28679970f1.png)
-# 동네한바퀴
+
+# :cactus: :tulip: 동네한바퀴
+---
 
 ## 개요
 ### 우리 동네 공방 찾기 프로젝트 
