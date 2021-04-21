@@ -164,7 +164,7 @@
   3. 확인 버튼을 누르면 좋아요 숫자가 표시된다.
 
 
-<img src="https://user-images.githubusercontent.com/71631964/115512368-e1c0ea80-a2bc-11eb-9031-ccd3a3931782.png">
+<img src="https://user-images.githubusercontent.com/71631964/115512674-32d0de80-a2bd-11eb-8f49-600c5b4a0e31.png">
 
 
 ---
