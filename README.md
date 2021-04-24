@@ -83,7 +83,7 @@
   6. 글 제목과 내용으로 검색할 수 있다.
 
 
-<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="800 " height="2000">
+<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="600" height="">
 
 ---
 
