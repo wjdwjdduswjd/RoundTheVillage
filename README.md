@@ -6,26 +6,26 @@
 ### 우리 동네 공방 찾기 프로젝트
 ## 대표 구현기능
 
-- 카카오api를 이용한 sns 연동 로그인
-- import를 이용한 수업, 배너 결제
-- 카카오맵 api 를 이동한 지도 표시(ajax 이용)
+> - 카카오api를 이용한 sns 연동 로그인
+> - import를 이용한 수업, 배너 결제
+> - 카카오맵 api 를 이동한 지도 표시(ajax 이용)
 
 ## 설계의 주안점
 
-- 회원가입시 받아놓은 정보들로 공방들을 추천.
-- 공방에 해당하는 수업들을 결제를 통해 서비스를 이용.
-- 일반회원과 공방회원으로 회원가입, 공방회원은 따로 정보를 추가해서 서비스를 제공 가능
+> - 회원가입시 받아놓은 정보들로 공방들을 추천.
+> - 공방에 해당하는 수업들을 결제를 통해 서비스를 이용.
+> - 일반회원과 공방회원으로 회원가입, 공방회원은 따로 정보를 추가해서 서비스를 제공 가능
 
 ## 사용기술 및 개발환경
 
-- OS: Windows 10
-- WAS: Apache Tomcat 8.5
-- 개발환경 및 툴 : Spring, Java, Oracle, SQL Developer, VS Code, photoShop
-- 사용한 기술 : Servlet, JSP, HTML, CSS3, JavaScript, jQuery
-- 사이트 참고 : 와이어프레임 (figma), 미리캔버스(로고, 아이콘),  구글 스프레드시트(프로젝트 관련 실시간 공유)
-- API : summernote, GSON, Kakao map API, 다음 우편번호 서비스, import
-- 형상관리 : GitHub
-- 배포 : AWS
+> - OS: Windows 10
+> - WAS: Apache Tomcat 8.5
+> - 개발환경 및 툴 : Spring, Java, Oracle, SQL Developer, VS Code, photoShop
+> - 사용한 기술 : Servlet, JSP, HTML, CSS3, JavaScript, jQuery
+> - 사이트 참고 : 와이어프레임 (figma), 미리캔버스(로고, 아이콘),  구글 스프레드시트(프로젝트 관련 실시간 공유)
+> - API : summernote, GSON, Kakao map API, 다음 우편번호 서비스, import
+> - 형상관리 : GitHub
+> - 배포 : AWS
  
 ## :raised_hand: 역할 분담
 ### 김정민
@@ -41,15 +41,20 @@
 ### 이진선(팀장)
 - 로그인 / sns로그인(카카오톡) / 회원가입 / 내정보 조회 및 수정 / 비밀번호 변경 / 회원탈퇴 / 아이디.비밀번호 찾기
 
-+ DB 설계
+
+---
 
 
+## DB 설계
 
-----------------------------------------------------------------------------------------------------------------------------------------
+
+<img src="https://user-images.githubusercontent.com/71631964/115953078-67929f00-a524-11eb-8a42-293b38386947.png" width="너비 " height="높이">
+
+----
 
 
 ## :clipboard: 구현 기능
----------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## 후기게시판 
 ---
@@ -78,7 +83,7 @@
   6. 글 제목과 내용으로 검색할 수 있다.
 
 
-<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="너비 " height="높이">
+<img src="https://user-images.githubusercontent.com/71631964/115359196-66e2cb80-a1f9-11eb-82c8-ef6604f540c0.png" width="300 " height="100">
 
 ---
 
