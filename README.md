@@ -232,7 +232,8 @@
 >   
 >   6. 확인을 누른 후 로그인을 시도하면 다시 로그인이 가능함을 볼 수 있다.
 >   
-> <img src="https://user-images.githubusercontent.com/71631964/115515338-fce12980-a2bf-11eb-9d69-e1e06754b351.png">
+> <img src="https://user-images.githubusercontent.com/71631964/119876057-6eb52e80-bf62-11eb-99c1-cf9b5282e400.png">
+
 
 
 
